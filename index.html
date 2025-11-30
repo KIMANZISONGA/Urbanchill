@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; form-action https://formspree.io; img-src 'self' https://files.catbox.moe data:; style-src 'self' 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; form-action https://formspree.io; img-src 'self' https://files.catbox.moe data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KIMANZI — Jouw hospitality agent in Kenia</title>
@@ -16,7 +16,6 @@
       --muted: #5A6270;
       --radius: 14px;
       --shadow: 0 6px 16px rgba(0, 0, 0, .08);
-      --maxw: 1100px;
     }
 
     * { box-sizing: border-box; }
@@ -34,6 +33,7 @@
     a { color: var(--green); text-decoration: none; transition: .25s; }
     a:hover { opacity: .9; }
 
+    /* TOPNAV */
     .topnav {
       position: sticky;
       top: 0;
@@ -49,6 +49,7 @@
     }
     .topnav a:hover { color: var(--orange); }
 
+    /* HERO */
     header {
       position: relative;
       overflow: hidden;
@@ -56,14 +57,12 @@
       color: #fff;
       padding: 100px 20px 90px;
     }
-
     .hero-media {
       position: absolute;
       inset: 0;
       z-index: 0;
       overflow: hidden;
     }
-
     .hero-media img {
       width: 100%;
       height: 100%;
@@ -71,22 +70,23 @@
       object-position: center;
       filter: brightness(0.9);
     }
-
     header .overlay {
       position: absolute;
       inset: 0;
       z-index: 1;
       background: linear-gradient(135deg, rgba(44,74,52,.80), rgba(44,74,52,.90));
     }
-
-    header h1, header p, header .btn { position: relative; z-index: 2; }
-
+    header h1,
+    header p,
+    header .btn {
+      position: relative;
+      z-index: 2;
+    }
     header h1 {
       color: #fff;
       font-size: clamp(2rem, 4vw, 3rem);
       margin-bottom: 10px;
     }
-
     header p.agent {
       font-weight: 600;
       font-size: 1.15rem;
@@ -94,6 +94,7 @@
       margin: 10px 0 20px;
     }
 
+    /* BUTTON */
     .btn {
       display: inline-block;
       padding: 12px 26px;
@@ -111,16 +112,15 @@
       color: var(--ink);
     }
 
+    /* LAYOUT */
     main {
       max-width: 900px;
       margin: 0 auto;
       padding: 50px 20px 80px;
     }
-
     section {
       margin-bottom: 70px;
     }
-
     .card {
       background: var(--cream);
       border-radius: var(--radius);
@@ -129,7 +129,7 @@
       width: 100%;
     }
 
-    /* intake form */
+    /* FORMULIEREN */
     .kimanzi-form {
       display: flex;
       flex-direction: column;
@@ -153,8 +153,10 @@
       font-size: 1rem;
       background: #fff;
     }
-    .kimanzi-form textarea { min-height: 110px; }
-
+    .kimanzi-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
     .kimanzi-submit {
       background: var(--green);
       color: #fff;
@@ -166,6 +168,67 @@
       width: max-content;
     }
 
+    /* TOGGLES INTAKE/CONTACT */
+    .toggle-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+    .toggle-panel.open {
+      max-height: 1200px;
+    }
+    .toggle-footer {
+      margin-top: 10px;
+      font-size: .85rem;
+      color: var(--muted);
+      text-align: right;
+    }
+    .toggle-close {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: .85rem;
+      color: var(--green);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* MEER WETEN TOGGLES */
+    .mw-item { margin-bottom: 16px; }
+
+    .mw-toggle {
+      width: 100%;
+      text-align: left;
+      background: var(--green);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mw-toggle:hover {
+      background: var(--orange);
+      color: var(--ink);
+    }
+
+    .mw-panel {
+      max-height: 0;
+      overflow: hidden;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0 16px;
+      transition: max-height .3s ease, padding .3s ease;
+    }
+
+    .mw-panel.open {
+      padding: 16px;
+      max-height: 800px;
+    }
+
+    /* FOOTER */
     footer {
       background: var(--sand);
       padding: 40px 20px 35px;
@@ -184,10 +247,6 @@
       font-size: .97rem;
       opacity: .88;
     }
-
-    .toggle-panel { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
-    .toggle-panel.open { max-height: 1000px; }
-
   </style>
 </head>
 
@@ -209,222 +268,312 @@
     <p class="agent">Jouw hospitality agent staat klaar in Nairobi en Mombasa</p>
     <a class="btn" data-action="intake">Plan intake →</a>
   </header>
-<main>
 
-  <section id="over" class="card">
-    <h2>Wie is Kimanzi</h2>
-    <p>Kimanzi is jouw hospitality begeleider voor een veilig en authentiek verblijf in Kenia. Geen reisbureau en geen touroperator. Gewoon mensen die de stad kennen en jou helpen landen zonder ruis.</p>
-    <p>Vanaf het moment dat je landt staat er iemand klaar die de weg kent en begrijpt waar je wel en beter niet moet zijn. Je boekt je eigen verblijf, wij zorgen dat de rest klopt. Geen social, geen tracking. Na je reis wordt je intake verwijderd.</p>
-  </section>
+  <main>
 
-  <section id="diensten" class="card">
-    <h2>Diensten</h2>
+    <section id="over" class="card">
+      <h2>Wie is Kimanzi</h2>
+      <p>Kimanzi is jouw hospitality begeleider voor een veilig en authentiek verblijf in Kenia. Geen reisbureau en geen touroperator. Gewoon mensen die de stad kennen en jou helpen landen zonder ruis.</p>
+      <p>Vanaf het moment dat je landt staat er iemand klaar die de weg kent en begrijpt waar je wel en beter niet moet zijn. Je boekt je eigen verblijf, wij zorgen dat de rest klopt. Geen social, geen tracking. Na je reis wordt je intake verwijderd.</p>
+    </section>
 
-    <h3>SOLO — Zachte landing € 249</h3>
-    <p>Eendaagse begeleiding: ontvangst, veilig vervoer en rustige oriëntatie. Inclusief lichte maaltijd.</p>
-    <p>Ophaalservice tot 30 km inbegrepen. Daarboven € 0,50 per km.</p>
+    <section id="diensten" class="card">
+      <h2>Diensten</h2>
 
-    <h3>ADVENTURE — Persoonlijke ervaring € 599</h3>
-    <p>Drie dagen met je agent. Kleine uitstappen, rustige nightlife-intro waar passend en twee maaltijden per dag (geen alcohol).</p>
-    <p><strong>Extra dag mogelijk</strong> voor € 95.</p>
-  </section>
+      <h3>SOLO — Zachte landing € 249</h3>
+      <p>Eendaagse begeleiding: ontvangst, veilig vervoer en rustige oriëntatie. Inclusief lichte maaltijd. Ophaalservice tot dertig kilometer inbegrepen. Daarboven vijftig cent per kilometer. Late aankomst na tien uur in de avond: toeslag veertig euro.</p>
 
-  <!-- ⭐ MEER WETEN — COMPLETE SECTIE -->
-  <section id="meer-weten" class="card">
-    <h2>Meer weten</h2>
+      <h3>ADVENTURE — Persoonlijke ervaring € 599</h3>
+      <p>Drie dagen met je agent. Kleine uitstappen, rustige introductie in het nachtleven waar passend en twee maaltijden per dag (geen alcohol). Een extra dag is mogelijk voor vijfennegentig euro.</p>
+    </section>
 
-    <p>Kimanzi is er om je te laten landen zonder gedoe. Je agent vangt je op, zorgt dat je veilig reist en laat je kennismaken met de stad in een rustig tempo. Niet via vaste routes maar via iemand die er woont en die weet wat bij jou past.</p>
+    <!-- MEER WETEN ALS TOGGLES -->
+    <section id="meer-weten" class="card">
+      <h2>Meer weten</h2>
+      <p>Korte uitleg. Klik op een onderwerp voor details.</p>
 
-    <p>Je boekt zelf je verblijf zodat alles transparant blijft. Wij kijken discreet met je mee en adviseren wanneer dat nodig is. Niets is verplicht. Jij bepaalt het tempo. Sommige dagen wil je op pad, andere dagen wil je rust. Beide zijn goed.</p>
-
-    <h3>Voorbereiding</h3>
-    <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd omdat sommige locaties wachttijden hebben. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
-    <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen de noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger omdat veel vervoer, communicatie en betalingen via je telefoon lopen.</p>
-
-    <h3>Reisverzekering en zorgverzekering</h3>
-    <p>Het is verstandig om voor vertrek een reisverzekering af te sluiten met dekking voor medische kosten. Controleer ook je zorgverzekering want niet alle pakketten vergoeden zorg in het buitenland. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
-
-    <h3>Boekingen en vliegvelden</h3>
-    <p>Veel klanten vliegen graag vanaf Düsseldorf of Brussel omdat de prijzen soms gunstiger zijn. Beide luchthavens zijn het overwegen waard. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
-
-    <h3>Weer en benodigdheden</h3>
-    <p>Een warme trui of vest is prettig omdat het in de vroege ochtend fris kan zijn, vooral in Nairobi. Tijdens de zomermaanden zijn anti muggenspray en een klamboe verstandig om mee te nemen. Je agent kan je helpen met veilige lokale aankopen als dat nodig is.</p>
-
-    <h3>Geldzaken</h3>
-    <p>In Kenia wordt veel betaald met M Pesa, het mobiele betaalsysteem. Je agent helpt je hiermee zodra je bent geland. Cash kan handig zijn maar wissel nooit op straat. Gebruik alleen erkende wisselpunten en laat je agent meekijken als je dat prettig vindt.</p>
-
-    <h3>Praktische extra’s</h3>
-    <p>Een kleine zaklamp kan prettig zijn omdat niet alles altijd verlicht is. Soms valt de stroom uit. Een powerbank zorgt ervoor dat je bereikbaar blijft voor vervoer, navigatie en contact. Het zijn kleine dingen die je dag veel rustiger maken.</p>
-
-    <h3>Fooien</h3>
-    <p>In Kenia wordt een fooi vriendelijk ontvangen. Je bent niets verplicht maar een kleine fooi wordt gewaardeerd door chauffeurs, serveersters en andere mensen die je onderweg helpen. Het is een vorm van respect die bij de cultuur hoort.</p>
-
-    <h3>Gedrag en verwachtingen</h3>
-    <p>Wij gaan zorgvuldig en respectvol met jou om en verwachten dat jij dat ook doet. Je agent begeleidt je alsof je een gewaardeerde gast bent, niet als iemand die iets opeist. Uitstapjes, drankjes en andere persoonlijke uitgaven zijn voor jouw rekening. Het contact blijft vriendelijk, volwassen en wederzijds.</p>
-
-    <h3>Geen chatbots en geen callcenters</h3>
-    <p>Kimanzi werkt niet met chatbots of callcenters. Geen menu’s, wachtrijen of scripts. Je stuurt gewoon een bericht en wij reageren persoonlijk.</p>
-    <p>Kom je als gast in een situatie terecht waarin je denkt wat nu, of je hebt een ongelukje gehad en extra hulp nodig, laat het ons weten. Wij kijken met je mee en doen wat we kunnen om je te helpen. Rustig, discreet en zonder ruis.</p>
-
-    <h3>Wat wel en niet te doen</h3>
-    <p>Kenia is vriendelijk maar niet alles werkt zoals in Nederland. Je agent vertelt je rustig wat verstandig is en wat je beter kunt vermijden. Niet als regels maar als praktische uitleg zodat jij je vrij en veilig kunt bewegen zonder zorgen.</p>
-
-    <h3>Onze agent</h3>
-    <p>Je agent is een zelfstandig ondernemer. Ze werkt met ons samen maar niet voor ons. Je merkt vooral dat je te maken hebt met iemand die haar vak serieus neemt en die haar stad echt kent. Wij bieden structuur, veiligheid en discretie. Zij brengt persoonlijkheid en lokale kennis.</p>
-
-    <h3>Veiligheid van onze agent</h3>
-    <p>Onze agent mag zich altijd terugtrekken als zij zich onveilig voelt of niet met respect wordt behandeld. Kimanzi staat volledig achter haar. Jij hebt recht op rust en veiligheid en zij ook. Zo blijft de samenwerking voor iedereen prettig en eerlijk.</p>
-  </section>
-  <section id="intake" class="card">
-    <h2>Intake</h2>
-    <p>Rustig, zonder druk. Vul in wat je weet. Wij nemen persoonlijk contact met je op.</p>
-
-    <div id="intake-panel" class="toggle-panel">
-      <form id="klant-intake-form" class="kimanzi-form">
-
-        <label for="i-naam">Naam</label>
-        <input id="i-naam" type="text" name="naam" required>
-
-        <label for="i-telefoon">Telefoonnummer</label>
-        <input id="i-telefoon" type="tel" name="telefoon" required>
-
-        <label for="i-email">E-mail</label>
-        <input id="i-email" type="email" name="email" required>
-
-        <label for="i-dienst">Gekozen dienst</label>
-        <select id="i-dienst" name="dienst" required>
-          <option value="SOLO">SOLO</option>
-          <option value="ADVENTURE">ADVENTURE</option>
-        </select>
-
-        <label for="i-periode">Voorkeursperiode</label>
-        <input id="i-periode" type="text" name="voorkeursperiode" required placeholder="Bijvoorbeeld: 2 tot 8 maart of eind april">
-
-        <label for="i-verblijf">Verblijfslocatie</label>
-        <input id="i-verblijf" type="text" name="verblijf">
-
-        <label for="i-vlucht">Vluchtnummer</label>
-        <input id="i-vlucht" type="text" name="vluchtnummer">
-
-        <label for="i-datum">Aankomstdatum</label>
-        <input id="i-datum" type="date" name="aankomstdatum">
-
-        <label for="i-tijd">Aankomsttijd</label>
-        <input id="i-tijd" type="time" name="aankomsttijd">
-
-        <button type="submit" class="kimanzi-submit">Intake versturen</button>
-      </form>
-      <div class="toggle-footer">
-        <button type="button" class="toggle-close" data-close="intake">Sluiten</button>
+      <div class="mw-item">
+        <button class="mw-toggle">Voorbereiding</button>
+        <div class="mw-panel">
+          <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd omdat sommige locaties wachttijden hebben. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
+          <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger omdat veel vervoer, communicatie en betalingen via je telefoon lopen.</p>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section id="contact" class="card">
-    <h2>Contact</h2>
-    <p>De lijnen zijn rustig en discreet. Stel je vraag zonder druk.</p>
-
-    <div id="contact-panel" class="toggle-panel">
-      <form id="klant-contact-form" class="kimanzi-form">
-
-        <label for="c-naam">Naam</label>
-        <input id="c-naam" type="text" name="naam" required>
-
-        <label for="c-email">E-mail</label>
-        <input id="c-email" type="email" name="email" required>
-
-        <label for="c-telefoon">Telefoonnummer</label>
-        <input id="c-telefoon" type="tel" name="telefoon">
-
-        <label for="c-bericht">Bericht</label>
-        <textarea id="c-bericht" name="bericht" required></textarea>
-
-        <button type="submit" class="kimanzi-submit">Versturen</button>
-      </form>
-      <div class="toggle-footer">
-        <button type="button" class="toggle-close" data-close="contact">Sluiten</button>
+      <div class="mw-item">
+        <button class="mw-toggle">Reisverzekering en zorgverzekering</button>
+        <div class="mw-panel">
+          <p>Het is verstandig om voor vertrek een reisverzekering af te sluiten met dekking voor medische kosten. Controleer ook je zorgverzekering want niet alle pakketten vergoeden zorg in het buitenland. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
+        </div>
       </div>
-    </div>
-  </section>
 
-</main>
+      <div class="mw-item">
+        <button class="mw-toggle">Boekingen en vliegvelden</button>
+        <div class="mw-panel">
+          <p>Veel klanten vliegen graag vanaf Düsseldorf of Brussel omdat de prijzen soms gunstiger zijn. Beide luchthavens zijn het overwegen waard. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
+        </div>
+      </div>
 
-<footer>
-  <img src="https://files.catbox.moe/yq7blc.png" alt="KIMANZI logo">
-  <p>© KIMANZI — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
-</footer>
+      <div class="mw-item">
+        <button class="mw-toggle">Weer en benodigdheden</button>
+        <div class="mw-panel">
+          <p>Een warme trui of vest is prettig omdat het in de vroege ochtend fris kan zijn, vooral in Nairobi. Tijdens de zomermaanden is een goede muggenspray en een klamboe verstandig om mee te nemen. Je agent kan je helpen met veilige lokale aankopen als dat nodig is.</p>
+        </div>
+      </div>
 
-<script>
-  function kimanziForm(formId, endpoint) {
-    const form = document.getElementById(formId);
-    if (!form) return;
+      <div class="mw-item">
+        <button class="mw-toggle">Geldzaken</button>
+        <div class="mw-panel">
+          <p>In Kenia wordt veel betaald met M Pesa, het mobiele betaalsysteem. Je agent helpt je hiermee zodra je bent geland. Cash kan handig zijn maar wissel nooit op straat. Gebruik alleen erkende wisselpunten en laat je agent meekijken als je dat prettig vindt.</p>
+        </div>
+      </div>
 
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
+      <div class="mw-item">
+        <button class="mw-toggle">Praktische extra’s</button>
+        <div class="mw-panel">
+          <p>Een kleine zaklamp kan prettig zijn omdat niet alles altijd verlicht is. Soms valt de stroom uit. Een powerbank zorgt ervoor dat je bereikbaar blijft voor vervoer, navigatie en contact. Het zijn kleine dingen die je dag veel rustiger maken.</p>
+        </div>
+      </div>
 
-      try {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: formData
-        });
+      <div class="mw-item">
+        <button class="mw-toggle">Fooien</button>
+        <div class="mw-panel">
+          <p>In Kenia wordt een fooi vriendelijk ontvangen. Je bent niets verplicht maar een kleine fooi wordt gewaardeerd door chauffeurs, serveersters en andere mensen die je onderweg helpen. Het is een vorm van respect die bij de cultuur hoort.</p>
+        </div>
+      </div>
 
-        if (response.ok) {
-          alert("Verzonden. Wij nemen discreet contact met je op.");
-          form.reset();
-        } else {
-          alert("Er ging iets mis. Probeer het opnieuw.");
+      <div class="mw-item">
+        <button class="mw-toggle">Gedrag en verwachtingen</button>
+        <div class="mw-panel">
+          <p>Wij gaan zorgvuldig en respectvol met jou om en verwachten dat jij dat ook doet. Je agent begeleidt je alsof je een gewaardeerde gast bent, niet als iemand die iets opeist. Uitstapjes, drankjes en andere persoonlijke uitgaven zijn voor jouw rekening. Het contact blijft vriendelijk, volwassen en wederzijds.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Geen chatbots en geen callcenters</button>
+        <div class="mw-panel">
+          <p>Kimanzi werkt niet met chatbots en niet met callcenters. Geen menu’s, geen wachtrijen en geen scripts. Je stuurt een bericht en wij reageren persoonlijk.</p>
+          <p>Kom je als gast in een situatie terecht waarin je denkt wat nu of je hebt een ongelukje gehad en extra hulp nodig, laat het ons weten. Wij kijken met je mee en doen wat we kunnen om je te helpen. Rustig, discreet en zonder ruis.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Onze agent</button>
+        <div class="mw-panel">
+          <p>Je agent is een zelfstandig ondernemer. Ze werkt met ons samen maar niet voor ons. Je merkt dat je te maken hebt met iemand die haar vak serieus neemt en die haar stad echt kent. Wij bieden structuur, veiligheid en discretie. Zij brengt persoonlijkheid en lokale kennis.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Veiligheid van onze agent</button>
+        <div class="mw-panel">
+          <p>Onze agent mag zich altijd terugtrekken als zij zich onveilig voelt of niet met respect wordt behandeld. Kimanzi staat volledig achter haar. Jij hebt recht op rust en veiligheid en zij ook. Zo blijft de samenwerking voor iedereen prettig en eerlijk.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="intake" class="card">
+      <h2>Intake</h2>
+      <p>Rustig en zonder druk. Vul in wat je weet. Wij nemen persoonlijk en discreet contact met je op.</p>
+
+      <div id="intake-panel" class="toggle-panel">
+        <form id="klant-intake-form" class="kimanzi-form">
+
+          <label for="i-naam">Naam</label>
+          <input id="i-naam" type="text" name="naam" required>
+
+          <label for="i-telefoon">Telefoonnummer</label>
+          <input id="i-telefoon" type="tel" name="telefoon" required>
+
+          <label for="i-email">E-mail</label>
+          <input id="i-email" type="email" name="email" required>
+
+          <label for="i-dienst">Gekozen dienst</label>
+          <select id="i-dienst" name="dienst" required>
+            <option value="SOLO">SOLO</option>
+            <option value="ADVENTURE">ADVENTURE</option>
+          </select>
+
+          <label for="i-periode">Voorkeursperiode</label>
+          <input id="i-periode" type="text" name="voorkeursperiode" required placeholder="Bijvoorbeeld: twee tot acht maart of eind april">
+
+          <label for="i-verblijf">Verblijfslocatie</label>
+          <input id="i-verblijf" type="text" name="verblijf">
+
+          <label for="i-vlucht">Vluchtnummer</label>
+          <input id="i-vlucht" type="text" name="vluchtnummer">
+
+          <label for="i-datum">Aankomstdatum</label>
+          <input id="i-datum" type="date" name="aankomstdatum">
+
+          <label for="i-tijd">Aankomsttijd</label>
+          <input id="i-tijd" type="time" name="aankomsttijd">
+
+          <button type="submit" class="kimanzi-submit">Intake versturen</button>
+        </form>
+
+        <div class="toggle-footer">
+          <button type="button" class="toggle-close" data-close="intake">Sluiten</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>De lijnen zijn rustig en discreet. Stel je vraag zonder druk.</p>
+
+      <div id="contact-panel" class="toggle-panel">
+        <form id="klant-contact-form" class="kimanzi-form">
+
+          <label for="c-naam">Naam</label>
+          <input id="c-naam" type="text" name="naam" required>
+
+          <label for="c-email">E-mail</label>
+          <input id="c-email" type="email" name="email" required>
+
+          <label for="c-telefoon">Telefoonnummer</label>
+          <input id="c-telefoon" type="tel" name="telefoon">
+
+          <label for="c-bericht">Bericht</label>
+          <textarea id="c-bericht" name="bericht" required></textarea>
+
+          <button type="submit" class="kimanzi-submit">Versturen</button>
+        </form>
+
+        <div class="toggle-footer">
+          <button type="button" class="toggle-close" data-close="contact">Sluiten</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <img src="https://files.catbox.moe/yq7blc.png" alt="KIMANZI logo" loading="lazy" />
+    <p>© KIMANZI — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
+  </footer>
+
+  <script>
+    // Formspree koppeling
+    function kimanziForm(formId, endpoint) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Accept": "application/json" },
+            body: formData
+          });
+
+          if (response.ok) {
+            alert("Verzonden. Wij nemen discreet contact met je op.");
+            form.reset();
+          } else {
+            alert("Er ging iets mis. Probeer het opnieuw.");
+          }
+        } catch (err) {
+          alert("Verbindingsfout. Controleer je verbinding en probeer het opnieuw.");
         }
-      } catch (err) {
-        alert("Verbindingsfout.");
+      });
+    }
+
+    kimanziForm("klant-intake-form", "https://formspree.io/f/xldqevbj");
+    kimanziForm("klant-contact-form", "https://formspree.io/f/xgygeblo");
+
+    // Intake / contact toggles
+    function openPanel(name) {
+      const panel = document.getElementById(name + "-panel");
+      if (panel) panel.classList.add("open");
+    }
+
+    function closePanel(name) {
+      const panel = document.getElementById(name + "-panel");
+      if (panel) panel.classList.remove("open");
+    }
+
+    document.querySelectorAll("[data-action='intake']").forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        openPanel("intake");
+        document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-open='intake']").forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        openPanel("intake");
+        document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-open='contact']").forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        openPanel("contact");
+        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll(".toggle-close").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const name = btn.getAttribute("data-close");
+        closePanel(name);
+      });
+    });
+
+    // Meer weten toggles: max 2 open + auto dicht na 5 seconden
+    document.querySelectorAll(".mw-toggle").forEach(btn => {
+      const panel = btn.nextElementSibling;
+      let timer = null;
+
+      function startTimer() {
+        clearTimer();
+        timer = setTimeout(() => {
+          panel.classList.remove("open");
+        }, 5000);
       }
+
+      function clearTimer() {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      }
+
+      btn.addEventListener("click", () => {
+        const isOpen = panel.classList.contains("open");
+
+        if (isOpen) {
+          panel.classList.remove("open");
+          clearTimer();
+          return;
+        }
+
+        const openPanels = Array.from(document.querySelectorAll(".mw-panel.open"));
+        if (openPanels.length >= 2) {
+          openPanels[0].classList.remove("open");
+        }
+
+        panel.classList.add("open");
+        startTimer();
+      });
+
+      panel.addEventListener("mouseenter", () => {
+        clearTimer();
+      });
+
+      panel.addEventListener("mouseleave", () => {
+        if (panel.classList.contains("open")) {
+          startTimer();
+        }
+      });
     });
-  }
-
-  kimanziForm("klant-intake-form", "https://formspree.io/f/xldqevbj");
-  kimanziForm("klant-contact-form", "https://formspree.io/f/xgygeblo");
-
-  function openPanel(name) {
-    const panel = document.getElementById(name + "-panel");
-    if (panel) panel.classList.add("open");
-  }
-
-  function closePanel(name) {
-    const panel = document.getElementById(name + "-panel");
-    if (panel) panel.classList.remove("open");
-  }
-
-  document.querySelectorAll("[data-action='intake']").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      openPanel("intake");
-      document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
-    });
-  });
-
-  document.querySelectorAll("[data-open='intake']").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      openPanel("intake");
-      document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
-    });
-  });
-
-  document.querySelectorAll("[data-open='contact']").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      openPanel("contact");
-      document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
-    });
-  });
-
-  document.querySelectorAll(".toggle-close").forEach(btn => {
-    btn.addEventListener("click", function () {
-      closePanel(btn.getAttribute("data-close"));
-    });
-  });
-</script>
-
+  </script>
 </body>
 </html>
