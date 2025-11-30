@@ -1,665 +1,153 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; form-action https://formspree.io; img-src 'self' https://files.catbox.moe data:; style-src 'self' 'unsafe-inline';">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KIMANZI — Jouw hospitality agent in Kenia</title>
+  <section id="intake" class="card">
+    <h2>Intake</h2>
+    <p>Rustig, zonder druk. Vul in wat je weet. Wij nemen persoonlijk contact met je op.</p>
 
-  <style>
-    :root {
-      --green: #2C4A34;
-      --orange: #C56428;
-      --sand: #F5E9D1;
-      --cream: #FFF9F0;
-      --ink: #2B2A26;
-      --muted: #5A6270;
-      --radius: 14px;
-      --shadow: 0 6px 16px rgba(0, 0, 0, .08);
-      --maxw: 1100px;
-    }
+    <div id="intake-panel" class="toggle-panel">
+      <form id="klant-intake-form" class="kimanzi-form">
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+        <label for="i-naam">Naam</label>
+        <input id="i-naam" type="text" name="naam" required>
 
-    body {
-      margin: 0;
-      background: var(--sand);
-      color: var(--ink);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      line-height: 1.55;
-    }
+        <label for="i-telefoon">Telefoonnummer</label>
+        <input id="i-telefoon" type="tel" name="telefoon" required>
 
-    h1, h2, h3 {
-      margin-top: 0;
-      color: var(--green);
-    }
+        <label for="i-email">E-mail</label>
+        <input id="i-email" type="email" name="email" required>
 
-    p {
-      font-size: 1.06rem;
-      margin-bottom: 16px;
-    }
+        <label for="i-dienst">Gekozen dienst</label>
+        <select id="i-dienst" name="dienst" required>
+          <option value="SOLO">SOLO</option>
+          <option value="ADVENTURE">ADVENTURE</option>
+        </select>
 
-    a {
-      color: var(--green);
-      text-decoration: none;
-      transition: .25s;
-    }
+        <label for="i-periode">Voorkeursperiode</label>
+        <input id="i-periode" type="text" name="voorkeursperiode" required placeholder="Bijvoorbeeld: 2 tot 8 maart of eind april">
 
-    a:hover { opacity: .9; }
+        <label for="i-verblijf">Verblijfslocatie</label>
+        <input id="i-verblijf" type="text" name="verblijf">
 
-    /* TOPNAV */
+        <label for="i-vlucht">Vluchtnummer</label>
+        <input id="i-vlucht" type="text" name="vluchtnummer">
 
-    .topnav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--cream);
-      border-bottom: 1px solid #E3D8BE;
-    }
+        <label for="i-datum">Aankomstdatum</label>
+        <input id="i-datum" type="date" name="aankomstdatum">
 
-    .topnav a {
-      display: inline-block;
-      padding: 14px 18px;
-      font-weight: 600;
-      color: var(--green);
-    }
+        <label for="i-tijd">Aankomsttijd</label>
+        <input id="i-tijd" type="time" name="aankomsttijd">
 
-    .topnav a:hover { color: var(--orange); }
-
-    /* HEADER / HERO */
-
-    header {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      color: #fff;
-      padding: 100px 20px 90px;
-    }
-
-    .hero-media {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .hero-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: brightness(0.9);
-    }
-
-    header .overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(135deg, rgba(44,74,52,.80), rgba(44,74,52,.90));
-    }
-
-    header h1, header p, header .btn {
-      position: relative;
-      z-index: 2;
-    }
-
-    header h1 {
-      color: #fff;
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 10px;
-    }
-
-    header p.agent {
-      font-weight: 600;
-      font-size: 1.15rem;
-      color: var(--orange);
-      margin: 10px 0 12px;
-    }
-
-    header p.tag {
-      color: #fff;
-      font-size: 1rem;
-      margin-bottom: 10px;
-      font-style: italic;
-      opacity: .9;
-    }
-
-    .opening-note {
-      color:#fff;
-      font-size:1.05rem;
-      margin:8px 0 25px;
-      opacity:.95;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 26px;
-      border-radius: 10px;
-      font-weight: 600;
-      min-height: 42px;
-      line-height: 1.2;
-      cursor: pointer;
-      background: var(--green);
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .btn:hover {
-      background: var(--orange);
-      color: var(--ink);
-    }
-
-    /* LAYOUT / CARDS */
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 50px 20px 80px;
-    }
-
-    section {
-      margin-bottom: 70px;
-    }
-
-    .card {
-      background: var(--cream);
-      border-radius: var(--radius);
-      padding: 32px;
-      box-shadow: var(--shadow);
-      width: 100%;
-    }
-
-    .grid {
-      display: grid;
-      gap: 24px;
-    }
-
-    @media (min-width: 768px) {
-      .grid-2 { grid-template-columns: 1fr 1fr; }
-    }
-
-    .maaltijd img {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      display: block;
-      margin: 0 auto;
-    }
-
-    /* CTA BLOK */
-
-    .cta-section {
-      background: var(--cream);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    .cta-text {
-      font-size: 1.25rem;
-      margin-bottom: 12px;
-      color: var(--green);
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .cta-block {
-      max-width: 260px;
-    }
-
-    .cta-sub {
-      font-size: .95rem;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    /* FORMULIEREN */
-
-    .kimanzi-form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      max-width: 480px;
-      margin: 10px auto 0;
-    }
-
-    .kimanzi-form label {
-      font-size: .95rem;
-      color: var(--muted);
-      display: block;
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-
-    .kimanzi-form input,
-    .kimanzi-form select,
-    .kimanzi-form textarea {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: var(--radius);
-      border: 1px solid #d9d2c5;
-      font-size: 1rem;
-      background: #fff;
-    }
-
-    .kimanzi-form textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .kimanzi-submit {
-      margin-top: 4px;
-      background: var(--green);
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: var(--radius);
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-      width: max-content;
-    }
-
-    .kimanzi-submit:hover {
-      background: var(--orange);
-      color: var(--ink);
-    }
-
-    /* FAQ / TOGGLES */
-
-    .toggle-panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .3s ease;
-    }
-
-    .toggle-panel.open {
-      max-height: 2000px;
-    }
-
-    .toggle-footer {
-      margin-top: 10px;
-      font-size: .85rem;
-      color: var(--muted);
-    }
-
-    .toggle-close {
-      background: none;
-      border: none;
-      padding: 0;
-      font-size: .85rem;
-      color: var(--green);
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .faq-list {
-      margin: 0;
-      padding-left: 0;
-      list-style: none;
-    }
-
-    .faq-item + .faq-item {
-      margin-top: 14px;
-    }
-
-    .faq-q {
-      font-weight: 600;
-      color: var(--green);
-      margin-bottom: 2px;
-    }
-
-    .faq-a {
-      font-size: 1rem;
-      color: var(--muted);
-    }
-
-    /* FOOTER */
-
-    footer {
-      background: var(--sand);
-      padding: 40px 20px 35px;
-      border-top: 2px solid var(--orange);
-      font-size: .95rem;
-      color: var(--green);
-    }
-
-    footer img {
-  max-width: 225px;   /* was 180px */
-  max-height: 80px;   /* was 65px */
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 14px;
-}
-
-    footer p {
-      text-align: center;
-      margin: 0;
-      color: var(--ink);
-      opacity: .9;
-    }
-  </style>
-</head>
-
-<body>
-  <nav class="topnav" aria-label="Hoofd">
-    <a href="#over">Wie is Kimanzi</a>
-    <a href="#diensten">Diensten</a>
-    <a href="#agenda">Evenementen (volgt)</a>
-    <a href="#intake" data-open="intake">Intake</a>
-    <a href="#contact" data-open="contact">Contact</a>
-  </nav>
-
-  <header>
-    <div class="hero-media" aria-hidden="true">
-      <img src="https://files.catbox.moe/3tviml.jpg" alt="Kimanzi hero" loading="lazy" />
+        <button type="submit" class="kimanzi-submit">Intake versturen</button>
+      </form>
+      <div class="toggle-footer">
+        <button type="button" class="toggle-close" data-close="intake">Sluiten</button>
+      </div>
     </div>
-    <div class="overlay"></div>
-    <h1>Kimanzi. Rust, discretie en een zachte landing.</h1>
-    <p class="agent">Jouw hospitality agent staat klaar in Nairobi en Mombasa</p>
-    <p class="tag">Voor gezellig uitgaan in goed gezelschap. Urban Chill.</p>
-    <p class="opening-note">Kimanzi start per 15 januari 2026. We nemen nu intakeverzoeken aan.</p>
-    <a class="btn" data-action="intake">Plan intake →</a>
-  </header>
+  </section>
 
-  <main>
+  <section id="contact" class="card">
+    <h2>Contact</h2>
+    <p>De lijnen zijn rustig en discreet. Stel je vraag zonder druk.</p>
 
-    <section id="over" class="card">
-      <h2>Wie is Kimanzi?</h2>
-      <p>Kimanzi is jouw hospitality begeleider voor een veilig en authentiek verblijf in Kenia. Wij zijn geen reisbureau en geen touroperator, maar een netwerk van zelfstandige hospitality agents in Nairobi en Mombasa. Onze mensen kennen hun stad, spreken de taal en weten precies waar je wel en beter niet moet zijn.</p>
-      <p>Vanaf het moment dat je landt staat iemand voor je klaar die de weg kent, de mensen begrijpt en ervoor zorgt dat jij rustig kunt landen. Je boekt zelf je accommodatie – met advies en screening door ons – en wij zorgen dat de rest klopt. Discretie is vanzelfsprekend: geen social media, geen dataverzameling. Na afloop van je reis wordt je intake verwijderd. Alles draait om vertrouwen, veiligheid en praktische zorg met een menselijke toon.</p>
-      <p>Onze hospitality agents laten je kennismaken met het echte Kenia. Niet via excursiepakketjes, maar via de ogen van locals die hun stad willen laten zien. Een goed restaurant, een discrete avond uit of een veilige route naar de kust – het zijn de details die het verschil maken. Jij bepaalt het tempo; wij zorgen dat alles om je heen soepel loopt.</p>
-      <p>We werken altijd vanuit vier kernwaarden die alles dragen wat we doen: discretie, professionaliteit, warmte en veiligheid. Deze waarden vormen de basis van elke ontmoeting en elke begeleiding. Zo blijft de ervaring menselijk, rustig en betrouwbaar.</p>
-    </section>
+    <div id="contact-panel" class="toggle-panel">
+      <form id="klant-contact-form" class="kimanzi-form">
 
-    <section id="diensten" class="card">
-      <h2>Diensten</h2>
-      <div class="grid grid-2">
-        <article>
-          <h3>SOLO — Zachte landing <span style="color:var(--orange)">€ 249</span></h3>
-          <p>
-            Eendaagse begeleiding: ontvangst, veilig vervoer en kalme oriëntatie. Inclusief lichte maaltijd.<br>
-            Ophaalservice tot 30 km inbegrepen; daarboven € 0,50 per km.<br>
-            Late arrivals na 22.00 uur rekenen wij een toeslag van € 40.<br>
-          </p>
-          <ul>
-            <li>Accommodatie regel je zelf (bijvoorbeeld Airbnb die jij boekt).</li>
-          </ul>
-        </article>
+        <label for="c-naam">Naam</label>
+        <input id="c-naam" type="text" name="naam" required>
 
-        <article>
-          <h3>ADVENTURE — Persoonlijke ervaring (3 dagen) <span style="color:var(--orange)">€ 599</span></h3>
-          <p>
-            Drie dagen met je persoonlijke hospitality agent. Kleine uitstappen en discrete nightlife intro waar passend. Inclusief twee maaltijden per dag (geen alcohol).<br>
-            Ophaalservice tot 30 km inbegrepen; daarboven € 0,50 per km.<br>
-            Late arrivals na 22.00 uur rekenen wij een toeslag van € 40.<br>
-          </p>
-          <ul>
-            <li>Boodschappenservice mogelijk, we bespreken dit bij de intake.</li>
-            <li>Accommodatie door klant, wij adviseren waar nodig.</li>
-          </ul>
-          <p><strong>Addon:</strong> Extra dag mogelijk voor € 95 (op Adventure).</p>
-        </article>
+        <label for="c-email">E-mail</label>
+        <input id="c-email" type="email" name="email" required>
+
+        <label for="c-telefoon">Telefoonnummer</label>
+        <input id="c-telefoon" type="tel" name="telefoon">
+
+        <label for="c-bericht">Bericht</label>
+        <textarea id="c-bericht" name="bericht" required></textarea>
+
+        <button type="submit" class="kimanzi-submit">Versturen</button>
+      </form>
+      <div class="toggle-footer">
+        <button type="button" class="toggle-close" data-close="contact">Sluiten</button>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="maaltijden" class="card maaltijd">
-      <h2>Maaltijden</h2>
-      <img src="https://files.catbox.moe/8afy5l.png" alt="Maaltijd voorbeeld" loading="lazy">
-    </section>
+</main>
 
-    <section id="agenda" class="card">
-      <h2>Evenementen (volgt)</h2>
-      <p>Binnenkort komen we met een paar aanraders. Check de site.</p>
-    </section>
+<footer>
+  <img src="https://files.catbox.moe/yq7blc.png" alt="KIMANZI logo">
+  <p>© KIMANZI — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
+</footer>
 
-    <section id="cta" class="cta-section">
-      <p class="cta-text">Wil je eerst meer weten of ben je klaar om te starten?</p>
-      <p class="cta-sub">Geen hashtags. Geen likes. Alleen insiders. Alleen uitnodiging.</p>
+<script>
+  function kimanziForm(formId, endpoint) {
+    const form = document.getElementById(formId);
+    if (!form) return;
 
-      <div class="cta-buttons">
-        <div class="cta-block">
-          <a class="btn" data-action="intake">Plan intake →</a>
-          <p class="cta-sub">Een intake die helderheid geeft, zonder verplichtingen.</p>
-        </div>
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
 
-        <div class="cta-block">
-          <a class="btn" data-action="info">Meer weten</a>
-          <p class="cta-sub">Korte antwoorden op de belangrijkste vragen.</p>
-        </div>
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: formData
+        });
 
-        <div class="cta-block">
-          <a class="btn"
-             href="https://signal.me/#eu/jPhei3ZTNaLyCCoG10iCMC_kJaZaidg0YUAZWLVzFQpEwDQOSedIC4t7i39jhN7-"
-             target="_blank"
-             rel="noopener noreferrer">
-             Chat via Signal →
-          </a>
-          <p class="cta-sub">Veilig contact via end-to-end encryptie.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="card">
-      <h2>FAQ</h2>
-      <p>Korte, rustige antwoorden. De rest bespreken we één op één.</p>
-
-      <div id="faq-panel" class="toggle-panel">
-        <ul class="faq-list">
-          <li class="faq-item">
-            <div class="faq-q">Kan ik iemand meenemen?</div>
-            <div class="faq-a">Nee. Kimanzi werkt één op één. Zo blijven veiligheid, aandacht en discretie gewaarborgd.</div>
-          </li>
-
-          <li class="faq-item">
-            <div class="faq-q">Moet ik al een vlucht geboekt hebben?</div>
-            <div class="faq-a">Nee. Je mag ook eerst oriënteren. In de intake vul je in wat je al weet.</div>
-          </li>
-
-          <li class="faq-item">
-            <div class="faq-q">Regelen jullie accommodatie?</div>
-            <div class="faq-a">Nee. Jij boekt zelf (bijvoorbeeld via Airbnb). Wij kunnen discreet meekijken en adviseren.</div>
-          </li>
-
-          <li class="faq-item">
-            <div class="faq-q">Hoe gaan jullie om met mijn gegevens?</div>
-            <div class="faq-a">We werken privacy-first. Geen tracking, geen social. Je intake wordt één maand na afloop van de opdracht verwijderd.</div>
-          </li>
-        </ul>
-
-        <div class="toggle-footer">
-          <button type="button" class="toggle-close" data-close="faq">Sluiten</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="privacy" class="card">
-      <h2>Privacy</h2>
-      <p>Wij verwijderen klantgegevens één maand na afloop van de opdracht. Geen cookies. Geen tracking. Geen social.</p>
-    </section>
-
-    <section id="intake" class="card">
-      <h2>Intake</h2>
-      <p>De intake is rustig en zonder verplichtingen. Je hoeft geen vlucht geboekt te hebben. Vul in wat je weet — wij nemen discreet contact op.</p>
-
-      <div id="intake-panel" class="toggle-panel">
-        <form id="klant-intake-form" class="kimanzi-form">
-          <label for="i-naam">Naam</label>
-          <input id="i-naam" type="text" name="naam" required>
-
-          <label for="i-telefoon">Telefoonnummer</label>
-          <input id="i-telefoon" type="tel" name="telefoon" required>
-
-          <label for="i-email">E-mail</label>
-          <input id="i-email" type="email" name="email" required>
-
-          <label for="i-dienst">Gekozen dienst</label>
-          <select id="i-dienst" name="dienst" required>
-            <option value="SOLO">SOLO</option>
-            <option value="ADVENTURE">ADVENTURE</option>
-          </select>
-
-          <label for="i-periode">Voorkeursperiode</label>
-          <input id="i-periode" type="text" name="voorkeursperiode" required placeholder="Bijvoorbeeld: 02–08 maart of eind april">
-
-          <label for="i-verblijf">Verblijfslocatie (optioneel)</label>
-          <input id="i-verblijf" type="text" name="verblijf" placeholder="Adres of link (als bekend)">
-
-          <label for="i-vlucht">Vluchtnummer (optioneel)</label>
-          <input id="i-vlucht" type="text" name="vluchtnummer">
-
-          <label for="i-datum">Aankomstdatum (optioneel)</label>
-          <input id="i-datum" type="date" name="aankomstdatum">
-
-          <label for="i-tijd">Aankomsttijd (optioneel)</label>
-          <input id="i-tijd" type="time" name="aankomsttijd">
-
-          <label for="i-late">Late arrival na 22.00 uur? (toeslag € 40 – optioneel)</label>
-          <select id="i-late" name="late_arrival">
-            <option value="Nee">Nee</option>
-            <option value="Ja">Ja</option>
-            <option value="Nog niet zeker">Nog niet zeker</option>
-          </select>
-
-          <label for="i-voorkeuren">Voorkeuren of bijzonderheden (optioneel)</label>
-          <textarea id="i-voorkeuren" name="voorkeuren" placeholder="Dieet, praktische wensen, context"></textarea>
-
-          <button type="submit" class="kimanzi-submit">Intake versturen</button>
-        </form>
-
-        <div class="toggle-footer">
-          <button type="button" class="toggle-close" data-close="intake">Sluiten</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <p>De lijnen zijn rustig en discreet. Stel je vraag zonder druk — wij nemen persoonlijk contact met je op.</p>
-
-      <div id="contact-panel" class="toggle-panel">
-        <form id="klant-contact-form" class="kimanzi-form">
-          <label for="c-naam">Naam</label>
-          <input id="c-naam" type="text" name="naam" required>
-
-          <label for="c-email">E-mail</label>
-          <input id="c-email" type="email" name="email" required>
-
-          <label for="c-telefoon">Telefoonnummer (optioneel)</label>
-          <input id="c-telefoon" type="tel" name="telefoon" placeholder="+316… (optioneel)">
-
-          <label for="c-bericht">Bericht</label>
-          <textarea id="c-bericht" name="bericht" required placeholder="Je vraag of verzoek"></textarea>
-
-          <button type="submit" class="kimanzi-submit">Versturen</button>
-        </form>
-
-        <div class="toggle-footer">
-          <button type="button" class="toggle-close" data-close="contact">Sluiten</button>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <img src="https://files.catbox.moe/yq7blc.png" alt="KIMANZI logo" loading="lazy" />
-    <p>© KIMANZI — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
-  </footer>
-
-  <script>
-    function kimanziForm(formId, endpoint) {
-      const form = document.getElementById(formId);
-      if (!form) return;
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-
-        try {
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Accept": "application/json" },
-            body: formData
-          });
-
-          if (response.ok) {
-            alert("Verzonden. Wij nemen discreet contact met je op.");
-            form.reset();
-          } else {
-            alert("Er ging iets mis. Probeer het opnieuw.");
-          }
-        } catch (err) {
-          alert("Verbindingsfout. Controleer je internetverbinding.");
+        if (response.ok) {
+          alert("Verzonden. Wij nemen discreet contact met je op.");
+          form.reset();
+        } else {
+          alert("Er ging iets mis. Probeer het opnieuw.");
         }
-      });
-    }
-
-    function openPanel(name) {
-      const panel = document.getElementById(name + "-panel");
-      if (!panel) return;
-      panel.classList.add("open");
-    }
-
-    function closePanel(name) {
-      const panel = document.getElementById(name + "-panel");
-      if (!panel) return;
-      panel.classList.remove("open");
-    }
-
-    // Formspree koppelingen
-    kimanziForm("klant-intake-form", "https://formspree.io/f/xldqevbj");
-    kimanziForm("klant-contact-form", "https://formspree.io/f/xgygeblo");
-
-    // Buttons en nav-links
-    document.querySelectorAll("[data-action='intake']").forEach(btn => {
-      btn.addEventListener("click", function (e) {
-        e.preventDefault();
-        openPanel("intake");
-        document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
-      });
+      } catch (err) {
+        alert("Verbindingsfout.");
+      }
     });
+  }
 
-    document.querySelectorAll("[data-action='info']").forEach(btn => {
-      btn.addEventListener("click", function (e) {
-        e.preventDefault();
-        openPanel("faq");
-        document.getElementById("faq").scrollIntoView({ behavior: "smooth" });
-      });
-    });
+  kimanziForm("klant-intake-form", "https://formspree.io/f/xldqevbj");
+  kimanziForm("klant-contact-form", "https://formspree.io/f/xgygeblo");
 
-    document.querySelectorAll("[data-open='intake']").forEach(link => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        openPanel("intake");
-        document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
-      });
-    });
+  function openPanel(name) {
+    const panel = document.getElementById(name + "-panel");
+    if (panel) panel.classList.add("open");
+  }
 
-    document.querySelectorAll("[data-open='contact']").forEach(link => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        openPanel("contact");
-        document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
-      });
-    });
+  function closePanel(name) {
+    const panel = document.getElementById(name + "-panel");
+    if (panel) panel.classList.remove("open");
+  }
 
-    document.querySelectorAll(".toggle-close").forEach(btn => {
-      btn.addEventListener("click", function () {
-        const name = btn.getAttribute("data-close");
-        closePanel(name);
-      });
+  document.querySelectorAll("[data-action='intake']").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      openPanel("intake");
+      document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
     });
-  </script>
+  });
+
+  document.querySelectorAll("[data-open='intake']").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      openPanel("intake");
+      document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
+    });
+  });
+
+  document.querySelectorAll("[data-open='contact']").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      openPanel("contact");
+      document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    });
+  });
+
+  document.querySelectorAll(".toggle-close").forEach(btn => {
+    btn.addEventListener("click", function () {
+      closePanel(btn.getAttribute("data-close"));
+    });
+  });
+</script>
+
 </body>
 </html>
