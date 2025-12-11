@@ -279,7 +279,6 @@
       <h2>Meer weten</h2>
       <p>Korte uitleg. Klik op een onderwerp voor details.</p>
 
-      <!-- TOGGLES (ongewijzigd) -->
       <div class="mw-item">
         <button class="mw-toggle">Voorbereiding</button>
         <div class="mw-panel">
@@ -329,12 +328,14 @@
 
       <div id="intake-panel" class="toggle-panel">
 
-        <!-- PURE HTML FORM — NO JAVASCRIPT FETCH -->
         <form
           action="https://formspree.io/f/xldqevbj"
           method="POST"
           class="kimanzi-form"
         >
+          <!-- herkenning + redirect -->
+          <input type="hidden" name="formType" value="klant-intake">
+          <input type="hidden" name="_redirect" value="https://kimanzi.nl/bedankt.html">
 
           <label for="i-naam">Naam</label>
           <input id="i-naam" type="text" name="naam" required>
@@ -353,6 +354,10 @@
 
           <label for="i-periode">Voorkeursperiode</label>
           <input id="i-periode" type="text" name="voorkeursperiode" required>
+
+          <label for="i-omschrijving">Omschrijf kort je situatie of vraag</label>
+          <textarea id="i-omschrijving" name="omschrijving" required
+                    placeholder="Vertel in een paar zinnen wat je zoekt, waar je staat of wat je nodig hebt."></textarea>
 
           <label for="i-verblijf">Verblijfslocatie</label>
           <input id="i-verblijf" type="text" name="verblijf">
@@ -381,12 +386,15 @@
 
       <div id="contact-panel" class="toggle-panel">
 
-        <!-- PURE HTML FORM -->
         <form
-          action="https://formspree.io/f/xgygeblo"
+          action="https://formspree.io/f/xldqevbj"
           method="POST"
           class="kimanzi-form"
         >
+          <!-- herkenning + redirect -->
+          <input type="hidden" name="formType" value="klant-contact">
+          <input type="hidden" name="_redirect" value="https://kimanzi.nl/bedankt.html">
+
           <label for="c-naam">Naam</label>
           <input id="c-naam" type="text" name="naam" required>
 
