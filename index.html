@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; form-action https://formspree.io; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; form-action https://formspree.io; img-src 'self' https://files.catbox.moe data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KIMANZI — Jouw hospitality agent in Kenia</title>
@@ -33,6 +33,7 @@
     a { color:var(--green); text-decoration:none; transition:.25s; }
     a:hover { opacity:.9; }
 
+    /* TOPNAV */
     .topnav {
       position:sticky;
       top:0;
@@ -48,6 +49,7 @@
     }
     .topnav a:hover { color:var(--orange); }
 
+    /* SIGNAL (alleen in topnav) */
     .signal-nav{
       margin-left:8px;
       font-weight:600;
@@ -57,6 +59,8 @@
     }
     .signal-nav:hover{ opacity:1; color:#0A7CFF; }
 
+
+    /* HERO */
     header {
       position:relative;
       overflow:hidden;
@@ -88,7 +92,6 @@
       position:relative;
       z-index:2;
     }
-
     header h1 {
       font-size:clamp(2rem,4vw,3rem);
       margin-bottom:10px;
@@ -100,6 +103,7 @@
       margin:10px 0 20px;
     }
 
+    /* BUTTON */
     .btn {
       display:inline-block;
       padding:12px 26px;
@@ -115,6 +119,7 @@
       color:var(--ink);
     }
 
+    /* LAYOUT */
     main {
       max-width:900px;
       margin:0 auto;
@@ -129,15 +134,98 @@
       box-shadow:var(--shadow);
     }
 
-    .inline-image{
-      display:block;
+    /* FORMS */
+    .kimanzi-form {
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      max-width:480px;
+      margin:10px auto 0;
+    }
+    .kimanzi-form label {
+      font-weight:500;
+      color:var(--muted);
+    }
+    .kimanzi-form input,
+    .kimanzi-form select,
+    .kimanzi-form textarea {
       width:100%;
-      height:auto;
-      margin:18px 0 22px;
+      padding:12px 14px;
       border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      border:1px solid #d6cbb7;
+      font-size:1rem;
+      background:#fff;
+    }
+    .kimanzi-form textarea {
+      min-height:110px;
+      resize:vertical;
+    }
+    .kimanzi-submit {
+      background:var(--green);
+      color:#fff;
+      padding:12px 20px;
+      border-radius:var(--radius);
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      width:max-content;
     }
 
+    /* TOGGLE PANELS */
+    .toggle-panel {
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .toggle-panel.open { max-height:1200px; }
+
+    .toggle-footer {
+      margin-top:10px;
+      font-size:.85rem;
+      color:var(--muted);
+      text-align:right;
+    }
+    .toggle-close {
+      background:none;
+      border:none;
+      font-size:.85rem;
+      color:var(--green);
+      text-decoration:underline;
+      cursor:pointer;
+    }
+
+    /* MEER WETEN */
+    .mw-item { margin-bottom:16px; }
+    .mw-toggle {
+      width:100%;
+      text-align:left;
+      background:var(--green);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:var(--radius);
+      border:none;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .mw-toggle:hover {
+      background:var(--orange);
+      color:var(--ink);
+    }
+    .mw-panel {
+      max-height:0;
+      overflow:hidden;
+      background:#fff;
+      border-radius:var(--radius);
+      padding:0 16px;
+      transition:max-height .3s ease, padding .3s ease;
+    }
+    .mw-panel.open {
+      padding:16px;
+      max-height:800px;
+    }
+
+    /* FOOTER */
     footer {
       background:var(--sand);
       padding:40px 20px 35px;
@@ -155,7 +243,18 @@
       opacity:.88;
       margin:0;
     }
-  </style>
+  
+    /* INLINE IMAGE (safe, no layout shift) */
+    .inline-image{
+      display:block;
+      width:100%;
+      height:auto;
+      margin:18px 0 22px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+</style>
 </head>
 
 <body>
@@ -166,12 +265,12 @@
     <a href="#meer-weten">Meer weten</a>
     <a href="#intake" data-open="intake">Intake</a>
     <a href="#contact" data-open="contact">Contact</a>
-    <a class="signal-nav" href="https://signal.me/#eu/jPhei3ZTNaLyCCoG10iCMC_kJaZaidg0YUAZWLVzFQpEwDQOSedIC4t7i39jhN7-" target="_blank" rel="noopener">Signal</a>
+    <a class="signal-nav" href="https://signal.me/#eu/jPhei3ZTNaLyCCoG10iCMC_kJaZaidg0YUAZWLVzFQpEwDQOSedIC4t7i39jhN7-" target="_blank" rel="noopener" aria-label="Contact via Signal">Signal</a>
   </nav>
 
   <header>
     <div class="hero-media">
-      <img src="hero.jpg" alt="Kimanzi hero" loading="lazy" />
+      <img src="https://files.catbox.moe/3tviml.jpg" alt="Kimanzi hero" loading="lazy" />
     </div>
     <div class="overlay"></div>
 
@@ -180,12 +279,283 @@
     <a class="btn" data-action="intake">Plan intake →</a>
   </header>
 
-  <!-- rest van de HTML is ongewijzigd -->
+  <main>
+
+    <section id="over" class="card">
+      <h2>Wie is Kimanzi</h2>
+      <p>Kimanzi is jouw hospitality begeleider voor een veilig en authentiek verblijf in Kenia. Geen reisbureau en geen touroperator. Gewoon mensen die de stad kennen en jou helpen landen zonder ruis.</p>
+      <p>Vanaf het moment dat je landt staat er iemand klaar die de weg kent en begrijpt waar je wel en beter niet moet zijn. Je boekt je eigen verblijf, wij zorgen dat de rest klopt. Geen social, geen tracking. Na je reis wordt je intake verwijderd.</p>
+      <p><strong>Per 15 januari 2026</strong> werken wij volledig zonder externe platforms en zonder dataopslag na afronding van je reis.</p>
+    </section>
+
+    <section id="diensten" class="card">
+      <h2>Diensten</h2>
+
+      
+      <img src="happychills.png" alt="Happy chills sfeerbeeld" class="inline-image" loading="lazy" />
+      <h3>SOLO — Zachte landing € 249</h3>
+      <p>Eendaagse begeleiding: ontvangst, veilig vervoer en kalme oriëntatie. Inclusief lichte maaltijd.</p>
+
+      <p>Ophaalservice tot 30 km inbegrepen; boven 30 km € 0,50 per km.</p>
+
+      <p>Late arrivals na 22.00 uur: toeslag € 40.</p>
+
+      <p>Accommodatie regel je zelf (bijv. via Airbnb die jij boekt).</p>
+
+      <h3>Adventure — Persoonlijke ervaring (3 dagen) € 599</h3>
+      <p>Drie dagen met je persoonlijke agent. Kleine uitstappen en discrete nightlife intro waar passend. Inclusief twee maaltijden per dag (geen alcohol).</p>
+
+      <p>Ophaalservice tot 30 km inbegrepen; boven 30 km € 0,50 per km.</p>
+
+      <p>Late arrivals na 22.00 uur: toeslag € 40.</p>
+
+      <p>Boodschappenservice mogelijk, we bespreken dit bij de intake.</p>
+      <p>Accommodatie door klant, wij adviseren waar nodig.</p>
+      <p>Add-on: Extra dag mogelijk voor € 95 (op Adventure).</p>
+    </section>
+
+    <section id="meer-weten" class="card">
+      <h2>Meer weten</h2>
+      <p>Korte uitleg. Klik op een onderwerp voor details.</p>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Voorbereiding</button>
+        <div class="mw-panel">
+          <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd omdat sommige locaties wachttijden hebben. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
+          <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger omdat veel vervoer, communicatie en betalingen via je telefoon lopen.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Reisverzekering en zorgverzekering</button>
+        <div class="mw-panel">
+          <p>Het is verstandig om voor vertrek een reisverzekering af te sluiten met dekking voor medische kosten. Controleer ook je zorgverzekering want niet alle pakketten vergoeden zorg in het buitenland. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Boekingen en vliegvelden</button>
+        <div class="mw-panel">
+          <p>Veel klanten vliegen graag vanaf Düsseldorf of Brussel omdat de prijzen soms gunstiger zijn. Beide luchthavens zijn het overwegen waard. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Weer en benodigdheden</button>
+        <div class="mw-panel">
+          <p>Een warme trui of vest is prettig omdat het in de vroege ochtend fris kan zijn, vooral in Nairobi. Tijdens de zomermaanden is een goede muggenspray en een klamboe verstandig om mee te nemen. Je agent kan je helpen met veilige lokale aankopen als dat nodig is.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Geldzaken</button>
+        <div class="mw-panel">
+          <p>In Kenia wordt veel betaald met M Pesa, het mobiele betaalsysteem. Je agent helpt je hiermee zodra je bent geland. Cash kan handig zijn maar wissel nooit op straat. Gebruik alleen erkende wisselpunten en laat je agent meekijken als je dat prettig vindt.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Praktische extra’s</button>
+        <div class="mw-panel">
+          <p>Een kleine zaklamp kan prettig zijn omdat niet alles altijd verlicht is. Soms valt de stroom uit. Een powerbank zorgt ervoor dat je bereikbaar blijft voor vervoer, navigatie en contact. Het zijn kleine dingen die je dag veel rustiger maken.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Fooien</button>
+        <div class="mw-panel">
+          <p>In Kenia wordt een fooi vriendelijk ontvangen. Je bent niets verplicht maar een kleine fooi wordt gewaardeerd door chauffeurs, serveersters en andere mensen die je onderweg helpen. Het is een vorm van respect die bij de cultuur hoort.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Gedrag en verwachtingen</button>
+        <div class="mw-panel">
+          <p>Wij gaan zorgvuldig en respectvol met jou om en verwachten dat jij dat ook doet. Je agent begeleidt je alsof je een gewaardeerde gast bent, niet als iemand die iets opeist. Uitstapjes, drankjes en andere persoonlijke uitgaven zijn voor jouw rekening. Het contact blijft vriendelijk, volwassen en wederzijds.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Geen chatbots en geen callcenters</button>
+        <div class="mw-panel">
+          <p>Kimanzi werkt niet met chatbots en niet met callcenters. Geen menu’s, geen wachtrijen en geen scripts. Je stuurt een bericht en wij reageren persoonlijk.</p>
+          <p>Kom je als gast in een situatie terecht waarin je denkt wat nu of je hebt een ongelukje gehad en extra hulp nodig, laat het ons weten. Wij kijken met je mee en doen wat we kunnen om je te helpen. Rustig, discreet en zonder ruis.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Onze agent</button>
+        <div class="mw-panel">
+          <p>Je agent is een zelfstandig ondernemer. Ze werkt met ons samen maar niet voor ons. Je merkt dat je te maken hebt met iemand die haar vak serieus neemt en die haar stad echt kent. Wij bieden structuur, veiligheid en discretie. Zij brengt persoonlijkheid en lokale kennis.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Veiligheid van onze agent</button>
+        <div class="mw-panel">
+          <p>Onze agent mag zich altijd terugtrekken als zij zich onveilig voelt of niet met respect wordt behandeld. Kimanzi staat volledig achter haar. Jij hebt recht op rust en veiligheid en zij ook. Zo blijft de samenwerking voor iedereen prettig en eerlijk.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="intake" class="card">
+      <h2>Intake</h2>
+      <p>Rustig en zonder druk. Vul in wat je weet. Na verzending nemen wij discreet contact met je op.</p>
+
+      <div id="intake-panel" class="toggle-panel">
+
+        <form
+          action="https://formspree.io/f/xldqevbj"
+          method="POST"
+          class="kimanzi-form"
+        >
+          <!-- herkenning + redirect -->
+          <input type="hidden" name="formType" value="klant-intake">
+          <input type="hidden" name="_redirect" value="https://kimanzi.nl/bedankt.html">
+
+          <label for="i-naam">Naam</label>
+          <input id="i-naam" type="text" name="naam" required>
+
+          <label for="i-telefoon">Telefoonnummer</label>
+          <input id="i-telefoon" type="tel" name="telefoon" required>
+
+          <label for="i-email">E-mail</label>
+          <input id="i-email" type="email" name="email" required>
+
+          <label for="i-dienst">Gekozen dienst</label>
+          <select id="i-dienst" name="dienst" required>
+            <option value="SOLO">SOLO</option>
+            <option value="ADVENTURE">ADVENTURE</option>
+          </select>
+
+          <label for="i-periode">Voorkeursperiode</label>
+          <input id="i-periode" type="text" name="voorkeursperiode" required>
+
+          <label for="i-omschrijving">Omschrijf kort je situatie of vraag</label>
+          <textarea id="i-omschrijving" name="omschrijving" required
+                    placeholder="Vertel in een paar zinnen wat je zoekt, waar je staat of wat je nodig hebt."></textarea>
+
+          <label for="i-verblijf">Verblijfslocatie</label>
+          <input id="i-verblijf" type="text" name="verblijf">
+
+          <label for="i-vlucht">Vluchtnummer</label>
+          <input id="i-vlucht" type="text" name="vluchtnummer">
+
+          <label for="i-datum">Aankomstdatum</label>
+          <input id="i-datum" type="date" name="aankomstdatum">
+
+          <label for="i-tijd">Aankomsttijd</label>
+          <input id="i-tijd" type="time" name="aankomsttijd">
+
+          <button type="submit" class="kimanzi-submit">Intake versturen</button>
+        </form>
+
+        <div class="toggle-footer">
+          <button class="toggle-close" data-close="intake">Sluiten</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>Rustig, persoonlijk en discreet. We reageren altijd.</p>
+
+      <div id="contact-panel" class="toggle-panel">
+
+        <form
+          action="https://formspree.io/f/xldqevbj"
+          method="POST"
+          class="kimanzi-form"
+        >
+          <!-- herkenning + redirect -->
+          <input type="hidden" name="formType" value="klant-contact">
+          <input type="hidden" name="_redirect" value="https://kimanzi.nl/bedankt.html">
+
+          <label for="c-naam">Naam</label>
+          <input id="c-naam" type="text" name="naam" required>
+
+          <label for="c-email">E-mail</label>
+          <input id="c-email" type="email" name="email" required>
+
+          <label for="c-telefoon">Telefoonnummer</label>
+          <input id="c-telefoon" type="tel" name="telefoon">
+
+          <label for="c-bericht">Bericht</label>
+          <textarea id="c-bericht" name="bericht" required></textarea>
+
+          <button type="submit" class="kimanzi-submit">Versturen</button>
+        </form>
+
+        <div class="toggle-footer">
+          <button class="toggle-close" data-close="contact">Sluiten</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    <img src="logo.jpg" alt="KIMANZI logo" loading="lazy" />
+    <img src="https://files.catbox.moe/yq7blc.png" alt="KIMANZI logo" loading="lazy" />
     <p>© KIMANZI — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
   </footer>
+
+  <script>
+    /* OPEN/CLOSE PANELS ONLY */
+    function openPanel(name) {
+      const panel = document.getElementById(name + "-panel");
+      if (panel) panel.classList.add("open");
+    }
+
+    function closePanel(name) {
+      const panel = document.getElementById(name + "-panel");
+      if (panel) panel.classList.remove("open");
+    }
+
+    document.querySelectorAll("[data-action='intake']").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        openPanel("intake");
+        document.getElementById("intake").scrollIntoView({ behavior:"smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-open='intake']").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        openPanel("intake");
+        document.getElementById("intake").scrollIntoView({ behavior:"smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-open='contact']").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        openPanel("contact");
+        document.getElementById("contact").scrollIntoView({ behavior:"smooth" });
+      });
+    });
+
+    document.querySelectorAll(".toggle-close").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-close");
+        closePanel(target);
+      });
+    });
+
+    /* TOGGLES MEER WETEN */
+    document.querySelectorAll(".mw-toggle").forEach(btn => {
+      const panel = btn.nextElementSibling;
+      btn.addEventListener("click", () => {
+        const wasOpen = panel.classList.contains("open");
+        if (wasOpen) {
+          panel.classList.remove("open");
+          return;
+        }
+        document.querySelectorAll(".mw-panel.open").forEach(p => p.classList.remove("open"));
+        panel.classList.add("open");
+      });
+    });
+  </script>
 
 </body>
 </html>
