@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="no-referrer" name="referrer"/>
+  <meta content="geolocation=(), microphone=(), camera=(), payment=(), usb=()" http-equiv="Permissions-Policy"/>
+  <meta content="DENY" http-equiv="X-Frame-Options"/>
+  <meta content="nosniff" http-equiv="X-Content-Type-Options"/>
+
+  <!-- ✅ Eén duidelijke CSP (geen dubbele/conflicterende CSP’s) -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 base-uri 'self';
+                 frame-ancestors 'none';
+                 form-action https://formspree.io;
+                 img-src 'self' https://files.catbox.moe data:;
+                 style-src 'self' 'unsafe-inline';
+                 script-src 'self';" />
+
+  <!-- (optioneel) HSTS: alleen zinvol als je dit op serverniveau ook goed hebt -->
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload"/>
+
+  <title>URBANCHILL — Jouw hospitality agent in Kenia</title>
+
+  <style>
+    :root {
+      --green: #2C4A34;
+      --orange: #C56428;
+      --sand: #F5E9D1;
+      --cream: #FFF9F0;
+      --ink: #2B2A26;
+      --muted: #5A6270;
+      --radius: 14px;
+      --shadow: 0 6px 16px rgba(0,0,0,.08);
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      margin:0;
+      background:var(--sand);
+      color:var(--ink);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      line-height:1.55;
+    }
+
+    h1,h2,h3 { margin-top:0; color:var(--green); }
+    a { color:var(--green); text-decoration:none; transition:.25s; }
+    a:hover { opacity:.9; }
+
+    /* TOPNAV */
+    .topnav {
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:var(--cream);
+      border-bottom:1px solid #E3D8BE;
+    }
+    .topnav a {
+      display:inline-block;
+      padding:14px 18px;
+      font-weight:600;
+      color:var(--green);
+    }
+    .topnav a:hover { color:var(--orange); }
+
+    /* SIGNAL (alleen in topnav) */
+    .signal-nav{
+      margin-left:8px;
+      font-weight:600;
+      color:#0A7CFF;
+      opacity:.85;
+      padding:14px 12px;
+    }
+    .signal-nav:hover{ opacity:1; color:#0A7CFF; }
+
+    /* HERO */
+    header {
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+      color:#fff;
+      padding:100px 20px 90px;
+    }
+    .hero-media {
+      position:absolute;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+    }
+    .hero-media img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.9);
+    }
+    .overlay {
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:linear-gradient(135deg, rgba(44,74,52,.80), rgba(44,74,52,.92));
+    }
+    header h1,
+    header p,
+    header .btn {
+      position:relative;
+      z-index:2;
+    }
+    header h1 {
+      font-size:clamp(2rem,4vw,3rem);
+      margin-bottom:10px;
+    }
+    header p.agent {
+      font-weight:600;
+      font-size:1.15rem;
+      color:var(--orange);
+      margin:10px 0 20px;
+    }
+
+    /* BUTTON */
+    .btn {
+      display:inline-block;
+      padding:12px 26px;
+      border-radius:10px;
+      font-weight:600;
+      background:var(--green);
+      color:#fff;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+    }
+    .btn:hover {
+      background:var(--orange);
+      color:var(--ink);
+    }
+
+    /* LAYOUT */
+    main {
+      max-width:900px;
+      margin:0 auto;
+      padding:50px 20px 80px;
+    }
+    section { margin-bottom:70px; }
+
+    .card {
+      background:var(--cream);
+      border-radius:var(--radius);
+      padding:32px;
+      box-shadow:var(--shadow);
+    }
+
+    /* FORMS (classes intern laten staan ivm JS/CSS koppeling) */
+    .kimanzi-form {
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      max-width:480px;
+      margin:10px auto 0;
+    }
+    .kimanzi-form label {
+      font-weight:500;
+      color:var(--muted);
+    }
+    .kimanzi-form input,
+    .kimanzi-form select,
+    .kimanzi-form textarea {
+      width:100%;
+      padding:12px 14px;
+      border-radius:var(--radius);
+      border:1px solid #d6cbb7;
+      font-size:1rem;
+      background:#fff;
+    }
+    .kimanzi-form textarea {
+      min-height:110px;
+      resize:vertical;
+    }
+    .kimanzi-submit {
+      background:var(--green);
+      color:#fff;
+      padding:12px 20px;
+      border-radius:var(--radius);
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      width:max-content;
+    }
+
+    /* TOGGLE PANELS */
+    .toggle-panel {
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .toggle-panel.open { max-height:1200px; }
+
+    .toggle-footer {
+      margin-top:10px;
+      font-size:.85rem;
+      color:var(--muted);
+      text-align:right;
+    }
+    .toggle-close {
+      background:none;
+      border:none;
+      font-size:.85rem;
+      color:var(--green);
+      text-decoration:underline;
+      cursor:pointer;
+    }
+
+    /* MEER WETEN */
+    .mw-item { margin-bottom:16px; }
+    .mw-toggle {
+      width:100%;
+      text-align:left;
+      background:var(--green);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:var(--radius);
+      border:none;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .mw-toggle:hover {
+      background:var(--orange);
+      color:var(--ink);
+    }
+    .mw-panel {
+      max-height:0;
+      overflow:hidden;
+      background:#fff;
+      border-radius:var(--radius);
+      padding:0 16px;
+      transition:max-height .3s ease, padding .3s ease;
+    }
+    .mw-panel.open {
+      padding:16px;
+      max-height:800px;
+    }
+
+    /* FOOTER */
+    footer {
+      background:var(--sand);
+      padding:40px 20px 35px;
+      border-top:2px solid var(--orange);
+    }
+    footer img {
+      max-width:225px;
+      object-fit:contain;
+      display:block;
+      margin:0 auto 14px;
+    }
+    footer p {
+      text-align:center;
+      font-size:.97rem;
+      opacity:.88;
+      margin:0;
+    }
+
+    /* INLINE IMAGE (safe, no layout shift) */
+    .inline-image{
+      display:block;
+      width:100%;
+      height:auto;
+      margin:18px 0 22px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="topnav">
+    <a href="#over">Wie is UrbanChill</a>
+    <a href="#diensten">Diensten</a>
+    <a href="#meer-weten">Meer weten</a>
+    <a data-open="intake" href="#intake">Intake</a>
+    <a data-open="contact" href="#contact">Contact</a>
+    <a aria-label="Contact via Signal" class="signal-nav"
+       href="https://signal.me/#eu/jPhei3ZTNaLyCCoG10iCMC_kJaZaidg0YUAZWLVzFQpEwDQOSedIC4t7i39jhN7-"
+       rel="noopener" target="_blank">Signal</a>
+  </nav>
+
+  <header>
+    <div class="hero-media">
+      <img alt="UrbanChill hero" loading="lazy" src="https://files.catbox.moe/3tviml.jpg"/>
+    </div>
+    <div class="overlay"></div>
+    <h1>UrbanChill. Rust, discretie en een zachte landing.</h1>
+    <p class="agent">Jouw hospitality agent staat klaar in Nairobi en Mombasa</p>
+    <a class="btn" data-action="intake">Plan intake →</a>
+  </header>
+
+  <main>
+    <section class="card" id="over">
+      <h2>Wie is UrbanChill</h2>
+      <p>UrbanChill is jouw hospitality begeleider voor een veilig en authentiek verblijf in Kenia. Geen reisbureau en geen touroperator. Gewoon mensen die de stad kennen en jou helpen landen zonder ruis.</p>
+      <p>Vanaf het moment dat je landt staat er iemand klaar die de weg kent en begrijpt waar je wel en beter niet moet zijn. Je boekt je eigen verblijf, wij zorgen dat de rest klopt. Geen social, geen tracking. Na je reis wordt je intake verwijderd.</p>
+      <p><strong>Per 15 januari 2026</strong> werken wij volledig zonder externe platforms en zonder dataopslag na afronding van je reis.</p>
+    </section>
+
+    <section class="card" id="diensten">
+      <h2>Diensten</h2>
+      <img alt="Happy chills sfeerbeeld" class="inline-image" loading="lazy" src="happychills.png"/>
+      <h3>SOLO — Zachte landing € 249</h3>
+      <p>Eendaagse begeleiding: ontvangst, veilig vervoer en kalme oriëntatie. Inclusief lichte maaltijd.</p>
+      <p>Ophaalservice tot 30 km inbegrepen; boven 30 km € 0,50 per km.</p>
+      <p>Late arrivals na 22.00 uur: toeslag € 40.</p>
+      <p>Accommodatie regel je zelf (bijv. via Airbnb die jij boekt).</p>
+
+      <h3>Adventure — Persoonlijke ervaring (3 dagen) € 599</h3>
+      <p>Drie dagen met je persoonlijke agent. Kleine uitstappen en discrete nightlife intro waar passend. Inclusief twee maaltijden per dag (geen alcohol).</p>
+      <p>Ophaalservice tot 30 km inbegrepen; boven 30 km € 0,50 per km.</p>
+      <p>Late arrivals na 22.00 uur: toeslag € 40.</p>
+      <p>Boodschappenservice mogelijk, we bespreken dit bij de intake.</p>
+      <p>Accommodatie door klant, wij adviseren waar nodig.</p>
+      <p>Add-on: Extra dag mogelijk voor € 95 (op Adventure).</p>
+    </section>
+
+    <section class="card" id="meer-weten">
+      <h2>Meer weten</h2>
+      <p>Korte uitleg. Klik op een onderwerp voor details.</p>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Voorbereiding</button>
+        <div class="mw-panel">
+          <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd omdat sommige locaties wachttijden hebben. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
+          <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger omdat veel vervoer, communicatie en betalingen via je telefoon lopen.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Reisverzekering en zorgverzekering</button>
+        <div class="mw-panel">
+          <p>Het is verstandig om voor vertrek een reisverzekering af te sluiten met dekking voor medische kosten. Controleer ook je zorgverzekering want niet alle pakketten vergoeden zorg in het buitenland. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Boekingen en vliegvelden</button>
+        <div class="mw-panel">
+          <p>Veel klanten vliegen graag vanaf Düsseldorf of Brussel omdat de prijzen soms gunstiger zijn. Beide luchthavens zijn het overwegen waard. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Weer en benodigdheden</button>
+        <div class="mw-panel">
+          <p>Een warme trui of vest is prettig omdat het in de vroege ochtend fris kan zijn, vooral in Nairobi. Tijdens de zomermaanden is een goede muggenspray en een klamboe verstandig om mee te nemen. Je agent kan je helpen met veilige lokale aankopen als dat nodig is.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Geldzaken</button>
+        <div class="mw-panel">
+          <p>In Kenia wordt veel betaald met M Pesa, het mobiele betaalsysteem. Je agent helpt je hiermee zodra je bent geland. Cash kan handig zijn maar wissel nooit op straat. Gebruik alleen erkende wisselpunten en laat je agent meekijken als je dat prettig vindt.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Praktische extra’s</button>
+        <div class="mw-panel">
+          <p>Een kleine zaklamp kan prettig zijn omdat niet alles altijd verlicht is. Soms valt de stroom uit. Een powerbank zorgt ervoor dat je bereikbaar blijft voor vervoer, navigatie en contact. Het zijn kleine dingen die je dag veel rustiger maken.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Fooien</button>
+        <div class="mw-panel">
+          <p>In Kenia wordt een fooi vriendelijk ontvangen. Je bent niets verplicht maar een kleine fooi wordt gewaardeerd door chauffeurs, serveersters en andere mensen die je onderweg helpen. Het is een vorm van respect die bij de cultuur hoort.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Gedrag en verwachtingen</button>
+        <div class="mw-panel">
+          <p>Wij gaan zorgvuldig en respectvol met jou om en verwachten dat jij dat ook doet. Je agent begeleidt je alsof je een gewaardeerde gast bent, niet als iemand die iets opeist. Uitstapjes, drankjes en andere persoonlijke uitgaven zijn voor jouw rekening. Het contact blijft vriendelijk, volwassen en wederzijds.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Geen chatbots en geen callcenters</button>
+        <div class="mw-panel">
+          <p>UrbanChill werkt niet met chatbots en niet met callcenters. Geen menu’s, geen wachtrijen en geen scripts. Je stuurt een bericht en wij reageren persoonlijk.</p>
+          <p>Kom je als gast in een situatie terecht waarin je denkt wat nu of je hebt een ongelukje gehad en extra hulp nodig, laat het ons weten. Wij kijken met je mee en doen wat we kunnen om je te helpen. Rustig, discreet en zonder ruis.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Onze agent</button>
+        <div class="mw-panel">
+          <p>Je agent is een zelfstandig ondernemer. Ze werkt met ons samen maar niet voor ons. Je merkt dat je te maken hebt met iemand die haar vak serieus neemt en die haar stad echt kent. Wij bieden structuur, veiligheid en discretie. Zij brengt persoonlijkheid en lokale kennis.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle">Veiligheid van onze agent</button>
+        <div class="mw-panel">
+          <p>Onze agent mag zich altijd terugtrekken als zij zich onveilig voelt of niet met respect wordt behandeld. UrbanChill staat volledig achter haar. Jij hebt recht op rust en veiligheid en zij ook. Zo blijft de samenwerking voor iedereen prettig en eerlijk.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="intake">
+      <h2>Intake</h2>
+      <p>Rustig en zonder druk. Vul in wat je weet. Na verzending nemen wij discreet contact met je op.</p>
+
+      <div class="toggle-panel" id="intake-panel">
+        <form action="https://formspree.io/f/xldqevbj" class="kimanzi-form" method="POST">
+          <!-- herkenning + redirect -->
+          <input name="formType" type="hidden" value="klant-intake"/>
+          <input name="_redirect" type="hidden" value="https://kimanzi.nl/bedankt.html"/>
+
+          <label for="i-naam">Naam</label>
+          <input id="i-naam" name="naam" required="" type="text"/>
+
+          <label for="i-telefoon">Telefoonnummer</label>
+          <input id="i-telefoon" name="telefoon" required="" type="tel"/>
+
+          <label for="i-email">E-mail</label>
+          <input id="i-email" name="email" required="" type="email"/>
+
+          <label for="i-dienst">Gekozen dienst</label>
+          <select id="i-dienst" name="dienst" required="">
+            <option value="SOLO">SOLO</option>
+            <option value="ADVENTURE">ADVENTURE</option>
+          </select>
+
+          <label for="i-periode">Voorkeursperiode</label>
+          <input id="i-periode" name="voorkeursperiode" required="" type="text"/>
+
+          <label for="i-omschrijving">Omschrijf kort je situatie of vraag</label>
+          <textarea id="i-omschrijving" name="omschrijving"
+                    placeholder="Vertel in een paar zinnen wat je zoekt, waar je staat of wat je nodig hebt."
+                    required=""></textarea>
+
+          <label for="i-verblijf">Verblijfslocatie</label>
+          <input id="i-verblijf" name="verblijf" type="text"/>
+
+          <label for="i-vlucht">Vluchtnummer</label>
+          <input id="i-vlucht" name="vluchtnummer" type="text"/>
+
+          <label for="i-datum">Aankomstdatum</label>
+          <input id="i-datum" name="aankomstdatum" type="date"/>
+
+          <label for="i-tijd">Aankomsttijd</label>
+          <input id="i-tijd" name="aankomsttijd" type="time"/>
+
+          <button class="kimanzi-submit" type="submit">Intake versturen</button>
+        </form>
+
+        <div class="toggle-footer">
+          <button class="toggle-close" data-close="intake">Sluiten</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="contact">
+      <h2>Contact</h2>
+      <p>Rustig, persoonlijk en discreet. We reageren altijd.</p>
+
+      <div class="toggle-panel" id="contact-panel">
+        <form action="https://formspree.io/f/xldqevbj" class="kimanzi-form" method="POST">
+          <!-- herkenning + redirect -->
+          <input name="formType" type="hidden" value="klant-contact"/>
+          <input name="_redirect" type="hidden" value="https://kimanzi.nl/bedankt.html"/>
+
+          <label for="c-naam">Naam</label>
+          <input id="c-naam" name="naam" required="" type="text"/>
+
+          <label for="c-email">E-mail</label>
+          <input id="c-email" name="email" required="" type="email"/>
+
+          <label for="c-telefoon">Telefoonnummer</label>
+          <input id="c-telefoon" name="telefoon" type="tel"/>
+
+          <label for="c-bericht">Bericht</label>
+          <textarea id="c-bericht" name="bericht" required=""></textarea>
+
+          <button class="kimanzi-submit" type="submit">Versturen</button>
+        </form>
+
+        <div class="toggle-footer">
+          <button class="toggle-close" data-close="contact">Sluiten</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img alt="URBANCHILL logo" loading="lazy" src="https://files.catbox.moe/yq7blc.png"/>
+    <p>© URBANCHILL — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
+  </footer>
+
+  <script defer="" src="main.js"></script>
+</body>
+</html>
