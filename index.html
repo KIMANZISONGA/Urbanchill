@@ -11,16 +11,16 @@
   <!-- Vindbaarheid, zonder ruis -->
   <meta name="description" content="UrbanChill helpt zelfstandige professionals en remote workers bij tijdelijk leven en werken in Nairobi. Persoonlijke lokale begeleiding, veilige landing en rust zonder communities, tracking of ruis.">
 
-  <!-- Privacy-first CSP + Formspree submit + fetch -->
+  <!-- Privacy-first CSP (Formspree werkt via form-action + soms api) -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  base-uri 'self';
                  frame-ancestors 'none';
-                 form-action https://formspree.io;
+                 form-action https://formspree.io https://api.formspree.io;
                  connect-src 'self' https://formspree.io https://api.formspree.io;
                  img-src 'self' https://files.catbox.moe data:;
                  style-src 'self' 'unsafe-inline';
-                 script-src 'self';" />
+                 script-src 'self' 'unsafe-inline';" />
 
   <title>UrbanChill — Tijdelijk verblijf en werken in Kenia, discreet begeleid</title>
 
@@ -203,10 +203,6 @@
       font-weight:600;
       width:max-content;
     }
-    .kimanzi-submit:disabled{
-      opacity:.65;
-      cursor:not-allowed;
-    }
 
     /* TOGGLE PANELS */
     .toggle-panel {
@@ -214,7 +210,7 @@
       overflow:hidden;
       transition:max-height .3s ease;
     }
-    .toggle-panel.open { max-height:2000px; }
+    .toggle-panel.open { max-height:2200px; }
 
     .toggle-footer {
       margin-top:10px;
@@ -262,7 +258,7 @@
       max-height:900px;
     }
 
-    /* LISTS (diensten + remote work) */
+    /* LISTS */
     .bullets{
       margin:10px 0 18px;
       padding-left:18px;
@@ -271,9 +267,7 @@
       margin:6px 0;
       color:var(--ink);
     }
-    .muted{
-      color:var(--muted);
-    }
+    .muted{ color:var(--muted); }
 
     /* FOOTER */
     footer {
@@ -338,11 +332,11 @@
       <p class="muted">Alles is gericht op één ding: rust en continuïteit. Praktisch, discreet en zonder ruis. Je bepaalt zelf hoeveel begeleiding je prettig vindt.</p>
 
       <h3>SOLO — Professionele landing € 249</h3>
-      <p>Eendaagse begeleiding voor een kalme start. Ideaal als je aankomt en meteen een betrouwbare basis wilt: veilig vervoer, korte oriëntatie en iemand die de lokale “do’s en don’ts” kent.</p>
+      <p>Eendaagse begeleiding voor een kalme start. Ideaal als je aankomt en meteen een betrouwbare basis wilt: veilig vervoer, korte oriëntatie en iemand die de lokale do’s en don’ts kent.</p>
       <ul class="bullets">
         <li>Ontvangst en veilig vervoer naar je verblijf</li>
         <li>Korte, rustige oriëntatie (praktisch, geen toer)</li>
-        <li>Hulp met basiszaken waar nodig (bijv. simkaart, M-Pesa, veilige routes)</li>
+        <li>Hulp met basiszaken waar nodig (bijv. simkaart, M Pesa, veilige routes)</li>
         <li>Inclusief lichte maaltijd</li>
       </ul>
       <p>Ophaalservice tot 30 km inbegrepen; boven 30 km € 0,50 per km.</p>
@@ -382,97 +376,40 @@
       <p>Korte uitleg. Klik op een onderwerp voor details.</p>
 
       <div class="mw-item">
-        <button class="mw-toggle">Voorbereiding</button>
+        <button class="mw-toggle" type="button">Voorbereiding</button>
         <div class="mw-panel">
-          <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd omdat sommige locaties wachttijden hebben. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
-          <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger omdat veel vervoer, communicatie en betalingen via je telefoon lopen.</p>
+          <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
+          <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger.</p>
         </div>
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle">Reisverzekering en zorgverzekering</button>
+        <button class="mw-toggle" type="button">Reisverzekering en zorgverzekering</button>
         <div class="mw-panel">
-          <p>Het is verstandig om voor vertrek een reisverzekering af te sluiten met dekking voor medische kosten. Controleer ook je zorgverzekering want niet alle pakketten vergoeden zorg in het buitenland. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
+          <p>Sluit een reisverzekering af met dekking voor medische kosten. Check ook je zorgverzekering. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
         </div>
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle">Boekingen en vliegvelden</button>
+        <button class="mw-toggle" type="button">Boekingen en vliegvelden</button>
         <div class="mw-panel">
-          <p>Veel klanten vliegen graag vanaf Düsseldorf of Brussel omdat de prijzen soms gunstiger zijn. Beide luchthavens zijn het overwegen waard. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
+          <p>Veel klanten vliegen vanaf Düsseldorf of Brussel. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
         </div>
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle">Remote werken</button>
+        <button class="mw-toggle" type="button">Remote werken</button>
         <div class="mw-panel">
           <p>Als je (deels) vanuit Kenia werkt, helpt het om je basis simpel en betrouwbaar te houden. Denk aan rust, bereikbaarheid en een voorspelbaar dagritme.</p>
           <p><strong>UrbanChill helpt je bij tijdelijk werken in Nairobi</strong> door je basis rustig, veilig en praktisch op orde te krijgen.</p>
           <p><strong>Praktische tips:</strong></p>
           <ul class="bullets">
-            <li>Neem een powerbank en een tweede oplader mee. Je telefoon is vaak je sleutel tot vervoer, communicatie en betalingen.</li>
-            <li>Plan je belangrijke calls op vaste momenten. In Nairobi kan het vroeg fris zijn; later op de dag loopt de stad sneller vol.</li>
-            <li>Werk bij voorkeur met je eigen data-abonnement of een lokale sim (je agent kan helpen met een veilige setup).</li>
+            <li>Neem een powerbank en een tweede oplader mee.</li>
+            <li>Plan je belangrijke calls op vaste momenten.</li>
+            <li>Werk met je eigen data of een lokale sim (veilig opgezet).</li>
             <li>Houd je werkplek rustig: liever één betrouwbare plek dan telkens wisselen.</li>
           </ul>
           <p class="muted">We houden het praktisch. Jij blijft zelfstandig; wij helpen met lokale zekerheid als dat prettig is.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Weer en benodigdheden</button>
-        <div class="mw-panel">
-          <p>Een warme trui of vest is prettig omdat het in de vroege ochtend fris kan zijn, vooral in Nairobi. Tijdens de zomermaanden is een goede muggenspray en een klamboe verstandig om mee te nemen. Je agent kan je helpen met veilige lokale aankopen als dat nodig is.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Geldzaken</button>
-        <div class="mw-panel">
-          <p>In Kenia wordt veel betaald met M Pesa, het mobiele betaalsysteem. Je agent helpt je hiermee zodra je bent geland. Cash kan handig zijn maar wissel nooit op straat. Gebruik alleen erkende wisselpunten en laat je agent meekijken als je dat prettig vindt.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Praktische extra’s</button>
-        <div class="mw-panel">
-          <p>Een kleine zaklamp kan prettig zijn omdat niet alles altijd verlicht is. Soms valt de stroom uit. Een powerbank zorgt ervoor dat je bereikbaar blijft voor vervoer, navigatie en contact. Het zijn kleine dingen die je dag veel rustiger maken.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Fooien</button>
-        <div class="mw-panel">
-          <p>In Kenia wordt een fooi vriendelijk ontvangen. Je bent niets verplicht maar een kleine fooi wordt gewaardeerd door chauffeurs, serveersters en andere mensen die je onderweg helpen. Het is een vorm van respect die bij de cultuur hoort.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Gedrag en verwachtingen</button>
-        <div class="mw-panel">
-          <p>Wij gaan zorgvuldig en respectvol met jou om en verwachten dat jij dat ook doet. Je agent begeleidt je alsof je een gewaardeerde gast bent, niet als iemand die iets opeist. Het contact blijft vriendelijk, volwassen en wederzijds.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Geen chatbots en geen callcenters</button>
-        <div class="mw-panel">
-          <p>UrbanChill werkt niet met chatbots en niet met callcenters. Geen menu’s, geen wachtrijen en geen scripts. Je stuurt een bericht en wij reageren persoonlijk.</p>
-          <p>Kom je als gast in een situatie terecht waarin je denkt wat nu of je hebt een ongelukje gehad en extra hulp nodig, laat het ons weten. Wij kijken met je mee en doen wat we kunnen om je te helpen. Rustig, discreet en zonder ruis.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Onze agent</button>
-        <div class="mw-panel">
-          <p>Je agent is een zelfstandig ondernemer. Ze werkt met ons samen maar niet voor ons. Je merkt dat je te maken hebt met iemand die haar vak serieus neemt en die haar stad echt kent. Wij bieden structuur, veiligheid en discretie. Zij brengt persoonlijkheid en lokale kennis.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle">Veiligheid van onze agent</button>
-        <div class="mw-panel">
-          <p>Onze agent mag zich altijd terugtrekken als zij zich onveilig voelt of niet met respect wordt behandeld. UrbanChill staat volledig achter haar. Jij hebt recht op rust en veiligheid en zij ook. Zo blijft de samenwerking voor iedereen prettig en eerlijk.</p>
         </div>
       </div>
     </section>
@@ -524,14 +461,8 @@
           <button class="kimanzi-submit" type="submit">Intake versturen</button>
         </form>
 
-        <div class="card" id="intake-thanks" style="display:none; margin-top:18px;">
-          <h3>Ontvangen</h3>
-          <p>Je intake is goed aangekomen. We nemen dit rustig door en komen persoonlijk bij je terug.</p>
-          <a class="btn" href="#over">Terug naar boven</a>
-        </div>
-
         <div class="toggle-footer">
-          <button class="toggle-close" data-close="intake">Sluiten</button>
+          <button class="toggle-close" data-close="intake" type="button">Sluiten</button>
         </div>
       </div>
     </section>
@@ -560,14 +491,8 @@
           <button class="kimanzi-submit" type="submit">Versturen</button>
         </form>
 
-        <div class="card" id="contact-thanks" style="display:none; margin-top:18px;">
-          <h3>Ontvangen</h3>
-          <p>Je bericht is goed aangekomen. We reageren persoonlijk en discreet.</p>
-          <a class="btn" href="#over">Terug naar boven</a>
-        </div>
-
         <div class="toggle-footer">
-          <button class="toggle-close" data-close="contact">Sluiten</button>
+          <button class="toggle-close" data-close="contact" type="button">Sluiten</button>
         </div>
       </div>
     </section>
@@ -578,6 +503,58 @@
     <p>© UrbanChill — Privacy first. Geen cookies. Geen tracking. Geen social.</p>
   </footer>
 
-  <script defer src="main.js"></script>
+  <script>
+    // Toggling only. No form hijack. No fetch. No "connection" alerts.
+
+    function openPanel(name) {
+      const panel = document.getElementById(name + "-panel");
+      if (panel) panel.classList.add("open");
+    }
+
+    function closePanel(name) {
+      const panel = document.getElementById(name + "-panel");
+      if (panel) panel.classList.remove("open");
+    }
+
+    document.querySelectorAll("[data-action='intake']").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        openPanel("intake");
+        document.getElementById("intake")?.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-open='intake']").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        openPanel("intake");
+        document.getElementById("intake")?.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll("[data-open='contact']").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        openPanel("contact");
+        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll(".toggle-close").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-close");
+        if (target) closePanel(target);
+      });
+    });
+
+    document.querySelectorAll(".mw-toggle").forEach(btn => {
+      const panel = btn.nextElementSibling;
+      btn.addEventListener("click", () => {
+        const isOpen = panel?.classList.contains("open");
+        document.querySelectorAll(".mw-panel.open").forEach(p => p.classList.remove("open"));
+        if (!isOpen) panel?.classList.add("open");
+      });
+    });
+  </script>
 </body>
 </html>
