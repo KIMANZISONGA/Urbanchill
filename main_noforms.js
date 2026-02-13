@@ -1,15 +1,19 @@
-// main_noforms.js — UrbanChill (mailto submit) — to: info@kimanzi.nl
+// main_noforms_v2.js — UrbanChill (mailto submit) — to: info@kimanzi.nl
 (() => {
   "use strict";
 
   const EMAIL_TO = "info@kimanzi.nl";
 
-  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+  const $$ = (selector, root = document) =>
+    Array.from(root.querySelectorAll(selector));
 
   function smoothScroll(el) {
     if (!el) return;
-    try { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
-    catch { el.scrollIntoView(); }
+    try {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch {
+      el.scrollIntoView();
+    }
   }
 
   function openPanel(name) {
@@ -63,7 +67,9 @@
   }
 
   // --- Mailto helpers ---
-  function encode(str) { return encodeURIComponent((str ?? "").toString()); }
+  function encode(str) {
+    return encodeURIComponent((str ?? "").toString());
+  }
 
   function formToLines(form) {
     const fields = form.querySelectorAll("input, textarea, select");
@@ -121,14 +127,19 @@
         // Mailto instead of POST
         e.preventDefault();
 
+        const today = new Date().toISOString().slice(0, 10);
+
         const formType = (form.querySelector("input[name='formType']")?.value || "").trim();
         const subject =
-          formType === "klant-intake" ? "UrbanChill intake" :
-          formType === "klant-contact" ? "UrbanChill contact" :
-          "UrbanChill bericht";
+          formType === "klant-intake"
+            ? `UrbanChill intake — ${today}`
+            : formType === "klant-contact"
+              ? `UrbanChill contact — ${today}`
+              : `UrbanChill bericht — ${today}`;
 
         const body =
-          "Nieuw bericht via urbanchill.nl\n\n" +
+          "Nieuw bericht via urbanchill.nl\n" +
+          `Pagina: ${window.location.href}\n\n` +
           formToLines(form) +
           "\n\n—";
 
