@@ -1,4 +1,4 @@
-// main.js — UrbanChill (mailto submit) — to: info@kimanzi.nl
+// main_noforms.js — UrbanChill (mailto submit) — to: info@kimanzi.nl
 (() => {
   "use strict";
 
@@ -8,11 +8,8 @@
 
   function smoothScroll(el) {
     if (!el) return;
-    try {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    } catch {
-      el.scrollIntoView();
-    }
+    try { el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+    catch { el.scrollIntoView(); }
   }
 
   function openPanel(name) {
@@ -66,9 +63,7 @@
   }
 
   // --- Mailto helpers ---
-  function encode(str) {
-    return encodeURIComponent((str ?? "").toString());
-  }
+  function encode(str) { return encodeURIComponent((str ?? "").toString()); }
 
   function formToLines(form) {
     const fields = form.querySelectorAll("input, textarea, select");
@@ -78,7 +73,7 @@
       const name = (el.getAttribute("name") || el.getAttribute("id") || "").trim();
       if (!name) return;
 
-      // skip honeypot fields
+      // Skip honeypot + timing fields
       if (name === "company_website") return;
       if (name === "form_load_time") return;
 
@@ -100,21 +95,20 @@
     window.location.href = href;
   }
 
-  // --- Anti-spam + submit behavior ---
   function wireFormsMailto() {
     $$("form").forEach((form) => {
       const timeField = form.querySelector("input[name='form_load_time']");
       if (timeField) timeField.value = String(Date.now());
 
       form.addEventListener("submit", (e) => {
-        // honeypot
+        // Honeypot
         const hp = form.querySelector("input[name='company_website']");
         if (hp && hp.value.trim().length > 0) {
           e.preventDefault();
           return;
         }
 
-        // min time on page (2s)
+        // Minimum 2s on page (simple bot filter)
         const start = parseInt(timeField?.value || "0", 10);
         if (Number.isFinite(start)) {
           const elapsed = Date.now() - start;
@@ -124,7 +118,7 @@
           }
         }
 
-        // Create mail draft instead of POST
+        // Mailto instead of POST
         e.preventDefault();
 
         const formType = (form.querySelector("input[name='formType']")?.value || "").trim();
