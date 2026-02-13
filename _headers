@@ -1,3 +1,7 @@
+# =========================
+# GLOBAL SECURITY HEADERS
+# =========================
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -6,7 +10,14 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+*/
 
+
+# =========================
+# DEFAULT CSP (STRONG)
+# =========================
+
+/*
   Content-Security-Policy:
     default-src 'self';
     script-src 'self';
@@ -20,3 +31,22 @@
     form-action 'none';
     upgrade-insecure-requests;
 */
+
+
+# =========================
+# BEDANKT PAGE (FUTURE FLEX)
+# =========================
+
+/bedankt.html
+  Content-Security-Policy:
+    default-src 'self';
+    script-src 'self';
+    style-src 'self';
+    img-src 'self' data:;
+    font-src 'self';
+    connect-src 'self';
+    base-uri 'self';
+    frame-ancestors 'none';
+    object-src 'none';
+    form-action 'none';
+    upgrade-insecure-requests;
