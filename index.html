@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-
 <html lang="nl">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="no-referrer" name="referrer">
-<meta content="geolocation=(), microphone=(), camera=(), payment=(), usb=()" http-equiv="Permissions-Policy"/>
-<meta content="DENY" http-equiv="X-Frame-Options"/>
-<meta content="nosniff" http-equiv="X-Content-Type-Options"/>
-<!-- Vindbaarheid, zonder ruis -->
-<meta content="UrbanChill helpt zelfstandige professionals en remote workers bij tijdelijk leven en werken in Nairobi. Persoonlijke lokale begeleiding, veilige landing en rust zonder communities, tracking of ruis." name="description"/>
-<!-- Privacy-first CSP (Formspree werkt via form-action + soms api) -->
-<title>UrbanChill — Tijdelijk verblijf en werken in Kenia, discreet begeleid</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="description" content="UrbanChill helpt zelfstandige professionals en remote workers bij tijdelijk leven en werken in Nairobi. Persoonlijke lokale begeleiding, veilige landing en rust zonder communities, tracking of ruis." />
 
-</meta>
+  <title>UrbanChill — De ideale start. Nairobi, your way.</title>
 
-
-
-
-<link rel="stylesheet" href="styles.css">
+  <!--
+    Security headers (CSP, HSTS, XFO, etc.) horen via Netlify _headers
+    en niet via <meta http-equiv>.
+  -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <nav class="topnav">
@@ -32,16 +26,14 @@
 </nav>
 <header>
 <div class="hero-media">
-
+  <img src="hero.jpg" alt="UrbanChill hero" loading="eager" decoding="async"/>
 </div>
 <div class="overlay"></div>
-<h1><span class="brand">UrbanChill</span><span class="headline">,de ideale start. Nairobi, your way.</span></h1>
+<h1><span class="brand">UrbanChill</span><span class="headline">De ideale start. Nairobi, your way.</span></h1>
 <p class="sub">Veilige landing en lokale zekerheid voor zelfstandigen, zakenreizigers en remote workers.</p>
 <p class="microcopy-hero">Kom aan. Regelloos. Werk door.</p>
 </header>
-<div aria-hidden="false" class="attitude">
-<p class="attitude-line"></p>
-</div>
+
 <main>
 <section class="intro-block">
 <div class="wrap">
@@ -237,20 +229,11 @@ Geen betaalde form service: na invullen klik je op “Verstuur” en er opent ee
   <p><strong>Geen community. Geen platforms. Geen ruis.</strong></p>
 </section>
 
-<footer>
-
-<p>© UrbanChill — De ideale start. Nairobi, your way.Privacy first. Geen cookies. Geen tracking. Geen social.</p>
-
-
-
-</footer>
-
-
 
 <footer class="uc-footer"><div class="footer-inner"><img src="urbanchill-logo.png" 
          alt="UrbanChill" 
          class="footer-logo"><div class="footer-rule"></div><p class="footer-loc">Nairobi · Kenya</p><p class="footer-copy">© UrbanChill — De ideale start. Nairobi, your way.</p></div></footer>
 
-<script src="main_noforms_v2.js" defer></script>
+<script src="main_noforms.js" defer></script>
 </body>
 </html>
