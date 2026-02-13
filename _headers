@@ -1,22 +1,14 @@
-/*
+# =========================================
+# UrbanChill / Kimanzi — Security Headers v2
+# =========================================
 
-  # Baseline security
+/*
   X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()
-
-  # HTTPS hardening
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-
-  # Cross-origin (veilig, zonder je site te breken)
   Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
 
-  # CSP (no forms, local assets only)
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; form-action 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; upgrade-insecure-requests
-
-/bedankt.html
-
-  # Zelfde CSP, future-proof apart pad
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; form-action 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; upgrade-insecure-requests
+  # CSP (STRONG)
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests; block-all-mixed-content; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'
