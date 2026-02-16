@@ -8,178 +8,7 @@
   <title>UrbanChill — De ideale start. Nairobi, your way.</title>
   <meta name="description" content="UrbanChill helpt zelfstandige professionals, zakenreizigers en remote workers bij tijdelijk leven en werken in Nairobi. Veilige landing, lokale zekerheid, discretie. Privacy-first: geen tracking, geen social, geen ruis.">
 
-  <style>
-    :root{
-      --bg:#0f1115;--text:#e8e8ea;--muted:#b7bac6;--brand:#A34F2E;--accent:#D4AF37;
-      --line:rgba(255,255,255,.10);--radius:18px;--shadow:0 12px 30px rgba(0,0,0,.35);--max:1040px
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:
-        radial-gradient(1100px 700px at 20% 0%,rgba(163,79,46,.35),transparent 60%),
-        radial-gradient(900px 600px at 85% 10%,rgba(212,175,55,.22),transparent 55%),
-        radial-gradient(1000px 700px at 50% 115%,rgba(85,107,47,.22),transparent 55%),
-        var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
-    a{color:inherit}
-    .wrap{max-width:var(--max);margin:0 auto;padding:24px 20px 60px}
-
-    /* NAV */
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(10px);background:rgba(15,17,21,.72);border-bottom:1px solid var(--line)}
-    .nav-inner{max-width:var(--max);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
-    .logo{display:flex;align-items:center;gap:10px;min-width:180px;font-weight:800;letter-spacing:.2px}
-    .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(212,175,55,.85));box-shadow:0 10px 22px rgba(0,0,0,.35)}
-    .nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
-    .nav-links a{cursor:pointer;text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:12px}
-    .nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
-    @media (max-width:920px){
-      .nav-inner{gap:10px}
-      .logo{min-width:unset}
-    }
-
-    /* UI */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-weight:700;cursor:pointer}
-    .btn:hover{background:rgba(255,255,255,.10)}
-    .btn.primary{background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(163,79,46,.78));border-color:rgba(163,79,46,.55);box-shadow:0 14px 28px rgba(163,79,46,.22)}
-    .btn.primary:hover{filter:brightness(1.05)}
-    .btn.ghost{background:transparent}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-
-    .card{background:rgba(21,24,36,.72);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .grid{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:18px}
-    .col-12{grid-column:span 12}
-    .col-6{grid-column:span 6}
-    @media (max-width:860px){.col-6{grid-column:span 12}}
-    .section{padding:18px}
-    h1{margin:0 0 10px;font-size:40px;line-height:1.05}
-    h2{margin:0 0 10px;font-size:22px}
-    h3{margin:0 0 10px;font-size:18px}
-    p{margin:0 0 12px}
-    .muted{color:var(--muted)}
-    .fine{font-size:13px;color:var(--muted)}
-    .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 18px}
-    .pill{border:1px solid var(--line);background:rgba(255,255,255,.05);padding:8px 10px;border-radius:999px;color:var(--muted);font-size:13px}
-
-    /* HERO */
-    .hero{padding:34px 0 8px;display:grid;gap:18px;grid-template-columns:1.2fr .8fr;align-items:stretch}
-    @media (max-width:920px){.hero{grid-template-columns:1fr}}
-    .hero-left{padding:26px}
-    .sub{margin:0 0 18px;color:var(--muted);font-size:16px;max-width:64ch}
-    .hero-right{padding:18px;display:flex;flex-direction:column;gap:12px}
-    .mini{padding:14px;background:rgba(0,0,0,.14);border:1px solid var(--line);border-radius:16px}
-    .mini strong{display:block;margin-bottom:6px}
-    .mini p{margin:0;color:var(--muted);font-size:14px}
-
-    /* LIST */
-    .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
-    .list li{display:flex;gap:10px;align-items:flex-start;color:var(--muted)}
-    .dot{width:10px;height:10px;border-radius:999px;background:rgba(212,175,55,.9);margin-top:6px;flex:0 0 auto;box-shadow:0 0 0 4px rgba(212,175,55,.15)}
-    .bullets{margin:10px 0 0 18px;color:var(--muted)}
-    .bullets li{margin:6px 0}
-
-    /* SERVICES */
-    .pricing{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:8px}
-    .price-card{grid-column:span 6;padding:18px}
-    @media (max-width:860px){.price-card{grid-column:span 12}}
-    .price-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-    .price{font-size:26px;font-weight:900;color:var(--text)}
-    .service-details{margin-top:12px}
-    .details-box{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04);padding:12px}
-    .details-box details{border:0;background:transparent;padding:0}
-    .details-box summary{cursor:pointer;font-weight:800;list-style:none}
-    .details-box summary::-webkit-details-marker{display:none}
-    .details-box .muted{margin-top:10px}
-    .details-box .bullets{margin-top:8px}
-
-    /* HOW */
-    .how{display:grid;gap:10px;margin-top:6px}
-    .step{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
-    .num{width:28px;height:28px;border-radius:12px;background:rgba(163,79,46,.24);border:1px solid rgba(163,79,46,.45);display:flex;align-items:center;justify-content:center;font-weight:900;color:rgba(255,255,255,.9);flex:0 0 auto}
-    .step p{margin:0;color:var(--muted)}
-
-    /* PRAKTISCHE INFO ACCORDION (robust) */
-    .mw-item{margin:12px 0;}
-    .mw-toggle{
-      width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
-      background:rgba(27,118,81,0.95);border:1px solid rgba(255,255,255,0.10);
-      color:#fff;padding:14px 16px;border-radius:14px;font-weight:800;cursor:pointer;
-      transition:transform .12s ease, background .2s ease, border-color .2s ease;
-    }
-    .mw-toggle:hover{transform:translateY(-1px);}
-    .mw-toggle[aria-expanded="true"]{background:rgba(222,123,26,0.95);border-color:rgba(255,255,255,0.18);}
-    .mw-chevron{opacity:.9;transition:transform .2s ease;}
-    .mw-toggle[aria-expanded="true"] .mw-chevron{transform:rotate(180deg);}
-    .mw-panel{
-      display:none;margin-top:10px;padding:14px 16px;border-radius:14px;
-      background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.86);
-    }
-    .mw-panel.open{display:block;}
-    .mw-panel ul{margin:10px 0 0 18px;}
-    .mw-panel li{margin:6px 0;}
-    .mw-panel .muted{color:rgba(255,255,255,0.75)}
-
-    /* FAQ */
-    .faq details{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04);padding:12px 14px}
-    .faq details+details{margin-top:10px}
-    .faq summary{cursor:pointer;font-weight:800}
-    .faq summary::-webkit-details-marker{display:none}
-    .faq p{margin:10px 0 0;color:var(--muted)}
-
-    /* TOGGLE PANELS (intake/contact) */
-    .toggle-panel{
-      display:none;
-      margin-top:12px;
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:16px;
-      background:rgba(0,0,0,.16);
-      padding:14px;
-    }
-    .toggle-panel.open{display:block;}
-    .toggle-footer{display:flex;justify-content:flex-end;margin-top:12px}
-
-    /* Forms */
-    .kimanzi-form{display:grid;gap:10px;margin-top:8px}
-    .kimanzi-form label{font-weight:750}
-    .kimanzi-form input,.kimanzi-form select,.kimanzi-form textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(255,255,255,0.06);
-      color:var(--text);
-      outline:none;
-    }
-    .kimanzi-form textarea{min-height:120px;resize:vertical}
-    .kimanzi-submit{margin-top:6px}
-    .form-note{margin-top:8px;color:var(--muted);font-size:13px}
-
-    /* Footer */
-    footer{margin-top:22px;padding:18px 18px 22px;border-radius:var(--radius);border:1px solid var(--line);background:rgba(21,24,36,.55)}
-    .foot-grid{display:grid;gap:10px;grid-template-columns:1.2fr .8fr;align-items:center}
-    @media (max-width:860px){.foot-grid{grid-template-columns:1fr}}
-    .foot-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
-    .foot-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
-    .foot-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
-    .footer-logo{max-width:160px;height:auto;opacity:.95}
-    .subtle-anchor{color:var(--muted);font-size:13px;margin-top:8px}
-
-    /* Mailto fallback modal */
-    .uc-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;background:rgba(0,0,0,.55);padding:18px}
-    .uc-modal.open{display:flex}
-    .uc-dialog{width:min(720px,100%);background:rgba(21,24,36,.92);border:1px solid rgba(255,255,255,.12);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.55);padding:16px}
-    .uc-dialog h3{margin:0 0 8px;font-size:18px}
-    .uc-dialog p{margin:0 0 12px;color:var(--muted)}
-    .uc-row{display:flex;gap:10px;flex-wrap:wrap}
-    .uc-small{font-size:13px;color:var(--muted);margin-top:10px}
-    .uc-kv{display:grid;gap:6px;margin-top:10px}
-    .uc-kv div{padding:10px;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.9);word-break:break-word}
-    .uc-x{margin-left:auto}
-  </style>
+  <link rel="stylesheet" href="styles_dark.css">
 </head>
 
 <body>
@@ -266,7 +95,7 @@
               <div class="price">€249</div>
             </div>
 
-            <div class="details-box service-details">
+            <div class="details-box">
               <details>
                 <summary>Lees details</summary>
                 <p class="muted" style="margin-top:10px;">
@@ -302,7 +131,7 @@
               <div class="price">€599</div>
             </div>
 
-            <div class="details-box service-details">
+            <div class="details-box">
               <details>
                 <summary>Lees details</summary>
                 <p class="muted" style="margin-top:10px;">
@@ -333,19 +162,15 @@
           </div>
         </div>
 
-        <!-- EXTRA DAG (alles op 1 plek, geen duplicaat) -->
+        <!-- EXTRA DAG -->
         <div class="card" style="margin-top:14px;padding:16px;background:rgba(0,0,0,.12);border:1px solid var(--line);border-radius:16px;">
           <h3 style="margin:0 0 6px;">Extra dag: Culinary Day</h3>
           <p class="muted" style="margin:0 0 10px;">
             Een extra dag gericht op gastronomie en lokale keuken. Samen met de host bezoek je zorgvuldig geselecteerde locaties in Nairobi.
             De invulling wordt vooraf afgestemd tijdens de intake.
           </p>
-          <p class="fine" style="margin:0 0 8px;">
-            Add-on op Adventure: <strong>€ 95</strong>.
-          </p>
-          <p class="fine" style="margin:0;">
-            Let op: toegang en consumpties op locaties zijn voor eigen rekening.
-          </p>
+          <p class="fine" style="margin:0 0 8px;">Add-on op Adventure: <strong>€ 95</strong>.</p>
+          <p class="fine" style="margin:0;">Let op: toegang en consumpties op locaties zijn voor eigen rekening.</p>
         </div>
       </div>
     </section>
@@ -359,11 +184,8 @@
           Geen community, geen opgelegde programma’s — wél vervoer, praktische oriëntatie, context en discrete lokale begeleiding.
           Jij regelt werk en verblijf. Wij zorgen dat je start klopt en dat je rustig kunt blijven draaien.
         </p>
-
         <div class="card" style="margin-top:12px;padding:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;">
-          <p class="fine" style="margin:0;">
-            Afbeelding (optioneel): <code>happychills.png</code> naast je HTML plaatsen als je dit wil tonen.
-          </p>
+          <p class="fine" style="margin:0;">Afbeelding (optioneel): <code>happychills.png</code> naast je HTML plaatsen als je dit wil tonen.</p>
         </div>
       </div>
     </section>
@@ -392,7 +214,7 @@
       </div>
     </section>
 
-    <!-- PRAKTISCHE INFO (NIETS VERLOREN) -->
+    <!-- PRAKTISCHE INFO -->
     <section id="praktisch" class="grid" aria-label="Praktische info">
       <div class="card section col-12">
         <h2>Praktische info</h2>
@@ -404,8 +226,10 @@
             Voorbereiding <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-1" role="region" aria-labelledby="mw-toggle-1">
-            <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
-            <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger.</p>
+            <div class="mw-inner">
+              <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
+              <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger.</p>
+            </div>
           </div>
         </div>
 
@@ -414,7 +238,9 @@
             Reisverzekering en zorgverzekering <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-2" role="region" aria-labelledby="mw-toggle-2">
-            <p>Sluit een reisverzekering af met dekking voor medische kosten. Check ook je zorgverzekering. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
+            <div class="mw-inner">
+              <p>Sluit een reisverzekering af met dekking voor medische kosten. Check ook je zorgverzekering. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
+            </div>
           </div>
         </div>
 
@@ -423,7 +249,9 @@
             Boekingen en vliegvelden <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-3" role="region" aria-labelledby="mw-toggle-3">
-            <p>Veel klanten vliegen vanaf Düsseldorf of Brussel. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
+            <div class="mw-inner">
+              <p>Veel klanten vliegen vanaf Düsseldorf of Brussel. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
+            </div>
           </div>
         </div>
 
@@ -432,16 +260,18 @@
             Remote werken <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-4" role="region" aria-labelledby="mw-toggle-4">
-            <p>Als je (deels) vanuit Kenia werkt, helpt het om je basis simpel en betrouwbaar te houden. Denk aan rust, bereikbaarheid en een voorspelbaar dagritme.</p>
-            <p><strong>UrbanChill helpt je bij tijdelijk werken in Nairobi</strong> door je basis rustig, veilig en praktisch op orde te krijgen.</p>
-            <p><strong>Praktische tips:</strong></p>
-            <ul>
-              <li>Neem een powerbank en een tweede oplader mee.</li>
-              <li>Plan je belangrijke calls op vaste momenten.</li>
-              <li>Werk met je eigen data of een lokale sim (veilig opgezet).</li>
-              <li>Houd je werkplek rustig: liever één betrouwbare plek dan telkens wisselen.</li>
-            </ul>
-            <p class="muted">We houden het praktisch. Jij blijft zelfstandig; wij helpen met lokale zekerheid als dat prettig is.</p>
+            <div class="mw-inner">
+              <p>Als je (deels) vanuit Kenia werkt, helpt het om je basis simpel en betrouwbaar te houden. Denk aan rust, bereikbaarheid en een voorspelbaar dagritme.</p>
+              <p><strong>UrbanChill helpt je bij tijdelijk werken in Nairobi</strong> door je basis rustig, veilig en praktisch op orde te krijgen.</p>
+              <p><strong>Praktische tips:</strong></p>
+              <ul>
+                <li>Neem een powerbank en een tweede oplader mee.</li>
+                <li>Plan je belangrijke calls op vaste momenten.</li>
+                <li>Werk met je eigen data of een lokale sim (veilig opgezet).</li>
+                <li>Houd je werkplek rustig: liever één betrouwbare plek dan telkens wisselen.</li>
+              </ul>
+              <p class="muted">We houden het praktisch. Jij blijft zelfstandig; wij helpen met lokale zekerheid als dat prettig is.</p>
+            </div>
           </div>
         </div>
 
@@ -450,12 +280,14 @@
             Praktische informatie — begeleiding en verblijf <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-5" role="region" aria-labelledby="mw-toggle-5">
-            <p>Bij UrbanChill staat jouw vrijheid centraal. Je bepaalt zelf het tempo en de invulling van je verblijf, in alle rust.</p>
-            <p><strong>Begeleiding en verblijf</strong></p>
-            <p>Tijdens je verblijf werk je met één vaste host. Je host ondersteunt je bij ontvangst, oriëntatie en begeleiding waar gewenst. Alles wordt afgestemd op jouw tempo. Begeleiding is mogelijk, maar nooit verplicht.</p>
-            <p>SOLO is een rustige ontvangst en oriëntatiedag. Adventure duurt drie dagen en biedt maaltijden en activiteiten die inbegrepen maar volledig vrijblijvend zijn.</p>
-            <p>Je boekt zelf je accommodatie. Wij adviseren locaties die we kennen en vertrouwen. Vervoer verloopt via Uber of een vooraf afgestemde chauffeur. Voor diensten van derden, waaronder vervoerders en accommodaties, is UrbanChill niet aansprakelijk.</p>
-            <p>De intake is in het Nederlands. De begeleiding is in het Engels.</p>
+            <div class="mw-inner">
+              <p>Bij UrbanChill staat jouw vrijheid centraal. Je bepaalt zelf het tempo en de invulling van je verblijf, in alle rust.</p>
+              <p><strong>Begeleiding en verblijf</strong></p>
+              <p>Tijdens je verblijf werk je met één vaste host. Je host ondersteunt je bij ontvangst, oriëntatie en begeleiding waar gewenst. Alles wordt afgestemd op jouw tempo. Begeleiding is mogelijk, maar nooit verplicht.</p>
+              <p>SOLO is een rustige ontvangst en oriëntatiedag. Adventure duurt drie dagen en biedt maaltijden en activiteiten die inbegrepen maar volledig vrijblijvend zijn.</p>
+              <p>Je boekt zelf je accommodatie. Wij adviseren locaties die we kennen en vertrouwen. Vervoer verloopt via Uber of een vooraf afgestemde chauffeur. Voor diensten van derden, waaronder vervoerders en accommodaties, is UrbanChill niet aansprakelijk.</p>
+              <p>De intake is in het Nederlands. De begeleiding is in het Engels.</p>
+            </div>
           </div>
         </div>
 
@@ -464,12 +296,14 @@
             Praktische informatie — bereikbaarheid en veiligheid <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-6" role="region" aria-labelledby="mw-toggle-6">
-            <p><strong>Bereikbaarheid en veiligheid</strong></p>
-            <p>Tijdens de opdracht zijn wij telefonisch en via Signal bereikbaar, binnen wat redelijk en passend is.</p>
-            <p>Veiligheid staat altijd voorop. Wanneer een situatie onveilig of grensoverschrijdend wordt, wordt deze naar oordeel van UrbanChill beoordeeld en waar nodig beëindigd.</p>
-            <p>Als een host zich onveilig voelt, heeft zij het recht de begeleiding per direct te beëindigen. De opdracht kan in dat geval, naar oordeel van UrbanChill, worden stopgezet.</p>
-            <p>We verwachten respectvolle omgang en naleving van lokale wetgeving en gemaakte afspraken. Wanneer grenzen worden overschreden, kan de begeleiding worden beëindigd.</p>
-            <p><strong>Bij beëindiging om veiligheidsredenen vervalt het recht op restitutie.</strong></p>
+            <div class="mw-inner">
+              <p><strong>Bereikbaarheid en veiligheid</strong></p>
+              <p>Tijdens de opdracht zijn wij telefonisch en via Signal bereikbaar, binnen wat redelijk en passend is.</p>
+              <p>Veiligheid staat altijd voorop. Wanneer een situatie onveilig of grensoverschrijdend wordt, wordt deze naar oordeel van UrbanChill beoordeeld en waar nodig beëindigd.</p>
+              <p>Als een host zich onveilig voelt, heeft zij het recht de begeleiding per direct te beëindigen. De opdracht kan in dat geval, naar oordeel van UrbanChill, worden stopgezet.</p>
+              <p>We verwachten respectvolle omgang en naleving van lokale wetgeving en gemaakte afspraken. Wanneer grenzen worden overschreden, kan de begeleiding worden beëindigd.</p>
+              <p><strong>Bij beëindiging om veiligheidsredenen vervalt het recht op restitutie.</strong></p>
+            </div>
           </div>
         </div>
 
@@ -478,21 +312,23 @@
             Praktische informatie — voorwaarden en aansprakelijkheid <span class="mw-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="mw-panel" id="mw-panel-7" role="region" aria-labelledby="mw-toggle-7">
-            <p><strong>Onvoorziene omstandigheden</strong></p>
-            <p>Bij ziekte of onverwachte afwezigheid van je host zoeken wij altijd naar de meest praktische oplossing. Indien mogelijk regelen we een vervangende host.</p>
-            <p>Wanneer vervanging niet mogelijk is, wordt het door jou betaalde bedrag binnen vijf werkdagen teruggestort.</p>
+            <div class="mw-inner">
+              <p><strong>Onvoorziene omstandigheden</strong></p>
+              <p>Bij ziekte of onverwachte afwezigheid van je host zoeken wij altijd naar de meest praktische oplossing. Indien mogelijk regelen we een vervangende host.</p>
+              <p>Wanneer vervanging niet mogelijk is, wordt het door jou betaalde bedrag binnen vijf werkdagen teruggestort.</p>
 
-            <p><strong>Aansprakelijkheid</strong></p>
-            <p>De aansprakelijkheid van UrbanChill is in alle gevallen beperkt tot het bedrag dat door jou voor de betreffende opdracht is betaald. UrbanChill is niet aansprakelijk voor indirecte schade of gevolgschade.</p>
+              <p><strong>Aansprakelijkheid</strong></p>
+              <p>De aansprakelijkheid van UrbanChill is in alle gevallen beperkt tot het bedrag dat door jou voor de betreffende opdracht is betaald. UrbanChill is niet aansprakelijk voor indirecte schade of gevolgschade.</p>
 
-            <p><strong>Betaling en voorwaarden</strong></p>
-            <p>Je boekt rechtstreeks bij UrbanChill. Betaling vindt plaats binnen 14 dagen en altijd vóór vertrek.</p>
-            <p>Tot 20 dagen voor vertrek is annuleren kosteloos. Tussen 20 en 10 dagen geldt 50 procent. Binnen 10 dagen geldt 100 procent. Bij annulering door UrbanChill ontvang je het volledige bedrag terug.</p>
-            <p>Klantgegevens worden maximaal één maand na afloop van de opdracht bewaard en daarna verwijderd.</p>
+              <p><strong>Betaling en voorwaarden</strong></p>
+              <p>Je boekt rechtstreeks bij UrbanChill. Betaling vindt plaats binnen 14 dagen en altijd vóór vertrek.</p>
+              <p>Tot 20 dagen voor vertrek is annuleren kosteloos. Tussen 20 en 10 dagen geldt 50 procent. Binnen 10 dagen geldt 100 procent. Bij annulering door UrbanChill ontvang je het volledige bedrag terug.</p>
+              <p>Klantgegevens worden maximaal één maand na afloop van de opdracht bewaard en daarna verwijderd.</p>
 
-            <p><strong>Toepasselijk recht en geschillen</strong></p>
-            <p>Op alle opdrachten en overeenkomsten met UrbanChill is uitsluitend Nederlands recht van toepassing.</p>
-            <p>Geschillen worden bij voorkeur in onderling overleg opgelost. Indien dit niet mogelijk blijkt, worden geschillen voorgelegd aan de bevoegde rechter in het arrondissement waar UrbanChill is gevestigd.</p>
+              <p><strong>Toepasselijk recht en geschillen</strong></p>
+              <p>Op alle opdrachten en overeenkomsten met UrbanChill is uitsluitend Nederlands recht van toepassing.</p>
+              <p>Geschillen worden bij voorkeur in onderling overleg opgelost. Indien dit niet mogelijk blijkt, worden geschillen voorgelegd aan de bevoegde rechter in het arrondissement waar UrbanChill is gevestigd.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -513,7 +349,7 @@
         </ul>
         <p>UrbanChill is geschikt voor zelfstandige professionals, remote workers en mensen die bewust tijdelijk in Kenia verblijven.</p>
         <p>We bieden geen platforms of communities, maar persoonlijke begeleiding, zodat je niet alles zelf hoeft uit te zoeken.</p>
-        <p class="subtle-anchor">
+        <p class="fine" style="margin-top:10px;">
           Daarnaast ontwikkelt UrbanChill in beperkte kring een kleinschalig netwerk van geselecteerde woonlocaties voor tijdelijke professionals in Nairobi.
         </p>
       </div>
@@ -591,7 +427,7 @@
             <label for="i-tijd">Aankomsttijd</label>
             <input id="i-tijd" name="aankomsttijd" type="time">
 
-            <button class="btn primary kimanzi-submit" type="submit">Intake versturen</button>
+            <button class="btn primary" type="submit">Intake versturen</button>
 
             <p class="form-note">
               Geen betaalde form service: na invullen opent je e-mail met je gegevens. Je kunt dit nog aanpassen voordat je verzendt.
@@ -632,7 +468,7 @@
             <label for="c-bericht">Bericht</label>
             <textarea id="c-bericht" name="bericht" required></textarea>
 
-            <button class="btn primary kimanzi-submit" type="submit">Versturen</button>
+            <button class="btn primary" type="submit">Versturen</button>
 
             <p class="form-note">
               Geen betaalde form service: na invullen opent je e-mail met je gegevens. Je kunt dit nog aanpassen voordat je verzendt.
@@ -650,7 +486,7 @@
       </div>
     </section>
 
-    <!-- FAQ (compact, extra) -->
+    <!-- FAQ -->
     <section id="faq" class="grid faq" aria-label="FAQ">
       <div class="card section col-12">
         <h2>FAQ</h2>
@@ -833,28 +669,44 @@
 
     document.getElementById("navSignal").addEventListener("click", (e)=>{
       e.preventDefault();
-      // open contact toggle + scroll
       openToggle("contact");
       document.getElementById("contact").scrollIntoView({behavior:"smooth", block:"start"});
     });
 
-    /* ---------- TOGGLES: intake/contact ---------- */
+    /* ---------- Smooth height toggles (intake/contact) ---------- */
+    function setPanelHeight(panel, open){
+      if(!panel) return;
+      if(open){
+        panel.classList.add("open");
+        panel.style.maxHeight = "0px";
+        requestAnimationFrame(()=>{
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+      }else{
+        panel.style.maxHeight = panel.scrollHeight + "px";
+        requestAnimationFrame(()=>{
+          panel.style.maxHeight = "0px";
+        });
+        panel.addEventListener("transitionend", function te(){
+          panel.classList.remove("open");
+          panel.removeEventListener("transitionend", te);
+        });
+      }
+    }
+
     function openToggle(which){
       const panel = document.getElementById(which + "-panel");
-      if(!panel) return;
-      panel.classList.add("open");
+      setPanelHeight(panel, true);
     }
     function closeToggle(which){
       const panel = document.getElementById(which + "-panel");
-      if(!panel) return;
-      panel.classList.remove("open");
+      setPanelHeight(panel, false);
     }
 
     document.querySelectorAll('[data-open]').forEach(el=>{
       el.addEventListener('click',(e)=>{
         const which = el.getAttribute('data-open');
         if(!which) return;
-        // allow anchor behavior but open panel too
         openToggle(which);
         const target = document.getElementById(which);
         if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
@@ -868,27 +720,53 @@
       });
     });
 
-    /* ---------- Praktische info accordion: 1 open tegelijk ---------- */
+    /* ---------- Praktische info accordion: 1 open, height-safe ---------- */
     (function(){
       const toggles = Array.from(document.querySelectorAll('.mw-toggle'));
       if(!toggles.length) return;
 
+      function closeAll(){
+        toggles.forEach(b=>{
+          b.setAttribute('aria-expanded','false');
+          const id = b.getAttribute('aria-controls');
+          const p = id ? document.getElementById(id) : null;
+          if(p){
+            p.style.maxHeight = p.scrollHeight + "px";
+            requestAnimationFrame(()=>{ p.style.maxHeight = "0px"; });
+            p.classList.remove('open');
+          }
+        });
+      }
+
       toggles.forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const isOpen = btn.getAttribute('aria-expanded') === 'true';
-
-          toggles.forEach(b=>{
-            b.setAttribute('aria-expanded','false');
-            const panelId = b.getAttribute('aria-controls');
-            const p = panelId ? document.getElementById(panelId) : null;
-            if(p) p.classList.remove('open');
-          });
+          closeAll();
 
           if(!isOpen){
             btn.setAttribute('aria-expanded','true');
             const panelId = btn.getAttribute('aria-controls');
             const panel = panelId ? document.getElementById(panelId) : null;
-            if(panel) panel.classList.add('open');
+            if(panel){
+              panel.classList.add('open');
+              panel.style.maxHeight = "0px";
+              requestAnimationFrame(()=>{
+                panel.style.maxHeight = panel.scrollHeight + "px";
+              });
+            }
+          }
+        });
+      });
+
+      // Recalc open panels on resize so nothing gets clipped
+      window.addEventListener("resize", ()=>{
+        document.querySelectorAll(".mw-panel.open").forEach(p=>{
+          p.style.maxHeight = p.scrollHeight + "px";
+        });
+        ["intake-panel","contact-panel"].forEach(id=>{
+          const p = document.getElementById(id);
+          if(p && p.classList.contains("open")){
+            p.style.maxHeight = p.scrollHeight + "px";
           }
         });
       });
@@ -898,10 +776,7 @@
     function formToLines(form){
       const fd = new FormData(form);
       const lines = [];
-      fd.forEach((v,k)=>{
-        // keep stable order by pushing as seen in DOM (FormData generally respects it)
-        lines.push(k + ": " + String(v).trim());
-      });
+      fd.forEach((v,k)=>{ lines.push(k + ": " + String(v).trim()); });
       return lines.join("\n");
     }
 
