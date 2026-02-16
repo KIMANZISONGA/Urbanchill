@@ -7,7 +7,79 @@
   <meta name="robots" content="index,follow">
   <title>UrbanChill Nairobi — Professionele begeleiding in Nairobi</title>
   <meta name="description" content="Professionele begeleiding in Nairobi. Veilig, zorgvuldig en zonder massatoerisme. Intake nu mogelijk. Privacy-first: geen tracking, geen ruis.">
-  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    :root{--bg:#0f1115;--text:#e8e8ea;--muted:#b7bac6;--brand:#A34F2E;--accent:#D4AF37;--line:rgba(255,255,255,.10);--radius:18px;--shadow:0 12px 30px rgba(0,0,0,.35);--max:1040px}
+    *{box-sizing:border-box} html,body{height:100%} html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(1100px 700px at 20% 0%,rgba(163,79,46,.35),transparent 60%),
+        radial-gradient(900px 600px at 85% 10%,rgba(212,175,55,.22),transparent 55%),
+        radial-gradient(1000px 700px at 50% 115%,rgba(85,107,47,.22),transparent 55%),
+        var(--bg);
+      color:var(--text);line-height:1.55}
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:24px 20px 60px}
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(10px);background:rgba(15,17,21,.72);border-bottom:1px solid var(--line)}
+    .nav-inner{max-width:var(--max);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;min-width:180px;font-weight:800;letter-spacing:.2px}
+    .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(212,175,55,.85));box-shadow:0 10px 22px rgba(0,0,0,.35)}
+    .nav-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
+    .nav-links a{text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:12px}
+    .nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-weight:750;cursor:pointer}
+    .btn:hover{background:rgba(255,255,255,.10)}
+    .btn.primary{background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(163,79,46,.78));border-color:rgba(163,79,46,.55);box-shadow:0 14px 28px rgba(163,79,46,.22)}
+    .btn.primary:hover{filter:brightness(1.05)}
+    .btn.ghost{background:transparent}
+    .hero{padding:34px 0 8px;display:grid;gap:18px;grid-template-columns:1.2fr .8fr;align-items:stretch}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}.nav-inner{gap:10px}.logo{min-width:unset}}
+    .card{background:rgba(21,24,36,.72);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-left{padding:26px}
+    h1{margin:0 0 10px;font-size:40px;line-height:1.05}
+    .sub{margin:0 0 18px;color:var(--muted);font-size:16px;max-width:66ch}
+    .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 18px}
+    .pill{border:1px solid var(--line);background:rgba(255,255,255,.05);padding:8px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .hero-right{padding:18px;display:flex;flex-direction:column;gap:12px}
+    .mini{padding:14px;background:rgba(0,0,0,.14);border:1px solid var(--line);border-radius:16px}
+    .mini strong{display:block;margin-bottom:6px}
+    .mini p{margin:0;color:var(--muted);font-size:14px}
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:18px}
+    .col-12{grid-column:span 12}
+    .section{padding:18px}
+    h2{margin:0 0 10px;font-size:22px}
+    p{margin:0 0 12px}
+    .fine{font-size:13px;color:var(--muted)}
+    .pricing{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:8px}
+    .price-card{grid-column:span 6;padding:18px}
+    @media (max-width:860px){.price-card{grid-column:span 12}}
+    .price-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+    .price{font-size:26px;font-weight:900;color:var(--text)}
+    .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+    .list li{display:flex;gap:10px;align-items:flex-start;color:var(--muted)}
+    .dot{width:10px;height:10px;border-radius:999px;background:rgba(212,175,55,.9);margin-top:6px;flex:0 0 auto;box-shadow:0 0 0 4px rgba(212,175,55,.15)}
+    footer{margin-top:22px;padding:18px 18px 22px;border-radius:var(--radius);border:1px solid var(--line);background:rgba(21,24,36,.55)}
+    .foot-grid{display:grid;gap:10px;grid-template-columns:1.2fr .8fr}
+    @media (max-width:860px){.foot-grid{grid-template-columns:1fr}}
+    .foot-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+    .foot-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+    .foot-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+    .muted{color:var(--muted)}
+
+    /* Praktische info accordion */
+    .mw-item{margin:12px 0;}
+    .mw-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
+      background:rgba(27,118,81,0.95);border:1px solid rgba(255,255,255,0.10);
+      color:#fff;padding:14px 16px;border-radius:14px;font-weight:900;cursor:pointer;}
+    .mw-toggle[aria-expanded="true"]{background:rgba(222,123,26,0.95);border-color:rgba(255,255,255,0.18);}
+    .mw-chevron{opacity:.9;}
+    .mw-panel{display:none;margin-top:10px;padding:14px 16px;border-radius:14px;
+      background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.86);}
+    .mw-panel.open{display:block;}
+    .mw-panel ul{margin:10px 0 0 18px;}
+    .mw-panel li{margin:6px 0;}
+  </style>
 </head>
 
 <body>
@@ -20,7 +92,6 @@
       <nav class="nav-links" aria-label="Navigatie">
         <a href="#diensten">Diensten</a>
         <a href="#praktisch">Praktische info</a>
-        <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -100,11 +171,11 @@
       </div>
     </section>
 
-    <!-- PRAKTISCHE INFO (volledig) -->
+    <!-- PRAKTISCHE INFO (FAQ + TIPS samengevoegd) -->
     <section class="card section" id="praktisch">
       <h2>Praktische info</h2>
       <p><strong>Kort, praktisch, zonder ruis.</strong> Klik op een onderwerp voor details.</p>
-      <p class="muted">Alles hieronder is bedoeld om je start soepel te maken — of je nu SOLO kiest (landing) of Adventure (verlengde zekerheid).</p>
+      <p class="muted">Alles hieronder is bedoeld om je start soepel te maken — inclusief tips en antwoorden op veelgestelde vragen.</p>
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-1">
@@ -183,19 +254,42 @@
           <p><strong>Toepasselijk recht:</strong> Nederlands recht.</p>
         </div>
       </div>
-    </section>
 
-    <section id="faq" class="grid faq" aria-label="FAQ">
-      <div class="card section col-12">
-        <h2>FAQ</h2>
-        <details>
-          <summary>Is UrbanChill een reisbureau?</summary>
-          <p>Nee. UrbanChill is geen reisbureau en geen safari-aanbieder. We verzorgen begeleiding in Nairobi.</p>
-        </details>
-        <details>
-          <summary>Hoe werkt contact en Signal?</summary>
+      <!-- FAQ items als onderdeel van Praktische info -->
+      <div class="mw-item">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-8">
+          Zijn de prijzen inclusief btw? <span class="mw-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mw-panel" id="mw-panel-8">
+          <p>Ja. Alle prijzen op deze pagina zijn inclusief 21% btw.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-9">
+          Is UrbanChill een reisbureau? <span class="mw-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mw-panel" id="mw-panel-9">
+          <p>Nee. UrbanChill is geen reisbureau en geen safari-aanbieder. We verzorgen begeleiding in Nairobi, geen vluchten of accommodatie.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-10">
+          Voor wie is UrbanChill bedoeld? <span class="mw-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mw-panel" id="mw-panel-10">
+          <p>Voor individuen en zakenreizigers. We bedienen geen groepen en geen koppels.</p>
+        </div>
+      </div>
+
+      <div class="mw-item">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-11">
+          Hoe werkt contact en Signal? <span class="mw-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mw-panel" id="mw-panel-11">
           <p>Je kunt Signal-chat aanvragen. We stemmen functioneel af om ruis te beperken.</p>
-        </details>
+        </div>
       </div>
     </section>
 
@@ -225,6 +319,73 @@
     </footer>
   </main>
 
-  <script src="/main.js" defer></script>
+  <script>
+    // mailto pas bij klik (privacy-first)
+    function openMail(u,d,s,b){
+      const to=u+"@"+d;
+      const p=[];
+      if(s) p.push("subject="+encodeURIComponent(s));
+      if(b) p.push("body="+encodeURIComponent(b));
+      location.href="mailto:"+encodeURIComponent(to)+(p.length?"?"+p.join("&"):"");
+    }
+    function intakeBody(){
+      return [
+        "Hoi UrbanChill,",
+        "",
+        "Ik wil graag een intake aanvragen.",
+        "",
+        "Reisdatum:",
+        "Verblijfsduur:",
+        "Nairobi (gebied/wijk indien bekend):",
+        "Solo of Adventure:",
+        "Wat is voor mij belangrijk (rust/tempo/planning):",
+        "",
+        "Dank!"
+      ].join("\n");
+    }
+    function signalBody(){
+      return [
+        "Hoi UrbanChill,",
+        "",
+        "Ik wil graag via Signal afstemmen voor vertrouwelijke communicatie.",
+        "Kunnen jullie aangeven hoe we kunnen starten?",
+        "",
+        "Reisdatum:",
+        "Verblijfsduur:",
+        "Korte toelichting:"
+      ].join("\n");
+    }
+    const sendIntake=()=>openMail("intake","urbanchill.nl","Intake aanvraag UrbanChill (Nairobi)",intakeBody());
+    const sendSignal=()=>openMail("intake","urbanchill.nl","Signal verzoek UrbanChill",signalBody());
+    function on(id,evt,fn){const el=document.getElementById(id);if(el) el.addEventListener(evt,fn);}
+    on("btnIntake","click",sendIntake);
+    on("btnIntake2","click",sendIntake);
+    on("btnSignal","click",sendSignal);
+    on("btnSignal2","click",sendSignal);
+
+    // accordion (1 open tegelijk)
+    (function(){
+      const toggles=[...document.querySelectorAll(".mw-toggle")];
+      if(!toggles.length) return;
+      const closeAll=()=>toggles.forEach(b=>{
+        b.setAttribute("aria-expanded","false");
+        const pid=b.getAttribute("aria-controls");
+        const p=pid?document.getElementById(pid):null;
+        if(p) p.classList.remove("open");
+      });
+      toggles.forEach(btn=>{
+        btn.addEventListener("click",()=>{
+          const isOpen=btn.getAttribute("aria-expanded")==="true";
+          closeAll();
+          if(!isOpen){
+            btn.setAttribute("aria-expanded","true");
+            const panelId=btn.getAttribute("aria-controls");
+            const panel=panelId?document.getElementById(panelId):null;
+            if(panel) panel.classList.add("open");
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
