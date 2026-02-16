@@ -6,11 +6,10 @@
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="index,follow">
   <title>UrbanChill Nairobi — Professionele begeleiding in Nairobi</title>
-  <meta name="description" content="Professionele begeleiding in Nairobi. Veilig, zorgvuldig en zonder massatoerisme. Transparante prijzen incl. btw. Intake nu mogelijk.">
-
+  <meta name="description" content="Professionele begeleiding in Nairobi. Veilig, zorgvuldig en zonder massatoerisme. Intake nu mogelijk. Privacy-first: geen tracking, geen ruis.">
   <style>
     :root{--bg:#0f1115;--text:#e8e8ea;--muted:#b7bac6;--brand:#A34F2E;--accent:#D4AF37;--line:rgba(255,255,255,.10);--radius:18px;--shadow:0 12px 30px rgba(0,0,0,.35);--max:1040px}
-    *{box-sizing:border-box} html,body{height:100%}
+    *{box-sizing:border-box} html,body{height:100%} html{scroll-behavior:smooth}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       background:
         radial-gradient(1100px 700px at 20% 0%,rgba(163,79,46,.35),transparent 60%),
@@ -22,24 +21,22 @@
     .wrap{max-width:var(--max);margin:0 auto;padding:24px 20px 60px}
     .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(10px);background:rgba(15,17,21,.72);border-bottom:1px solid var(--line)}
     .nav-inner{max-width:var(--max);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
-    .logo{display:flex;align-items:center;gap:10px;min-width:180px;font-weight:700;letter-spacing:.2px}
+    .logo{display:flex;align-items:center;gap:10px;min-width:180px;font-weight:800;letter-spacing:.2px}
     .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(212,175,55,.85));box-shadow:0 10px 22px rgba(0,0,0,.35)}
     .nav-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
     .nav-links a{text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:12px}
     .nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-weight:650;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-weight:750;cursor:pointer}
     .btn:hover{background:rgba(255,255,255,.10)}
     .btn.primary{background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(163,79,46,.78));border-color:rgba(163,79,46,.55);box-shadow:0 14px 28px rgba(163,79,46,.22)}
     .btn.primary:hover{filter:brightness(1.05)}
     .btn.ghost{background:transparent}
-
     .hero{padding:34px 0 8px;display:grid;gap:18px;grid-template-columns:1.2fr .8fr;align-items:stretch}
     @media (max-width:920px){.hero{grid-template-columns:1fr}.nav-inner{gap:10px}.logo{min-width:unset}}
-
     .card{background:rgba(21,24,36,.72);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
     .hero-left{padding:26px}
     h1{margin:0 0 10px;font-size:40px;line-height:1.05}
-    .sub{margin:0 0 18px;color:var(--muted);font-size:16px;max-width:56ch}
+    .sub{margin:0 0 18px;color:var(--muted);font-size:16px;max-width:66ch}
     .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 18px}
     .pill{border:1px solid var(--line);background:rgba(255,255,255,.05);padding:8px 10px;border-radius:999px;color:var(--muted);font-size:13px}
     .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
@@ -47,36 +44,30 @@
     .mini{padding:14px;background:rgba(0,0,0,.14);border:1px solid var(--line);border-radius:16px}
     .mini strong{display:block;margin-bottom:6px}
     .mini p{margin:0;color:var(--muted);font-size:14px}
-
     .grid{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:18px}
     .col-6{grid-column:span 6}.col-12{grid-column:span 12}
     @media (max-width:860px){.col-6{grid-column:span 12}}
     h2{margin:0 0 10px;font-size:22px}
     p{margin:0 0 12px}
     .section{padding:18px}
-
     .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
     .list li{display:flex;gap:10px;align-items:flex-start;color:var(--muted)}
     .dot{width:10px;height:10px;border-radius:999px;background:rgba(212,175,55,.9);margin-top:6px;flex:0 0 auto;box-shadow:0 0 0 4px rgba(212,175,55,.15)}
-
     .pricing{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:8px}
     .price-card{grid-column:span 6;padding:18px}
     @media (max-width:860px){.price-card{grid-column:span 12}}
     .price-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-    .price{font-size:26px;font-weight:800;color:var(--text)}
+    .price{font-size:26px;font-weight:900;color:var(--text)}
     .fine{font-size:13px;color:var(--muted)}
-    .muted{color:var(--muted)}
     .how{display:grid;gap:10px;margin-top:6px}
     .step{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04)}
-    .num{width:28px;height:28px;border-radius:12px;background:rgba(163,79,46,.24);border:1px solid rgba(163,79,46,.45);display:flex;align-items:center;justify-content:center;font-weight:800;color:rgba(255,255,255,.9);flex:0 0 auto}
+    .num{width:28px;height:28px;border-radius:12px;background:rgba(163,79,46,.24);border:1px solid rgba(163,79,46,.45);display:flex;align-items:center;justify-content:center;font-weight:900;color:rgba(255,255,255,.9);flex:0 0 auto}
     .step p{margin:0;color:var(--muted)}
-
     .faq details{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04);padding:12px 14px}
     .faq details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:700}
+    summary{cursor:pointer;font-weight:900}
     summary::-webkit-details-marker{display:none}
     .faq p{margin:10px 0 0;color:var(--muted)}
-
     footer{margin-top:22px;padding:18px 18px 22px;border-radius:var(--radius);border:1px solid var(--line);background:rgba(21,24,36,.55)}
     .foot-grid{display:grid;gap:10px;grid-template-columns:1.2fr .8fr}
     @media (max-width:860px){.foot-grid{grid-template-columns:1fr}}
@@ -84,11 +75,11 @@
     .foot-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
     .foot-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
 
-    /* Praktische info (accordion) */
+    /* Praktische info accordion */
     .mw-item{margin:12px 0;}
     .mw-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
       background:rgba(27,118,81,0.95);border:1px solid rgba(255,255,255,0.10);
-      color:#fff;padding:14px 16px;border-radius:14px;font-weight:700;cursor:pointer;
+      color:#fff;padding:14px 16px;border-radius:14px;font-weight:900;cursor:pointer;
       transition:transform .12s ease, background .2s ease, border-color .2s ease;}
     .mw-toggle:hover{transform:translateY(-1px);}
     .mw-toggle[aria-expanded="true"]{background:rgba(222,123,26,0.95);border-color:rgba(255,255,255,0.18);}
@@ -126,26 +117,24 @@
         <h1>Professionele begeleiding in Nairobi.<br>Veilig, zorgvuldig en zonder massatoerisme.</h1>
         <p class="sub">
           Persoonlijke ondersteuning voor reizigers en zakenbezoekers die Nairobi efficiënt en met vertrouwen willen ervaren.
-          Transparante prijzen, heldere afstemming en een nuchtere aanpak.
+          Heldere afstemming en een nuchtere aanpak.
         </p>
 
         <div class="pill-row" aria-label="Kernpunten">
           <div class="pill">Nairobi focus</div>
           <div class="pill">Individuen en zakenreizigers</div>
-          <div class="pill">Prijzen incl. btw</div>
           <div class="pill">Geen safari aanbieder</div>
-          <div class="pill">Privacy first</div>
+          <div class="pill">Privacy-first</div>
         </div>
 
         <div class="cta-row">
           <button class="btn primary" id="btnIntake" type="button">Intake aanvragen</button>
           <a class="btn ghost" href="#diensten">Bekijk diensten</a>
-          <button class="btn" id="btnSignal" type="button">Vraag Signal chat aan</button>
+          <button class="btn" id="btnSignal" type="button">Vraag Signal-chat aan</button>
         </div>
 
         <p class="fine" style="margin-top:14px;">
           Intake kan nu. We starten met begeleiding vanaf <strong>1 maart 2026</strong>.
-          Offertes zijn <strong>14 dagen</strong> geldig na verzending.
         </p>
       </div>
 
@@ -155,12 +144,12 @@
           <p>Lokale begeleiding, heldere communicatie en een rustige aanpak in Nairobi.</p>
         </div>
         <div class="mini">
-          <strong>Wat je niet krijgt</strong>
+          <strong>Wat je níet krijgt</strong>
           <p>Geen massatoerisme, geen groepsreizen, geen safari’s, geen vage “ervaringen”.</p>
         </div>
         <div class="mini">
-          <strong>Transparant</strong>
-          <p>Alle prijzen zijn inclusief 21% btw. Geen verborgen kosten. Extra’s worden vooraf afgestemd.</p>
+          <strong>Privacy-first</strong>
+          <p>Geen tracking. Geen social. Contact is functioneel en discreet.</p>
         </div>
       </aside>
     </section>
@@ -168,14 +157,14 @@
     <section id="diensten" class="grid" aria-label="Diensten">
       <div class="card section col-12">
         <h2>Diensten</h2>
-        <p class="muted">UrbanChill biedt persoonlijke begeleiding in Nairobi met heldere afstemming en transparante tarieven.</p>
+        <p style="color:var(--muted)">UrbanChill biedt persoonlijke begeleiding in Nairobi met heldere afstemming en transparante tarieven.</p>
 
         <div class="pricing">
           <div class="card price-card">
             <div class="price-top">
               <div>
-                <div style="font-weight:800;font-size:16px;">SOLO</div>
-                <div class="muted">1 dag begeleiding in Nairobi</div>
+                <div style="font-weight:900;font-size:16px;">SOLO</div>
+                <div style="color:var(--muted)">1 dag begeleiding in Nairobi</div>
               </div>
               <div class="price">€249</div>
             </div>
@@ -190,8 +179,8 @@
           <div class="card price-card">
             <div class="price-top">
               <div>
-                <div style="font-weight:800;font-size:16px;">ADVENTURE</div>
-                <div class="muted">3 dagen begeleiding in Nairobi</div>
+                <div style="font-weight:900;font-size:16px;">ADVENTURE</div>
+                <div style="color:var(--muted)">3 dagen begeleiding in Nairobi</div>
               </div>
               <div class="price">€599</div>
             </div>
@@ -211,7 +200,7 @@
             De invulling wordt vooraf afgestemd tijdens de intake.
           </p>
           <p class="fine" style="margin:0;">
-            Let op: toegang en consumpties op locaties zijn voor eigen rekening. Maaltijden die UrbanChill bereidt zijn inbegrepen binnen de dienst.
+            Let op: toegang en consumpties op locaties zijn voor eigen rekening.
           </p>
         </div>
       </div>
@@ -234,60 +223,57 @@
       <div class="card section col-12">
         <h2>Verhaal</h2>
         <p>UrbanChill is opgericht in Rijswijk, Nederland.</p>
-        <p class="muted">
+        <p style="color:var(--muted)">
           Het initiatief is ontstaan vanuit betrokkenheid bij Kenia en de overtuiging dat Nairobi anders beleefd kan worden:
           veilig, menselijk en met respect voor cultuur en omgeving. Niet via massatoerisme of standaard formules,
           maar via zorgvuldige begeleiding en heldere afstemming.
         </p>
-        <p class="fine" style="margin:0;">
-          Vestigingsplaats: Rijswijk, Nederland<br>
-          KvK nummer volgt (in oprichting)
-        </p>
       </div>
     </section>
 
-    <section class="card section" id="praktisch" aria-label="Praktische info">
+    <!-- PRAKTISCHE INFO (niet verliezen) -->
+    <section class="card section" id="praktisch">
       <h2>Praktische info</h2>
       <p><strong>Kort, praktisch, zonder ruis.</strong> Klik op een onderwerp voor details.</p>
       <p class="muted">Alles hieronder is bedoeld om je start soepel te maken — of je nu SOLO kiest (landing) of Adventure (verlengde zekerheid).</p>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-1" id="mw-toggle-1">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-1">
           Voorbereiding <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-1" role="region" aria-labelledby="mw-toggle-1">
+        <div class="mw-panel" id="mw-panel-1">
           <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
           <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger.</p>
         </div>
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-2" id="mw-toggle-2">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-2">
           Reisverzekering en zorgverzekering <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-2" role="region" aria-labelledby="mw-toggle-2">
+        <div class="mw-panel" id="mw-panel-2">
           <p>Sluit een reisverzekering af met dekking voor medische kosten. Check ook je zorgverzekering. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
         </div>
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-3" id="mw-toggle-3">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-3">
           Boekingen en vliegvelden <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-3" role="region" aria-labelledby="mw-toggle-3">
+        <div class="mw-panel" id="mw-panel-3">
           <p>Veel klanten vliegen vanaf Düsseldorf of Brussel. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
         </div>
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-4" id="mw-toggle-4">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-4">
           Remote werken <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-4" role="region" aria-labelledby="mw-toggle-4">
+        <div class="mw-panel" id="mw-panel-4">
           <p>Als je (deels) vanuit Kenia werkt, helpt het om je basis simpel en betrouwbaar te houden. Denk aan rust, bereikbaarheid en een voorspelbaar dagritme.</p>
           <p><strong>UrbanChill helpt je bij tijdelijk werken in Nairobi</strong> door je basis rustig, veilig en praktisch op orde te krijgen.</p>
           <p><strong>Praktische tips:</strong></p>
-          <ul>
+          <ul class="bullets">
             <li>Neem een powerbank en een tweede oplader mee.</li>
             <li>Plan je belangrijke calls op vaste momenten.</li>
             <li>Werk met je eigen data of een lokale sim (veilig opgezet).</li>
@@ -298,10 +284,10 @@
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-5" id="mw-toggle-5">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-5">
           Praktische informatie — begeleiding en verblijf <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-5" role="region" aria-labelledby="mw-toggle-5">
+        <div class="mw-panel" id="mw-panel-5">
           <p>Bij UrbanChill staat jouw vrijheid centraal. Je bepaalt zelf het tempo en de invulling van je verblijf, in alle rust.</p>
           <p><strong>Begeleiding en verblijf</strong></p>
           <p>Tijdens je verblijf werk je met één vaste host. Je host ondersteunt je bij ontvangst, oriëntatie en begeleiding waar gewenst. Alles wordt afgestemd op jouw tempo. Begeleiding is mogelijk, maar nooit verplicht.</p>
@@ -312,12 +298,12 @@
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-6" id="mw-toggle-6">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-6">
           Praktische informatie — bereikbaarheid en veiligheid <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-6" role="region" aria-labelledby="mw-toggle-6">
+        <div class="mw-panel" id="mw-panel-6">
           <p><strong>Bereikbaarheid en veiligheid</strong></p>
-          <p>Tijdens de opdracht zijn wij telefonisch bereikbaar, binnen wat redelijk en passend is.</p>
+          <p>Tijdens de opdracht zijn wij telefonisch en via Signal bereikbaar, binnen wat redelijk en passend is.</p>
           <p>Veiligheid staat altijd voorop. Wanneer een situatie onveilig of grensoverschrijdend wordt, wordt deze naar oordeel van UrbanChill beoordeeld en waar nodig beëindigd.</p>
           <p>Als een host zich onveilig voelt, heeft zij het recht de begeleiding per direct te beëindigen. De opdracht kan in dat geval, naar oordeel van UrbanChill, worden stopgezet.</p>
           <p>We verwachten respectvolle omgang en naleving van lokale wetgeving en gemaakte afspraken. Wanneer grenzen worden overschreden, kan de begeleiding worden beëindigd.</p>
@@ -326,22 +312,19 @@
       </div>
 
       <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-7" id="mw-toggle-7">
+        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-7">
           Praktische informatie — voorwaarden en aansprakelijkheid <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="mw-panel" id="mw-panel-7" role="region" aria-labelledby="mw-toggle-7">
+        <div class="mw-panel" id="mw-panel-7">
           <p><strong>Onvoorziene omstandigheden</strong></p>
           <p>Bij ziekte of onverwachte afwezigheid van je host zoeken wij altijd naar de meest praktische oplossing. Indien mogelijk regelen we een vervangende host.</p>
           <p>Wanneer vervanging niet mogelijk is, wordt het door jou betaalde bedrag binnen vijf werkdagen teruggestort.</p>
-
           <p><strong>Aansprakelijkheid</strong></p>
           <p>De aansprakelijkheid van UrbanChill is in alle gevallen beperkt tot het bedrag dat door jou voor de betreffende opdracht is betaald. UrbanChill is niet aansprakelijk voor indirecte schade of gevolgschade.</p>
-
           <p><strong>Betaling en voorwaarden</strong></p>
-          <p>Je boekt rechtstreeks bij UrbanChill.</p>
+          <p>Je boekt rechtstreeks bij UrbanChill. Betaling vindt plaats binnen 14 dagen en altijd vóór vertrek.</p>
           <p>Tot 20 dagen voor vertrek is annuleren kosteloos. Tussen 20 en 10 dagen geldt 50 procent. Binnen 10 dagen geldt 100 procent. Bij annulering door UrbanChill ontvang je het volledige bedrag terug.</p>
           <p>Klantgegevens worden maximaal één maand na afloop van de opdracht bewaard en daarna verwijderd.</p>
-
           <p><strong>Toepasselijk recht en geschillen</strong></p>
           <p>Op alle opdrachten en overeenkomsten met UrbanChill is uitsluitend Nederlands recht van toepassing.</p>
           <p>Geschillen worden bij voorkeur in onderling overleg opgelost. Indien dit niet mogelijk blijkt, worden geschillen voorgelegd aan de bevoegde rechter in het arrondissement waar UrbanChill is gevestigd.</p>
@@ -358,15 +341,11 @@
         </details>
         <details>
           <summary>Is UrbanChill een reisbureau?</summary>
-          <p>Nee. UrbanChill is geen reisbureau en geen safari aanbieder. We verzorgen persoonlijke begeleiding in Nairobi, geen vluchten of accommodatie.</p>
-        </details>
-        <details>
-          <summary>Voor wie is UrbanChill bedoeld?</summary>
-          <p>Voor individuen en zakenreizigers. We bedienen geen groepen en geen koppels.</p>
+          <p>Nee. UrbanChill is geen reisbureau en geen safari-aanbieder. We verzorgen persoonlijke begeleiding in Nairobi, geen vluchten of accommodatie.</p>
         </details>
         <details>
           <summary>Hoe werkt contact en Signal?</summary>
-          <p>Je kunt Signal chat aanvragen. We delen Signal informatie pas na intake om scraping te beperken.</p>
+          <p>Je kunt Signal-chat aanvragen. We delen Signal-informatie functioneel en pas na intake om scraping te beperken.</p>
         </details>
       </div>
     </section>
@@ -374,10 +353,10 @@
     <section id="contact" class="grid" aria-label="Contact">
       <div class="card section col-12">
         <h2>Contact</h2>
-        <p class="muted">We tonen geen e-mailadressen op de pagina om scraping te beperken. Gebruik de knoppen hieronder.</p>
+        <p style="color:var(--muted)">We tonen geen e-mailadressen op de pagina om scraping te beperken. Gebruik de knoppen hieronder.</p>
         <div class="cta-row">
           <button class="btn primary" id="btnIntake2" type="button">Intake aanvragen</button>
-          <button class="btn ghost" id="btnSignal2" type="button">Vraag Signal chat aan</button>
+          <button class="btn ghost" id="btnSignal2" type="button">Vraag Signal-chat aan</button>
         </div>
         <p class="fine" style="margin-top:12px;">Tip: beschrijf kort je reisdatum, verblijfsduur, en wat je belangrijk vindt.</p>
       </div>
@@ -387,10 +366,9 @@
       <div class="foot-grid">
         <div>
           <strong>UrbanChill</strong><br>
-          <span class="muted">Rijswijk, Nederland (in oprichting)</span><br>
-          <span class="muted">Begeleiding in Nairobi</span>
+          <span style="color:var(--muted)">Rijswijk, Nederland (in oprichting)</span>
         </div>
-        <div class="foot-links" aria-label="Footer links">
+        <div class="foot-links">
           <a href="privacyverklaring.pdf">Privacyverklaring</a>
           <a href="algemene-voorwaarden.pdf">Algemene voorwaarden</a>
           <a href="#contact">Contact</a>
@@ -400,13 +378,13 @@
   </main>
 
   <script>
-    // Privacy-first contact: mailto wordt pas bij klik opgebouwd, zodat emails niet in de bron staan.
+    // Privacy-first contact: mailto wordt pas bij klik opgebouwd.
     function openMail(u,d,s,b){
-      const to = u + "@" + d;
-      const p = [];
+      const to=u+"@"+d;
+      const p=[];
       if(s) p.push("subject="+encodeURIComponent(s));
       if(b) p.push("body="+encodeURIComponent(b));
-      location.href = "mailto:" + encodeURIComponent(to) + (p.length ? "?" + p.join("&") : "");
+      location.href="mailto:"+encodeURIComponent(to)+(p.length?"?"+p.join("&"):"");
     }
     function intakeBody(){
       return [
@@ -436,15 +414,15 @@
       ].join("\n");
     }
 
-    document.getElementById("btnIntake").addEventListener("click",()=>openMail("intake","urbanchill.nl","Intake aanvraag UrbanChill (Nairobi)",intakeBody()));
-    document.getElementById("btnIntake2").addEventListener("click",()=>openMail("intake","urbanchill.nl","Intake aanvraag UrbanChill (Nairobi)",intakeBody()));
+    const sendIntake = ()=>openMail("intake","urbanchill.nl","Intake aanvraag UrbanChill (Nairobi)",intakeBody());
+    const sendSignal = ()=>openMail("intake","urbanchill.nl","Signal verzoek UrbanChill",signalBody());
 
-    const req = ()=>openMail("intake","urbanchill.nl","Signal verzoek UrbanChill",signalBody());
-    document.getElementById("btnSignal").addEventListener("click",req);
-    document.getElementById("btnSignal2").addEventListener("click",req);
-  </script>
+    document.getElementById("btnIntake").addEventListener("click",sendIntake);
+    document.getElementById("btnIntake2").addEventListener("click",sendIntake);
+    document.getElementById("btnSignal").addEventListener("click",sendSignal);
+    document.getElementById("btnSignal2").addEventListener("click",sendSignal);
 
-  <script>
+    // Praktische info accordion (1 open tegelijk)
     (function(){
       const toggles = Array.from(document.querySelectorAll('.mw-toggle'));
       if(!toggles.length) return;
@@ -452,16 +430,13 @@
       toggles.forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const isOpen = btn.getAttribute('aria-expanded') === 'true';
-
-          // alles dicht
           toggles.forEach(b=>{
             b.setAttribute('aria-expanded','false');
-            const panelId = b.getAttribute('aria-controls');
-            const p = panelId ? document.getElementById(panelId) : null;
+            const pid=b.getAttribute('aria-controls');
+            const p=pid?document.getElementById(pid):null;
             if(p) p.classList.remove('open');
           });
 
-          // deze open (als hij dicht was)
           if(!isOpen){
             btn.setAttribute('aria-expanded','true');
             const panelId = btn.getAttribute('aria-controls');
