@@ -7,83 +7,7 @@
   <meta name="robots" content="index,follow">
   <title>UrbanChill Nairobi — Professionele begeleiding in Nairobi</title>
   <meta name="description" content="Professionele begeleiding in Nairobi. Veilig, zorgvuldig en zonder massatoerisme. Intake nu mogelijk. Privacy-first: geen tracking, geen ruis.">
-  <style>
-    :root{--bg:#0f1115;--text:#e8e8ea;--muted:#b7bac6;--brand:#A34F2E;--accent:#D4AF37;--line:rgba(255,255,255,.10);--radius:18px;--shadow:0 12px 30px rgba(0,0,0,.35);--max:1040px}
-    *{box-sizing:border-box} html,body{height:100%} html{scroll-behavior:smooth}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background:
-        radial-gradient(1100px 700px at 20% 0%,rgba(163,79,46,.35),transparent 60%),
-        radial-gradient(900px 600px at 85% 10%,rgba(212,175,55,.22),transparent 55%),
-        radial-gradient(1000px 700px at 50% 115%,rgba(85,107,47,.22),transparent 55%),
-        var(--bg);
-      color:var(--text);line-height:1.55}
-    a{color:inherit}
-    .wrap{max-width:var(--max);margin:0 auto;padding:24px 20px 60px}
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(10px);background:rgba(15,17,21,.72);border-bottom:1px solid var(--line)}
-    .nav-inner{max-width:var(--max);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
-    .logo{display:flex;align-items:center;gap:10px;min-width:180px;font-weight:800;letter-spacing:.2px}
-    .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(212,175,55,.85));box-shadow:0 10px 22px rgba(0,0,0,.35)}
-    .nav-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
-    .nav-links a{text-decoration:none;color:var(--muted);padding:8px 10px;border-radius:12px}
-    .nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-weight:750;cursor:pointer}
-    .btn:hover{background:rgba(255,255,255,.10)}
-    .btn.primary{background:linear-gradient(135deg,rgba(163,79,46,.95),rgba(163,79,46,.78));border-color:rgba(163,79,46,.55);box-shadow:0 14px 28px rgba(163,79,46,.22)}
-    .btn.primary:hover{filter:brightness(1.05)}
-    .btn.ghost{background:transparent}
-    .hero{padding:34px 0 8px;display:grid;gap:18px;grid-template-columns:1.2fr .8fr;align-items:stretch}
-    @media (max-width:920px){.hero{grid-template-columns:1fr}.nav-inner{gap:10px}.logo{min-width:unset}}
-    .card{background:rgba(21,24,36,.72);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hero-left{padding:26px}
-    h1{margin:0 0 10px;font-size:40px;line-height:1.05}
-    .sub{margin:0 0 18px;color:var(--muted);font-size:16px;max-width:66ch}
-    .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 18px}
-    .pill{border:1px solid var(--line);background:rgba(255,255,255,.05);padding:8px 10px;border-radius:999px;color:var(--muted);font-size:13px}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-    .hero-right{padding:18px;display:flex;flex-direction:column;gap:12px}
-    .mini{padding:14px;background:rgba(0,0,0,.14);border:1px solid var(--line);border-radius:16px}
-    .mini strong{display:block;margin-bottom:6px}
-    .mini p{margin:0;color:var(--muted);font-size:14px}
-    .grid{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:18px}
-    .col-12{grid-column:span 12}
-    .section{padding:18px}
-    h2{margin:0 0 10px;font-size:22px}
-    p{margin:0 0 12px}
-    .fine{font-size:13px;color:var(--muted)}
-    .pricing{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-top:8px}
-    .price-card{grid-column:span 6;padding:18px}
-    @media (max-width:860px){.price-card{grid-column:span 12}}
-    .price-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-    .price{font-size:26px;font-weight:900;color:var(--text)}
-    .list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px}
-    .list li{display:flex;gap:10px;align-items:flex-start;color:var(--muted)}
-    .dot{width:10px;height:10px;border-radius:999px;background:rgba(212,175,55,.9);margin-top:6px;flex:0 0 auto;box-shadow:0 0 0 4px rgba(212,175,55,.15)}
-    .faq details{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.04);padding:12px 14px}
-    .faq details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:900}
-    summary::-webkit-details-marker{display:none}
-    .faq p{margin:10px 0 0;color:var(--muted)}
-    footer{margin-top:22px;padding:18px 18px 22px;border-radius:var(--radius);border:1px solid var(--line);background:rgba(21,24,36,.55)}
-    .foot-grid{display:grid;gap:10px;grid-template-columns:1.2fr .8fr}
-    @media (max-width:860px){.foot-grid{grid-template-columns:1fr}}
-    .foot-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
-    .foot-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
-    .foot-links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
-
-    /* Praktische info accordion */
-    .mw-item{margin:12px 0;}
-    .mw-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
-      background:rgba(27,118,81,0.95);border:1px solid rgba(255,255,255,0.10);
-      color:#fff;padding:14px 16px;border-radius:14px;font-weight:900;cursor:pointer;}
-    .mw-toggle[aria-expanded="true"]{background:rgba(222,123,26,0.95);border-color:rgba(255,255,255,0.18);}
-    .mw-chevron{opacity:.9;}
-    .mw-panel{display:none;margin-top:10px;padding:14px 16px;border-radius:14px;
-      background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.86);}
-    .mw-panel.open{display:block;}
-    .mw-panel ul{margin:10px 0 0 18px;}
-    .mw-panel li{margin:6px 0;}
-    .muted{color:var(--muted)}
-  </style>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
@@ -108,7 +32,7 @@
         <h1>Professionele begeleiding in Nairobi.<br>Veilig, zorgvuldig en zonder massatoerisme.</h1>
         <p class="sub">Persoonlijke ondersteuning voor reizigers en zakenbezoekers die Nairobi efficiënt en met vertrouwen willen ervaren.</p>
 
-        <div class="pill-row">
+        <div class="pill-row" aria-label="Kernpunten">
           <div class="pill">Nairobi focus</div>
           <div class="pill">Individuen en zakenreizigers</div>
           <div class="pill">Geen safari aanbieder</div>
@@ -124,7 +48,7 @@
         <p class="fine" style="margin-top:14px;">Intake kan nu. We starten met begeleiding vanaf <strong>1 maart 2026</strong>.</p>
       </div>
 
-      <aside class="card hero-right">
+      <aside class="card hero-right" aria-label="Snelle duidelijkheid">
         <div class="mini">
           <strong>Wat je wél krijgt</strong>
           <p>Lokale begeleiding, heldere communicatie en een rustige aanpak in Nairobi.</p>
@@ -140,36 +64,43 @@
       </aside>
     </section>
 
-    <section id="diensten" class="grid">
+    <section id="diensten" class="grid" aria-label="Diensten">
       <div class="card section col-12">
         <h2>Diensten</h2>
+
         <div class="pricing">
           <div class="card price-card">
             <div class="price-top">
-              <div><div style="font-weight:900;">SOLO</div><div class="muted">1 dag begeleiding</div></div>
+              <div>
+                <div style="font-weight:900;font-size:16px;">SOLO</div>
+                <div class="muted">1 dag begeleiding</div>
+              </div>
               <div class="price">€249</div>
             </div>
             <ul class="list">
-              <li><span class="dot"></span><span>Rustige afstemming en heldere communicatie.</span></li>
-              <li><span class="dot"></span><span>Maaltijden inbegrepen. Boodschappen afgestemd tijdens intake.</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>Rustige afstemming en heldere communicatie.</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>Maaltijden inbegrepen. Boodschappen afgestemd tijdens intake.</span></li>
             </ul>
           </div>
 
           <div class="card price-card">
             <div class="price-top">
-              <div><div style="font-weight:900;">ADVENTURE</div><div class="muted">3 dagen begeleiding</div></div>
+              <div>
+                <div style="font-weight:900;font-size:16px;">ADVENTURE</div>
+                <div class="muted">3 dagen begeleiding</div>
+              </div>
               <div class="price">€599</div>
             </div>
             <ul class="list">
-              <li><span class="dot"></span><span>Drie dagen met ruimte, afstemming en begeleiding.</span></li>
-              <li><span class="dot"></span><span>Extra dag mogelijk: Culinary Day.</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>Drie dagen met ruimte, afstemming en begeleiding.</span></li>
+              <li><span class="dot" aria-hidden="true"></span><span>Extra dag mogelijk: Culinary Day.</span></li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRAKTISCHE INFO (compleet) -->
+    <!-- PRAKTISCHE INFO (volledig) -->
     <section class="card section" id="praktisch">
       <h2>Praktische info</h2>
       <p><strong>Kort, praktisch, zonder ruis.</strong> Klik op een onderwerp voor details.</p>
@@ -177,7 +108,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-1">
-          Voorbereiding <span class="mw-chevron">▾</span>
+          Voorbereiding <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-1">
           <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
@@ -187,7 +118,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-2">
-          Reisverzekering en zorgverzekering <span class="mw-chevron">▾</span>
+          Reisverzekering en zorgverzekering <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-2">
           <p>Sluit een reisverzekering af met dekking voor medische kosten. Check ook je zorgverzekering. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
@@ -196,7 +127,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-3">
-          Boekingen en vliegvelden <span class="mw-chevron">▾</span>
+          Boekingen en vliegvelden <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-3">
           <p>Veel klanten vliegen vanaf Düsseldorf of Brussel. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
@@ -205,7 +136,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-4">
-          Remote werken <span class="mw-chevron">▾</span>
+          Remote werken <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-4">
           <p>Als je (deels) vanuit Kenia werkt, helpt het om je basis simpel en betrouwbaar te houden.</p>
@@ -222,7 +153,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-5">
-          Praktische informatie — begeleiding en verblijf <span class="mw-chevron">▾</span>
+          Praktische informatie — begeleiding en verblijf <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-5">
           <p><strong>Begeleiding en verblijf</strong></p>
@@ -234,7 +165,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-6">
-          Praktische informatie — bereikbaarheid en veiligheid <span class="mw-chevron">▾</span>
+          Praktische informatie — bereikbaarheid en veiligheid <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-6">
           <p><strong>Bereikbaarheid en veiligheid</strong></p>
@@ -245,7 +176,7 @@
 
       <div class="mw-item">
         <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-7">
-          Praktische informatie — voorwaarden en aansprakelijkheid <span class="mw-chevron">▾</span>
+          Praktische informatie — voorwaarden en aansprakelijkheid <span class="mw-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="mw-panel" id="mw-panel-7">
           <p><strong>Aansprakelijkheid</strong> is beperkt tot het bedrag dat je voor de opdracht hebt betaald. Geen indirecte schade.</p>
@@ -254,7 +185,7 @@
       </div>
     </section>
 
-    <section id="faq" class="grid faq">
+    <section id="faq" class="grid faq" aria-label="FAQ">
       <div class="card section col-12">
         <h2>FAQ</h2>
         <details>
@@ -268,7 +199,7 @@
       </div>
     </section>
 
-    <section id="contact" class="grid">
+    <section id="contact" class="grid" aria-label="Contact">
       <div class="card section col-12">
         <h2>Contact</h2>
         <p class="muted">We tonen geen e-mailadressen op de pagina om scraping te beperken. Gebruik de knoppen hieronder.</p>
@@ -279,14 +210,13 @@
       </div>
     </section>
 
-    <footer>
+    <footer aria-label="Footer">
       <div class="foot-grid">
         <div>
           <strong>UrbanChill</strong><br>
           <span class="muted">Rijswijk, Nederland (in oprichting)</span>
         </div>
         <div class="foot-links">
-          <!-- zet deze op echte files als je ze hebt -->
           <a href="#">Privacyverklaring</a>
           <a href="#">Algemene voorwaarden</a>
           <a href="#contact">Contact</a>
@@ -295,83 +225,6 @@
     </footer>
   </main>
 
-  <script>
-    // --- mailto pas bij klik (privacy-first) ---
-    function openMail(u,d,s,b){
-      const to = u + "@" + d;
-      const p = [];
-      if(s) p.push("subject=" + encodeURIComponent(s));
-      if(b) p.push("body=" + encodeURIComponent(b));
-      location.href = "mailto:" + encodeURIComponent(to) + (p.length ? "?" + p.join("&") : "");
-    }
-    function intakeBody(){
-      return [
-        "Hoi UrbanChill,",
-        "",
-        "Ik wil graag een intake aanvragen.",
-        "",
-        "Reisdatum:",
-        "Verblijfsduur:",
-        "Nairobi (gebied/wijk indien bekend):",
-        "Solo of Adventure:",
-        "Wat is voor mij belangrijk (rust/tempo/planning):",
-        "",
-        "Dank!"
-      ].join("\\n");
-    }
-    function signalBody(){
-      return [
-        "Hoi UrbanChill,",
-        "",
-        "Ik wil graag via Signal afstemmen voor vertrouwelijke communicatie.",
-        "Kunnen jullie aangeven hoe we kunnen starten?",
-        "",
-        "Reisdatum:",
-        "Verblijfsduur:",
-        "Korte toelichting:"
-      ].join("\\n");
-    }
-
-    const sendIntake = ()=>openMail("intake","urbanchill.nl","Intake aanvraag UrbanChill (Nairobi)",intakeBody());
-    const sendSignal = ()=>openMail("intake","urbanchill.nl","Signal verzoek UrbanChill",signalBody());
-
-    // null-safe attach (crasht nooit)
-    function on(id, evt, fn){
-      const el = document.getElementById(id);
-      if(el) el.addEventListener(evt, fn);
-    }
-    on("btnIntake","click",sendIntake);
-    on("btnIntake2","click",sendIntake);
-    on("btnSignal","click",sendSignal);
-    on("btnSignal2","click",sendSignal);
-
-    // accordion (1 open tegelijk) + aria consistent
-    (function(){
-      const toggles = Array.from(document.querySelectorAll(".mw-toggle"));
-      if(!toggles.length) return;
-
-      function closeAll(){
-        toggles.forEach(b=>{
-          b.setAttribute("aria-expanded","false");
-          const pid = b.getAttribute("aria-controls");
-          const p = pid ? document.getElementById(pid) : null;
-          if(p) p.classList.remove("open");
-        });
-      }
-
-      toggles.forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          const isOpen = btn.getAttribute("aria-expanded")==="true";
-          closeAll();
-          if(!isOpen){
-            btn.setAttribute("aria-expanded","true");
-            const panelId = btn.getAttribute("aria-controls");
-            const panel = panelId ? document.getElementById(panelId) : null;
-            if(panel) panel.classList.add("open");
-          }
-        });
-      });
-    })();
-  </script>
+  <script src="/main.js" defer></script>
 </body>
 </html>
