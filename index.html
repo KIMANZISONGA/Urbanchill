@@ -1,310 +1,1482 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="no-referrer">
-  <meta name="robots" content="index,follow">
-  <title>UrbanChill Nairobi — Professionele begeleiding in Nairobi</title>
-  <meta name="description" content="Professionele begeleiding in Nairobi. Veilig, zorgvuldig en zonder massatoerisme. Intake nu mogelijk. Privacy-first: geen tracking, geen ruis.">
+  <meta charset="UTF-8" />
+  <title>UrbanChill Cockpit — Intern</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="UrbanChill Cockpit — intern, privacy-first" />
 
-  <!-- CSP-proof: extern (geen inline) -->
-  <link rel="stylesheet" href="/styles.css">
+  <style>
+    :root{
+      --bg0:#081010;
+      --bg1:#0c1717;
+      --card:#0f2323;
+      --card2:#122a2a;
+      --paper:#f4f1ea;
+      --paper2:#f7f3e7;
+      --text:#eaf1ef;
+      --muted:#a7b5b1;
+      --muted2:#7f8d89;
+      --ink:#1f3b3b;
+      --accent:#c9a677;
+      --accent2:rgba(201,166,119,0.18);
+      --border:rgba(255,255,255,0.08);
+      --border2:rgba(0,0,0,0.10);
+      --shadow:0 14px 40px rgba(0,0,0,0.35);
+      --r1:16px;
+      --r2:20px;
+      --r3:26px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #173030 0, #0b1616 48%, #060c0c 100%);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width: 1180px;
+      margin:0 auto;
+      padding: 22px 16px 36px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    header{
+      border-radius: var(--r3);
+      padding: 18px 18px 14px;
+      background: linear-gradient(135deg, rgba(9,22,22,0.92), rgba(7,14,14,0.92));
+      border:1px solid rgba(255,255,255,0.05);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .h-left{ display:flex; flex-direction:column; gap:4px; }
+    .title{
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 720;
+    }
+    .sub{
+      font-size: 13px;
+      color: #d6e0dd;
+    }
+
+    .h-right{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color: #dbe7e3;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .pill strong{ color: var(--text); font-weight:650; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:14px;
+      align-items:start;
+    }
+
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: rgba(10,20,20,0.92);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius: var(--r2);
+      box-shadow: 0 12px 34px rgba(0,0,0,0.35);
+      padding: 14px;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #cfe0dc;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .badge{
+      font-size:11px;
+      padding: 3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color:#dbe7e3;
+    }
+
+    /* PRIO blocks */
+    .prio{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap:10px;
+    }
+    @media (max-width: 980px){
+      .prio{ grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .block{
+      border-radius: 18px;
+      padding: 12px 12px 10px;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.13), rgba(244,241,234,0.68));
+      color: var(--ink);
+      border:1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      min-height: 74px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .block:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.32);
+    }
+    .block::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at top right, var(--accent2), transparent 55%);
+      opacity:0;
+      transition: opacity 0.14s ease;
+      pointer-events:none;
+    }
+    .block:hover::after{ opacity:1; }
+
+    .block .b-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .block .b-ico{ font-size:18px; }
+    .block .b-lbl{
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 750;
+    }
+    .block .b-sub{
+      font-size: 11px;
+      color:#6f6a60;
+    }
+
+    /* Tabs */
+    .tabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .tab{
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color:#e8f0ee;
+      padding: 7px 11px;
+      cursor:pointer;
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .1s ease, background .12s ease;
+      user-select:none;
+    }
+    .tab:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.06); }
+    .tab.active{
+      border-color: rgba(201,166,119,0.38);
+      background: rgba(201,166,119,0.14);
+    }
+
+    .panel{
+      display:none;
+      background: rgba(244,241,234,0.96);
+      color: var(--ink);
+      border-radius: var(--r2);
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.20);
+      padding: 14px;
+    }
+    .panel.active{ display:block; }
+
+    .panel h3{
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: var(--ink);
+    }
+    .panel p{
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: #6f6a60;
+    }
+
+    .form{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      gap:10px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 980px){
+      .form{ grid-template-columns: 1fr; }
+    }
+    label{
+      font-size: 12px;
+      color: #6f6a60;
+      display:block;
+      margin-bottom: 3px;
+    }
+    input, select, textarea{
+      width:100%;
+      border-radius: 10px;
+      border:1px solid rgba(0,0,0,0.18);
+      padding: 8px 9px;
+      font-size: 14px;
+      font-family: inherit;
+      background:#fff;
+      color:#222;
+    }
+    textarea{ min-height: 90px; resize: vertical; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+
+    .btn{
+      border-radius: 999px;
+      border: 1px solid #355d5d;
+      background:#fff;
+      color:#274444;
+      padding: 8px 13px;
+      font-size: 12px;
+      cursor:pointer;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      transition: transform .1s ease, box-shadow .12s ease, background .12s ease;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      background: #f8f6f1;
+    }
+    .btn.primary{
+      background:#355d5d;
+      color:#f4f1ea;
+      border-color:#355d5d;
+    }
+    .btn.primary:hover{ background:#223434; }
+
+    .hint{
+      font-size: 11px;
+      color:#7b6f5c;
+      margin-top: 6px;
+    }
+    .muted{
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    th, td{
+      padding: 8px 8px;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      text-align:left;
+      vertical-align:top;
+    }
+    th{
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color:#6f6a60;
+      background: rgba(201,166,119,0.18);
+    }
+
+    .tag{
+      display:inline-block;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,0.14);
+      background: rgba(255,255,255,0.65);
+      color:#274444;
+    }
+    .tag.warn{ background: rgba(255,229,168,0.55); color:#6b4f10; border-color: rgba(107,79,16,0.18); }
+    .tag.ok{ background: rgba(200,244,220,0.55); color:#1f5a35; border-color: rgba(31,90,53,0.18); }
+
+    footer{
+      margin-top: 8px;
+      text-align:center;
+      color: #b7c6c2;
+      font-size: 11px;
+      padding: 10px 6px 0;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .inline-search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .inline-search input{
+      max-width: 220px;
+    }
+
+    .danger{
+      border-color: rgba(160, 42, 42, 0.40) !important;
+      color: rgba(160, 42, 42, 1) !important;
+    }
+  </style>
 </head>
 
 <body>
-  <header class="nav">
-    <div class="nav-inner">
-      <div class="logo" aria-label="UrbanChill">
-        <div class="mark" aria-hidden="true"></div>
-        <div>UrbanChill</div>
+  <div class="wrap">
+    <header>
+      <div class="h-left">
+        <div class="title">URBANCHILL COCKPIT</div>
+        <div class="sub">Intern · privacy-first · cases, hosts, administratie</div>
       </div>
-      <nav class="nav-links" aria-label="Navigatie">
-        <a href="#diensten">Diensten</a>
-        <a href="#praktisch">Praktische info</a>
-        <a href="#contact">Contact</a>
-      </nav>
+
+      <div class="h-right">
+        <div class="pill">🔒 <strong>Alleen intern</strong> (Cloudflare Access)</div>
+        <div class="pill">🧠 Data-minimalisatie: <strong>direct bij “Afgerond”</strong></div>
+        <div class="pill">💾 Laatste export: <strong id="last-export">—</strong></div>
+      </div>
+    </header>
+
+    <!-- PRIO -->
+    <div class="card">
+      <h2>
+        <span>PRIO</span>
+        <span class="badge">Snel naar Proton</span>
+      </h2>
+
+      <div class="prio">
+        <div class="block" id="prio-intake">
+          <div class="b-top"><span class="b-ico">📥</span><span class="b-lbl">Intake</span></div>
+          <div class="b-sub">to:intake@…</div>
+        </div>
+
+        <div class="block" id="prio-cases">
+          <div class="b-top"><span class="b-ico">📂</span><span class="b-lbl">Cases</span></div>
+          <div class="b-sub">subject:KIM-…</div>
+        </div>
+
+        <div class="block" id="prio-finance">
+          <div class="b-top"><span class="b-ico">🧾</span><span class="b-lbl">Finance</span></div>
+          <div class="b-sub">to:finance@…</div>
+        </div>
+
+        <div class="block" id="prio-bonnen">
+          <div class="b-top"><span class="b-ico">📎</span><span class="b-lbl">Bijlagen</span></div>
+          <div class="b-sub">has:attachment</div>
+        </div>
+
+        <div class="block" id="prio-prio">
+          <div class="b-top"><span class="b-ico">⚡</span><span class="b-lbl">PRIO</span></div>
+          <div class="b-sub">urgent / asap</div>
+        </div>
+
+        <div class="block" id="prio-retentie">
+          <div class="b-top"><span class="b-ico">🗑️</span><span class="b-lbl">Retentie</span></div>
+          <div class="b-sub">cases > 30 dagen</div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;" class="inline-search">
+        <div class="muted">Tip: zoek direct op KIM-nummer in Proton.</div>
+        <div class="inline-search">
+          <input id="kim-search" type="text" placeholder="KIM-2411" />
+          <button class="btn" id="btn-kim-search" type="button">🔎 Zoek in Proton</button>
+        </div>
+      </div>
+      <div class="hint">
+        Deze knoppen openen Proton Webmail met een zoekopdracht. De cockpit leest geen e-mails uit (geen API, geen tokens).
+      </div>
     </div>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="card hero-left">
-        <h1>Professionele begeleiding in Nairobi.<br>Veilig, zorgvuldig en zonder massatoerisme.</h1>
-        <p class="sub">
-          Persoonlijke ondersteuning voor reizigers en zakenbezoekers die Nairobi efficiënt en met vertrouwen willen ervaren.
-          Rustig, discreet en praktisch.
-        </p>
+    <div class="grid">
+      <!-- Main -->
+      <div class="card">
+        <h2>
+          <span>Werkruimte</span>
+          <span class="badge">minimalistisch</span>
+        </h2>
 
-        <div class="pill-row" aria-label="Kernpunten">
-          <div class="pill">Nairobi focus</div>
-          <div class="pill">Individuen en zakenreizigers</div>
-          <div class="pill">Geen safari aanbieder</div>
-          <div class="pill">Privacy-first</div>
+        <div class="tabs">
+          <div class="tab active" data-tab="cases">📋 Cases</div>
+          <div class="tab" data-tab="hosts">👥 Hosts</div>
+          <div class="tab" data-tab="templates">✉️ Sjablonen</div>
+          <div class="tab" data-tab="retentie">🗑️ Retentie</div>
+          <div class="tab" data-tab="backup">💾 Backup</div>
         </div>
 
-        <div class="cta-row">
-          <button class="btn primary" id="btnIntake" type="button">Intake aanvragen</button>
-          <a class="btn ghost" href="#diensten">Bekijk diensten</a>
-          <button class="btn" id="btnSignal" type="button">Vraag Signal-chat aan</button>
-        </div>
+        <!-- CASES -->
+        <div class="panel active" id="panel-cases">
+          <h3>Cases</h3>
+          <p>Nieuwe case toevoegen en beheren. Bij status <strong>Afgerond</strong> worden persoonsgegevens direct gewist.</p>
 
-        <p class="fine" style="margin-top:14px;">
-          Intake kan nu. We starten met begeleiding vanaf <strong>1 maart 2026</strong>.
-        </p>
-      </div>
-
-      <aside class="card hero-right" aria-label="Snelle duidelijkheid">
-        <div class="mini">
-          <strong>Wat je wél krijgt</strong>
-          <p>Lokale begeleiding, heldere communicatie en een rustige aanpak in Nairobi.</p>
-        </div>
-        <div class="mini">
-          <strong>Wat je níet krijgt</strong>
-          <p>Geen massatoerisme, geen groepsreizen, geen safari’s.</p>
-        </div>
-        <div class="mini">
-          <strong>Privacy-first</strong>
-          <p>Geen tracking. Geen social. Contact is functioneel en discreet.</p>
-        </div>
-      </aside>
-    </section>
-
-    <!-- DIENSTEN -->
-    <section id="diensten" class="grid" aria-label="Diensten">
-      <div class="card section col-12">
-        <h2>Diensten</h2>
-        <p class="muted">
-          <strong>Kies je tempo. Wij brengen lokale zekerheid.</strong><br>
-          Alles draait om rust en continuïteit. Praktisch, discreet en zonder ruis. Jij blijft zelfstandig. Je host is je lokale zekerheid.
-        </p>
-
-        <div class="pricing">
-          <!-- SOLO -->
-          <div class="card price-card">
-            <div class="price-top">
-              <div>
-                <div style="font-weight:900;font-size:16px;">SOLO</div>
-                <div class="muted">Zachte landing en oriëntatie (1 dag)</div>
-              </div>
-              <div class="price">€249</div>
+          <div class="form">
+            <div>
+              <label>KIM-nummer</label>
+              <input id="case-id" type="text" placeholder="KIM-2411" />
+              <div class="hint">Tip: houd KIM-nummer ook in onderwerpregels van mails.</div>
             </div>
 
-            <p class="fine">
-              Eendaagse begeleiding voor een kalme start. Ideaal als je aankomt en meteen een betrouwbare basis wilt:
-              veilig vervoer, korte oriëntatie en iemand die de lokale do’s en don’ts kent.
-            </p>
-
-            <p style="margin-top:10px;"><strong>Dit krijg je:</strong></p>
-            <ul class="list">
-              <li><span class="dot" aria-hidden="true"></span><span>Ontvangst en veilig vervoer naar je verblijf.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Korte, rustige oriëntatie (praktisch, geen toer).</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Hulp met basiszaken waar nodig (bijv. simkaart, M-Pesa, veilige routes).</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Inclusief lichte maaltijd.</span></li>
-            </ul>
-
-            <p style="margin-top:10px;"><strong>Goed om te weten:</strong></p>
-            <ul class="list">
-              <li><span class="dot" aria-hidden="true"></span><span>Ophaalservice tot 30 km inbegrepen; boven 30 km geldt € 0,50 per km.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Late arrivals na 22.00 uur: toeslag € 40.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Accommodatie regel je zelf (bijv. via Airbnb die jij boekt).</span></li>
-            </ul>
-          </div>
-
-          <!-- ADVENTURE (volledig + extra context) -->
-          <div class="card price-card">
-            <div class="price-top">
-              <div>
-                <div style="font-weight:900;font-size:16px;">ADVENTURE</div>
-                <div class="muted">Tijdelijke lokale ondersteuning (3 dagen)</div>
-              </div>
-              <div class="price">€599</div>
+            <div>
+              <label>Aankomstdatum</label>
+              <input id="case-arrival" type="date" />
             </div>
 
-            <p class="fine">
-              Drie dagen met je persoonlijke host als lokale zekerheid. Voor wie hier werkt, langer blijft of simpelweg rust wil in de eerste dagen.
-              Je hoeft niet te “presteren” of een programma af te werken — het doel is dat jij soepel landt, je ritme vindt en de stad begrijpt zonder ruis.
-            </p>
+            <div>
+              <label>Status</label>
+              <select id="case-status">
+                <option value="Aanvraag">Aanvraag</option>
+                <option value="Boeking">Boeking</option>
+                <option value="Betaald">Betaald</option>
+                <option value="Uitgevoerd">Uitgevoerd</option>
+                <option value="Afgerond">Afgerond</option>
+              </select>
+            </div>
 
-            <p class="fine">
-              We houden het nuchter: geen groepsgevoel, geen community, geen druk. Jij bepaalt het tempo. Soms is dat praktisch (regelen, routes, basis),
-              soms is dat juist rust (even afschakelen), en soms is dat een paar rustige uitstappen om Nairobi aan te voelen. Alles is in overleg.
-            </p>
+            <div>
+              <label>Klantnaam</label>
+              <input id="case-client" type="text" placeholder="(wordt gewist bij Afgerond)" />
+            </div>
 
-            <p style="margin-top:10px;"><strong>Dit krijg je:</strong></p>
-            <ul class="list">
-              <li><span class="dot" aria-hidden="true"></span><span>Dagelijkse begeleiding afgestemd op jouw ritme (werken, landen, herstellen).</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Praktische ondersteuning waar nodig: basiszekerheid, routes, context en lokale do’s en don’ts.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Kleine uitstappen of lokale introductie waar jij dat wil (discreet, zonder druk).</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Inclusief twee maaltijden per dag (geen alcohol).</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Boodschappenservice mogelijk (we bespreken dit bij de intake).</span></li>
-            </ul>
+            <div>
+              <label>Dienst</label>
+              <select id="case-service">
+                <option value="SOLO">SOLO</option>
+                <option value="SOLO + GROCERIES">SOLO + GROCERIES</option>
+                <option value="ADVENTURE (3 dagen)">ADVENTURE (3 dagen)</option>
+                <option value="ADVENTURE + EXTRA DAY">ADVENTURE + EXTRA DAY</option>
+              </select>
+            </div>
 
-            <p style="margin-top:10px;"><strong>Goed om te weten:</strong></p>
-            <ul class="list">
-              <li><span class="dot" aria-hidden="true"></span><span>Ophaalservice tot 30 km inbegrepen; boven 30 km geldt € 0,50 per km.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Late arrivals na 22.00 uur: toeslag € 40.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Accommodatie door klant; wij adviseren waar nodig.</span></li>
-              <li><span class="dot" aria-hidden="true"></span><span>Add-on: extra dag mogelijk voor € 95 (alleen op Adventure).</span></li>
-            </ul>
+            <div>
+              <label>Host (optioneel)</label>
+              <select id="case-host">
+                <option value="">— Nog niet toegewezen —</option>
+              </select>
+              <div class="hint">Hostlijst beheer je in tab “Hosts”.</div>
+            </div>
+          </div>
 
-            <p class="muted" style="margin-top:10px;">
-              <strong>Goed om te weten:</strong> bij uitstapjes en persoonlijke activiteiten zorg je als gast ook voor je host.
-              Zo blijft het ontspannen, respectvol en prettig.
-            </p>
+          <div style="margin-top:6px;">
+            <label>Notities</label>
+            <textarea id="case-notes" placeholder="Kort. Rustig. Alleen wat je echt nodig hebt. (Wordt gewist bij Afgerond)"></textarea>
+          </div>
+
+          <div class="row" style="margin-top:10px;">
+            <button class="btn" type="button" id="btn-reset-case">Reset</button>
+            <button class="btn primary" type="button" id="btn-save-case">Opslaan</button>
+          </div>
+
+          <div class="hint">
+            Privacy-first: zodra je een case op <strong>Afgerond</strong> zet, wist de cockpit direct klantnaam, notities, host en details. Daarna blijft alleen KIM + afrondingsdatum over (voor retentie).
+          </div>
+
+          <hr style="border:none;border-top:1px solid rgba(0,0,0,0.10); margin:14px 0;" />
+
+          <div class="form" style="grid-template-columns: 1.2fr 0.8fr 1fr;">
+            <div>
+              <label>Zoeken</label>
+              <input id="case-search" type="text" placeholder="zoek op KIM, klant (als nog niet afgerond), status" />
+            </div>
+            <div>
+              <label>Filter status</label>
+              <select id="case-filter">
+                <option value="">Alle</option>
+                <option value="Aanvraag">Aanvraag</option>
+                <option value="Boeking">Boeking</option>
+                <option value="Betaald">Betaald</option>
+                <option value="Uitgevoerd">Uitgevoerd</option>
+                <option value="Afgerond">Afgerond</option>
+              </select>
+            </div>
+            <div class="row" style="justify-content:flex-start;">
+              <button class="btn" type="button" id="btn-build-briefing">📋 Kopieer briefing (EN)</button>
+              <button class="btn" type="button" id="btn-open-proton-case">✉️ Open case in Proton</button>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>KIM</th>
+                <th>Status</th>
+                <th>Aankomst</th>
+                <th>Host</th>
+                <th>Acties</th>
+              </tr>
+            </thead>
+            <tbody id="case-tbody"></tbody>
+          </table>
+
+          <div class="hint">
+            Acties: “Bewerk” laadt de case in het formulier. “Afgerond” wist direct persoonsgegevens. “Verwijder” verwijdert de case meteen (let op).
           </div>
         </div>
+
+        <!-- HOSTS -->
+        <div class="panel" id="panel-hosts">
+          <h3>Hosts</h3>
+          <p>Lokale hostlijst (alleen in deze browser). E-mails staan niet hardcoded in de bron en worden gecodeerd opgeslagen.</p>
+
+          <div class="form" style="grid-template-columns: 1fr 1fr 0.7fr;">
+            <div>
+              <label>Naam</label>
+              <input id="host-name" type="text" placeholder="bijv. Mary" />
+            </div>
+            <div>
+              <label>E-mail</label>
+              <input id="host-email" type="email" placeholder="bijv. mary@example.com" />
+              <div class="hint">Wordt gecodeerd opgeslagen. Niet zichtbaar in broncode.</div>
+            </div>
+            <div class="row" style="justify-content:flex-start; align-self:end;">
+              <button class="btn primary" type="button" id="btn-add-host">+ Host toevoegen</button>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Host</th>
+                <th>Snelle acties</th>
+              </tr>
+            </thead>
+            <tbody id="host-tbody"></tbody>
+          </table>
+
+          <div class="hint">
+            Pro-tip: gebruik “Zoek conversatie” om in Proton direct alle mail met deze host te zien.
+          </div>
+        </div>
+
+        <!-- TEMPLATES -->
+        <div class="panel" id="panel-templates">
+          <h3>Sjablonen (kort & rustig)</h3>
+          <p>Kopieer teksten voor snelle communicatie. (Je kunt deze later uitbreiden.)</p>
+
+          <div class="split">
+            <div style="background:var(--paper2); border:1px solid rgba(0,0,0,0.10); border-radius:14px; padding:12px;">
+              <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+                <strong>Bonnen opvragen (EN)</strong>
+                <button class="btn" type="button" data-copy="tpl-receipts">Kopieer</button>
+              </div>
+              <div class="hint">Voor hosts na een trip / opdracht.</div>
+              <textarea id="tpl-receipts">Hello,
+
+Could you send me the receipts and expenses for the assignment?
+Please send them in one e-mail, as photos or PDF, so I can keep the administration clear.
+
+Thank you 🙏
+
+— 
+KIMANZI / UrbanChill</textarea>
+            </div>
+
+            <div style="background:var(--paper2); border:1px solid rgba(0,0,0,0.10); border-radius:14px; padding:12px;">
+              <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+                <strong>Uitbetaling bevestigd (EN)</strong>
+                <button class="btn" type="button" data-copy="tpl-paid">Kopieer</button>
+              </div>
+              <div class="hint">Korte bevestiging zonder discussie.</div>
+              <textarea id="tpl-paid">Hello,
+
+This is to confirm that the payment for the assignment has been processed.
+If anything looks off or if you have questions, please let me know.
+
+Thank you for your work 🙏
+
+— 
+KIMANZI / UrbanChill</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETENTIE -->
+        <div class="panel" id="panel-retentie">
+          <h3>Retentie</h3>
+          <p>Cases ouder dan <strong>30 dagen</strong> na afronding verschijnen hier. Jij verwijdert handmatig. Facturen bewaar je apart.</p>
+
+          <div class="row" style="justify-content:flex-start;">
+            <span class="tag warn">Handmatig verwijderen</span>
+            <span class="tag ok">Persoonsgegevens gewist bij Afgerond</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>KIM</th>
+                <th>Afgerond op</th>
+                <th>Dagen geleden</th>
+                <th>Actie</th>
+              </tr>
+            </thead>
+            <tbody id="retention-tbody"></tbody>
+          </table>
+
+          <div class="hint">
+            Let op: “Definitief verwijderen” is onomkeerbaar. Zorg dat je facturen/bewijsstukken buiten de cockpit zijn opgeslagen (conform jullie finance-proces).
+          </div>
+        </div>
+
+        <!-- BACKUP -->
+        <div class="panel" id="panel-backup">
+          <h3>Backup</h3>
+          <p>Voor jouw laptop-scenario. Exporteer cases als JSON. (Na “Afgerond” staan er geen persoonsgegevens meer in.)</p>
+
+          <div class="row" style="justify-content:flex-start;">
+            <button class="btn primary" type="button" id="btn-export">⬇️ Export cases (JSON)</button>
+            <label class="btn" style="cursor:pointer;">
+              ⬆️ Import (JSON)
+              <input type="file" id="import-file" accept=".json,application/json" style="display:none;">
+            </label>
+            <button class="btn danger" type="button" id="btn-wipe-all">🧨 Wis alles lokaal</button>
+          </div>
+
+          <div class="hint">
+            Import is optioneel — handig bij laptopwissel. “Wis alles lokaal” verwijdert cases + hosts + notities uit deze browser.
+          </div>
+        </div>
+
       </div>
-    </section>
 
-    <!-- PRAKTISCHE INFO -->
-    <section class="card section" id="praktisch">
-      <h2>Praktische info</h2>
-      <p><strong>Kort, praktisch, zonder ruis.</strong> Klik op een onderwerp voor details.</p>
-      <p class="muted">Alles hieronder is bedoeld om je start soepel te maken — inclusief tips en antwoorden op veelgestelde vragen.</p>
+      <!-- Side -->
+      <div class="card">
+        <h2>
+          <span>Snelle notities</span>
+          <span class="badge">alleen lokaal</span>
+        </h2>
+        <textarea id="quick-notes" placeholder="Vandaag: welke cases, welke hosts, wat is PRIO. (Blijft alleen op dit apparaat.)"></textarea>
+        <div class="hint">Notities worden lokaal opgeslagen. Geen server, geen tracking.</div>
 
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-1">
-          Voorbereiding <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-1">
-          <p>Voor Kenia is een gele koorts vaccinatie verplicht. Regel dit op tijd. Controleer ook je paspoort. Het moet bij aankomst nog zes maanden geldig zijn.</p>
-          <p>Veel reizigers nemen een tweede telefoon mee, speciaal voor Kenia. Een toestel met alleen noodzakelijke apps geeft rust en voelt veiliger. Een powerbank maakt je dagen eenvoudiger.</p>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08); margin:12px 0;" />
+
+        <h2>
+          <span>KIM teller</span>
+          <span class="badge">lokaal</span>
+        </h2>
+        <div class="split">
+          <div>
+            <label>Laatste KIM</label>
+            <input id="kim-current" type="text" readonly placeholder="Nog geen KIM" />
+            <div class="hint">Deze teller is per browser. (Gebruik als handig hulpmiddel.)</div>
+          </div>
+          <div class="row" style="justify-content:flex-start;">
+            <button class="btn primary" type="button" id="btn-kim-new">🧾 Nieuw KIM</button>
+            <button class="btn" type="button" id="btn-kim-copy">📋 Kopieer</button>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08); margin:12px 0;" />
+
+        <div class="muted">
+          <div><strong>Retentie:</strong> bij “Afgerond” wist de cockpit direct persoonsgegevens. Na 30 dagen verwijder je de case definitief.</div>
+          <div style="margin-top:6px;"><strong>Mail:</strong> Proton is leidend. Cockpit opent searches, maar leest geen inbox uit.</div>
         </div>
       </div>
+    </div>
 
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-2">
-          Reisverzekering en zorgverzekering <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-2">
-          <p>Sluit een reisverzekering af met dekking voor medische kosten. Check ook je zorgverzekering. Een kleine aanvulling kan veel rust geven als er iets gebeurt.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-3">
-          Boekingen en vliegvelden <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-3">
-          <p>Veel klanten vliegen vanaf Düsseldorf of Brussel. Je hoeft nog geen vlucht geboekt te hebben om een intake te plannen.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-4">
-          Remote werken <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-4">
-          <p>Als je (deels) vanuit Kenia werkt, helpt het om je basis simpel en betrouwbaar te houden.</p>
-          <p><strong>Praktische tips:</strong></p>
-          <ul>
-            <li>Neem een powerbank en een tweede oplader mee.</li>
-            <li>Plan je belangrijke calls op vaste momenten.</li>
-            <li>Werk met je eigen data of een lokale sim (veilig opgezet).</li>
-            <li>Houd je werkplek rustig: liever één plek dan telkens wisselen.</li>
-          </ul>
-          <p class="muted">We houden het praktisch. Jij blijft zelfstandig; wij helpen met lokale zekerheid als dat prettig is.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-5">
-          Praktische informatie — begeleiding en verblijf <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-5">
-          <p><strong>Begeleiding en verblijf</strong></p>
-          <p>Tijdens je verblijf werk je met één vaste host. Alles wordt afgestemd op jouw tempo. Begeleiding is mogelijk, maar nooit verplicht.</p>
-          <p>Je boekt zelf je accommodatie. Vervoer verloopt via Uber of een vooraf afgestemde chauffeur. Voor diensten van derden is UrbanChill niet aansprakelijk.</p>
-          <p>De intake is in het Nederlands. De begeleiding is in het Engels.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-6">
-          Praktische informatie — bereikbaarheid en veiligheid <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-6">
-          <p><strong>Bereikbaarheid en veiligheid</strong></p>
-          <p>Tijdens de opdracht zijn wij bereikbaar binnen wat redelijk en passend is.</p>
-          <p><strong>Bij beëindiging om veiligheidsredenen vervalt het recht op restitutie.</strong></p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-7">
-          Praktische informatie — voorwaarden en aansprakelijkheid <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-7">
-          <p><strong>Aansprakelijkheid</strong> is beperkt tot het bedrag dat je voor de opdracht hebt betaald. Geen indirecte schade.</p>
-          <p><strong>Toepasselijk recht:</strong> Nederlands recht.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-8">
-          Zijn de prijzen inclusief btw? <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-8">
-          <p>Ja. Alle prijzen op deze pagina zijn inclusief 21% btw.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-9">
-          Is UrbanChill een reisbureau? <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-9">
-          <p>Nee. UrbanChill is geen reisbureau en geen safari-aanbieder. We verzorgen begeleiding in Nairobi, geen vluchten of accommodatie.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-10">
-          Voor wie is UrbanChill bedoeld? <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-10">
-          <p>Voor individuen en zakenreizigers. We bedienen geen groepen en geen koppels.</p>
-        </div>
-      </div>
-
-      <div class="mw-item">
-        <button class="mw-toggle" type="button" aria-expanded="false" aria-controls="mw-panel-11">
-          Hoe werkt contact en Signal? <span class="mw-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="mw-panel" id="mw-panel-11">
-          <p>Je kunt Signal-chat aanvragen. We stemmen functioneel af om ruis te beperken.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="grid" aria-label="Contact">
-      <div class="card section col-12">
-        <h2>Contact</h2>
-        <p class="muted">We tonen geen e-mailadressen op de pagina om scraping te beperken. Gebruik de knoppen hieronder.</p>
-        <div class="cta-row">
-          <button class="btn primary" id="btnIntake2" type="button">Intake aanvragen</button>
-          <button class="btn ghost" id="btnSignal2" type="button">Vraag Signal-chat aan</button>
-        </div>
-      </div>
-    </section>
-
-    <footer aria-label="Footer">
-      <div class="foot-grid">
-        <div>
-          <strong>UrbanChill</strong><br>
-          <span class="muted">Rijswijk, Nederland (in oprichting)</span>
-        </div>
-        <div class="foot-links">
-          <a href="#">Privacyverklaring</a>
-          <a href="#">Algemene voorwaarden</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
+    <footer>
+      UrbanChill Cockpit — intern · privacy-first · geen tracking · geen externe calls
     </footer>
-  </main>
+  </div>
 
-  <!-- CSP-proof: extern (geen inline) -->
-  <script src="/main.js" defer></script>
+<script>
+/* =========================
+   STORAGE KEYS
+========================= */
+const KEY_NOTES = "uc_cockpit_quick_notes";
+const KEY_CASES = "uc_cockpit_cases_v1";
+const KEY_HOSTS = "uc_cockpit_hosts_v1";
+const KEY_LAST_EXPORT = "uc_cockpit_last_export";
+const KEY_KIM = "uc_cockpit_kim_counter";
+
+/* =========================
+   HELPERS
+========================= */
+function nowISODate() {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const dd = String(d.getDate()).padStart(2,'0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function formatNLDate(dateStr) {
+  if (!dateStr) return "—";
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("nl-NL", { day:"2-digit", month:"short", year:"numeric" }).replace(".","");
+  } catch(e){
+    return dateStr;
+  }
+}
+
+function daysBetween(dateStr) {
+  if (!dateStr) return null;
+  const a = new Date(dateStr).getTime();
+  const b = new Date().getTime();
+  const diff = Math.floor((b - a) / (1000*60*60*24));
+  return diff;
+}
+
+function safeText(s){ return (s ?? "").toString().trim(); }
+
+/* =========================
+   EMAIL OBFUSCATION (no hardcoded emails)
+   We store emails encoded (base64) in localStorage.
+========================= */
+function b64Encode(str){
+  try { return btoa(unescape(encodeURIComponent(str))); }
+  catch(e){ return ""; }
+}
+function b64Decode(str){
+  try { return decodeURIComponent(escape(atob(str))); }
+  catch(e){ return ""; }
+}
+
+/* =========================
+   PROTON LAUNCH (search)
+========================= */
+function openProtonSearch(query){
+  // Proton web search URL (robust for our use)
+  const url = `https://mail.proton.me/u/0/search?q=${encodeURIComponent(query)}`;
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+/* =========================
+   TABS
+========================= */
+function setTab(name){
+  document.querySelectorAll(".tab").forEach(t => {
+    t.classList.toggle("active", t.dataset.tab === name);
+  });
+  document.querySelectorAll(".panel").forEach(p => {
+    p.classList.toggle("active", p.id === "panel-" + name);
+  });
+}
+
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => setTab(t.dataset.tab));
+});
+
+/* =========================
+   QUICK NOTES
+========================= */
+const notesEl = document.getElementById("quick-notes");
+function loadNotes(){
+  const v = localStorage.getItem(KEY_NOTES);
+  if (v && notesEl) notesEl.value = v;
+}
+function saveNotes(){
+  if (!notesEl) return;
+  localStorage.setItem(KEY_NOTES, notesEl.value);
+}
+if (notesEl){
+  notesEl.addEventListener("input", saveNotes);
+}
+
+/* =========================
+   HOSTS
+========================= */
+function loadHosts(){
+  try{
+    const raw = localStorage.getItem(KEY_HOSTS);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    if (!Array.isArray(arr)) return [];
+    // decode email fields
+    return arr.map(h => ({
+      id: h.id,
+      name: h.name,
+      emailEnc: h.emailEnc || "",
+      email: b64Decode(h.emailEnc || ""),
+      createdAt: h.createdAt || ""
+    }));
+  }catch(e){ return []; }
+}
+
+function saveHosts(list){
+  const out = list.map(h => ({
+    id: h.id,
+    name: h.name,
+    emailEnc: h.emailEnc || b64Encode(h.email || ""),
+    createdAt: h.createdAt || nowISODate()
+  }));
+  localStorage.setItem(KEY_HOSTS, JSON.stringify(out));
+}
+
+function renderHosts(){
+  const tbody = document.getElementById("host-tbody");
+  if (!tbody) return;
+  const hosts = loadHosts();
+  tbody.innerHTML = "";
+
+  if (!hosts.length){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td colspan="2">Nog geen hosts opgeslagen.</td>`;
+    tbody.appendChild(tr);
+    syncHostSelect();
+    return;
+  }
+
+  hosts.sort((a,b) => (a.name||"").localeCompare(b.name||""));
+
+  hosts.forEach(h => {
+    const tr = document.createElement("tr");
+
+    const tdName = document.createElement("td");
+    tdName.innerHTML = `<strong>${escapeHtml(h.name)}</strong><div class="hint">E-mail wordt pas bij klik gebruikt.</div>`;
+
+    const tdActions = document.createElement("td");
+    const btnMail = mkBtn("✉️ Mail host", () => {
+      const email = h.email || b64Decode(h.emailEnc || "");
+      if (!email) return alert("Geen e-mail gevonden voor deze host.");
+      const url = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent("KIMANZI / UrbanChill")}`;
+      window.location.href = url;
+    });
+
+    const btnSearch = mkBtn("🔎 Zoek conversatie", () => {
+      const email = h.email || b64Decode(h.emailEnc || "");
+      if (!email) return alert("Geen e-mail gevonden voor deze host.");
+      openProtonSearch(`from:${email} OR to:${email}`);
+    });
+
+    const btnDel = mkBtn("🗑 Verwijder", () => {
+      if (!confirm(`Host "${h.name}" verwijderen?`)) return;
+      const next = loadHosts().filter(x => x.id !== h.id);
+      saveHosts(next);
+      renderHosts();
+      renderCases(); // update host dropdown labels
+    }, true);
+
+    tdActions.appendChild(btnMail);
+    tdActions.appendChild(btnSearch);
+    tdActions.appendChild(btnDel);
+
+    tr.appendChild(tdName);
+    tr.appendChild(tdActions);
+    tbody.appendChild(tr);
+  });
+
+  syncHostSelect();
+}
+
+function mkBtn(text, onClick, danger=false){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = danger ? "btn danger" : "btn";
+  b.textContent = text;
+  b.addEventListener("click", onClick);
+  return b;
+}
+
+function escapeHtml(str){
+  return String(str ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+document.getElementById("btn-add-host")?.addEventListener("click", () => {
+  const name = safeText(document.getElementById("host-name")?.value);
+  const email = safeText(document.getElementById("host-email")?.value);
+  if (!name || !email){
+    alert("Vul naam en e-mail in.");
+    return;
+  }
+  const hosts = loadHosts();
+  const id = "H-" + Date.now().toString(36);
+  hosts.push({ id, name, emailEnc: b64Encode(email), createdAt: nowISODate() });
+  saveHosts(hosts);
+
+  document.getElementById("host-name").value = "";
+  document.getElementById("host-email").value = "";
+  renderHosts();
+});
+
+/* =========================
+   CASES
+========================= */
+function loadCases(){
+  try{
+    const raw = localStorage.getItem(KEY_CASES);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    if (!Array.isArray(arr)) return [];
+    return arr;
+  }catch(e){ return []; }
+}
+function saveCases(list){
+  localStorage.setItem(KEY_CASES, JSON.stringify(list));
+}
+
+function resetCaseForm(){
+  document.getElementById("case-id").value = "";
+  document.getElementById("case-arrival").value = "";
+  document.getElementById("case-status").value = "Aanvraag";
+  document.getElementById("case-client").value = "";
+  document.getElementById("case-service").value = "SOLO";
+  document.getElementById("case-host").value = "";
+  document.getElementById("case-notes").value = "";
+  document.getElementById("case-id").focus();
+}
+
+document.getElementById("btn-reset-case")?.addEventListener("click", resetCaseForm);
+
+function syncHostSelect(){
+  const sel = document.getElementById("case-host");
+  if (!sel) return;
+  const current = sel.value;
+  const hosts = loadHosts();
+
+  sel.innerHTML = `<option value="">— Nog niet toegewezen —</option>`;
+  hosts.sort((a,b) => (a.name||"").localeCompare(b.name||""));
+  hosts.forEach(h => {
+    const opt = document.createElement("option");
+    opt.value = h.id;
+    opt.textContent = h.name;
+    sel.appendChild(opt);
+  });
+
+  // restore if possible
+  sel.value = current;
+}
+
+function minimalizeOnComplete(c){
+  // direct wipe of PII/details (per your rule)
+  return {
+    id: c.id,
+    status: "Afgerond",
+    completedAt: c.completedAt || nowISODate(),
+    // keep minimal only
+    arrival: "",
+    service: "",
+    hostId: "",
+    client: "",
+    notes: ""
+  };
+}
+
+document.getElementById("btn-save-case")?.addEventListener("click", () => {
+  const id = safeText(document.getElementById("case-id").value);
+  const arrival = safeText(document.getElementById("case-arrival").value);
+  const status = safeText(document.getElementById("case-status").value);
+  const client = safeText(document.getElementById("case-client").value);
+  const service = safeText(document.getElementById("case-service").value);
+  const hostId = safeText(document.getElementById("case-host").value);
+  const notes = safeText(document.getElementById("case-notes").value);
+
+  if (!id){
+    alert("Vul een KIM-nummer in.");
+    return;
+  }
+
+  const list = loadCases();
+  const idx = list.findIndex(x => x.id === id);
+
+  let next = {
+    id,
+    arrival,
+    status,
+    client,
+    service,
+    hostId,
+    notes,
+    createdAt: (idx >= 0 ? list[idx].createdAt : nowISODate()),
+    updatedAt: nowISODate(),
+    completedAt: (idx >= 0 ? list[idx].completedAt : "")
+  };
+
+  if (status === "Afgerond"){
+    if (!next.completedAt) next.completedAt = nowISODate();
+    next = minimalizeOnComplete(next);
+    next.createdAt = (idx >= 0 ? list[idx].createdAt : nowISODate());
+    next.updatedAt = nowISODate();
+  } else {
+    // if moved away from Afgerond, keep completedAt empty
+    next.completedAt = "";
+  }
+
+  if (idx >= 0) list[idx] = next;
+  else list.push(next);
+
+  saveCases(list);
+  renderCases();
+  renderRetention();
+  resetCaseForm();
+
+  if (status === "Afgerond"){
+    alert("Case is afgerond. Persoonsgegevens zijn direct gewist (retentie actief).");
+  } else {
+    alert("Case opgeslagen.");
+  }
+});
+
+function getHostName(hostId){
+  if (!hostId) return "";
+  const h = loadHosts().find(x => x.id === hostId);
+  return h?.name || "";
+}
+
+function renderCases(){
+  const tbody = document.getElementById("case-tbody");
+  if (!tbody) return;
+
+  const search = (document.getElementById("case-search")?.value || "").toLowerCase();
+  const filter = document.getElementById("case-filter")?.value || "";
+
+  const list = loadCases().slice();
+  // sort: earliest arrival first, otherwise by createdAt
+  list.sort((a,b) => {
+    const da = a.arrival ? new Date(a.arrival).getTime() : 9e15;
+    const db = b.arrival ? new Date(b.arrival).getTime() : 9e15;
+    if (da !== db) return da - db;
+    return (a.createdAt || "").localeCompare(b.createdAt || "");
+  });
+
+  const rows = list.filter(c => {
+    if (filter && c.status !== filter) return false;
+    if (!search) return true;
+    const hay = `${c.id} ${c.status} ${c.client||""} ${c.service||""} ${getHostName(c.hostId)}`.toLowerCase();
+    return hay.includes(search);
+  });
+
+  tbody.innerHTML = "";
+
+  if (!rows.length){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td colspan="5">Nog geen cases gevonden met deze filters.</td>`;
+    tbody.appendChild(tr);
+    syncHostSelect();
+    return;
+  }
+
+  rows.forEach(c => {
+    const tr = document.createElement("tr");
+    const hostName = (c.status === "Afgerond") ? "—" : (getHostName(c.hostId) || "—");
+
+    tr.innerHTML = `
+      <td><strong>${escapeHtml(c.id)}</strong></td>
+      <td><span class="tag ${c.status==="Afgerond" ? "ok" : ""}">${escapeHtml(c.status)}</span></td>
+      <td>${c.status==="Afgerond" ? "—" : escapeHtml(formatNLDate(c.arrival))}</td>
+      <td>${escapeHtml(hostName)}</td>
+      <td></td>
+    `;
+
+    const tdAct = tr.querySelector("td:last-child");
+
+    const btnEdit = mkBtn("Bewerk", () => loadCaseIntoForm(c.id));
+    const btnDone = mkBtn("Afgerond", () => markCaseCompleted(c.id));
+    const btnDel = mkBtn("Verwijder", () => deleteCaseNow(c.id), true);
+
+    tdAct.appendChild(btnEdit);
+    tdAct.appendChild(btnDone);
+    tdAct.appendChild(btnDel);
+
+    tbody.appendChild(tr);
+  });
+
+  syncHostSelect();
+}
+
+function loadCaseIntoForm(id){
+  const c = loadCases().find(x => x.id === id);
+  if (!c) return;
+
+  document.getElementById("case-id").value = c.id || "";
+  document.getElementById("case-arrival").value = c.arrival || "";
+  document.getElementById("case-status").value = c.status || "Aanvraag";
+  document.getElementById("case-client").value = c.client || "";
+  document.getElementById("case-service").value = c.service || "SOLO";
+  document.getElementById("case-host").value = c.hostId || "";
+  document.getElementById("case-notes").value = c.notes || "";
+
+  setTab("cases");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function markCaseCompleted(id){
+  const list = loadCases();
+  const idx = list.findIndex(x => x.id === id);
+  if (idx < 0) return;
+
+  if (!confirm(`Case ${id} afronden? Persoonsgegevens worden direct gewist.`)) return;
+
+  let c = list[idx];
+  c.status = "Afgerond";
+  c.completedAt = c.completedAt || nowISODate();
+  c.updatedAt = nowISODate();
+  c = minimalizeOnComplete(c);
+  c.createdAt = list[idx].createdAt || nowISODate();
+  c.updatedAt = nowISODate();
+
+  list[idx] = c;
+  saveCases(list);
+  renderCases();
+  renderRetention();
+  alert("Afgerond. Persoonsgegevens zijn gewist.");
+}
+
+function deleteCaseNow(id){
+  if (!confirm(`Case ${id} direct verwijderen? (onomkeerbaar)`)) return;
+  const next = loadCases().filter(x => x.id !== id);
+  saveCases(next);
+  renderCases();
+  renderRetention();
+}
+
+/* =========================
+   RETENTION
+========================= */
+function renderRetention(){
+  const tbody = document.getElementById("retention-tbody");
+  if (!tbody) return;
+
+  const list = loadCases().filter(c => c.status === "Afgerond" && c.completedAt);
+  const eligible = list
+    .map(c => ({...c, age: daysBetween(c.completedAt)}))
+    .filter(c => (c.age !== null && c.age >= 30))
+    .sort((a,b) => b.age - a.age);
+
+  tbody.innerHTML = "";
+
+  if (!eligible.length){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td colspan="4">Nog geen cases die verwijderd moeten worden (30 dagen na afronding).</td>`;
+    tbody.appendChild(tr);
+    return;
+  }
+
+  eligible.forEach(c => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><strong>${escapeHtml(c.id)}</strong></td>
+      <td>${escapeHtml(formatNLDate(c.completedAt))}</td>
+      <td><span class="tag warn">${c.age} dagen</span></td>
+      <td></td>
+    `;
+    const td = tr.querySelector("td:last-child");
+    const btn = mkBtn("🗑 Definitief verwijderen", () => {
+      if (!confirm(`Definitief verwijderen: ${c.id}? (onomkeerbaar)`)) return;
+      const next = loadCases().filter(x => x.id !== c.id);
+      saveCases(next);
+      renderCases();
+      renderRetention();
+    }, true);
+    td.appendChild(btn);
+    tbody.appendChild(tr);
+  });
+}
+
+/* =========================
+   BRIEFING (EN) from selected case
+========================= */
+function getSelectedCaseForActions(){
+  // pick the first visible row? better: use search box exact match if provided
+  const q = safeText(document.getElementById("case-search")?.value);
+  if (q){
+    const exact = loadCases().find(c => (c.id||"").toLowerCase() === q.toLowerCase());
+    if (exact) return exact;
+  }
+  // otherwise take most recent non-completed case
+  const list = loadCases().filter(c => c.status !== "Afgerond");
+  list.sort((a,b) => (b.updatedAt||"").localeCompare(a.updatedAt||""));
+  return list[0] || null;
+}
+
+document.getElementById("btn-build-briefing")?.addEventListener("click", async () => {
+  const c = getSelectedCaseForActions();
+  if (!c){
+    alert("Geen actieve case gevonden. Zoek eerst op KIM-nummer in het zoekveld, of maak een case aan.");
+    return;
+  }
+  if (c.status === "Afgerond"){
+    alert("Deze case is afgerond (gegevens gewist). Briefing is niet meer beschikbaar.");
+    return;
+  }
+
+  const hostName = getHostName(c.hostId) || "there";
+  const dateTxt = c.arrival ? formatNLDate(c.arrival) : "[date]";
+  const txt =
+`KIMANZI / UrbanChill
+
+Hello ${hostName},
+
+Here is a short briefing for assignment ${c.id}.
+
+• Client: ${c.client || "[name]"}
+• Arrival: ${dateTxt}
+• Service: ${c.service || "[service]"}
+• Notes: ${c.notes || "-"}
+
+Please let me know if this fits your planning and if you have any questions.
+
+Best regards,
+Stephen
+KIMANZI / UrbanChill`;
+
+  try{
+    await navigator.clipboard.writeText(txt);
+    alert("Briefing (EN) gekopieerd.");
+  }catch(e){
+    alert("Kopiëren lukt niet automatisch. Selecteer en kopieer handmatig:\n\n" + txt);
+  }
+});
+
+document.getElementById("btn-open-proton-case")?.addEventListener("click", () => {
+  const c = getSelectedCaseForActions();
+  if (!c){
+    alert("Geen case gevonden. Zoek eerst op KIM-nummer in het zoekveld.");
+    return;
+  }
+  openProtonSearch(`subject:${c.id}`);
+});
+
+document.getElementById("case-search")?.addEventListener("input", () => renderCases());
+document.getElementById("case-filter")?.addEventListener("change", () => renderCases());
+
+/* =========================
+   TEMPLATES COPY
+========================= */
+document.querySelectorAll("[data-copy]").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const id = btn.getAttribute("data-copy");
+    const ta = document.getElementById(id);
+    const txt = ta?.value || "";
+    if (!txt) return;
+    try{
+      await navigator.clipboard.writeText(txt);
+      alert("Tekst gekopieerd.");
+    }catch(e){
+      alert("Kopiëren lukt niet automatisch. Selecteer en kopieer handmatig.");
+    }
+  });
+});
+
+/* =========================
+   BACKUP EXPORT/IMPORT/WIPE
+========================= */
+function setLastExportDisplay(){
+  const v = localStorage.getItem(KEY_LAST_EXPORT);
+  document.getElementById("last-export").textContent = v ? formatNLDate(v) : "—";
+}
+setLastExportDisplay();
+
+document.getElementById("btn-export")?.addEventListener("click", () => {
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    cases: loadCases(),
+    hosts: localStorage.getItem(KEY_HOSTS) ? JSON.parse(localStorage.getItem(KEY_HOSTS)) : []
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  const stamp = nowISODate().replaceAll("-","");
+  a.href = URL.createObjectURL(blob);
+  a.download = `urbanchill_cockpit_export_${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  localStorage.setItem(KEY_LAST_EXPORT, nowISODate());
+  setLastExportDisplay();
+});
+
+document.getElementById("import-file")?.addEventListener("change", async (ev) => {
+  const file = ev.target.files?.[0];
+  if (!file) return;
+  try{
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if (!data || typeof data !== "object") throw new Error("Invalid");
+    const cases = Array.isArray(data.cases) ? data.cases : [];
+    const hosts = data.hosts; // expected encoded store format
+    if (!confirm("Import uitvoeren? Dit overschrijft lokale cases/hosts.")) return;
+
+    saveCases(cases);
+    if (hosts) localStorage.setItem(KEY_HOSTS, JSON.stringify(hosts));
+    localStorage.setItem(KEY_LAST_EXPORT, nowISODate());
+    setLastExportDisplay();
+
+    renderHosts();
+    renderCases();
+    renderRetention();
+
+    alert("Import voltooid.");
+  }catch(e){
+    console.warn(e);
+    alert("Import mislukt. Controleer het JSON-bestand.");
+  } finally {
+    ev.target.value = "";
+  }
+});
+
+document.getElementById("btn-wipe-all")?.addEventListener("click", () => {
+  if (!confirm("Alles lokaal wissen? (cases + hosts + notities + teller). Dit is onomkeerbaar.")) return;
+  localStorage.removeItem(KEY_CASES);
+  localStorage.removeItem(KEY_HOSTS);
+  localStorage.removeItem(KEY_NOTES);
+  localStorage.removeItem(KEY_KIM);
+  localStorage.removeItem(KEY_LAST_EXPORT);
+  setLastExportDisplay();
+  loadKIM();
+  loadNotes();
+  renderHosts();
+  renderCases();
+  renderRetention();
+  alert("Alles lokaal gewist.");
+});
+
+/* =========================
+   KIM COUNTER
+========================= */
+function loadKIM(){
+  const v = localStorage.getItem(KEY_KIM);
+  const el = document.getElementById("kim-current");
+  if (!el) return;
+  el.value = v || "";
+}
+loadKIM();
+
+function genNextKIM(){
+  const raw = localStorage.getItem(KEY_KIM);
+  let n = Number(String(raw || "").replace("KIM-",""));
+  if (!Number.isFinite(n) || n < 1000) n = 2400; // safe default baseline
+  n += 1;
+  const ref = "KIM-" + n;
+  localStorage.setItem(KEY_KIM, ref);
+  loadKIM();
+  return ref;
+}
+
+document.getElementById("btn-kim-new")?.addEventListener("click", async () => {
+  const ref = genNextKIM();
+  try{
+    await navigator.clipboard.writeText(ref);
+    alert(`Nieuw KIM: ${ref} (gekopieerd)`);
+  }catch(e){
+    alert(`Nieuw KIM: ${ref}`);
+  }
+});
+
+document.getElementById("btn-kim-copy")?.addEventListener("click", async () => {
+  const ref = localStorage.getItem(KEY_KIM) || "";
+  if (!ref) return alert("Nog geen KIM.");
+  try{
+    await navigator.clipboard.writeText(ref);
+    alert("KIM gekopieerd.");
+  }catch(e){
+    alert("Kopiëren lukt niet automatisch.");
+  }
+});
+
+/* =========================
+   PRIO BUTTONS (Proton searches)
+   (No hardcoded emails in source: we assemble from pieces.)
+========================= */
+// domain parts (not personally sensitive)
+const _d1 = "kimanzi";
+const _d2 = "nl";
+const _d3 = "agent";
+const _d4 = "kimanzi";
+const _d5 = "nl";
+
+// addresses assembled at runtime (still not "hardcoded" as single readable strings)
+function addrIntake(){
+  return ["intake","@",_d3,".",_d4,".",_d5].join("");
+}
+function addrFinance(){
+  return ["finance","@",_d1,".",_d2].join("");
+}
+
+document.getElementById("prio-intake")?.addEventListener("click", () => {
+  openProtonSearch(`to:${addrIntake()}`);
+});
+document.getElementById("prio-cases")?.addEventListener("click", () => {
+  openProtonSearch(`subject:KIM-`);
+});
+document.getElementById("prio-finance")?.addEventListener("click", () => {
+  openProtonSearch(`to:${addrFinance()}`);
+});
+document.getElementById("prio-bonnen")?.addEventListener("click", () => {
+  openProtonSearch(`has:attachment`);
+});
+document.getElementById("prio-prio")?.addEventListener("click", () => {
+  openProtonSearch(`urgent OR asap`);
+});
+document.getElementById("prio-retentie")?.addEventListener("click", () => {
+  setTab("retentie");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.getElementById("btn-kim-search")?.addEventListener("click", () => {
+  const q = safeText(document.getElementById("kim-search").value);
+  if (!q){
+    alert("Vul een KIM-nummer in, bijv. KIM-2411.");
+    return;
+  }
+  openProtonSearch(`subject:${q}`);
+});
+
+/* =========================
+   INIT
+========================= */
+function init(){
+  loadNotes();
+  renderHosts();
+  renderCases();
+  renderRetention();
+  syncHostSelect();
+}
+init();
+</script>
 </body>
 </html>
