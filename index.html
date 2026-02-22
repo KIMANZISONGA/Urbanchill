@@ -10,328 +10,411 @@
 <meta name="description" content="UrbanChill biedt begeleiding in Nairobi. Vrijheid om te ontdekken, veiligheid om te ontspannen. Respect voor lokale cultuur. Geen tracking.">
 
 <style>
+
+/* ================= ROOT ================= */
+
 :root{
   --sand:#f4e7d8;
+  --sand-soft:#f9efe3;
   --sun:#e58e3a;
+  --sun-deep:#c96f1d;
   --deep:#1f2c38;
-  --warm:#f0c89a;
-  --card:rgba(255,255,255,.94);
-  --shadow:0 15px 40px rgba(0,0,0,.15);
+  --ink:#2b2b2b;
+  --muted:#6d6d6d;
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 20px 45px rgba(0,0,0,.12);
+  --max:1100px;
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* ================= RESET ================= */
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:var(--sand);
-  color:#222;
   line-height:1.7;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(229,142,58,.22), transparent 60%),
+    radial-gradient(700px 400px at 15% -10%, rgba(201,111,29,.16), transparent 60%),
+    var(--sand);
 }
 
-/* NAVIGATION */
+/* ================= LAYOUT ================= */
+
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ================= NAVIGATION ================= */
+
 .nav{
   position:fixed;
   top:0;
+  left:0;
   width:100%;
-  background:rgba(31,44,56,.88);
-  backdrop-filter:blur(8px);
-  z-index:20;
+  background:rgba(31,44,56,.95);
+  backdrop-filter:blur(10px);
+  z-index:100;
 }
+
 .nav-inner{
-  max-width:1100px;
+  max-width:var(--max);
   margin:auto;
-  padding:16px 20px;
+  padding:18px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.logo{
-  color:white;
-  font-weight:700;
-  letter-spacing:.5px;
-}
-.nav-links a{
-  color:white;
-  margin-left:20px;
-  text-decoration:none;
-  font-weight:500;
-  opacity:.9;
-}
-.nav-links a:hover{opacity:1}
 
-/* HERO */
+.logo{
+  color:var(--white);
+  font-weight:700;
+  letter-spacing:.6px;
+}
+
+.nav-links a{
+  color:var(--white);
+  text-decoration:none;
+  margin-left:24px;
+  opacity:.85;
+  transition:opacity .2s ease;
+}
+
+.nav-links a:hover{
+  opacity:1;
+}
+
+/* ================= HERO ================= */
+
 .hero{
-  padding:160px 20px 120px;
+  padding:180px 0 140px;
   background:
-    linear-gradient(rgba(31,44,56,.6),rgba(31,44,56,.6)),
+    linear-gradient(rgba(31,44,56,.65),rgba(31,44,56,.75)),
     url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1600&q=80');
   background-size:cover;
   background-position:center;
-  color:white;
+  color:var(--white);
 }
-.hero-inner{
-  max-width:1100px;
-  margin:auto;
+
+.hero-grid{
   display:grid;
   grid-template-columns:1fr 380px;
-  gap:50px;
+  gap:60px;
 }
-.hero h1{
-  font-size:clamp(2.2rem,4vw,3.2rem);
-  margin-bottom:20px;
-}
-.sub{opacity:.95;margin-bottom:16px}
 
-.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}
+.hero h1{
+  font-size:clamp(2.4rem,4vw,3.4rem);
+  line-height:1.15;
+  margin:0 0 24px;
+}
+
+.hero p{
+  margin:0 0 18px;
+  opacity:.95;
+}
+
+.pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:30px 0;
+}
+
 .pill{
-  background:rgba(255,255,255,.18);
-  padding:8px 14px;
-  border-radius:20px;
+  background:rgba(255,255,255,.2);
+  padding:9px 16px;
+  border-radius:999px;
   font-size:14px;
 }
 
-.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:25px}
+/* ================= BUTTONS ================= */
+
 .btn{
-  padding:13px 20px;
-  border-radius:8px;
+  display:inline-block;
+  padding:14px 26px;
+  border-radius:10px;
   border:none;
   cursor:pointer;
   font-weight:600;
   font-size:15px;
-}
-.primary{background:var(--sun);color:white}
-.secondary{background:white;color:#333}
-.ghost{background:rgba(255,255,255,.2);color:white}
-
-.hero-right .mini{
-  background:rgba(255,255,255,.15);
-  padding:20px;
-  border-radius:14px;
-  margin-bottom:18px;
-  backdrop-filter:blur(4px);
+  transition:.2s ease;
 }
 
-/* SECTIONS */
+.btn-primary{
+  background:var(--sun);
+  color:var(--white);
+}
+
+.btn-primary:hover{
+  background:var(--sun-deep);
+}
+
+.btn-secondary{
+  background:var(--white);
+  color:#333;
+}
+
+.btn-secondary:hover{
+  background:#f2f2f2;
+}
+
+.cta-row{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+/* ================= SIDE CARDS ================= */
+
+.hero-card{
+  background:rgba(255,255,255,.18);
+  padding:22px;
+  border-radius:18px;
+  backdrop-filter:blur(6px);
+  margin-bottom:20px;
+}
+
+/* ================= SECTIONS ================= */
+
 section{
-  max-width:1100px;
-  margin:100px auto;
-  padding:0 20px;
+  margin:120px 0;
 }
+
 .card{
-  background:var(--card);
-  padding:40px;
-  border-radius:20px;
+  background:linear-gradient(180deg,#ffffff,#f9f3ea);
+  padding:60px;
+  border-radius:var(--radius);
   box-shadow:var(--shadow);
 }
-h2{margin-top:0}
 
-/* PRICING */
+h2{
+  margin-top:0;
+}
+
+/* ================= PRICING ================= */
+
 .pricing{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:40px;
+  gap:60px;
+  margin-top:40px;
 }
+
 .price-card{
-  background:white;
-  padding:30px;
-  border-radius:16px;
+  background:var(--white);
+  padding:35px;
+  border-radius:18px;
   box-shadow:var(--shadow);
+  transition:transform .2s ease;
 }
+
+.price-card:hover{
+  transform:translateY(-6px);
+}
+
 .price-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
+
 .price{
   font-weight:700;
-  font-size:20px;
+  font-size:22px;
   color:var(--sun);
 }
 
-/* FOUNDER */
+/* ================= FOUNDER ================= */
+
 .founder-card{
-  background:linear-gradient(135deg,#fff, #f4e7d8);
-  padding:60px;
-  border-radius:20px;
+  background:linear-gradient(135deg,#fff,#f4e7d8);
+  padding:70px;
+  border-radius:var(--radius);
   box-shadow:var(--shadow);
-  position:relative;
 }
-.founder-card::before{
-  content:"";
-  position:absolute;
-  top:-80px;
-  right:-80px;
-  width:240px;
-  height:240px;
-  background:radial-gradient(circle, rgba(229,142,58,.25), transparent 70%);
-  border-radius:50%;
-}
+
 .founder-line{
   width:60px;
   height:3px;
   background:var(--sun);
-  margin:15px 0 30px;
+  margin:18px 0 32px;
 }
-.founder-signature{
-  margin-top:40px;
-}
-.sig-line{
-  width:120px;
-  height:1px;
-  background:rgba(0,0,0,.25);
-  margin-bottom:10px;
-}
-.sig-name{font-weight:600}
-.sig-title{font-size:14px;opacity:.7}
 
-/* FOOTER */
+/* ================= FOOTER ================= */
+
 footer{
   background:var(--deep);
-  color:white;
-  padding:60px 20px;
-  margin-top:120px;
+  color:var(--white);
+  padding:70px 20px;
+  margin-top:140px;
 }
-footer a{color:white;text-decoration:none;margin-right:20px}
 
-/* RESPONSIVE */
+/* ================= RESPONSIVE ================= */
+
 @media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr}
-  .pricing{grid-template-columns:1fr}
+
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .pricing{
+    grid-template-columns:1fr;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <header class="nav">
-<div class="nav-inner">
-<div class="logo">UrbanChill</div>
-<nav class="nav-links">
-<a href="#verhaal">Verhaal</a>
-<a href="#diensten">Diensten</a>
-<a href="#praktisch">Praktisch</a>
-<a href="#founder">Founder</a>
-<a href="#contact">Contact</a>
-</nav>
-</div>
+  <div class="nav-inner">
+    <div class="logo">UrbanChill</div>
+    <nav class="nav-links">
+      <a href="#verhaal">Verhaal</a>
+      <a href="#diensten">Diensten</a>
+      <a href="#praktisch">Praktisch</a>
+      <a href="#founder">Founder</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <section class="hero">
-<div class="hero-inner">
-<div>
-<h1>Nairobi ervaren met vrijheid.<br>Ontspannen met veiligheid.</h1>
+  <div class="container hero-grid">
+    <div>
+      <h1>Nairobi ervaren met vrijheid.<br>Ontspannen met veiligheid.</h1>
 
-<p class="sub">
-UrbanChill begeleidt reizigers en zakenbezoekers die Nairobi bewust willen ontdekken.
-Je bepaalt je tempo. Wij zorgen voor lokale zekerheid.
-</p>
+      <p>
+        UrbanChill begeleidt reizigers en zakenbezoekers die Nairobi bewust willen ontdekken.
+        Je bepaalt je tempo. Wij zorgen voor lokale zekerheid.
+      </p>
 
-<p class="sub">
-Met een host aan je zijde beweeg je veilig door Nairobi.
-Een stad vol energie, ambitie en groei.
-Een plek waar vakantie en zakelijke kansen samenkomen.
-</p>
+      <p>
+        Met een host aan je zijde beweeg je veilig door Nairobi.
+        Een stad in groei. Energiek. Ambitieus.
+        Een plek waar vakantie en zakelijke kansen samenkomen.
+      </p>
 
-<div class="pill-row">
-<div class="pill">Nairobi focus</div>
-<div class="pill">Vrijheid en veiligheid</div>
-<div class="pill">Respect voor cultuur</div>
-<div class="pill">Geen massatoerisme</div>
-</div>
+      <div class="pill-row">
+        <div class="pill">Nairobi focus</div>
+        <div class="pill">Vrijheid en veiligheid</div>
+        <div class="pill">Respect voor cultuur</div>
+        <div class="pill">Geen massatoerisme</div>
+      </div>
 
-<div class="cta-row">
-<button class="btn primary" onclick="sendIntake()">Intake aanvragen</button>
-<button class="btn secondary" onclick="sendContact()">Algemene vraag</button>
-</div>
-</div>
+      <div class="cta-row">
+        <button class="btn btn-primary" onclick="sendIntake()">Intake aanvragen</button>
+        <button class="btn btn-secondary" onclick="sendContact()">Algemene vraag</button>
+      </div>
+    </div>
 
-<div class="hero-right">
-<div class="mini"><strong>Vrijheid</strong><br>Je kiest je eigen ritme.</div>
-<div class="mini"><strong>Veiligheid</strong><br>Grenzen worden bewaakt.</div>
-<div class="mini"><strong>Balans</strong><br>We enjoy the night, but we never lose structure.</div>
-</div>
-</div>
+    <div>
+      <div class="hero-card"><strong>Vrijheid</strong><br>Je kiest je eigen ritme.</div>
+      <div class="hero-card"><strong>Veiligheid</strong><br>Grenzen worden bewaakt.</div>
+      <div class="hero-card"><strong>Balans</strong><br>We enjoy the night, but we never lose structure.</div>
+    </div>
+
+  </div>
 </section>
 
 <section id="verhaal">
-<div class="card">
-<h2>Ons verhaal</h2>
-<p>Nairobi is een stad in ontwikkeling. Energiek. Ambitieus. Vol kansen.</p>
-<p>UrbanChill begeleidt gasten die vrijheid willen ervaren, binnen veilige kaders en met respect voor lokale cultuur.</p>
-</div>
+  <div class="container">
+    <div class="card">
+      <h2>Ons verhaal</h2>
+      <p>Nairobi ontwikkelt zich tot een belangrijke metropool van Afrika. Dynamisch. Internationaal. Vol kansen.</p>
+      <p>UrbanChill begeleidt gasten die vrijheid willen ervaren binnen veilige kaders en met respect voor lokale cultuur.</p>
+    </div>
+  </div>
 </section>
 
 <section id="diensten">
-<h2>Diensten</h2>
-<div class="pricing">
-<div class="price-card">
-<div class="price-top">
-<div><strong>SOLO</strong></div>
-<div class="price">€249</div>
-</div>
-<p>Zachte landing bij aankomst inclusief veilige transfer en oriëntatie.</p>
-</div>
+  <div class="container">
+    <h2>Diensten</h2>
 
-<div class="price-card">
-<div class="price-top">
-<div><strong>ADVENTURE</strong></div>
-<div class="price">€599</div>
-</div>
-<p>Meerdaagse begeleiding met vaste host. Vrijheid binnen veilige grenzen.</p>
-</div>
-</div>
+    <div class="pricing">
+      <div class="price-card">
+        <div class="price-top">
+          <strong>SOLO</strong>
+          <div class="price">€249</div>
+        </div>
+        <p>Zachte landing bij aankomst inclusief veilige transfer en rustige oriëntatie.</p>
+      </div>
+
+      <div class="price-card">
+        <div class="price-top">
+          <strong>ADVENTURE</strong>
+          <div class="price">€599</div>
+        </div>
+        <p>Meerdaagse begeleiding met vaste host. Vrijheid binnen veilige grenzen.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="praktisch">
-<div class="card">
-<h2>Praktische informatie</h2>
-<p>UrbanChill is geen reisbureau en geen safari aanbieder. Vluchten en accommodatie regel je zelf.</p>
-<p>Begeleiding in het Engels. Intake mogelijk in het Nederlands.</p>
-<p>Bij beëindiging om veiligheidsredenen vindt geen restitutie plaats. Veiligheid staat altijd voorop.</p>
-</div>
+  <div class="container">
+    <div class="card">
+      <h2>Praktische informatie</h2>
+      <p>UrbanChill is geen reisbureau en geen safari aanbieder. Vluchten en accommodatie regel je zelf.</p>
+      <p>Begeleiding in het Engels. Intake mogelijk in het Nederlands.</p>
+      <p>Bij beëindiging om veiligheidsredenen vindt geen restitutie plaats. Veiligheid staat altijd voorop.</p>
+    </div>
+  </div>
 </section>
 
 <section id="founder">
-<div class="founder-card">
-<h2>From the founder</h2>
-<div class="founder-line"></div>
-<p>Vrijheid en veiligheid kunnen samen bestaan. Met duidelijke grenzen en respect voor cultuur.</p>
-<p>We enjoy the night, but we never lose structure.</p>
-
-<div class="founder-signature">
-<div class="sig-line"></div>
-<div class="sig-name">Stephen</div>
-<div class="sig-title">Founder</div>
-</div>
-
-</div>
+  <div class="container">
+    <div class="founder-card">
+      <h2>From the founder</h2>
+      <div class="founder-line"></div>
+      <p>Vrijheid en veiligheid kunnen samen bestaan. Met duidelijke grenzen en respect voor cultuur.</p>
+      <p>We enjoy the night, but we never lose structure.</p>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
-<div class="card">
-<h2>Contact</h2>
-<p>Gebruik onderstaande knoppen voor discreet contact. E-mailadressen worden niet publiek weergegeven.</p>
-<div class="cta-row">
-<button class="btn primary" onclick="sendIntake()">Intake aanvragen</button>
-<button class="btn secondary" onclick="sendContact()">Algemene vraag</button>
-</div>
-</div>
+  <div class="container">
+    <div class="card">
+      <h2>Contact</h2>
+      <p>Gebruik onderstaande knoppen voor discreet contact. E mailadressen worden niet publiek weergegeven.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" onclick="sendIntake()">Intake aanvragen</button>
+        <button class="btn btn-secondary" onclick="sendContact()">Algemene vraag</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-<div style="max-width:1100px;margin:auto;">
-<strong>UrbanChill</strong><br>
-Nairobi focus — Onderdeel van KIMANZI
-</div>
+  <div class="container">
+    <strong>UrbanChill</strong><br>
+    Nairobi focus — Onderdeel van KIMANZI
+  </div>
 </footer>
 
 <script>
 function sendIntake(){
-window.location.href="mailto:intake@kimanz.nl?subject=UrbanChill Intake";
+  window.location.href="mailto:intake@kimanz.nl?subject=UrbanChill Intake";
 }
 function sendContact(){
-window.location.href="mailto:info@kimanzi.nl?subject=UrbanChill Vraag";
+  window.location.href="mailto:info@kimanzi.nl?subject=UrbanChill Vraag";
 }
 </script>
 
