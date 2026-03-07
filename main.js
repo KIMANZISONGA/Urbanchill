@@ -42,18 +42,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
       e.preventDefault();
 
-      const honeypot = intakeForm.querySelector('[name="website"]').value;
-      if (honeypot !== "") return;
+      const name = document.getElementById("client_name").value.trim();
+      const email = document.getElementById("client_email").value.trim();
+      const phone = document.getElementById("client_phone").value.trim();
+      const service = document.getElementById("service").value;
+      const notes = document.getElementById("notes").value.trim();
+
+      if (!name || !email) {
+        alert("Naam en email zijn verplicht.");
+        return;
+      }
 
       const payload = {
-        service: document.getElementById("service").value,
-        client_name: document.getElementById("client_name").value,
-        client_email: document.getElementById("client_email").value,
-        client_phone: document.getElementById("client_phone").value,
-        notes: document.getElementById("notes").value
+        service: service,
+        client_name: name,
+        client_email: email,
+        client_phone: phone,
+        notes: notes
       };
 
-      sendRequest(payload, "Intake verzoek ontvangen. We nemen contact met je op.");
+      sendRequest(
+        payload,
+        "Intake verzoek ontvangen. We nemen contact met je op."
+      );
 
       intakeForm.reset();
 
@@ -68,18 +79,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
       e.preventDefault();
 
-      const honeypot = contactForm.querySelector('[name="website"]').value;
-      if (honeypot !== "") return;
+      const name = document.getElementById("contact_name").value.trim();
+      const email = document.getElementById("contact_email").value.trim();
+      const message = document.getElementById("contact_message").value.trim();
+
+      if (!name || !email || !message) {
+        alert("Vul alle velden in.");
+        return;
+      }
 
       const payload = {
         service: "contact",
-        client_name: document.getElementById("contact_name").value,
-        client_email: document.getElementById("contact_email").value,
+        client_name: name,
+        client_email: email,
         client_phone: "",
-        notes: document.getElementById("contact_message").value
+        notes: message
       };
 
-      sendRequest(payload, "Bericht ontvangen. We nemen contact met je op.");
+      sendRequest(
+        payload,
+        "Bericht ontvangen. We nemen contact met je op."
+      );
 
       contactForm.reset();
 
