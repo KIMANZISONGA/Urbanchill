@@ -30,37 +30,30 @@ async function sendRequest(payload, successMessage) {
 
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
 
-  const intakeForm = document.querySelector("#intake-form");
-  const contactForm = document.querySelector("#contact-form");
+  const intakeForm = document.getElementById("intake-form");
+  const contactForm = document.getElementById("contact-form");
+
 
   if (intakeForm) {
 
-    intakeForm.addEventListener("submit", function(e) {
+    intakeForm.addEventListener("submit", function (e) {
 
       e.preventDefault();
 
-      const honeypot = intakeForm.querySelector('input[name="website"]').value;
-
-      if (honeypot !== "") {
-        console.warn("Bot blocked");
-        return;
-      }
+      const honeypot = intakeForm.querySelector('[name="website"]').value;
+      if (honeypot !== "") return;
 
       const payload = {
-        service: document.querySelector("#service").value,
-        client_name: document.querySelector("#client_name").value,
-        client_email: document.querySelector("#client_email").value,
-        client_phone: document.querySelector("#client_phone").value,
-        notes: document.querySelector("#notes").value
+        service: document.getElementById("service").value,
+        client_name: document.getElementById("client_name").value,
+        client_email: document.getElementById("client_email").value,
+        client_phone: document.getElementById("client_phone").value,
+        notes: document.getElementById("notes").value
       };
 
-      sendRequest(
-        payload,
-        "Intake verzoek ontvangen. We nemen contact met je op."
-      );
+      sendRequest(payload, "Intake verzoek ontvangen. We nemen contact met je op.");
 
       intakeForm.reset();
 
@@ -69,32 +62,24 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-
   if (contactForm) {
 
-    contactForm.addEventListener("submit", function(e) {
+    contactForm.addEventListener("submit", function (e) {
 
       e.preventDefault();
 
-      const honeypot = contactForm.querySelector('input[name="website"]').value;
-
-      if (honeypot !== "") {
-        console.warn("Bot blocked");
-        return;
-      }
+      const honeypot = contactForm.querySelector('[name="website"]').value;
+      if (honeypot !== "") return;
 
       const payload = {
         service: "contact",
-        client_name: document.querySelector("#contact_name").value,
-        client_email: document.querySelector("#contact_email").value,
+        client_name: document.getElementById("contact_name").value,
+        client_email: document.getElementById("contact_email").value,
         client_phone: "",
-        notes: document.querySelector("#contact_message").value
+        notes: document.getElementById("contact_message").value
       };
 
-      sendRequest(
-        payload,
-        "Bericht ontvangen. We nemen contact met je op."
-      );
+      sendRequest(payload, "Bericht ontvangen. We nemen contact met je op.");
 
       contactForm.reset();
 
