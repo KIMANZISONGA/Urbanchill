@@ -1,66 +1,98 @@
-/* reveal on scroll */
+const API = "https://cockpit.urbanchill.org/api/intake"
 
-const reveals = document.querySelectorAll(".reveal")
 
-const observer = new IntersectionObserver(entries => {
+/* INTAKE */
 
-entries.forEach(entry => {
+const intake = document.getElementById("intake-form")
 
-if(entry.isIntersecting){
+if(intake){
 
-entry.target.classList.add("visible")
+intake.onsubmit = async e => {
+
+e.preventDefault()
+
+const payload = {
+
+service: document.getElementById("service").value,
+
+client_name: document.getElementById("client_name").value,
+
+client_email: document.getElementById("client_email").value,
+
+client_phone: document.getElementById("client_phone").value,
+
+notes: document.getElementById("notes").value
 
 }
 
+const r = await fetch(API,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(payload)
 })
 
-})
+if(r.ok){
 
-reveals.forEach(el => observer.observe(el))
+alert("Intake ontvangen")
 
+intake.reset()
 
-/* modal */
+}else{
 
-function createModal(type){
+alert("Er ging iets mis")
 
-const modal = document.createElement("div")
-
-modal.className = "uc-modal"
-
-modal.innerHTML = `
-
-<div class="uc-modal-box">
-
-<h2>${type==="intake" ? "Intake aanvraag" : "Vraag stellen"}</h2>
-
-<form>
-
-<input placeholder="Naam" required>
-
-<input placeholder="Email" required>
-
-<textarea placeholder="Bericht"></textarea>
-
-<button class="btn btn-primary">Versturen</button>
-
-</form>
-
-</div>
-
-`
-
-document.body.appendChild(modal)
-
-modal.onclick = e => {
-if(e.target === modal) modal.remove()
 }
 
 }
 
-document.querySelectorAll(".js-intake").forEach(btn=>{
-btn.onclick = () => createModal("intake")
+}
+
+
+
+/* CONTACT */
+
+const contact = document.getElementById("contact-form")
+
+if(contact){
+
+contact.onsubmit = async e => {
+
+e.preventDefault()
+
+const payload = {
+
+service:"contact",
+
+client_name: document.getElementById("contact_name").value,
+
+client_email: document.getElementById("contact_email").value,
+
+notes: document.getElementById("contact_message").value
+
+}
+
+const r = await fetch(API,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(payload)
 })
 
-document.querySelectorAll(".js-contact").forEach(btn=>{
-btn.onclick = () => createModal("contact")
-})
+if(r.ok){
+
+alert("Bericht ontvangen")
+
+contact.reset()
+
+}else{
+
+alert("Er ging iets mis")
+
+}
+
+}
+
+}
