@@ -1,8 +1,6 @@
 /* ================================================= */
-/* URBANCHILL STYLESHEET */
-/* COMPLETE VERSION */
+/* URBANCHILL COMPLETE STYLESHEET */
 /* ================================================= */
-
 
 /* ------------------------------- */
 /* RESET */
@@ -22,7 +20,7 @@ body{
 
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 
-background:#f2e8dc;
+background:#f3e7da;
 
 color:#2b2b2b;
 
@@ -31,7 +29,6 @@ font-size:19px;
 line-height:1.7;
 
 }
-
 
 /* ------------------------------- */
 /* CONTAINER */
@@ -47,21 +44,19 @@ padding:0 30px;
 
 }
 
-
 /* ------------------------------- */
 /* HEADER */
 /* ------------------------------- */
 
 .site-header{
 
-background:#0e0e0e;
+background:#111;
 
 color:white;
 
-position:fixed;
+position:sticky;
 
 top:0;
-left:0;
 
 width:100%;
 
@@ -77,7 +72,7 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:18px 0;
+padding:20px 0;
 
 }
 
@@ -87,19 +82,17 @@ font-weight:700;
 
 font-size:18px;
 
-line-height:1.2;
-
 }
 
 .logo span{
 
 display:block;
 
-font-size:12px;
+font-size:13px;
 
 opacity:.7;
 
-margin-top:4px;
+margin-top:3px;
 
 }
 
@@ -107,7 +100,7 @@ margin-top:4px;
 
 display:flex;
 
-gap:28px;
+gap:30px;
 
 }
 
@@ -117,7 +110,7 @@ color:white;
 
 text-decoration:none;
 
-font-size:15px;
+font-size:16px;
 
 opacity:.9;
 
@@ -129,7 +122,6 @@ opacity:1;
 
 }
 
-
 /* ------------------------------- */
 /* HERO */
 /* ------------------------------- */
@@ -138,7 +130,7 @@ opacity:1;
 
 margin-top:80px;
 
-min-height:100vh;
+min-height:90vh;
 
 display:flex;
 
@@ -226,12 +218,11 @@ font-size:22px;
 
 display:flex;
 
-gap:16px;
+gap:15px;
 
 margin-top:10px;
 
 }
-
 
 /* ------------------------------- */
 /* BUTTONS */
@@ -267,20 +258,19 @@ color:black;
 
 }
 
-
 /* ------------------------------- */
 /* SECTIONS */
 /* ------------------------------- */
 
 section{
 
-padding:120px 0;
+padding:130px 0;
 
 }
 
 h2{
 
-font-size:38px;
+font-size:40px;
 
 margin-bottom:20px;
 
@@ -295,7 +285,6 @@ margin-bottom:40px;
 font-size:20px;
 
 }
-
 
 /* ------------------------------- */
 /* TEXT CARD */
@@ -321,7 +310,6 @@ color:white;
 
 }
 
-
 /* ------------------------------- */
 /* SIGNATURE */
 /* ------------------------------- */
@@ -330,7 +318,7 @@ color:white;
 
 text-align:center;
 
-padding:80px 0;
+padding:90px 0;
 
 }
 
@@ -349,7 +337,6 @@ margin-bottom:10px;
 opacity:.75;
 
 }
-
 
 /* ------------------------------- */
 /* MANTRA */
@@ -379,7 +366,6 @@ font-style:italic;
 
 }
 
-
 /* ------------------------------- */
 /* LOUNGE */
 /* ------------------------------- */
@@ -408,7 +394,6 @@ text-align:center;
 
 }
 
-
 /* ------------------------------- */
 /* GRID */
 /* ------------------------------- */
@@ -424,7 +409,6 @@ gap:35px;
 margin-top:40px;
 
 }
-
 
 /* ------------------------------- */
 /* CARDS */
@@ -452,7 +436,6 @@ box-shadow:0 25px 55px rgba(0,0,0,.18);
 
 }
 
-
 /* ------------------------------- */
 /* DISTRICTS */
 /* ------------------------------- */
@@ -478,7 +461,6 @@ border-radius:16px;
 box-shadow:0 20px 45px rgba(0,0,0,.12);
 
 }
-
 
 /* ------------------------------- */
 /* SERVICES */
@@ -515,7 +497,6 @@ margin:20px 0;
 padding-left:18px;
 
 }
-
 
 /* ------------------------------- */
 /* MOMENTS */
@@ -554,7 +535,6 @@ margin-top:40px;
 font-style:italic;
 
 }
-
 
 /* ------------------------------- */
 /* FORMS */
@@ -620,7 +600,6 @@ font-size:16px;
 
 }
 
-
 /* ------------------------------- */
 /* PRINCIPLES */
 /* ------------------------------- */
@@ -646,7 +625,6 @@ border-radius:16px;
 box-shadow:0 20px 45px rgba(0,0,0,.12);
 
 }
-
 
 /* ------------------------------- */
 /* FOOTER */
@@ -674,7 +652,6 @@ flex-wrap:wrap;
 
 }
 
-
 /* ------------------------------- */
 /* DIVIDER */
 /* ------------------------------- */
@@ -695,7 +672,6 @@ transparent
 );
 
 }
-
 
 /* ------------------------------- */
 /* LOADER */
@@ -749,7 +725,6 @@ opacity:.7;
 font-style:italic;
 
 }
-
 
 /* ------------------------------- */
 /* MOBILE */
