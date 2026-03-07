@@ -1,8 +1,6 @@
 const API = "https://cockpit.urbanchill.org/api/intake"
 
 
-/* INTAKE */
-
 const intake = document.getElementById("intake-form")
 
 if(intake){
@@ -50,8 +48,6 @@ alert("Er ging iets mis")
 }
 
 
-
-/* CONTACT */
 
 const contact = document.getElementById("contact-form")
 
