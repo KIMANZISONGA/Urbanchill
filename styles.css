@@ -757,3 +757,32 @@ font-size:42px;
 }
 
 }
+/* ============================= */
+/* URBANCHILL BRAND OVERLAY */
+/* ============================= */
+
+.hero-logo-overlay{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:420px;
+
+max-width:60%;
+
+opacity:0.18;
+
+pointer-events:none;
+
+mix-blend-mode:screen;
+
+}
+
+.hero{
+position:relative;
+overflow:hidden;
+}
