@@ -1,68 +1,79 @@
-const API = "https://cockpit.urbanchill.org/api/intake";
+const API_BASE = "https://cockpit.urbanchill.org/api/intake";
 
-async function send(payload){
+async function sendRequest(payload, successMessage) {
+  try {
 
-  try{
-
-    const response = await fetch(API,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+    const response = await fetch(API_BASE, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify(payload)
+      body: JSON.stringify(payload)
     });
 
     const result = await response.json();
 
-    if(!result.ok){
-      throw new Error(result.error || "API error");
+    if (!response.ok || result.ok === false) {
+      throw new Error(result.error || "API request failed");
     }
 
-    alert("Bedankt. We nemen snel contact met je op.");
+    alert(successMessage);
+    console.log("API response:", result);
 
-  }catch(e){
+  } catch (err) {
 
-    console.error(e);
+    console.error("API error:", err);
     alert("Er ging iets mis. Probeer het later opnieuw.");
 
   }
+}
+
+function sendIntake() {
+
+  const payload = {
+    source: "urbanchill.nl",
+    type: "intake",
+    service: "unknown",
+    client_name: "",
+    client_email: "",
+    client_phone: "",
+    notes: "Website intake button clicked"
+  };
+
+  sendRequest(
+    payload,
+    "Intake verzoek ontvangen. We nemen contact met je op."
+  );
 
 }
 
-function sendIntake(){
+function sendContact() {
 
-  send({
-    source:"urbanchill.nl",
-    service:"intake",
-    client_name:"website visitor",
-    client_email:"unknown",
-    client_phone:"unknown",
-    notes:"Intake button"
-  });
+  const payload = {
+    source: "urbanchill.nl",
+    type: "contact",
+    service: "contact",
+    client_name: "",
+    client_email: "",
+    client_phone: "",
+    notes: "Website contact button clicked"
+  };
 
-}
-
-function sendContact(){
-
-  send({
-    source:"urbanchill.nl",
-    service:"contact",
-    client_name:"website visitor",
-    client_email:"unknown",
-    client_phone:"unknown",
-    notes:"Contact button"
-  });
+  sendRequest(
+    payload,
+    "Bericht ontvangen. We nemen contact met je op."
+  );
 
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", function () {
 
-  document.querySelectorAll(".js-intake").forEach(btn=>{
-    btn.addEventListener("click",sendIntake);
+  document.querySelectorAll(".js-intake").forEach(btn => {
+    btn.addEventListener("click", sendIntake);
   });
 
-  document.querySelectorAll(".js-contact").forEach(btn=>{
-    btn.addEventListener("click",sendContact);
+  document.querySelectorAll(".js-contact").forEach(btn => {
+    btn.addEventListener("click", sendContact);
   });
 
 });
