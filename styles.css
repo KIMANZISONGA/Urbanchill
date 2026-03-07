@@ -475,3 +475,72 @@ width:100%;
 }
 
 }
+/* EXPERIENCE */
+
+#experience{
+
+margin:120px 0;
+
+}
+
+.experience-intro{
+
+max-width:750px;
+
+margin-bottom:40px;
+
+font-size:18px;
+
+line-height:1.7;
+
+}
+
+.district-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:30px;
+
+margin-top:40px;
+
+}
+
+.district-card{
+
+background:white;
+
+padding:35px;
+
+border-radius:18px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+transition:.3s;
+
+}
+
+.district-card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.district-card h3{
+
+margin-bottom:10px;
+
+font-size:20px;
+
+}
+
+@media(max-width:900px){
+
+.district-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
