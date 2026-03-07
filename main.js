@@ -1,4 +1,4 @@
-const API_BASE = "https://cockpit.urbanchill.org/api/intake";
+const API_BASE = "https://cockpit.urbanchill.org/api/intakes";
 
 async function sendRequest(payload, successMessage) {
   try {
