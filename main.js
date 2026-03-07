@@ -1,197 +1,215 @@
 /* ================================= */
-/* URBANCHILL MAIN SCRIPT */
+/* URBANCHILL MAIN.JS */
+/* Definitive Intake + Contact Flow */
 /* ================================= */
 
-/* ------------------------------- */
-/* LOADER FADE */
-/* ------------------------------- */
+const API_ENDPOINT = "/api/intake"
 
-window.addEventListener("load", () => {
+/* ================================= */
+/* HELPERS */
+/* ================================= */
 
-const loader = document.getElementById("loader")
+function disableButton(form, state){
 
-if(loader){
+const btn = form.querySelector("button")
 
-setTimeout(() => {
+if(!btn) return
 
-loader.style.opacity = "0"
+btn.disabled = state
 
-setTimeout(()=>{
-
-loader.style.display = "none"
-
-},600)
-
-},900)
+if(state){
+btn.dataset.original = btn.textContent
+btn.textContent = "Versturen..."
+}else{
+btn.textContent = btn.dataset.original || "Versturen"
+}
 
 }
 
+function showMessage(form, text){
+
+let msg = form.querySelector(".form-message")
+
+if(!msg){
+
+msg = document.createElement("div")
+
+msg.className = "form-message"
+
+msg.style.marginTop = "12px"
+
+msg.style.fontSize = "14px"
+
+form.appendChild(msg)
+
+}
+
+msg.textContent = text
+
+}
+
+/* ================================= */
+/* SEND FUNCTION */
+/* ================================= */
+
+async function sendIntake(payload){
+
+const response = await fetch(API_ENDPOINT,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify(payload)
+
 })
 
-/* ------------------------------- */
-/* API ENDPOINT */
-/* ------------------------------- */
+if(!response.ok){
+throw new Error("Server error")
+}
 
-/* pas dit aan als je backend endpoint anders is */
+return response.json()
 
-const API_ENDPOINT = "https://cockpit.urbanchill.org/api/intake"
+}
 
-/* ------------------------------- */
+/* ================================= */
 /* INTAKE FORM */
-/* ------------------------------- */
+/* ================================= */
 
 const intakeForm = document.getElementById("intake-form")
 
 if(intakeForm){
 
-intakeForm.addEventListener("submit", async (e)=>{
+intakeForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
 
-const name = document.getElementById("client_name").value
-const email = document.getElementById("client_email").value
-const phone = document.getElementById("client_phone").value
-const service = document.getElementById("service").value
-const notes = document.getElementById("notes").value
+const website = intakeForm.querySelector('[name="website"]').value
+
+/* Honeypot spam check */
+
+if(website){
+return
+}
+
+disableButton(intakeForm,true)
 
 const payload = {
 
-type: "intake",
+client_name: intakeForm.querySelector('[name="client_name"]').value,
 
-name: name,
-email: email,
-phone: phone,
-service: service,
-notes: notes
+client_email: intakeForm.querySelector('[name="client_email"]').value,
+
+client_phone: intakeForm.querySelector('[name="client_phone"]').value,
+
+service: intakeForm.querySelector('[name="service"]').value,
+
+arrival_date: intakeForm.querySelector('[name="arrival_date"]').value,
+
+notes: intakeForm.querySelector('[name="notes"]').value,
+
+website: ""
 
 }
 
 try{
 
-const response = await fetch(API_ENDPOINT, {
+await sendIntake(payload)
 
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(payload)
-
-})
-
-if(response.ok){
-
-alert("Bedankt. UrbanChill neemt binnenkort contact met je op.")
+showMessage(intakeForm,"Bedankt. Je aanvraag is ontvangen.")
 
 intakeForm.reset()
 
-}else{
+}catch(err){
 
-alert("Er ging iets mis. Probeer het later opnieuw.")
-
-}
-
-}catch(error){
-
-console.error(error)
-
-alert("Verbinding met server mislukt.")
+showMessage(intakeForm,"Er ging iets mis. Probeer later opnieuw.")
 
 }
+
+disableButton(intakeForm,false)
 
 })
 
 }
 
-/* ------------------------------- */
+/* ================================= */
 /* CONTACT FORM */
-/* ------------------------------- */
+/* ================================= */
 
 const contactForm = document.getElementById("contact-form")
 
 if(contactForm){
 
-contactForm.addEventListener("submit", async (e)=>{
+contactForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
 
-const name = document.getElementById("contact_name").value
-const email = document.getElementById("contact_email").value
-const message = document.getElementById("contact_message").value
+const website = contactForm.querySelector('[name="website"]').value
+
+if(website){
+return
+}
+
+disableButton(contactForm,true)
 
 const payload = {
 
-type: "contact",
+client_name: contactForm.querySelector('[name="client_name"]').value,
 
-name: name,
-email: email,
-message: message
+client_email: contactForm.querySelector('[name="client_email"]').value,
+
+client_phone: contactForm.querySelector('[name="client_phone"]').value || "",
+
+service: "contact",
+
+arrival_date: "",
+
+notes: contactForm.querySelector('[name="notes"]').value,
+
+website: ""
 
 }
 
 try{
 
-const response = await fetch(API_ENDPOINT, {
+await sendIntake(payload)
 
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(payload)
-
-})
-
-if(response.ok){
-
-alert("Bericht ontvangen. UrbanChill reageert zo snel mogelijk.")
+showMessage(contactForm,"Bericht ontvangen. We nemen contact op.")
 
 contactForm.reset()
 
-}else{
+}catch(err){
 
-alert("Er ging iets mis. Probeer het later opnieuw.")
-
-}
-
-}catch(error){
-
-console.error(error)
-
-alert("Server niet bereikbaar.")
+showMessage(contactForm,"Er ging iets mis. Probeer later opnieuw.")
 
 }
+
+disableButton(contactForm,false)
 
 })
 
 }
 
-/* ------------------------------- */
-/* SMALL UX HELPERS */
-/* ------------------------------- */
+/* ================================= */
+/* LOADER FADE */
+/* ================================= */
 
-/* voorkom dubbele submits */
+window.addEventListener("load",()=>{
 
-document.querySelectorAll("form").forEach(form=>{
+const loader = document.getElementById("loader")
 
-form.addEventListener("submit", ()=>{
-
-const btn = form.querySelector("button")
-
-if(btn){
-
-btn.disabled = true
+if(!loader) return
 
 setTimeout(()=>{
 
-btn.disabled = false
+loader.style.opacity = "0"
 
-},3000)
+setTimeout(()=>{
+loader.style.display = "none"
+},600)
 
-}
-
-})
+},800)
 
 })
