@@ -1,94 +1,197 @@
-const API = "https://cockpit.urbanchill.org/api/intake"
+/* ================================= */
+/* URBANCHILL MAIN SCRIPT */
+/* ================================= */
 
+/* ------------------------------- */
+/* LOADER FADE */
+/* ------------------------------- */
 
-const intake = document.getElementById("intake-form")
+window.addEventListener("load", () => {
 
-if(intake){
+const loader = document.getElementById("loader")
 
-intake.onsubmit = async e => {
+if(loader){
+
+setTimeout(() => {
+
+loader.style.opacity = "0"
+
+setTimeout(()=>{
+
+loader.style.display = "none"
+
+},600)
+
+},900)
+
+}
+
+})
+
+/* ------------------------------- */
+/* API ENDPOINT */
+/* ------------------------------- */
+
+/* pas dit aan als je backend endpoint anders is */
+
+const API_ENDPOINT = "https://cockpit.urbanchill.org/api/intake"
+
+/* ------------------------------- */
+/* INTAKE FORM */
+/* ------------------------------- */
+
+const intakeForm = document.getElementById("intake-form")
+
+if(intakeForm){
+
+intakeForm.addEventListener("submit", async (e)=>{
 
 e.preventDefault()
 
+const name = document.getElementById("client_name").value
+const email = document.getElementById("client_email").value
+const phone = document.getElementById("client_phone").value
+const service = document.getElementById("service").value
+const notes = document.getElementById("notes").value
+
 const payload = {
 
-service: document.getElementById("service").value,
+type: "intake",
 
-client_name: document.getElementById("client_name").value,
-
-client_email: document.getElementById("client_email").value,
-
-client_phone: document.getElementById("client_phone").value,
-
-notes: document.getElementById("notes").value
+name: name,
+email: email,
+phone: phone,
+service: service,
+notes: notes
 
 }
 
-const r = await fetch(API,{
+try{
+
+const response = await fetch(API_ENDPOINT, {
+
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify(payload)
+
 })
 
-if(r.ok){
+if(response.ok){
 
-alert("Intake ontvangen")
+alert("Bedankt. UrbanChill neemt binnenkort contact met je op.")
 
-intake.reset()
+intakeForm.reset()
 
 }else{
 
-alert("Er ging iets mis")
+alert("Er ging iets mis. Probeer het later opnieuw.")
 
 }
 
-}
+}catch(error){
+
+console.error(error)
+
+alert("Verbinding met server mislukt.")
 
 }
 
+})
 
+}
 
-const contact = document.getElementById("contact-form")
+/* ------------------------------- */
+/* CONTACT FORM */
+/* ------------------------------- */
 
-if(contact){
+const contactForm = document.getElementById("contact-form")
 
-contact.onsubmit = async e => {
+if(contactForm){
+
+contactForm.addEventListener("submit", async (e)=>{
 
 e.preventDefault()
 
+const name = document.getElementById("contact_name").value
+const email = document.getElementById("contact_email").value
+const message = document.getElementById("contact_message").value
+
 const payload = {
 
-service:"contact",
+type: "contact",
 
-client_name: document.getElementById("contact_name").value,
-
-client_email: document.getElementById("contact_email").value,
-
-notes: document.getElementById("contact_message").value
+name: name,
+email: email,
+message: message
 
 }
 
-const r = await fetch(API,{
+try{
+
+const response = await fetch(API_ENDPOINT, {
+
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify(payload)
+
 })
 
-if(r.ok){
+if(response.ok){
 
-alert("Bericht ontvangen")
+alert("Bericht ontvangen. UrbanChill reageert zo snel mogelijk.")
 
-contact.reset()
+contactForm.reset()
 
 }else{
 
-alert("Er ging iets mis")
+alert("Er ging iets mis. Probeer het later opnieuw.")
 
 }
 
-}
+}catch(error){
+
+console.error(error)
+
+alert("Server niet bereikbaar.")
 
 }
+
+})
+
+}
+
+/* ------------------------------- */
+/* SMALL UX HELPERS */
+/* ------------------------------- */
+
+/* voorkom dubbele submits */
+
+document.querySelectorAll("form").forEach(form=>{
+
+form.addEventListener("submit", ()=>{
+
+const btn = form.querySelector("button")
+
+if(btn){
+
+btn.disabled = true
+
+setTimeout(()=>{
+
+btn.disabled = false
+
+},3000)
+
+}
+
+})
+
+})
