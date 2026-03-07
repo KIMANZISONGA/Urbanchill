@@ -786,3 +786,24 @@ mix-blend-mode:screen;
 position:relative;
 overflow:hidden;
 }
+/* ============================= */
+/* FORMS */
+/* ============================= */
+
+.form-message{
+
+margin-top:10px;
+
+font-size:14px;
+
+min-height:20px;
+
+}
+
+/* honeypot */
+
+.honeypot{
+
+display:none;
+
+}
