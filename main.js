@@ -30,48 +30,76 @@ async function sendRequest(payload, successMessage) {
 
 }
 
-function sendIntake() {
-
-  const payload = {
-    service: "solo",
-    client_name: "Website bezoeker",
-    client_email: "unknown@urbanchill.nl",
-    client_phone: "unknown",
-    notes: "Website intake button clicked"
-  };
-
-  sendRequest(
-    payload,
-    "Intake verzoek ontvangen. We nemen contact met je op."
-  );
-
-}
-
-function sendContact() {
-
-  const payload = {
-    service: "contact",
-    client_name: "Website bezoeker",
-    client_email: "unknown@urbanchill.nl",
-    client_phone: "unknown",
-    notes: "Website contact button clicked"
-  };
-
-  sendRequest(
-    payload,
-    "Bericht ontvangen. We nemen contact met je op."
-  );
-
-}
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  document.querySelectorAll(".js-intake").forEach(btn => {
-    btn.addEventListener("click", sendIntake);
-  });
+  const intakeForm = document.querySelector("#intake-form");
+  const contactForm = document.querySelector("#contact-form");
 
-  document.querySelectorAll(".js-contact").forEach(btn => {
-    btn.addEventListener("click", sendContact);
-  });
+  if (intakeForm) {
+
+    intakeForm.addEventListener("submit", function(e) {
+
+      e.preventDefault();
+
+      const honeypot = intakeForm.querySelector('input[name="website"]').value;
+
+      if (honeypot !== "") {
+        console.warn("Bot blocked");
+        return;
+      }
+
+      const payload = {
+        service: document.querySelector("#service").value,
+        client_name: document.querySelector("#client_name").value,
+        client_email: document.querySelector("#client_email").value,
+        client_phone: document.querySelector("#client_phone").value,
+        notes: document.querySelector("#notes").value
+      };
+
+      sendRequest(
+        payload,
+        "Intake verzoek ontvangen. We nemen contact met je op."
+      );
+
+      intakeForm.reset();
+
+    });
+
+  }
+
+
+
+  if (contactForm) {
+
+    contactForm.addEventListener("submit", function(e) {
+
+      e.preventDefault();
+
+      const honeypot = contactForm.querySelector('input[name="website"]').value;
+
+      if (honeypot !== "") {
+        console.warn("Bot blocked");
+        return;
+      }
+
+      const payload = {
+        service: "contact",
+        client_name: document.querySelector("#contact_name").value,
+        client_email: document.querySelector("#contact_email").value,
+        client_phone: "",
+        notes: document.querySelector("#contact_message").value
+      };
+
+      sendRequest(
+        payload,
+        "Bericht ontvangen. We nemen contact met je op."
+      );
+
+      contactForm.reset();
+
+    });
+
+  }
 
 });
