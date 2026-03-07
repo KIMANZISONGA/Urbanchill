@@ -1,73 +1,66 @@
-const API = "https://cockpit.urbanchill.org/api/intake";
+/* reveal on scroll */
+
+const reveals = document.querySelectorAll(".reveal")
+
+const observer = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("visible")
+
+}
+
+})
+
+})
+
+reveals.forEach(el => observer.observe(el))
+
+
+/* modal */
 
 function createModal(type){
 
-const modal = document.createElement("div");
-modal.className = "uc-modal";
+const modal = document.createElement("div")
+
+modal.className = "uc-modal"
 
 modal.innerHTML = `
+
 <div class="uc-modal-box">
 
-<h2>${type === "intake" ? "Intake aanvraag" : "Algemene vraag"}</h2>
+<h2>${type==="intake" ? "Intake aanvraag" : "Vraag stellen"}</h2>
 
-<form id="uc-form">
+<form>
 
-<input id="name" placeholder="Naam" required>
-<input id="email" placeholder="Email" required>
-<input id="phone" placeholder="Telefoon">
+<input placeholder="Naam" required>
 
-<textarea id="notes" placeholder="Bericht"></textarea>
+<input placeholder="Email" required>
 
-<button class="btn btn-primary" type="submit">
-Versturen
-</button>
+<textarea placeholder="Bericht"></textarea>
 
-<button class="btn btn-secondary" type="button" id="close">
-Sluiten
-</button>
+<button class="btn btn-primary">Versturen</button>
 
 </form>
 
 </div>
-`;
 
-document.body.appendChild(modal);
+`
 
-document.getElementById("close").onclick = () => modal.remove();
+document.body.appendChild(modal)
 
-document.getElementById("uc-form").onsubmit = async e => {
-
-e.preventDefault();
-
-const payload = {
-service: type,
-client_name: document.getElementById("name").value,
-client_email: document.getElementById("email").value,
-client_phone: document.getElementById("phone").value,
-notes: document.getElementById("notes").value
-};
-
-const r = await fetch(API,{
-method:"POST",
-headers:{ "Content-Type":"application/json"},
-body:JSON.stringify(payload)
-});
-
-if(r.ok){
-alert("Bericht ontvangen");
-modal.remove();
-}else{
-alert("Er ging iets mis");
+modal.onclick = e => {
+if(e.target === modal) modal.remove()
 }
-
-};
 
 }
 
 document.querySelectorAll(".js-intake").forEach(btn=>{
-btn.onclick = ()=>createModal("solo");
-});
+btn.onclick = () => createModal("intake")
+})
 
 document.querySelectorAll(".js-contact").forEach(btn=>{
-btn.onclick = ()=>createModal("contact");
-});
+btn.onclick = () => createModal("contact")
+})
