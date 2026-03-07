@@ -1,116 +1,94 @@
-document.addEventListener("DOMContentLoaded", () => {
+const API_ENDPOINT = "https://cockpit.urbanchill.org/api/intake";
 
-const API = "https://cockpit.urbanchill.org/api/intake";
+function sendPayload(payload, messageEl) {
 
-const intakeForm = document.getElementById("intake-form");
-const contactForm = document.getElementById("contact-form");
-
-
-
-async function sendForm(payload, messageElement) {
-
-try {
-
-const response = await fetch(API, {
-
+fetch(API_ENDPOINT, {
 method: "POST",
-
 headers: {
-
 "Content-Type": "application/json"
-
 },
-
 body: JSON.stringify(payload)
+})
 
+.then(res => {
+if (!res.ok) throw new Error("network");
+return res.json().catch(()=>null);
+})
+
+.then(() => {
+messageEl.textContent = "Bericht verzonden.";
+})
+
+.catch(() => {
+messageEl.textContent = "Er ging iets mis. Probeer later opnieuw.";
 });
 
-if (!response.ok) {
-
-throw new Error("Server error");
-
-}
-
-messageElement.textContent = "Bericht verzonden.";
-
-} catch (error) {
-
-messageElement.textContent = "Er ging iets mis. Probeer later opnieuw.";
-
-}
-
 }
 
 
+/* =========================
+   INTAKE FORM
+========================= */
+
+const intakeForm = document.getElementById("intake-form");
 
 if (intakeForm) {
 
-intakeForm.addEventListener("submit", e => {
+intakeForm.addEventListener("submit", function(e){
 
 e.preventDefault();
 
-const form = e.target;
+const message = document.getElementById("intake-message");
 
-if (form.website.value !== "") return;
+if (intakeForm.website && intakeForm.website.value !== "") return;
 
 const payload = {
 
-client_name: form.client_name.value,
-
-client_email: form.client_email.value,
-
-client_phone: form.client_phone.value,
-
-service: form.service.value,
-
-arrival_date: form.arrival_date.value,
-
-notes: form.notes.value
+client_name: intakeForm.client_name.value || "",
+client_email: intakeForm.client_email.value || "",
+client_phone: intakeForm.client_phone.value || "",
+service: intakeForm.service.value || "",
+arrival_date: intakeForm.arrival_date.value || "",
+notes: intakeForm.notes.value || ""
 
 };
 
-sendForm(payload, document.getElementById("intake-message"));
-
-form.reset();
+sendPayload(payload, message);
 
 });
 
 }
 
 
+/* =========================
+   CONTACT FORM
+========================= */
+
+const contactForm = document.getElementById("contact-form");
 
 if (contactForm) {
 
-contactForm.addEventListener("submit", e => {
+contactForm.addEventListener("submit", function(e){
 
 e.preventDefault();
 
-const form = e.target;
+const message = document.getElementById("contact-message");
 
-if (form.website.value !== "") return;
+if (contactForm.website && contactForm.website.value !== "") return;
 
 const payload = {
 
-client_name: form.client_name.value,
-
-client_email: form.client_email.value,
-
-client_phone: form.client_phone.value,
-
+client_name: contactForm.client_name.value || "",
+client_email: contactForm.client_email.value || "",
+client_phone: contactForm.client_phone.value || "",
 service: "contact",
-
 arrival_date: "",
-
-notes: form.notes.value
+notes: contactForm.notes.value || ""
 
 };
 
-sendForm(payload, document.getElementById("contact-message"));
-
-form.reset();
+sendPayload(payload, message);
 
 });
 
 }
-
-});
