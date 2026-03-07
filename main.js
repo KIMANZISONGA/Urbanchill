@@ -1,6 +1,6 @@
 const API_ENDPOINT = "https://cockpit.urbanchill.org/api/intake";
 
-function sendPayload(payload, messageEl) {
+function sendPayload(payload, messageEl, formEl) {
 
 fetch(API_ENDPOINT, {
 method: "POST",
@@ -16,11 +16,19 @@ return res.json().catch(()=>null);
 })
 
 .then(() => {
+
 messageEl.textContent = "Bericht verzonden.";
+messageEl.style.color = "green";
+
+if(formEl) formEl.reset();
+
 })
 
 .catch(() => {
+
 messageEl.textContent = "Er ging iets mis. Probeer later opnieuw.";
+messageEl.style.color = "red";
+
 });
 
 }
@@ -44,16 +52,16 @@ if (intakeForm.website && intakeForm.website.value !== "") return;
 
 const payload = {
 
-client_name: intakeForm.client_name.value || "",
-client_email: intakeForm.client_email.value || "",
-client_phone: intakeForm.client_phone.value || "",
-service: intakeForm.service.value || "",
-arrival_date: intakeForm.arrival_date.value || "",
-notes: intakeForm.notes.value || ""
+client_name: intakeForm.client_name.value.trim(),
+client_email: intakeForm.client_email.value.trim(),
+client_phone: intakeForm.client_phone.value.trim(),
+service: intakeForm.service.value,
+arrival_date: intakeForm.arrival_date.value,
+notes: intakeForm.notes.value.trim()
 
 };
 
-sendPayload(payload, message);
+sendPayload(payload, message, intakeForm);
 
 });
 
@@ -78,16 +86,16 @@ if (contactForm.website && contactForm.website.value !== "") return;
 
 const payload = {
 
-client_name: contactForm.client_name.value || "",
-client_email: contactForm.client_email.value || "",
-client_phone: contactForm.client_phone.value || "",
+client_name: contactForm.client_name.value.trim(),
+client_email: contactForm.client_email.value.trim(),
+client_phone: contactForm.client_phone.value.trim(),
 service: "contact",
 arrival_date: "",
-notes: contactForm.notes.value || ""
+notes: contactForm.notes.value.trim()
 
 };
 
-sendPayload(payload, message);
+sendPayload(payload, message, contactForm);
 
 });
 
