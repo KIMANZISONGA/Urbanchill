@@ -102,10 +102,9 @@ Een intake met UrbanChill is de eerste stap om Nairobi rustig te leren kennen.
 
 <select name="service" required>
 
+<option value="">Selecteer dienst</option>
 <option value="solo">Solo arrival</option>
-
 <option value="adventure">Adventure arrival</option>
-
 <option value="remote_base">Remote base</option>
 
 </select>
@@ -114,7 +113,8 @@ Een intake met UrbanChill is de eerste stap om Nairobi rustig te leren kennen.
 
 <textarea name="notes" placeholder="Vertel kort je plannen"></textarea>
 
-<input class="honeypot" name="website">
+<!-- Honeypot -->
+<input type="text" name="website" class="honeypot" autocomplete="off" tabindex="-1">
 
 <button type="submit">Intake versturen</button>
 
@@ -139,7 +139,8 @@ Een intake met UrbanChill is de eerste stap om Nairobi rustig te leren kennen.
 
 <textarea name="notes" placeholder="Vraag"></textarea>
 
-<input class="honeypot" name="website">
+<!-- Honeypot -->
+<input type="text" name="website" class="honeypot" autocomplete="off" tabindex="-1">
 
 <button type="submit">Bericht sturen</button>
 
@@ -172,7 +173,6 @@ Een intake met UrbanChill is de eerste stap om Nairobi rustig te leren kennen.
 <div>
 
 <p>Privacy first.</p>
-
 <p>Geen tracking.</p>
 
 </div>
