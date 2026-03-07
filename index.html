@@ -1,348 +1,655 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UrbanChill Nairobi</title>
-  <meta name="description" content="UrbanChill Nairobi — Take your time in the city. Rustige city entry voor professionals, ondernemers en remote workers.">
-  <link rel="stylesheet" href="styles.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UrbanChill Nairobi — Take your time in the city</title>
+
+<meta name="description" content="UrbanChill Nairobi begeleidt professionals, ondernemers en remote workers die Nairobi rustig en met context willen ervaren.">
+
+<meta name="theme-color" content="#0e1b27">
+
+<link rel="stylesheet" href="styles.css">
+
+<!-- HERO IMAGE PRELOAD (LCP FIX) -->
+
+<link
+rel="preload"
+as="image"
+href="nairobi-skyline-night.jpg">
+
 </head>
+
+
 <body>
 
-  <div id="loader" aria-hidden="true">
-    <div class="loader-content">
-      <img
-        src="urbanchill-logo.png"
-        alt="UrbanChill"
-        class="loader-logo"
-        onerror="this.style.display='none'"
-      >
-      <div class="loader-brand">UrbanChill Nairobi</div>
-      <div class="loader-tagline">Take your time in the city.</div>
-    </div>
-  </div>
+<!-- LOADER -->
 
-  <header class="site-header">
-    <div class="container nav">
-      <a href="#top" class="logo-link" aria-label="UrbanChill Nairobi home">
-        <div class="logo">
-          <img
-            src="urbanchill-logo.png"
-            alt=""
-            class="logo-mark"
-            onerror="this.style.display='none'"
-          >
-          <div class="logo-text">
-            <strong>UrbanChill Nairobi</strong>
-            <span>Take your time in the city.</span>
-          </div>
-        </div>
-      </a>
+<div id="loader">
 
-      <nav class="nav-links" aria-label="Hoofdmenu">
-        <a href="#verhaal">Verhaal</a>
-        <a href="#voorwie">Voor wie</a>
-        <a href="#nairobi">Nairobi</a>
-        <a href="#diensten">Diensten</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<div class="loader-content">
 
-  <main id="top">
+<div class="loader-brand">UrbanChill Nairobi</div>
 
-    <section class="hero">
-<img 
+<div class="loader-tagline">Take your time in the city.</div>
+
+</div>
+
+</div>
+
+
+
+<!-- HEADER -->
+
+<header class="site-header">
+
+<div class="container nav">
+
+<div class="logo">
+
+<img
 src="urbanchill-logo.png"
-class="hero-logo-overlay"
-alt="UrbanChill">
+alt="UrbanChill"
+class="logo-mark"
+width="32"
+height="32"
+loading="eager">
+
+<div class="logo-text">
+
+<strong>UrbanChill Nairobi</strong>
+
+<span>Take your time in the city.</span>
+
+</div>
+
+</div>
+
+
+<nav class="nav-links">
+
+<a href="#verhaal">Verhaal</a>
+
+<a href="#voorwie">Voor wie</a>
+
+<a href="#nairobi">Nairobi</a>
+
+<a href="#diensten">Diensten</a>
+
+<a href="#privacy">Privacy</a>
+
+<a href="#contact">Contact</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+
+<main id="top">
+
+
+<!-- HERO -->
+
+<section class="hero">
 
 <div class="container hero-inner">
-      <div class="container hero-inner">
-        <div class="brand-block">
-          <div class="brand-name">UrbanChill Nairobi</div>
-          <div class="brand-tagline">Take your time in the city.</div>
-        </div>
 
-        <h1>Relax. Ervaar Nairobi.</h1>
+<div class="brand-block">
 
-        <p class="hero-sub">
-          UrbanChill begeleidt internationale professionals, ondernemers en remote workers
-          die Nairobi willen ervaren zonder de chaos van massatoerisme.
-        </p>
+<div class="brand-name">UrbanChill Nairobi</div>
 
-        <p class="hero-sub">
-          Geen groepsreizen. Geen haast. Geen ruis.
-          Wel comfort, context en een rustige manier om de stad binnen te stappen.
-        </p>
+<div class="brand-tagline">Take your time in the city.</div>
 
-        <p class="hero-mantra">
-          Not in a hurry.<br>
-          Just in the city.
-        </p>
+</div>
 
-        <div class="hero-buttons">
-          <a href="#contact" class="btn btn-primary">Start intake</a>
-          <a href="#diensten" class="btn btn-secondary">Bekijk diensten</a>
-        </div>
-      </div>
-    </section>
+<h1>Relax. Ervaar Nairobi.</h1>
 
-    <section class="signature">
-      <div class="container">
-        <p class="signature-text">A different way to enter the city.</p>
-        <p class="signature-sub">
-          UrbanChill is geen tour en geen programma.
-          Het is een rustige manier om Nairobi te ervaren.
-        </p>
-      </div>
-    </section>
+<p class="hero-sub">
 
-    <section id="verhaal">
-      <div class="container">
-        <h2>Een rustige manier om Nairobi binnen te stappen</h2>
+UrbanChill begeleidt internationale professionals, ondernemers en remote workers
+die Nairobi willen ervaren zonder de chaos van massatoerisme.
 
-        <div class="text-card">
-          <p>
-            Nairobi is een stad met energie, ondernemerschap en tempo.
-            Voor bezoekers die hier voor werk, verkenning of langere verblijven aankomen,
-            is het waardevol om eerst het ritme van de stad te begrijpen.
-          </p>
+</p>
 
-          <p>
-            UrbanChill helpt bezoekers om Nairobi stap voor stap te leren kennen.
-            Niet als toeristisch programma, maar als een ontspannen manier
-            om context, buurten en stadsbeweging te begrijpen.
-          </p>
+<p class="hero-sub">
 
-          <p>
-            Respect voor lokale cultuur en voor onze hosts staat centraal.
-            Wie een stad bezoekt, is zelf ook een gast.
-          </p>
-        </div>
-      </div>
-    </section>
+Geen massatoerisme. Geen groepsreizen.
+Geen ruis.
 
-    <section class="lounge">
-      <div class="container lounge-inner">
-        <h2>UrbanChill vibe</h2>
-        <div class="text-card text-card-invert centered-card">
-          <p>
-            UrbanChill staat voor onthaasten in een stad die tegelijk elegant,
-            dynamisch en soms intens kan zijn.
-          </p>
-          <p>
-            Geen overplanning. Geen opgejaagd schema.
-            Meer een chill reset: even landen, kijken, luisteren en de stad laten gebeuren.
-          </p>
-        </div>
-      </div>
-    </section>
+Wel comfort, context en een rustig tempo.
 
-    <section id="voorwie">
-      <div class="container">
-        <h2>Voor wie</h2>
+</p>
 
-        <div class="grid">
-          <article class="card">
-            <h3>Remote professionals</h3>
-            <p>
-              Mensen die tijdelijk vanuit Nairobi werken en de stad rustig willen leren kennen.
-            </p>
-          </article>
+<p class="hero-mantra">
 
-          <article class="card">
-            <h3>Ondernemers</h3>
-            <p>
-              Bezoekers die Nairobi verkennen voor zakelijke kansen, projecten of marktoriëntatie.
-            </p>
-          </article>
+Not in a hurry.<br>
+Just in the city.
 
-          <article class="card">
-            <h3>Consultants</h3>
-            <p>
-              Professionals die internationaal werken en nieuwe steden met context willen binnenkomen.
-            </p>
-          </article>
+</p>
 
-          <article class="card">
-            <h3>City explorers</h3>
-            <p>
-              Bezoekers die een stad willen begrijpen in plaats van alleen consumeren.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="hero-buttons">
 
-    <section id="nairobi">
-      <div class="container">
-        <h2>Nairobi</h2>
-        <p class="section-intro">
-          Een stad met verschillende ritmes, buurten en overgangen.
-        </p>
+<a href="#contact" class="btn btn-primary">
+Start intake
+</a>
 
-        <div class="district-grid">
-          <article class="district-card">
-            <h3>Westlands</h3>
-            <p>
-              Internationale restaurants, hotels en ontmoetingsplekken.
-            </p>
-          </article>
+<a href="#diensten" class="btn btn-secondary">
+Bekijk diensten
+</a>
 
-          <article class="district-card">
-            <h3>Kilimani</h3>
-            <p>
-              Coworking spaces, cafés en moderne appartementen.
-            </p>
-          </article>
+</div>
 
-          <article class="district-card">
-            <h3>Lavington</h3>
-            <p>
-              Groene residentiële buurten met een rustiger tempo.
-            </p>
-          </article>
+</div>
 
-          <article class="district-card">
-            <h3>CBD</h3>
-            <p>
-              Het economische hart van Nairobi, waar oud en nieuw samenkomen.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+</section>
 
-    <section class="city-image city-image-evening" aria-hidden="true"></section>
 
-    <section id="diensten">
-      <div class="container">
-        <h2>Diensten</h2>
-        <p class="section-intro">
-          UrbanChill helpt bezoekers hun eerste stappen in Nairobi rustig en met context te zetten.
-        </p>
 
-        <div class="services-grid">
-          <article class="service-card">
-            <h3>Solo arrival</h3>
-            <p>
-              Voor professionals die alleen aankomen en Nairobi rustig willen leren kennen.
-            </p>
-          </article>
+<!-- VERHAAL -->
 
-          <article class="service-card">
-            <h3>Adventure arrival</h3>
-            <p>
-              Voor bezoekers die de stad actiever willen verkennen met begeleiding.
-            </p>
-          </article>
+<section id="verhaal">
 
-          <article class="service-card">
-            <h3>Remote base</h3>
-            <p>
-              Voor remote workers die een comfortabele basis zoeken in de stad.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="container">
 
-    <section id="privacy">
-      <div class="container">
-        <h2>Privacy first</h2>
+<h2>Een rustige manier om Nairobi binnen te stappen</h2>
 
-        <div class="text-card">
-          <p>
-            UrbanChill gebruikt minimale technologie en vermijdt tracking waar mogelijk.
-          </p>
-          <p>
-            Persoonsgegevens worden uitsluitend gebruikt voor intake en communicatie rond een aanvraag.
-          </p>
-          <p>
-            Na afronding van een opdracht worden gegevens verwijderd tenzij expliciet toestemming wordt gegeven om contact te bewaren.
-          </p>
-        </div>
-      </div>
-    </section>
+<div class="text-card">
 
-    <section id="contact">
-      <div class="container">
-        <h2>Start je intake</h2>
-        <p class="section-intro">
-          Een intake is de eerste stap om Nairobi rustig te leren kennen.
-        </p>
+<p>
 
-        <div class="contact-grid">
+Elke stad heeft een eigen ritme. Voor bezoekers die hier voor het eerst
+arriveren kan dat ritme in het begin lastig te lezen zijn.
 
-          <form id="intake-form" class="form-card" novalidate>
-            <h3>Intake aanvraag</h3>
+</p>
 
-            <input type="text" name="client_name" placeholder="Naam" required>
-            <input type="email" name="client_email" placeholder="Email" required>
-            <input type="tel" name="client_phone" placeholder="Telefoonnummer" required>
+<p>
 
-            <select name="service" required>
-              <option value="">Selecteer dienst</option>
-              <option value="solo">Solo arrival</option>
-              <option value="adventure">Adventure arrival</option>
-              <option value="remote_base">Remote base</option>
-            </select>
+Nairobi is energiek, ondernemend en voortdurend in beweging.
+Voor professionals die hier werken, investeren of de regio verkennen,
+is het prettig als de eerste periode rustiger verloopt.
 
-            <input type="date" name="arrival_date">
+</p>
 
-            <textarea name="notes" placeholder="Vertel kort je plannen" rows="5"></textarea>
+<p>
 
-            <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+UrbanChill helpt bezoekers de stad stap voor stap te leren kennen,
+zonder haast en zonder ruis.
 
-            <button type="submit">Intake versturen</button>
-          </form>
+</p>
 
-          <form id="contact-form" class="form-card" novalidate>
-            <h3>Algemene vraag</h3>
+</div>
 
-            <input type="text" name="client_name" placeholder="Naam" required>
-            <input type="email" name="client_email" placeholder="Email" required>
-            <input type="tel" name="client_phone" placeholder="Telefoonnummer">
+</div>
 
-            <textarea name="notes" placeholder="Vraag" rows="5"></textarea>
+</section>
 
-            <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
 
-            <button type="submit">Bericht sturen</button>
-          </form>
 
-        </div>
-      </div>
-    </section>
+<!-- LOUNGE -->
 
-  </main>
+<section class="lounge">
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <strong>UrbanChill Nairobi</strong><br>
-        <span>Take your time in the city.</span>
-      </div>
+<div class="container lounge-inner">
 
-      <div class="footer-privacy">
-        Privacy first.<br>
-        Geen tracking.
-      </div>
+<h2>UrbanChill vibe</h2>
 
-      <div class="footer-signoff">
-        <img
-          src="stephen-clark-signature.png"
-          alt="Stephen Clark"
-          class="signature-image"
-          onerror="this.style.display='none'"
-        >
-        <div class="signoff-text">UrbanChill by Stephen Clark</div>
-      </div>
-    </div>
-  </footer>
+<div class="text-card text-card-invert">
 
-  <script src="main.js"></script>
+<p>
+
+UrbanChill staat voor een ontspannen manier
+om een dynamische stad binnen te stappen.
+
+</p>
+
+<p>
+
+Niet als toeristisch programma,
+maar als een rustige manier
+om context, plekken en mensen te leren kennen.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- VOOR WIE -->
+
+<section id="voorwie">
+
+<div class="container">
+
+<h2>Voor wie</h2>
+
+<div class="grid">
+
+<article class="card">
+
+<h3>Remote professionals</h3>
+
+<p>
+
+Mensen die tijdelijk vanuit Nairobi werken
+en de stad rustig willen leren kennen.
+
+</p>
+
+</article>
+
+
+<article class="card">
+
+<h3>Ondernemers</h3>
+
+<p>
+
+Bezoekers die Nairobi verkennen
+voor zakelijke kansen en projecten.
+
+</p>
+
+</article>
+
+
+<article class="card">
+
+<h3>Consultants</h3>
+
+<p>
+
+Internationale professionals
+die regelmatig in nieuwe steden werken.
+
+</p>
+
+</article>
+
+
+<article class="card">
+
+<h3>City explorers</h3>
+
+<p>
+
+Bezoekers die een stad willen begrijpen
+in plaats van alleen consumeren.
+
+</p>
+
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- NAIROBI -->
+
+<section id="nairobi">
+
+<div class="container">
+
+<h2>Nairobi</h2>
+
+<p class="section-intro">
+
+Een stad met verschillende ritmes, buurten en sferen.
+
+</p>
+
+
+<div class="district-grid">
+
+<div class="district-card">
+
+<h3>Westlands</h3>
+
+<p>Internationale restaurants, hotels en ontmoetingsplekken.</p>
+
+</div>
+
+<div class="district-card">
+
+<h3>Kilimani</h3>
+
+<p>Coworking spaces, cafés en moderne appartementen.</p>
+
+</div>
+
+<div class="district-card">
+
+<h3>Lavington</h3>
+
+<p>Groene residentiële buurten met een rustiger tempo.</p>
+
+</div>
+
+<div class="district-card">
+
+<h3>CBD</h3>
+
+<p>Het economische hart van Nairobi.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- CITY IMAGE -->
+
+<section class="city-image city-image-evening"></section>
+
+
+
+<!-- DIENSTEN -->
+
+<section id="diensten">
+
+<div class="container">
+
+<h2>Diensten</h2>
+
+<p class="section-intro">
+
+UrbanChill helpt bezoekers hun eerste stappen in Nairobi rustig te zetten.
+
+</p>
+
+
+<div class="services-grid">
+
+<div class="service-card">
+
+<h3>Solo arrival</h3>
+
+<p>
+
+Voor professionals die alleen aankomen
+en rustig willen landen in de stad.
+
+</p>
+
+</div>
+
+
+<div class="service-card">
+
+<h3>Adventure arrival</h3>
+
+<p>
+
+Voor bezoekers die Nairobi actiever willen verkennen.
+
+</p>
+
+</div>
+
+
+<div class="service-card">
+
+<h3>Remote base</h3>
+
+<p>
+
+Voor remote workers die een comfortabele basis zoeken.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- PRIVACY -->
+
+<section id="privacy">
+
+<div class="container">
+
+<h2>Privacy first</h2>
+
+<div class="text-card">
+
+<p>
+
+UrbanChill gebruikt minimale technologie
+en vermijdt tracking waar mogelijk.
+
+</p>
+
+<p>
+
+Persoonsgegevens worden uitsluitend gebruikt
+voor intake en communicatie rond een aanvraag.
+
+</p>
+
+<p>
+
+Na afronding van een opdracht worden gegevens verwijderd,
+tenzij de klant toestemming geeft om contact te bewaren.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="container">
+
+<h2>Start je intake</h2>
+
+<p class="section-intro">
+
+Een intake met UrbanChill is de eerste stap
+om Nairobi rustig te leren kennen.
+
+</p>
+
+
+<div class="contact-grid">
+
+
+<!-- INTAKE -->
+
+<form id="intake-form" class="form-card">
+
+<h3>Intake aanvraag</h3>
+
+<input
+type="text"
+name="client_name"
+placeholder="Naam"
+required>
+
+<input
+type="email"
+name="client_email"
+placeholder="Email"
+required>
+
+<input
+type="tel"
+name="client_phone"
+placeholder="Telefoonnummer"
+required>
+
+
+<select name="service" required>
+
+<option value="">Selecteer dienst</option>
+
+<option value="solo">Solo arrival</option>
+
+<option value="adventure">Adventure arrival</option>
+
+<option value="remote_base">Remote base</option>
+
+</select>
+
+
+<input
+type="date"
+name="arrival_date">
+
+
+<textarea
+name="notes"
+placeholder="Vertel kort je plannen"
+rows="5"></textarea>
+
+
+<input
+type="text"
+name="website"
+class="honeypot"
+autocomplete="off">
+
+
+<button type="submit">
+
+Intake versturen
+
+</button>
+
+</form>
+
+
+
+<!-- CONTACT -->
+
+<form id="contact-form" class="form-card">
+
+<h3>Algemene vraag</h3>
+
+<input
+type="text"
+name="client_name"
+placeholder="Naam"
+required>
+
+<input
+type="email"
+name="client_email"
+placeholder="Email"
+required>
+
+<input
+type="tel"
+name="client_phone"
+placeholder="Telefoonnummer">
+
+
+<textarea
+name="notes"
+placeholder="Vraag"
+rows="5"></textarea>
+
+
+<input
+type="text"
+name="website"
+class="honeypot"
+autocomplete="off">
+
+
+<button type="submit">
+
+Bericht sturen
+
+</button>
+
+</form>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+
+<div class="container footer-inner">
+
+<div>
+
+<strong>UrbanChill Nairobi</strong><br>
+
+<span>Take your time in the city.</span>
+
+</div>
+
+
+<div>
+
+Privacy first.<br>
+Geen tracking.
+
+</div>
+
+
+<div class="footer-signoff">
+
+<img
+src="stephen-clark-signature.png"
+alt="Stephen Clark"
+width="420"
+height="160"
+loading="lazy"
+class="signature-image">
+
+<div>UrbanChill by Stephen Clark</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<script src="main.js"></script>
+
 </body>
 </html>
