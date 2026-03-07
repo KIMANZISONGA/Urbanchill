@@ -1,58 +1,65 @@
-/* ================================= */
+/* ================================================= */
 /* URBANCHILL MAIN.JS */
-/* Definitive Intake + Contact Flow */
-/* ================================= */
+/* Intake + Contact flow for /api/intake */
+/* ================================================= */
 
 const API_ENDPOINT = "/api/intake"
 
-/* ================================= */
-/* HELPERS */
-/* ================================= */
+/* ================================================= */
+/* HELPER: button state */
+/* ================================================= */
 
-function disableButton(form, state){
+function setButtonState(form, loading){
 
 const btn = form.querySelector("button")
 
 if(!btn) return
 
-btn.disabled = state
+if(loading){
 
-if(state){
 btn.dataset.original = btn.textContent
 btn.textContent = "Versturen..."
+btn.disabled = true
+
 }else{
+
 btn.textContent = btn.dataset.original || "Versturen"
-}
+btn.disabled = false
 
 }
 
-function showMessage(form, text){
+}
 
-let msg = form.querySelector(".form-message")
+/* ================================================= */
+/* HELPER: message */
+/* ================================================= */
 
-if(!msg){
+function showMessage(form, message){
 
-msg = document.createElement("div")
+let box = form.querySelector(".form-message")
 
-msg.className = "form-message"
+if(!box){
 
-msg.style.marginTop = "12px"
+box = document.createElement("div")
 
-msg.style.fontSize = "14px"
+box.className = "form-message"
 
-form.appendChild(msg)
+box.style.marginTop = "12px"
+box.style.fontSize = "14px"
+
+form.appendChild(box)
 
 }
 
-msg.textContent = text
+box.textContent = message
 
 }
 
-/* ================================= */
+/* ================================================= */
 /* SEND FUNCTION */
-/* ================================= */
+/* ================================================= */
 
-async function sendIntake(payload){
+async function sendPayload(payload){
 
 const response = await fetch(API_ENDPOINT,{
 
@@ -62,7 +69,7 @@ headers:{
 "Content-Type":"application/json"
 },
 
-body: JSON.stringify(payload)
+body:JSON.stringify(payload)
 
 })
 
@@ -74,9 +81,9 @@ return response.json()
 
 }
 
-/* ================================= */
+/* ================================================= */
 /* INTAKE FORM */
-/* ================================= */
+/* ================================================= */
 
 const intakeForm = document.getElementById("intake-form")
 
@@ -86,15 +93,15 @@ intakeForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
 
-const website = intakeForm.querySelector('[name="website"]').value
+const honeypot = intakeForm.querySelector('[name="website"]').value
 
-/* Honeypot spam check */
+/* spam bot */
 
-if(website){
+if(honeypot){
 return
 }
 
-disableButton(intakeForm,true)
+setButtonState(intakeForm,true)
 
 const payload = {
 
@@ -116,27 +123,27 @@ website: ""
 
 try{
 
-await sendIntake(payload)
+await sendPayload(payload)
 
 showMessage(intakeForm,"Bedankt. Je aanvraag is ontvangen.")
 
 intakeForm.reset()
 
-}catch(err){
+}catch(error){
 
 showMessage(intakeForm,"Er ging iets mis. Probeer later opnieuw.")
 
 }
 
-disableButton(intakeForm,false)
+setButtonState(intakeForm,false)
 
 })
 
 }
 
-/* ================================= */
+/* ================================================= */
 /* CONTACT FORM */
-/* ================================= */
+/* ================================================= */
 
 const contactForm = document.getElementById("contact-form")
 
@@ -146,13 +153,13 @@ contactForm.addEventListener("submit", async function(e){
 
 e.preventDefault()
 
-const website = contactForm.querySelector('[name="website"]').value
+const honeypot = contactForm.querySelector('[name="website"]').value
 
-if(website){
+if(honeypot){
 return
 }
 
-disableButton(contactForm,true)
+setButtonState(contactForm,true)
 
 const payload = {
 
@@ -174,27 +181,27 @@ website: ""
 
 try{
 
-await sendIntake(payload)
+await sendPayload(payload)
 
 showMessage(contactForm,"Bericht ontvangen. We nemen contact op.")
 
 contactForm.reset()
 
-}catch(err){
+}catch(error){
 
 showMessage(contactForm,"Er ging iets mis. Probeer later opnieuw.")
 
 }
 
-disableButton(contactForm,false)
+setButtonState(contactForm,false)
 
 })
 
 }
 
-/* ================================= */
+/* ================================================= */
 /* LOADER FADE */
-/* ================================= */
+/* ================================================= */
 
 window.addEventListener("load",()=>{
 
