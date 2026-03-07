@@ -1,110 +1,73 @@
-const API_BASE = "https://cockpit.urbanchill.org/api/intake";
+const API = "https://cockpit.urbanchill.org/api/intake";
 
-async function sendRequest(payload, successMessage) {
+function createModal(type){
 
-  try {
+const modal = document.createElement("div");
+modal.className = "uc-modal";
 
-    const response = await fetch(API_BASE, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+modal.innerHTML = `
+<div class="uc-modal-box">
 
-    const result = await response.json();
+<h2>${type === "intake" ? "Intake aanvraag" : "Algemene vraag"}</h2>
 
-    if (!response.ok || result.ok === false) {
-      throw new Error(result.error || "API request failed");
-    }
+<form id="uc-form">
 
-    alert(successMessage);
-    console.log("API response:", result);
+<input id="name" placeholder="Naam" required>
+<input id="email" placeholder="Email" required>
+<input id="phone" placeholder="Telefoon">
 
-  } catch (err) {
+<textarea id="notes" placeholder="Bericht"></textarea>
 
-    console.error("API error:", err);
-    alert("Er ging iets mis. Probeer het later opnieuw.");
+<button class="btn btn-primary" type="submit">
+Versturen
+</button>
 
-  }
+<button class="btn btn-secondary" type="button" id="close">
+Sluiten
+</button>
+
+</form>
+
+</div>
+`;
+
+document.body.appendChild(modal);
+
+document.getElementById("close").onclick = () => modal.remove();
+
+document.getElementById("uc-form").onsubmit = async e => {
+
+e.preventDefault();
+
+const payload = {
+service: type,
+client_name: document.getElementById("name").value,
+client_email: document.getElementById("email").value,
+client_phone: document.getElementById("phone").value,
+notes: document.getElementById("notes").value
+};
+
+const r = await fetch(API,{
+method:"POST",
+headers:{ "Content-Type":"application/json"},
+body:JSON.stringify(payload)
+});
+
+if(r.ok){
+alert("Bericht ontvangen");
+modal.remove();
+}else{
+alert("Er ging iets mis");
+}
+
+};
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.querySelectorAll(".js-intake").forEach(btn=>{
+btn.onclick = ()=>createModal("solo");
+});
 
-  const intakeForm = document.getElementById("intake-form");
-  const contactForm = document.getElementById("contact-form");
-
-
-  if (intakeForm) {
-
-    intakeForm.addEventListener("submit", function (e) {
-
-      e.preventDefault();
-
-      const name = document.getElementById("client_name").value.trim();
-      const email = document.getElementById("client_email").value.trim();
-      const phone = document.getElementById("client_phone").value.trim();
-      const service = document.getElementById("service").value;
-      const notes = document.getElementById("notes").value.trim();
-
-      if (!name || !email) {
-        alert("Naam en email zijn verplicht.");
-        return;
-      }
-
-      const payload = {
-        service: service,
-        client_name: name,
-        client_email: email,
-        client_phone: phone,
-        notes: notes
-      };
-
-      sendRequest(
-        payload,
-        "Intake verzoek ontvangen. We nemen contact met je op."
-      );
-
-      intakeForm.reset();
-
-    });
-
-  }
-
-
-  if (contactForm) {
-
-    contactForm.addEventListener("submit", function (e) {
-
-      e.preventDefault();
-
-      const name = document.getElementById("contact_name").value.trim();
-      const email = document.getElementById("contact_email").value.trim();
-      const message = document.getElementById("contact_message").value.trim();
-
-      if (!name || !email || !message) {
-        alert("Vul alle velden in.");
-        return;
-      }
-
-      const payload = {
-        service: "contact",
-        client_name: name,
-        client_email: email,
-        client_phone: "",
-        notes: message
-      };
-
-      sendRequest(
-        payload,
-        "Bericht ontvangen. We nemen contact met je op."
-      );
-
-      contactForm.reset();
-
-    });
-
-  }
-
+document.querySelectorAll(".js-contact").forEach(btn=>{
+btn.onclick = ()=>createModal("contact");
 });
