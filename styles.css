@@ -1,247 +1,820 @@
-:root{
-
---sand:#f4e7d8;
---whiskey:#c87a2d;
---night:#1b2631;
-
---max:1100px;
-
-}
+/* ============================= */
+/* RESET */
+/* ============================= */
 
 *{
-box-sizing:border-box;
 margin:0;
 padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
-font-family:system-ui;
-line-height:1.7;
-background:var(--sand);
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+
+background:#f2e8dc;
+
 color:#2b2b2b;
+
+line-height:1.7;
+
 }
+
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
 
 .container{
-max-width:var(--max);
+
+max-width:1100px;
+
 margin:auto;
+
 padding:0 20px;
+
 }
 
-/* NAV */
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+.site-header{
+
+background:#111;
+
+color:white;
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+}
 
 .nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(20,20,20,.8);
-color:white;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 0;
+
 }
 
-.nav-inner{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 20px;
-max-width:var(--max);
-margin:auto;
+.logo{
+
+font-weight:700;
+
+}
+
+.logo span{
+
+display:block;
+
+font-size:12px;
+
+opacity:.7;
+
 }
 
 .nav-links{
+
 display:flex;
+
 gap:20px;
-align-items:center;
+
 }
 
 .nav-links a{
+
 color:white;
+
 text-decoration:none;
+
+font-size:14px;
+
+opacity:.85;
+
 }
 
+.nav-links a:hover{
+
+opacity:1;
+
+}
+
+
+/* ============================= */
 /* HERO */
+/* ============================= */
 
 .hero{
-padding:140px 0;
+
+min-height:90vh;
+
+display:flex;
+
+align-items:center;
+
 color:white;
 
 background:
 
 linear-gradient(
-rgba(0,0,0,.7),
+
+rgba(0,0,0,.65),
+
 rgba(0,0,0,.8)
+
 ),
 
-url("Urbanchill org.jpg");
+url("nairobi-skyline-night.jpg");
 
 background-size:cover;
+
 background-position:center;
 
 }
 
-.hero-grid{
-display:grid;
-grid-template-columns:1fr 350px;
-gap:60px;
+.hero-inner{
+
+max-width:700px;
+
+}
+
+.brand-block{
+
+margin-bottom:25px;
+
+}
+
+.brand-name{
+
+font-size:18px;
+
+letter-spacing:.08em;
+
+text-transform:uppercase;
+
+opacity:.9;
+
+}
+
+.brand-tagline{
+
+font-size:14px;
+
+opacity:.7;
+
+font-style:italic;
+
 }
 
 .hero h1{
-font-size:48px;
+
+font-size:52px;
+
 margin-bottom:20px;
+
 }
 
-.hero span{
-color:#f0c89a;
+.hero-sub{
+
+margin-bottom:20px;
+
+font-size:18px;
+
 }
 
-.hero-card{
-background:rgba(0,0,0,.5);
-padding:20px;
-border-radius:16px;
-margin-bottom:15px;
+.hero-mantra{
+
+margin:30px 0;
+
+font-style:italic;
+
+font-size:20px;
+
 }
 
+.hero-buttons{
+
+display:flex;
+
+gap:15px;
+
+}
+
+
+/* ============================= */
 /* BUTTONS */
+/* ============================= */
 
 .btn{
-padding:12px 24px;
-border-radius:10px;
-border:none;
-cursor:pointer;
-font-weight:600;
+
+padding:12px 22px;
+
+border-radius:8px;
+
 text-decoration:none;
+
+font-size:14px;
+
 display:inline-block;
+
 }
 
 .btn-primary{
-background:var(--whiskey);
+
+background:#c07a3b;
+
 color:white;
+
 }
 
 .btn-secondary{
+
 background:white;
+
 color:black;
+
 }
 
-.cta-row{
-margin-top:30px;
-display:flex;
-gap:15px;
-}
 
+/* ============================= */
 /* SECTIONS */
+/* ============================= */
 
 section{
-margin:120px 0;
+
+padding:140px 0;
+
 }
 
-.card{
-background:white;
-padding:50px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
+h2{
+
+font-size:32px;
+
+margin-bottom:20px;
+
 }
+
+.section-intro{
+
+max-width:700px;
+
+margin-bottom:40px;
+
+font-size:18px;
+
+}
+
+
+/* ============================= */
+/* TEXT CARD */
+/* ============================= */
+
+.text-card{
+
+max-width:750px;
+
+font-size:18px;
+
+}
+
+.text-card p{
+
+margin-bottom:20px;
+
+}
+
+.text-card-invert{
+
+color:white;
+
+}
+
+
+/* ============================= */
+/* SIGNATURE */
+/* ============================= */
+
+.signature{
+
+text-align:center;
+
+padding:90px 0;
+
+}
+
+.signature-text{
+
+font-size:26px;
+
+letter-spacing:.05em;
+
+margin-bottom:10px;
+
+}
+
+.signature-sub{
+
+opacity:.75;
+
+}
+
+
+/* ============================= */
+/* MANTRA */
+/* ============================= */
+
+.mantra{
+
+text-align:center;
+
+}
+
+.mantra-text{
+
+font-size:34px;
+
+line-height:1.4;
+
+}
+
+.mantra-sub{
+
+margin-top:20px;
+
+opacity:.7;
+
+font-style:italic;
+
+}
+
+
+/* ============================= */
+/* LOUNGE */
+/* ============================= */
+
+.lounge{
+
+color:white;
+
+background:
+
+linear-gradient(
+
+rgba(0,0,0,.6),
+
+rgba(0,0,0,.75)
+
+),
+
+url("nairobi-rooftop.jpg");
+
+background-size:cover;
+
+background-position:center;
+
+}
+
+.lounge-inner{
+
+text-align:center;
+
+}
+
+
+/* ============================= */
+/* GRID */
+/* ============================= */
 
 .grid{
+
 display:grid;
+
 grid-template-columns:1fr 1fr;
+
 gap:30px;
+
 margin-top:30px;
+
 }
 
-.pricing{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-margin-top:30px;
-}
 
-.price-card{
+/* ============================= */
+/* CARDS */
+/* ============================= */
+
+.card{
+
 background:white;
+
+padding:35px;
+
+border-radius:14px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 20px 40px rgba(0,0,0,.18);
+
+}
+
+
+/* ============================= */
+/* DISTRICTS */
+/* ============================= */
+
+.district-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:30px;
+
+}
+
+.district-card{
+
+background:white;
+
+padding:35px;
+
+border-radius:16px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+
+/* ============================= */
+/* PROMISE */
+/* ============================= */
+
+.promise-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr 1fr;
+
+gap:30px;
+
+margin-top:30px;
+
+}
+
+.promise-card{
+
+background:white;
+
 padding:30px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+border-radius:14px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
 }
 
-.price{
-color:var(--whiskey);
-font-weight:700;
+
+/* ============================= */
+/* SERVICES */
+/* ============================= */
+
+.services-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:30px;
+
+margin-top:30px;
+
 }
 
-/* CONTACT */
+.service-card{
+
+background:white;
+
+padding:30px;
+
+border-radius:14px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.service-card ul{
+
+margin:20px 0;
+
+padding-left:18px;
+
+}
+
+
+/* ============================= */
+/* MOMENTS */
+/* ============================= */
+
+.moments-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:30px;
+
+margin-top:30px;
+
+}
+
+.moment{
+
+background:white;
+
+padding:35px;
+
+border-radius:16px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+font-size:18px;
+
+}
+
+.moments-outro{
+
+margin-top:40px;
+
+font-style:italic;
+
+}
+
+
+/* ============================= */
+/* FORMS */
+/* ============================= */
 
 .contact-grid{
+
 display:grid;
+
 grid-template-columns:1fr 1fr;
+
 gap:40px;
-margin-top:30px;
+
 }
 
-#intake-form,
-#contact-form{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-top:20px;
-}
+.form-card{
 
-#intake-form textarea,
-#contact-form textarea{
-grid-column:1/-1;
-min-height:120px;
-}
+background:white;
 
-#intake-form button,
-#contact-form button{
-grid-column:1/-1;
-width:220px;
-}
+padding:30px;
 
-#intake-form input,
-#contact-form input,
-#intake-form textarea,
-#contact-form textarea,
-select{
-padding:12px;
-border-radius:8px;
-border:1px solid #ddd;
-}
+border-radius:14px;
 
-/* FOOTER */
+box-shadow:0 15px 35px rgba(0,0,0,.12);
 
-footer{
-background:var(--night);
-color:white;
-padding:60px 20px;
-}
-
-.foot-grid{
 display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
+
+flex-direction:column;
+
+gap:12px;
+
 }
 
+input, textarea, select{
+
+padding:12px;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+
+font-family:inherit;
+
+}
+
+button{
+
+padding:12px;
+
+background:#c07a3b;
+
+color:white;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+/* ============================= */
+/* PRINCIPLES */
+/* ============================= */
+
+.principles-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr 1fr;
+
+gap:30px;
+
+}
+
+.principle{
+
+background:white;
+
+padding:35px;
+
+border-radius:16px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+.site-footer{
+
+background:#0e1b27;
+
+color:white;
+
+padding:60px 0;
+
+}
+
+.footer-inner{
+
+display:flex;
+
+justify-content:space-between;
+
+gap:40px;
+
+flex-wrap:wrap;
+
+}
+
+
+/* ============================= */
+/* DIVIDER */
+/* ============================= */
+
+.urbanchill-divider{
+
+height:80px;
+
+margin:80px 0;
+
+background:
+
+linear-gradient(
+
+to bottom,
+
+transparent,
+
+rgba(0,0,0,.05),
+
+transparent
+
+);
+
+}
+
+
+/* ============================= */
+/* LOADER */
+/* ============================= */
+
+#loader{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:#0e1b27;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+z-index:9999;
+
+transition:opacity .6s ease;
+
+}
+
+.loader-content{
+
+text-align:center;
+
+color:white;
+
+}
+
+.loader-brand{
+
+font-size:28px;
+
+letter-spacing:.08em;
+
+}
+
+.loader-tagline{
+
+margin-top:8px;
+
+opacity:.7;
+
+font-style:italic;
+
+}
+
+
+/* ============================= */
 /* MOBILE */
+/* ============================= */
 
 @media(max-width:900px){
 
-.hero-grid{
-grid-template-columns:1fr;
-}
-
-.pricing{
-grid-template-columns:1fr;
-}
-
 .grid{
+
 grid-template-columns:1fr;
+
+}
+
+.promise-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.services-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.district-grid{
+
+grid-template-columns:1fr;
+
 }
 
 .contact-grid{
+
 grid-template-columns:1fr;
+
 }
 
-#intake-form,
-#contact-form{
+.principles-grid{
+
 grid-template-columns:1fr;
+
+}
+
+.hero h1{
+
+font-size:40px;
+
 }
 
 }
