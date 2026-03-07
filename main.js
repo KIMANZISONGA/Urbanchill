@@ -1,30 +1,28 @@
-const API_BASE = "https://cockpit.urbanchill.org/api";
+const API = "https://cockpit.urbanchill.org/api/intake";
 
-async function sendRequest(endpoint, payload, successMessage){
+async function send(payload){
 
   try{
 
-    const response = await fetch(`${API_BASE}/${endpoint}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+    const response = await fetch(API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
       },
-      body: JSON.stringify(payload)
+      body:JSON.stringify(payload)
     });
-
-    if(!response.ok){
-      throw new Error("API request failed");
-    }
 
     const result = await response.json();
 
-    alert(successMessage);
+    if(!result.ok){
+      throw new Error(result.error || "API error");
+    }
 
-    console.log("API response:", result);
+    alert("Bedankt. We nemen snel contact met je op.");
 
-  }catch(err){
+  }catch(e){
 
-    console.error(err);
+    console.error(e);
     alert("Er ging iets mis. Probeer het later opnieuw.");
 
   }
@@ -33,46 +31,38 @@ async function sendRequest(endpoint, payload, successMessage){
 
 function sendIntake(){
 
-  const payload = {
-    source: "urbanchill.nl",
-    service: "unknown",
-    client_name: "",
-    client_email: "",
-    client_phone: "",
-    notes: "Website intake button clicked"
-  };
-
-  sendRequest(
-    "intake",
-    payload,
-    "Intake verzoek ontvangen. We nemen contact met je op."
-  );
+  send({
+    source:"urbanchill.nl",
+    service:"intake",
+    client_name:"website visitor",
+    client_email:"unknown",
+    client_phone:"unknown",
+    notes:"Intake button"
+  });
 
 }
 
 function sendContact(){
 
-  const payload = {
-    source: "urbanchill.nl",
-    message: "Website contact button clicked"
-  };
-
-  sendRequest(
-    "contact",
-    payload,
-    "Bericht ontvangen. We nemen contact met je op."
-  );
+  send({
+    source:"urbanchill.nl",
+    service:"contact",
+    client_name:"website visitor",
+    client_email:"unknown",
+    client_phone:"unknown",
+    notes:"Contact button"
+  });
 
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded",()=>{
 
   document.querySelectorAll(".js-intake").forEach(btn=>{
-    btn.addEventListener("click", sendIntake);
+    btn.addEventListener("click",sendIntake);
   });
 
   document.querySelectorAll(".js-contact").forEach(btn=>{
-    btn.addEventListener("click", sendContact);
+    btn.addEventListener("click",sendContact);
   });
 
 });
