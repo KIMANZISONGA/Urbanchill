@@ -168,6 +168,40 @@ section{margin:120px 0}
 
 .price{color:var(--sun);font-weight:700}
 
+/* FORM FIX */
+
+#intake-form,
+#contact-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-top:30px;
+}
+
+#intake-form textarea,
+#contact-form textarea{
+  grid-column:1 / -1;
+}
+
+#intake-form button,
+#contact-form button{
+  grid-column:1 / -1;
+  width:220px;
+}
+
+#intake-form input,
+#intake-form select,
+#intake-form textarea,
+#contact-form input,
+#contact-form textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-family:inherit;
+  font-size:14px;
+}
+
 /* FOUNDER */
 
 .founder-card{
@@ -198,4 +232,8 @@ footer{
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr}
   .pricing{grid-template-columns:1fr}
+  #intake-form,
+  #contact-form{
+    grid-template-columns:1fr;
+  }
 }
