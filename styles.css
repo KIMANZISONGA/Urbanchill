@@ -1,28 +1,12 @@
 :root{
 
 --sand:#f4e7d8;
---sand-soft:#efe0cd;
-
 --whiskey:#c87a2d;
---whiskey-soft:#e2a565;
-
 --night:#1b2631;
---night-soft:#243241;
-
---ink:#2b2b2b;
---white:#ffffff;
-
---radius:22px;
-
---shadow:0 18px 45px rgba(0,0,0,.18);
 
 --max:1100px;
 
---nav-height:82px;
-
 }
-
-/* RESET */
 
 *{
 box-sizing:border-box;
@@ -31,411 +15,208 @@ padding:0;
 }
 
 body{
-
-font-family:
-system-ui,
--apple-system,
-"Segoe UI",
-sans-serif;
-
+font-family:system-ui;
 line-height:1.7;
-
-color:var(--ink);
-
 background:var(--sand);
-
+color:#2b2b2b;
 }
 
 .container{
-
 max-width:var(--max);
 margin:auto;
 padding:0 20px;
-
 }
 
-/* NAVBAR */
+/* NAV */
 
 .nav{
-
 position:fixed;
 top:0;
-left:0;
-
 width:100%;
-
 background:rgba(20,20,20,.8);
-
-backdrop-filter:blur(10px);
-
-z-index:1000;
-
+color:white;
 }
 
 .nav-inner{
-
-max-width:var(--max);
-margin:auto;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 padding:18px 20px;
-
-}
-
-.logo{
-
-color:white;
-font-weight:700;
-letter-spacing:.04em;
-
+max-width:var(--max);
+margin:auto;
 }
 
 .nav-links{
-
 display:flex;
 gap:20px;
 align-items:center;
-
 }
 
 .nav-links a{
-
 color:white;
-font-size:.95rem;
-opacity:.9;
 text-decoration:none;
-
 }
 
 /* HERO */
 
 .hero{
-
-padding:calc(var(--nav-height) + 120px) 0 140px;
-
-min-height:90vh;
+padding:140px 0;
+color:white;
 
 background:
 
 linear-gradient(
-rgba(10,10,10,.75),
-rgba(20,15,10,.85)
+rgba(0,0,0,.7),
+rgba(0,0,0,.8)
 ),
 
 url("Urbanchill org.jpg");
 
 background-size:cover;
-background-position:42% 18%;
-
-color:white;
-
-display:flex;
-align-items:center;
-
-position:relative;
+background-position:center;
 
 }
 
 .hero-grid{
-
 display:grid;
-grid-template-columns:1fr 360px;
-
+grid-template-columns:1fr 350px;
 gap:60px;
-
 }
 
 .hero h1{
-
-font-size:clamp(2.5rem,5vw,4rem);
-
-line-height:1.1;
-
+font-size:48px;
 margin-bottom:20px;
-
 }
 
-.hero h1 span{
-color:var(--whiskey-soft);
+.hero span{
+color:#f0c89a;
 }
 
-.hero p{
-opacity:.9;
+.hero-card{
+background:rgba(0,0,0,.5);
+padding:20px;
+border-radius:16px;
+margin-bottom:15px;
 }
 
 /* BUTTONS */
 
 .btn{
-
-padding:14px 26px;
-
-border-radius:12px;
-
+padding:12px 24px;
+border-radius:10px;
 border:none;
-
 cursor:pointer;
-
 font-weight:600;
-
-display:inline-block;
-
 text-decoration:none;
-
+display:inline-block;
 }
 
 .btn-primary{
-
 background:var(--whiskey);
 color:white;
-
 }
 
 .btn-secondary{
-
 background:white;
-color:#333;
-
+color:black;
 }
 
 .cta-row{
-
-display:flex;
-gap:16px;
 margin-top:30px;
-
-}
-
-/* HERO CARDS */
-
-.hero-card{
-
-background:rgba(35,25,18,.65);
-
-border:1px solid rgba(255,255,255,.15);
-
-padding:24px;
-
-border-radius:20px;
-
-margin-bottom:18px;
-
-backdrop-filter:blur(10px);
-
+display:flex;
+gap:15px;
 }
 
 /* SECTIONS */
 
 section{
-
 margin:120px 0;
-
-}
-
-section h2{
-
-font-size:2.2rem;
-
-margin-bottom:20px;
-
-color:var(--night);
-
 }
 
 .card{
-
 background:white;
-
-padding:60px;
-
-border-radius:var(--radius);
-
-box-shadow:var(--shadow);
-
+padding:50px;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
 }
 
-/* PRICING */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+margin-top:30px;
+}
 
 .pricing{
-
 display:grid;
-
 grid-template-columns:1fr 1fr;
-
-gap:40px;
-
+gap:30px;
 margin-top:30px;
-
 }
 
 .price-card{
-
 background:white;
-
-padding:35px;
-
-border-radius:18px;
-
-box-shadow:var(--shadow);
-
-}
-
-.price-top{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
+padding:30px;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
 }
 
 .price{
-
 color:var(--whiskey);
-
 font-weight:700;
-
-font-size:1.6rem;
-
 }
 
-.price-card ul{
+/* CONTACT */
 
-margin-top:20px;
-
-padding-left:20px;
-
-}
-
-.price-card li{
-
-margin:8px 0;
-
-}
-
-/* SKYLINE SECTION */
-
-.skyline{
-
-position:relative;
-
-padding:160px 0;
-
-background:
-
-linear-gradient(
-rgba(15,12,10,.85),
-rgba(10,10,10,.9)
-),
-
-url("nairobi-skyline.jpg");
-
-background-size:cover;
-
-background-position:center;
-
-color:white;
-
-text-align:center;
-
-}
-
-.skyline-inner{
-
-max-width:700px;
-
-margin:auto;
-
-}
-
-.skyline h2{
-
-font-size:2.5rem;
-
-margin-bottom:20px;
-
-}
-
-/* CONTACT FORM */
-
-#contact-form{
-
+.contact-grid{
 display:grid;
-
 grid-template-columns:1fr 1fr;
+gap:40px;
+margin-top:30px;
+}
 
-gap:16px;
-
+#intake-form,
+#contact-form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
 margin-top:20px;
-
 }
 
+#intake-form textarea,
 #contact-form textarea{
-
-grid-column:1 / -1;
-
+grid-column:1/-1;
 min-height:120px;
-
 }
 
+#intake-form button,
 #contact-form button{
-
-grid-column:1 / -1;
-
-width:200px;
-
+grid-column:1/-1;
+width:220px;
 }
 
+#intake-form input,
 #contact-form input,
-#contact-form textarea{
-
+#intake-form textarea,
+#contact-form textarea,
+select{
 padding:12px;
-
-border-radius:10px;
-
+border-radius:8px;
 border:1px solid #ddd;
-
-font-size:14px;
-
 }
 
 /* FOOTER */
 
 footer{
-
 background:var(--night);
-
 color:white;
-
-padding:70px 20px;
-
-margin-top:140px;
-
+padding:60px 20px;
 }
 
 .foot-grid{
-
 display:flex;
-
 justify-content:space-between;
-
-gap:20px;
-
 flex-wrap:wrap;
-
-}
-
-.foot-links{
-
-display:flex;
-
-flex-direction:column;
-
-gap:6px;
-
 }
 
 /* MOBILE */
@@ -450,97 +231,17 @@ grid-template-columns:1fr;
 grid-template-columns:1fr;
 }
 
+.grid{
+grid-template-columns:1fr;
+}
+
+.contact-grid{
+grid-template-columns:1fr;
+}
+
+#intake-form,
 #contact-form{
 grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:600px){
-
-.hero{
-padding-top:160px;
-}
-
-.cta-row{
-flex-direction:column;
-}
-
-.card{
-padding:35px;
-}
-
-.btn{
-width:100%;
-}
-
-}
-/* EXPERIENCE */
-
-#experience{
-
-margin:120px 0;
-
-}
-
-.experience-intro{
-
-max-width:750px;
-
-margin-bottom:40px;
-
-font-size:18px;
-
-line-height:1.7;
-
-}
-
-.district-grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:30px;
-
-margin-top:40px;
-
-}
-
-.district-card{
-
-background:white;
-
-padding:35px;
-
-border-radius:18px;
-
-box-shadow:0 15px 35px rgba(0,0,0,.12);
-
-transition:.3s;
-
-}
-
-.district-card:hover{
-
-transform:translateY(-5px);
-
-}
-
-.district-card h3{
-
-margin-bottom:10px;
-
-font-size:20px;
-
-}
-
-@media(max-width:900px){
-
-.district-grid{
-
-grid-template-columns:1fr;
-
 }
 
 }
