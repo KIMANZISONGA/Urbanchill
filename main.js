@@ -1,6 +1,7 @@
-const API_BASE = "https://cockpit.urbanchill.org/api/intakes";
+const API_BASE = "https://cockpit.urbanchill.org/api/intake";
 
 async function sendRequest(payload, successMessage) {
+
   try {
 
     const response = await fetch(API_BASE, {
@@ -26,14 +27,13 @@ async function sendRequest(payload, successMessage) {
     alert("Er ging iets mis. Probeer het later opnieuw.");
 
   }
+
 }
 
 function sendIntake() {
 
   const payload = {
-    source: "urbanchill.nl",
-    type: "intake",
-    service: "unknown",
+    service: "solo",
     client_name: "",
     client_email: "",
     client_phone: "",
@@ -50,8 +50,6 @@ function sendIntake() {
 function sendContact() {
 
   const payload = {
-    source: "urbanchill.nl",
-    type: "contact",
     service: "contact",
     client_name: "",
     client_email: "",
