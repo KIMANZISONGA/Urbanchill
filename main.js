@@ -34,9 +34,9 @@ function sendIntake() {
 
   const payload = {
     service: "solo",
-    client_name: "",
-    client_email: "",
-    client_phone: "",
+    client_name: "Website bezoeker",
+    client_email: "unknown@urbanchill.nl",
+    client_phone: "unknown",
     notes: "Website intake button clicked"
   };
 
@@ -51,9 +51,9 @@ function sendContact() {
 
   const payload = {
     service: "contact",
-    client_name: "",
-    client_email: "",
-    client_phone: "",
+    client_name: "Website bezoeker",
+    client_email: "unknown@urbanchill.nl",
+    client_phone: "unknown",
     notes: "Website contact button clicked"
   };
 
