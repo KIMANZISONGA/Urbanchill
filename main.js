@@ -1,69 +1,69 @@
 const API_ENDPOINT = "https://cockpit.urbanchill.org/api/intake";
 
-/* =========================
-SEND PAYLOAD
-========================= */
+/* SEND PAYLOAD */
 
-async function sendPayload(payload, messageEl, formEl) {
-  try {
+function sendPayload(payload, messageEl, formEl) {
 
-    const res = await fetch(API_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+  fetch(API_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res){
 
-    if (!res.ok) {
+    if(!res.ok){
       throw new Error("network");
     }
 
-    await res.json().catch(() => ({}));
+    return res.json().catch(function(){
+      return {};
+    });
 
-    if (messageEl) {
+  })
+  .then(function(){
+
+    if(messageEl){
       messageEl.textContent = "Bericht verzonden.";
       messageEl.style.color = "#2e7d32";
     }
 
-    if (formEl) {
+    if(formEl){
       formEl.reset();
-      formEl.style.opacity = ".6";
-
-      setTimeout(() => {
-        formEl.style.opacity = "1";
-      }, 400);
     }
 
-  } catch (err) {
+  })
+  .catch(function(err){
 
-    if (messageEl) {
+    if(messageEl){
       messageEl.textContent = "Er ging iets mis. Probeer later opnieuw.";
       messageEl.style.color = "#b71c1c";
     }
 
     console.error("Form error:", err);
 
-  }
+  });
+
 }
 
-/* =========================
-INTAKE FORM
-========================= */
+/* INTAKE FORM */
 
-const intakeForm = document.getElementById("intake-form");
+var intakeForm = document.getElementById("intake-form");
 
-if (intakeForm) {
+if(intakeForm){
 
-  intakeForm.addEventListener("submit", function (e) {
+  intakeForm.addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    const message = document.getElementById("intake-message");
+    var message = document.getElementById("intake-message");
 
-    if (intakeForm.website && intakeForm.website.value !== "") return;
+    if(intakeForm.website && intakeForm.website.value !== ""){
+      return;
+    }
 
-    const payload = {
+    var payload = {
       client_name: intakeForm.client_name ? intakeForm.client_name.value : "",
       client_email: intakeForm.client_email ? intakeForm.client_email.value : "",
       client_phone: intakeForm.client_phone ? intakeForm.client_phone.value : "",
@@ -78,23 +78,23 @@ if (intakeForm) {
 
 }
 
-/* =========================
-CONTACT FORM
-========================= */
+/* CONTACT FORM */
 
-const contactForm = document.getElementById("contact-form");
+var contactForm = document.getElementById("contact-form");
 
-if (contactForm) {
+if(contactForm){
 
-  contactForm.addEventListener("submit", function (e) {
+  contactForm.addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    const message = document.getElementById("contact-message");
+    var message = document.getElementById("contact-message");
 
-    if (contactForm.website && contactForm.website.value !== "") return;
+    if(contactForm.website && contactForm.website.value !== ""){
+      return;
+    }
 
-    const payload = {
+    var payload = {
       client_name: contactForm.client_name ? contactForm.client_name.value : "",
       client_email: contactForm.client_email ? contactForm.client_email.value : "",
       client_phone: contactForm.client_phone ? contactForm.client_phone.value : "",
@@ -109,19 +109,17 @@ if (contactForm) {
 
 }
 
-/* =========================
-PAGE LOADER
-========================= */
+/* PAGE LOADER */
 
-window.addEventListener("load", function () {
+window.addEventListener("load", function(){
 
-  const loader = document.getElementById("loader");
+  var loader = document.getElementById("loader");
 
-  if (loader) {
+  if(loader){
 
     loader.style.opacity = "0";
 
-    setTimeout(() => {
+    setTimeout(function(){
       loader.style.display = "none";
     }, 600);
 
