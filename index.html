@@ -622,34 +622,51 @@
 
         <div class="services-grid">
           <article class="service-card">
-            <h3>Urban Orientation</h3>
+            <h3>SOLO</h3>
             <p>
-              Een rustige introductie tot Nairobi
-              voor bezoekers die voor het eerst in de stad zijn.
+              Een individuele UrbanChill ervaring voor bezoekers
+              die Nairobi rustig en met context willen binnenkomen.
             </p>
 
             <ul>
-              <li>Airport ontvangst</li>
-              <li>Stadsintroductie</li>
-              <li>SIM & connectiviteit</li>
-              <li>Locatie context</li>
+              <li>Persoonlijke intake</li>
+              <li>Stadsoriëntatie</li>
+              <li>Lokale context</li>
+              <li>Comfortabel tempo</li>
             </ul>
 
             <a href="#contact" class="btn btn-primary">Start intake</a>
           </article>
 
           <article class="service-card">
-            <h3>Urban Companion</h3>
+            <h3>ADVENTURE</h3>
             <p>
-              Meerdaagse begeleiding voor bezoekers
-              die Nairobi beter willen begrijpen.
+              Een intensievere UrbanChill ervaring voor bezoekers
+              die de stad gedurende meerdere dagen willen verkennen.
             </p>
 
             <ul>
-              <li>Begeleiding in de stad</li>
+              <li>Meerdaagse begeleiding</li>
               <li>Lokale context</li>
-              <li>Werkplekken & cafés</li>
-              <li>Wijk oriëntatie</li>
+              <li>Stad op maat ervaren</li>
+              <li>Extra dag mogelijk</li>
+            </ul>
+
+            <a href="#contact" class="btn btn-primary">Start intake</a>
+          </article>
+
+          <article class="service-card">
+            <h3>REMOTE</h3>
+            <p>
+              Voor remote workers en professionals
+              die werk, verblijf en stadservaring willen combineren.
+            </p>
+
+            <ul>
+              <li>Werkritme ondersteunen</li>
+              <li>Cafés & werkplekken</li>
+              <li>Buurtcontext</li>
+              <li>Rust en overzicht</li>
             </ul>
 
             <a href="#contact" class="btn btn-primary">Start intake</a>
@@ -774,9 +791,11 @@
             <input name="client_email" type="email" placeholder="Email" required>
             <input name="client_phone" type="text" placeholder="Telefoonnummer">
 
-            <select name="service">
-              <option value="orientation">Urban Orientation</option>
-              <option value="companion">Urban Companion</option>
+            <select name="service" required>
+              <option value="">Selecteer service</option>
+              <option value="solo">SOLO</option>
+              <option value="adventure">ADVENTURE</option>
+              <option value="remote">REMOTE</option>
             </select>
 
             <input name="arrival_date" type="date">
@@ -832,6 +851,6 @@
     </div>
   </footer>
 
-    <script src="main.js?v=2"></script>
+  <script src="main.js"></script>
 </body>
 </html>
