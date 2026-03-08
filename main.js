@@ -5,16 +5,18 @@ SEND PAYLOAD
 ========================= */
 
 async function sendPayload(payload, messageEl, formEl) {
+
 try {
-const res = await fetch(API_ENDPOINT, {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify(payload)
-});
 
 ```
+const res = await fetch(API_ENDPOINT, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(payload)
+});
+
 if (!res.ok) {
   throw new Error("network");
 }
@@ -48,6 +50,7 @@ console.error("Form error:", err);
 ```
 
 }
+
 }
 
 /* =========================
@@ -65,19 +68,15 @@ e.preventDefault();
 
 const message = document.getElementById("intake-message");
 
-/* honeypot */
-
 if (intakeForm.website && intakeForm.website.value !== "") return;
 
 const payload = {
-
   client_name: intakeForm.client_name?.value || "",
   client_email: intakeForm.client_email?.value || "",
   client_phone: intakeForm.client_phone?.value || "",
   service: intakeForm.service?.value || "",
   arrival_date: intakeForm.arrival_date?.value || "",
   notes: intakeForm.notes?.value || ""
-
 };
 
 sendPayload(payload, message, intakeForm);
@@ -102,19 +101,15 @@ e.preventDefault();
 
 const message = document.getElementById("contact-message");
 
-/* honeypot */
-
 if (contactForm.website && contactForm.website.value !== "") return;
 
 const payload = {
-
   client_name: contactForm.client_name?.value || "",
   client_email: contactForm.client_email?.value || "",
   client_phone: contactForm.client_phone?.value || "",
   service: "contact",
   arrival_date: "",
   notes: contactForm.notes?.value || ""
-
 };
 
 sendPayload(payload, message, contactForm);
