@@ -1,120 +1,129 @@
 const API_ENDPOINT = "https://cockpit.urbanchill.org/api/intake";
 
-/* SEND PAYLOAD */
+/* ---------------- SEND PAYLOAD ---------------- */
 
-function sendPayload(payload, messageEl, formEl) {
+async function sendPayload(payload,messageEl,formEl){
 
-fetch(API_ENDPOINT,{
+try{
+
+const res = await fetch(API_ENDPOINT,{
 method:"POST",
+mode:"cors",
+credentials:"omit",
 headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify(payload)
 })
 
-.then(function(res){
-if(!res.ok){throw new Error("network");}
-return res.json().catch(function(){return {};});
-})
+if(!res.ok){
+throw new Error("network")
+}
 
-.then(function(){
+await res.json().catch(()=>({}))
 
 if(messageEl){
-messageEl.textContent="Bericht verzonden.";
-messageEl.style.color="#2e7d32";
+messageEl.textContent="Bericht verzonden."
+messageEl.style.color="#2e7d32"
 }
 
 if(formEl){
-formEl.reset();
+formEl.reset()
 }
 
-})
+}catch(err){
 
-.catch(function(err){
-
-console.error(err);
+console.error(err)
 
 if(messageEl){
-messageEl.textContent="Er ging iets mis.";
-messageEl.style.color="#b71c1c";
+messageEl.textContent="Er ging iets mis."
+messageEl.style.color="#b71c1c"
 }
 
-});
+}
 
 }
 
-/* INTAKE FORM */
+/* ---------------- INTAKE FORM ---------------- */
 
-var intakeForm=document.getElementById("intake-form");
+const intakeForm=document.getElementById("intake-form")
 
 if(intakeForm){
 
 intakeForm.addEventListener("submit",function(e){
 
-e.preventDefault();
+e.preventDefault()
 
-var message=document.getElementById("intake-message");
+const message=document.getElementById("intake-message")
 
-if(intakeForm.website && intakeForm.website.value!==""){return;}
+/* honeypot spam check */
 
-var payload={
-client_name:intakeForm.client_name.value,
-client_email:intakeForm.client_email.value,
-client_phone:intakeForm.client_phone.value,
+if(intakeForm.website && intakeForm.website.value!==""){
+return
+}
+
+const payload={
+name:intakeForm.client_name.value,
+email:intakeForm.client_email.value,
+phone:intakeForm.client_phone.value,
 service:intakeForm.service.value,
 arrival_date:intakeForm.arrival_date.value,
 notes:intakeForm.notes.value
-};
+}
 
-sendPayload(payload,message,intakeForm);
+sendPayload(payload,message,intakeForm)
 
-});
+})
 
 }
 
-/* CONTACT FORM */
+/* ---------------- CONTACT FORM ---------------- */
 
-var contactForm=document.getElementById("contact-form");
+const contactForm=document.getElementById("contact-form")
 
 if(contactForm){
 
 contactForm.addEventListener("submit",function(e){
 
-e.preventDefault();
+e.preventDefault()
 
-var message=document.getElementById("contact-message");
+const message=document.getElementById("contact-message")
 
-if(contactForm.website && contactForm.website.value!==""){return;}
+/* honeypot spam check */
 
-var payload={
-client_name:contactForm.client_name.value,
-client_email:contactForm.client_email.value,
-client_phone:contactForm.client_phone.value,
+if(contactForm.website && contactForm.website.value!==""){
+return
+}
+
+const payload={
+name:contactForm.client_name.value,
+email:contactForm.client_email.value,
+phone:contactForm.client_phone.value,
 service:"contact",
 arrival_date:"",
 notes:contactForm.notes.value
-};
+}
 
-sendPayload(payload,message,contactForm);
+sendPayload(payload,message,contactForm)
 
-});
+})
 
 }
 
-/* LOADER */
+/* ---------------- LOADER ---------------- */
 
 window.addEventListener("load",function(){
 
-var loader=document.getElementById("loader");
+const loader=document.getElementById("loader")
 
 if(loader){
 
-loader.style.opacity="0";
+loader.style.opacity="0"
 
 setTimeout(function(){
-loader.style.display="none";
-},600);
+loader.style.display="none"
+},600)
 
 }
 
-});
+})
