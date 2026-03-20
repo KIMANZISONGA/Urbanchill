@@ -1,5 +1,5 @@
 /* ================================================= */
-/* URBANCHILL CLEAN STYLESHEET */
+/* URBANCHILL CLEAN STYLESHEET v1.1 (SAFE REFINED) */
 /* ================================================= */
 
 /* RESET */
@@ -77,7 +77,7 @@ transition:.2s;
 opacity:1;
 }
 
-/* HERO */
+/* HERO (FIXED LIGHTER) */
 
 .hero{
 margin-top:80px;
@@ -87,13 +87,14 @@ align-items:center;
 color:white;
 background:
 linear-gradient(
-rgba(0,0,0,.65),
-rgba(0,0,0,.85)
+rgba(20,20,20,.45),
+rgba(20,20,20,.65)
 ),
 url("nairobi-skyline-night.jpg");
 background-size:cover;
 background-position:center;
 position:relative;
+background-blend-mode:overlay;
 }
 
 .hero-inner{
@@ -162,7 +163,7 @@ color:black;
 /* SECTIONS */
 
 section{
-padding:130px 0;
+padding:110px 0; /* iets compacter */
 }
 
 h2{
@@ -195,7 +196,7 @@ color:white;
 
 .signature{
 text-align:center;
-padding:90px 0;
+padding:80px 0;
 }
 
 .signature-text{
@@ -225,18 +226,19 @@ opacity:.7;
 font-style:italic;
 }
 
-/* LOUNGE */
+/* LOUNGE (FIXED LIGHTER) */
 
 .lounge{
 color:white;
 background:
 linear-gradient(
-rgba(0,0,0,.65),
-rgba(0,0,0,.8)
+rgba(20,20,20,.45),
+rgba(20,20,20,.65)
 ),
 url("nairobi-rooftop.jpg");
 background-size:cover;
 background-position:center;
+background-blend-mode:overlay;
 }
 
 .lounge-inner{
