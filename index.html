@@ -9,9 +9,26 @@
 
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="favicon.ico">
-</head>
 
+  <meta property="og:title" content="UrbanChill Nairobi">
+  <meta property="og:description" content="Take your time in the city. Not in a hurry. Just in the city.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="nairobi-skyline-night.jpg">
+  <meta property="og:url" content="https://urbanchill.nl">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UrbanChill Nairobi">
+  <meta name="twitter:description" content="Take your time in the city.">
+  <meta name="twitter:image" content="nairobi-skyline-night.jpg">
+</head>
 <body>
+
+<div id="loader">
+  <div class="loader-content">
+    <div class="loader-brand">UrbanChill Nairobi</div>
+    <div class="loader-tagline">Take your time in the city.</div>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="container nav">
@@ -22,7 +39,10 @@
 
     <nav class="nav-links">
       <a href="#verhaal">Verhaal</a>
+      <a href="#audience">Voor wie</a>
+      <a href="#districts">Nairobi</a>
       <a href="#services">Mogelijkheden</a>
+      <a href="#privacy">Privacy</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -30,148 +50,144 @@
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-inner">
+<section class="hero">
+  <div class="container hero-inner">
 
-      <h1>Relax. Ervaar Nairobi.</h1>
+    <div class="brand-block">
+      <div class="brand-name">UrbanChill Nairobi</div>
+      <div class="brand-tagline">Take your time in the city.</div>
+    </div>
 
-      <p class="hero-sub">
-        Je wordt opgehaald, begeleid en komt rustig de stad binnen.
+    <h1>Relax. Ervaar Nairobi.</h1>
+
+    <p class="hero-sub">
+      Je wordt opgehaald, begeleid en komt rustig de stad binnen.
+    </p>
+
+    <p class="hero-sub">
+      Geen massatoerisme. Geen ruis.
+      Wel comfort, context en discretie vanaf het moment dat je aankomt.
+    </p>
+
+    <p class="hero-mantra">
+      Not in a hurry.<br>
+      Just in the city.
+    </p>
+
+    <p class="hero-note">
+      Discreet. Persoonlijk. Zonder verplichting.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#contact">Plan een eerste kennismaking</a>
+      <a class="btn btn-secondary" href="#services">Bekijk mogelijkheden</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="trust-strip">
+  <div class="container">
+    <p>Persoonlijke ontvangst • Lokale begeleiding • Geen verplichting</p>
+  </div>
+</section>
+
+<section class="signature">
+  <div class="container">
+    <p class="signature-text">A different way to enter the city.</p>
+    <p class="signature-sub">
+      UrbanChill is geen tour en geen programma.
+      Je wordt persoonlijk ontvangen en begeleid,
+      zodat je rustig en met vertrouwen de stad binnenkomt.
+    </p>
+  </div>
+</section>
+
+<div class="urbanchill-divider"></div>
+
+<section id="audience">
+  <div class="container">
+    <h2>Voor wie UrbanChill is</h2>
+    <div class="text-card">
+      <p>
+        UrbanChill richt zich op professionals en ondernemers
+        die tijdelijk uit hun eigen omgeving willen stappen.
       </p>
+    </div>
+  </div>
+</section>
 
-      <p class="hero-sub">
-        Geen massatoerisme. Geen ruis.
-        Wel comfort, context en discretie vanaf het moment dat je aankomt.
-      </p>
+<section id="services">
+  <div class="container">
+    <h2>Mogelijkheden</h2>
 
-      <p class="hero-note">
-        Discreet. Persoonlijk. Zonder verplichting.
-      </p>
+    <div class="services-grid">
 
-      <div class="hero-buttons">
-        <a class="btn btn-primary" href="#contact">Plan een eerste kennismaking</a>
-        <a class="btn btn-secondary" href="#services">Bekijk mogelijkheden</a>
-      </div>
+      <article class="service-card">
+        <h3>SOLO</h3>
+        <p>
+          Een persoonlijke begeleiding waarbij je wordt ontvangen,
+          georiënteerd en rustig de stad binnenkomt met lokale context.
+        </p>
+        <a href="#contact" class="btn btn-primary">Plan kennismaking</a>
+      </article>
+
+      <article class="service-card">
+        <h3>ADVENTURE</h3>
+        <p>
+          Een intensievere begeleiding voor bezoekers die meerdere dagen
+          de stad willen ervaren.
+        </p>
+        <a href="#contact" class="btn btn-primary">Plan kennismaking</a>
+      </article>
+
+      <article class="service-card">
+        <h3>REMOTE</h3>
+        <p>
+          Voor professionals die werk en verblijf combineren
+          en snel hun ritme willen vinden in Nairobi.
+        </p>
+        <a href="#contact" class="btn btn-primary">Plan kennismaking</a>
+      </article>
 
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TRUST -->
-  <section class="trust-strip">
-    <div class="container">
-      <p>Persoonlijke ontvangst • Lokale begeleiding • Geen verplichting</p>
-    </div>
-  </section>
+<section id="faq">
+  <div class="container">
+    <h2>Veelgestelde vragen</h2>
 
-  <!-- SIGNATURE -->
-  <section id="verhaal" class="signature">
-    <div class="container">
-      <p class="signature-text">A different way to enter the city.</p>
-
-      <p class="signature-sub">
-        UrbanChill is geen tour en geen programma.
-        Je wordt persoonlijk ontvangen en begeleid,
-        zodat je rustig en met vertrouwen de stad binnenkomt.
-      </p>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="container">
-      <h2>Mogelijkheden</h2>
-
-      <div class="services-grid">
-
-        <article class="service-card">
-          <h3>SOLO</h3>
-          <p>
-            Een persoonlijke begeleiding waarbij je wordt ontvangen,
-            georiënteerd en rustig de stad binnenkomt met lokale context.
-          </p>
-          <a href="#contact" class="btn btn-primary">Plan kennismaking</a>
-        </article>
-
-        <article class="service-card">
-          <h3>ADVENTURE</h3>
-          <p>
-            Voor bezoekers die meerdere dagen de stad willen ervaren
-            met begeleiding en verdieping.
-          </p>
-          <a href="#contact" class="btn btn-primary">Plan kennismaking</a>
-        </article>
-
-        <article class="service-card">
-          <h3>REMOTE</h3>
-          <p>
-            Voor professionals die werk en verblijf combineren
-            en snel hun ritme in Nairobi willen vinden.
-          </p>
-          <a href="#contact" class="btn btn-primary">Plan kennismaking</a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <h2>Veelgestelde vragen</h2>
-
-      <p><strong>Wat doet UrbanChill?</strong></p>
+    <div class="text-card">
+      <p><strong>Wat doet UrbanChill dan?</strong></p>
       <p>
         UrbanChill ontvangt je bij aankomst, begeleidt je in de eerste dagen
         en helpt je de stad rustig en met vertrouwen binnen te stappen.
       </p>
-
-      <p><strong>Bieden jullie accommodatie?</strong></p>
-      <p>Nee. Je regelt je verblijf zelf.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
+<section id="contact">
+  <div class="container">
+    <h2>Plan een eerste kennismaking</h2>
 
-      <h2>Plan een eerste kennismaking</h2>
+    <p class="section-intro">
+      Laat kort weten wanneer je aankomt en wat je zoekt.
+      We nemen persoonlijk contact met je op.
+    </p>
 
-      <p class="form-intro">
-        Laat kort weten wanneer je aankomt en wat je zoekt.
-        We nemen persoonlijk contact met je op.
-      </p>
+    <form id="intake-form" class="form-card">
+      <h3>Eerste kennismaking</h3>
 
-      <div class="contact-grid">
+      <input name="client_name" type="text" placeholder="Naam" required>
+      <input name="client_email" type="email" placeholder="Email" required>
 
-        <form id="intake-form" class="form-card">
-          <h3>Eerste kennismaking</h3>
+      <button class="btn btn-primary" type="submit">Verstuur bericht</button>
+    </form>
 
-          <input name="client_name" type="text" placeholder="Naam" required>
-          <input name="client_email" type="email" placeholder="Email" required>
-          <input name="client_phone" type="text" placeholder="Telefoonnummer">
-
-          <select name="service" required>
-            <option value="">Selecteer voorkeur</option>
-            <option value="solo">SOLO</option>
-            <option value="adventure">ADVENTURE</option>
-            <option value="remote">REMOTE</option>
-          </select>
-
-          <input name="arrival_date" type="date">
-
-          <textarea name="notes" placeholder="Vertel kort je plannen"></textarea>
-
-          <input class="honeypot" name="website" type="text" tabindex="-1" autocomplete="off">
-
-          <button class="btn btn-primary" type="submit">Verstuur bericht</button>
-
-          <div id="intake-message" class="form-message"></div>
-        </form>
-
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
@@ -191,7 +207,7 @@
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script src="main.js?v=3"></script>
 
 </body>
 </html>
