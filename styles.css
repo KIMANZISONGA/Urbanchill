@@ -1,5 +1,5 @@
 /* ================================================= */
-/* URBANCHILL CLEAN STYLESHEET v1.1 (SAFE REFINED) */
+/* URBANCHILL STYLESHEET v1.2 (FINAL STABLE) */
 /* ================================================= */
 
 /* RESET */
@@ -77,7 +77,7 @@ transition:.2s;
 opacity:1;
 }
 
-/* HERO (FIXED LIGHTER) */
+/* HERO (LIGHTER & BALANCED) */
 
 .hero{
 margin-top:80px;
@@ -163,7 +163,7 @@ color:black;
 /* SECTIONS */
 
 section{
-padding:110px 0; /* iets compacter */
+padding:110px 0;
 }
 
 h2{
@@ -226,23 +226,34 @@ opacity:.7;
 font-style:italic;
 }
 
-/* LOUNGE (FIXED LIGHTER) */
+/* LOUNGE (FIXED IMAGE LIGHTING) */
 
 .lounge{
+position:relative;
 color:white;
 background:
 linear-gradient(
-rgba(20,20,20,.45),
-rgba(20,20,20,.65)
+rgba(40,30,20,.25),
+rgba(10,10,10,.55)
 ),
 url("nairobi-rooftop.jpg");
 background-size:cover;
 background-position:center;
-background-blend-mode:overlay;
+background-blend-mode:soft-light;
+}
+
+.lounge::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(255,200,150,0.08);
+pointer-events:none;
 }
 
 .lounge-inner{
 text-align:center;
+position:relative;
+z-index:2;
 }
 
 /* GRID */
