@@ -3,96 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UrbanChill Cockpit v4</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+<title>UrbanChill Cockpit</title>
 
 <style>
-body{background:#0f172a;color:#e2e8f0}
-.layout{display:grid;grid-template-columns:300px 1fr 340px;gap:1rem}
-.panel{background:#020617;padding:1rem;border-radius:12px}
-.item{padding:.6rem;border-bottom:1px solid #1e293b;cursor:pointer}
-.item:hover{background:#1e293b}
-input,select,textarea{background:#020617;color:#e2e8f0}
-.small{font-size:12px;color:#94a3b8}
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0f172a;
+  color:#e2e8f0;
+}
+
+header {
+  padding:12px;
+  background:#020617;
+  display:flex;
+  justify-content:space-between;
+}
+
+.layout {
+  display:grid;
+  grid-template-columns:300px 1fr 300px;
+  height:calc(100vh - 50px);
+}
+
+.panel {
+  padding:12px;
+  overflow:auto;
+}
+
+.item {
+  padding:10px;
+  border-bottom:1px solid #1e293b;
+  cursor:pointer;
+}
+
+.item:hover {
+  background:#1e293b;
+}
+
+input, select, textarea {
+  width:100%;
+  margin-bottom:8px;
+  background:#020617;
+  color:#e2e8f0;
+  border:1px solid #1e293b;
+}
+
+button {
+  padding:8px;
+  background:#22c55e;
+  border:none;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
-<nav class="container-fluid">
-<ul><li><strong>UrbanChill v4</strong></li></ul>
-<ul><li><a href="#" onclick="refreshAll()">Refresh</a></li></ul>
-</nav>
+<header>
+  <b>UrbanChill Cockpit (RESTORED)</b>
+  <button onclick="refreshAll()">Refresh</button>
+</header>
 
-<main class="container">
 <div class="layout">
 
-<!-- LEFT -->
-<section class="panel">
-<h3>Intakes</h3>
-<div id="list"></div>
-</section>
+<!-- LIST -->
+<div class="panel" id="list"></div>
 
-<!-- MIDDLE -->
-<section class="panel">
-<h3>Klantdossier</h3>
-<div id="detail">Selecteer intake...</div>
-</section>
+<!-- DETAIL -->
+<div class="panel" id="detail"></div>
 
 <!-- RIGHT -->
-<section class="panel">
-<h3>Offerte</h3>
-<div id="offer"></div>
+<div class="panel">
+  <h3>Offer</h3>
+  <div id="offer"></div>
 
-<hr>
+  <h3>Timeline</h3>
+  <div id="timeline"></div>
 
-<h3>Timeline</h3>
-<div id="timeline"></div>
-
-<hr>
-
-<h3>Cases</h3>
-<div id="cases"></div>
-</section>
+  <h3>Cases</h3>
+  <div id="cases"></div>
+</div>
 
 </div>
-</main>
 
 <script>
 const API = "/api";
 
 let state = {
   intakes: [],
-  cases: [],
-  messages: [],
   current: null,
   form: {},
-  offer: {}
+  offer: {},
+  messages: [],
+  cases: []
 };
 
-/* =========================
-   HELPERS
-========================= */
-
-function safeArray(v){
-  try{
-    return Array.isArray(v) ? v : JSON.parse(v || "[]");
-  }catch{
-    return [];
-  }
-}
-
-window.setField = (f,v)=>state.form[f]=v;
-
-window.setMulti = function(field, select){
-  const values = Array.from(select.selectedOptions).map(o => o.value);
-  state.form[field] = values;
-};
-
-/* =========================
-   LOAD
-========================= */
+/* LOAD */
 
 async function load(){
   const res = await fetch(API + "/intakes");
@@ -116,34 +123,48 @@ async function loadMessages(id){
   renderTimeline();
 }
 
-/* =========================
-   LIST
-========================= */
+/* HELPERS */
+
+function parseJSON(v){
+  try { return JSON.parse(v || "[]"); }
+  catch { return []; }
+}
+
+function getMulti(el){
+  return [...el.selectedOptions].map(o => o.value);
+}
+
+/* LIST */
 
 function renderList(){
   const el = document.getElementById("list");
 
   el.innerHTML = state.intakes.map(i => `
     <div class="item" onclick="openItem('${i.id}')">
-      <b>${i.name || "-"}</b><br>
-      ${i.email || ""}
+      <b>${i.name}</b><br>
+      ${i.email}<br>
+      ${i.status || ""}
     </div>
   `).join("");
 }
 
-/* =========================
-   OPEN
-========================= */
+/* OPEN */
 
 window.openItem = function(id){
   const item = state.intakes.find(i => i.id === id);
   if(!item) return;
 
   state.current = item;
-  state.form = {...item};
+
+  state.form = {
+    ...item,
+    activities: parseJSON(item.activities),
+    dietary_preferences: parseJSON(item.dietary_preferences)
+  };
 
   state.offer = {
-    price: item.offer_price || 1500,
+    service: item.offer_service || "",
+    price: item.offer_price || 0,
     extra_days: item.offer_extra_days || 0,
     pickup_km: item.offer_pickup_km || 0
   };
@@ -151,122 +172,66 @@ window.openItem = function(id){
   renderDetail();
   renderOffer();
   loadMessages(id);
-}
+};
 
-/* =========================
-   DETAIL (FULL INTAKE)
-========================= */
+/* DETAIL */
 
 function renderDetail(){
   const i = state.form;
 
-  const activities = safeArray(i.activities);
-  const dietary = safeArray(i.dietary_preferences);
-
   document.getElementById("detail").innerHTML = `
+    <h3>Klant</h3>
 
-    <h4>Basis</h4>
+    Naam:
+    <input value="${i.name||""}" onchange="setField('name',this.value)">
 
-    Naam:<br>
-    <input value="${i.name||""}" onchange="setField('name',this.value)"><br>
+    Email:
+    <input value="${i.email||""}" onchange="setField('email',this.value)">
 
-    Email:<br>
-    <input value="${i.email||""}" onchange="setField('email',this.value)"><br>
+    Telefoon:
+    <input value="${i.phone||""}" onchange="setField('phone',this.value)">
 
-    Telefoon:<br>
-    <input value="${i.phone||""}" onchange="setField('phone',this.value)"><br>
-
-    Dienst:<br>
+    Dienst:
     <select onchange="setField('service',this.value)">
       <option ${i.service==="solo"?"selected":""}>solo</option>
       <option ${i.service==="remote"?"selected":""}>remote</option>
       <option ${i.service==="adventure"?"selected":""}>adventure</option>
     </select>
 
-    <br><br>
+    Aankomst:
+    <input value="${i.arrival_date||""}" onchange="setField('arrival_date',this.value)">
 
-    <h4>Activiteiten</h4>
+    <h3>Profiel</h3>
 
-    <select multiple onchange="setMulti('activities',this)">
-      <option value="nightlife" ${activities.includes("nightlife")?"selected":""}>Nightlife</option>
-      <option value="beach" ${activities.includes("beach")?"selected":""}>Beach</option>
-      <option value="food" ${activities.includes("food")?"selected":""}>Food</option>
-      <option value="sports" ${activities.includes("sports")?"selected":""}>Sports</option>
-      <option value="culture" ${activities.includes("culture")?"selected":""}>Culture</option>
-      <option value="relax" ${activities.includes("relax")?"selected":""}>Relax</option>
+    Activiteiten:
+    <select multiple onchange="setField('activities',getMulti(this))">
+      ${["nightlife","restaurants","sightseeing","musea"]
+        .map(v=>`<option ${i.activities.includes(v)?"selected":""}>${v}</option>`).join("")}
     </select>
 
-    <br><br>
-
-    <h4>Dieet</h4>
-
-    <select multiple onchange="setMulti('dietary_preferences',this)">
-      <option value="vegan" ${dietary.includes("vegan")?"selected":""}>Vegan</option>
-      <option value="halal" ${dietary.includes("halal")?"selected":""}>Halal</option>
-      <option value="vegetarian" ${dietary.includes("vegetarian")?"selected":""}>Vegetarian</option>
-      <option value="gluten_free" ${dietary.includes("gluten_free")?"selected":""}>Gluten free</option>
+    Dieet:
+    <select multiple onchange="setField('dietary_preferences',getMulti(this))">
+      ${["vegan","vegetarian","halal","gluten_free"]
+        .map(v=>`<option ${i.dietary_preferences.includes(v)?"selected":""}>${v}</option>`).join("")}
     </select>
 
-    <br><br>
+    Lifestyle:
+    <input value="${i.lifestyle||""}" onchange="setField('lifestyle',this.value)">
 
-    <h4>Legitimatie</h4>
+    Allergieën:
+    <input value="${i.allergies||""}" onchange="setField('allergies',this.value)">
 
-    <select onchange="setField('verified_identity',this.value)">
-      <option value="">-- kies --</option>
-      <option value="passport" ${i.verified_identity==="passport"?"selected":""}>Paspoort</option>
-      <option value="id_card" ${i.verified_identity==="id_card"?"selected":""}>ID kaart</option>
-      <option value="drivers_license" ${i.verified_identity==="drivers_license"?"selected":""}>Rijbewijs</option>
-    </select>
-
-    <br><br>
-
-    Notities:<br>
+    Notities:
     <textarea onchange="setField('notes',this.value)">${i.notes||""}</textarea>
 
-    <br><br>
-
+    <br>
     <button onclick="save()">Opslaan</button>
   `;
 }
 
-/* =========================
-   OFFER
-========================= */
+window.setField = (f,v)=>state.form[f]=v;
 
-function renderOffer(){
-  const o = state.offer;
-
-  const total =
-    (parseInt(o.price)||0) +
-    (parseInt(o.extra_days)||0)*200 +
-    (parseInt(o.pickup_km)||0)*2;
-
-  document.getElementById("offer").innerHTML = `
-    Basis prijs:<br>
-    <input value="${o.price}" onchange="setOffer('price',this.value)"><br>
-
-    Extra dagen:<br>
-    <input value="${o.extra_days}" onchange="setOffer('extra_days',this.value)"><br>
-
-    Pickup km:<br>
-    <input value="${o.pickup_km}" onchange="setOffer('pickup_km',this.value)"><br>
-
-    <hr>
-
-    <b>Totaal: €${total}</b>
-
-    <br><br>
-
-    <button onclick="saveOffer()">Save offer</button>
-    <button onclick="sendOffer()">Send offer</button>
-  `;
-}
-
-window.setOffer = (f,v)=>state.offer[f]=v;
-
-/* =========================
-   SAVE
-========================= */
+/* SAVE */
 
 window.save = async function(){
   await fetch(API + "/intake/update",{
@@ -278,70 +243,72 @@ window.save = async function(){
     })
   });
 
-  alert("saved");
+  alert("Opgeslagen");
 }
 
-/* =========================
-   OFFER
-========================= */
+/* OFFER */
+
+function renderOffer(){
+  const o = state.offer;
+
+  document.getElementById("offer").innerHTML = `
+    Prijs:
+    <input value="${o.price}" onchange="setOffer('price',this.value)">
+
+    Extra dagen:
+    <input value="${o.extra_days}" onchange="setOffer('extra_days',this.value)">
+
+    Pickup km:
+    <input value="${o.pickup_km}" onchange="setOffer('pickup_km',this.value)">
+
+    <button onclick="saveOffer()">Save</button>
+    <button onclick="sendOffer()">Send</button>
+  `;
+}
+
+window.setOffer = (f,v)=>state.offer[f]=v;
 
 window.saveOffer = async function(){
   await fetch(API + "/intake/offer",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      id: state.current.id,
-      ...state.offer
-    })
+    body:JSON.stringify({ id: state.current.id, ...state.offer })
   });
-
-  alert("offer saved");
-}
+};
 
 window.sendOffer = async function(){
   await fetch(API + "/intake/send",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({id: state.current.id})
+    body:JSON.stringify({ id: state.current.id })
   });
 
-  alert("sent");
   loadMessages(state.current.id);
-}
+};
 
-/* =========================
-   TIMELINE
-========================= */
+/* TIMELINE */
 
 function renderTimeline(){
   const el = document.getElementById("timeline");
 
   el.innerHTML = state.messages.map(m => `
     <div class="item">
-      <div class="small">${m.created_at ? new Date(m.created_at).toLocaleString() : ""}</div>
-      <b>${m.source||"system"}</b><br>
-      ${m.message||""}
+      ${m.message}
     </div>
   `).join("");
 }
 
-/* =========================
-   CASES
-========================= */
+/* CASES */
 
 function renderCases(){
   const el = document.getElementById("cases");
 
   el.innerHTML = state.cases.map(c => `
-    <div class="item">
-      <b>${c.client_name}</b>
-    </div>
+    <div class="item">${c.client_name}</div>
   `).join("");
 }
 
-/* =========================
-   INIT
-========================= */
+/* INIT */
 
 window.refreshAll = async ()=>{
   await load();
