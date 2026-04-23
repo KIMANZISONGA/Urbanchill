@@ -1,4319 +1,893 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UrbanChill Cockpit</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-
-<style>
-body{color:#e2e8f0}
-main.container{max-width:100%}
-
-/* ===== TOP 8.0.3 theming per tab (subtiel, inclusief finance) ===== */
-body.theme-intakes{
-  background: linear-gradient(180deg, #2f4a22 0%, #1b2b16 60%, #0f172a 100%);
-}
-body.theme-cases{
-  background: linear-gradient(180deg, #6b5b34 0%, #2a2419 60%, #0f172a 100%);
-}
-body.theme-messages{
-  background: linear-gradient(180deg, #2b3441 0%, #151a22 60%, #0f172a 100%);
-}
-body.theme-finance{
-  background: linear-gradient(180deg, #0f3d3e 0%, #0b2530 58%, #0f172a 100%);
-}
-main.container{
-  background: radial-gradient(900px 500px at 20% 10%, rgba(255,255,255,.04), transparent 60%),
-              radial-gradient(700px 450px at 85% 15%, rgba(56,189,248,.05), transparent 60%);
-  border-radius: 16px;
-}
-
-/* active tab accent per theme */
-body.theme-intakes  .navbtn.active{ border-color:#a3c35b; box-shadow:0 0 0 2px rgba(163,195,91,.12) inset; }
-body.theme-cases    .navbtn.active{ border-color:#d7b46a; box-shadow:0 0 0 2px rgba(215,180,106,.12) inset; }
-body.theme-messages .navbtn.active{ border-color:#94a3b8; box-shadow:0 0 0 2px rgba(148,163,184,.16) inset; }
-body.theme-finance  .navbtn.active{ border-color:#2dd4bf; box-shadow:0 0 0 2px rgba(45,212,191,.14) inset; }
-
-.navbar{
-  display:flex; align-items:center; justify-content:space-between;
-  padding: .8rem 1rem;
-}
-.nav-left{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
-.nav-right{display:flex;gap:.6rem;align-items:center}
-.navbtn{
-  border:1px solid #1e293b; background:#020617; color:#e2e8f0;
-  padding:.45rem .75rem; border-radius:10px; cursor:pointer;
-}
-.navbtn.active{border-color:#38bdf8; box-shadow:0 0 0 2px rgba(56,189,248,.15) inset;}
-.navlink{color:#38bdf8; text-decoration:none; cursor:pointer;}
-
-.layout{display:grid;grid-template-columns:280px 2fr 1.7fr;gap:1rem}
-.panel{background:#020617;padding:1rem;border-radius:12px;min-height:220px}
-body.theme-finance .panel{
-  background: linear-gradient(180deg, rgba(3,10,18,.92) 0%, rgba(3,11,22,.98) 100%);
-  border: 1px solid rgba(45,212,191,.18);
-  box-shadow: 0 10px 30px rgba(2,8,23,.22);
-}
-body.theme-finance .pill{
-  border-color: rgba(45,212,191,.25);
-  color: #99f6e4;
-}
-body.theme-finance .item.active{
-  border-color: rgba(45,212,191,.45);
-  background: rgba(20,184,166,.08);
-}
-body.theme-finance .closebtn,
-body.theme-finance button,
-body.theme-finance input,
-body.theme-finance select,
-body.theme-finance textarea{
-  border-color: rgba(45,212,191,.32);
-}
-
-.item{padding:.6rem;border-bottom:1px solid #1e293b;cursor:pointer}
-.item:hover{background:#1e293b}
-.item .small{font-size:12px;color:#94a3b8}
-
-input,select,textarea{
-  background:#020617;
-  color:#e2e8f0;
-  padding:.6rem;
-  resize: vertical;
-  overflow: auto;
-}
-
-.label{margin-top:.6rem;display:block;font-weight:600}
-.section{margin-top:1rem;padding-top:.5rem;border-top:1px solid #1e293b}
-.section h4{margin-bottom:.3rem}
-.hint{font-size:12px;color:#94a3b8}
-.actions{margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap}
-.kpi{border:1px solid #1e293b;padding:.6rem;border-radius:10px;margin-top:.5rem}
-.small{font-size:12px;color:#94a3b8}
-.breakdown{margin-top:.6rem;border:1px solid #1e293b;border-radius:10px;padding:.6rem}
-.row{display:flex;justify-content:space-between;gap:1rem;padding:.25rem 0;border-bottom:1px solid #0b1220}
-.row:last-child{border-bottom:0}
-.amt{font-variant-numeric:tabular-nums}
-.banner{border:1px solid #334155;border-radius:10px;padding:.6rem;margin-bottom:.75rem;background: rgba(51,65,85,.15);}
-
-.checkgrid{display:grid;grid-template-columns:1fr 1fr;gap:.25rem .75rem;margin:.25rem 0}
-.checkgrid label{font-weight:400;margin:0;display:flex;gap:.45rem;align-items:center}
-.checkgrid input[type="checkbox"]{margin:0}
-.inline{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-.pill{border:1px solid #1e293b;border-radius:999px;padding:.15rem .55rem;font-size:12px;color:#94a3b8}
-.badge{display:inline-block;border:1px solid #1e293b;border-radius:999px;padding:.15rem .55rem;font-size:12px;color:#94a3b8;margin-left:.4rem}
-hr{border-color:#1e293b}
-
-/* case snapshot layout helpers */
-.kv{display:grid;grid-template-columns:180px 1fr;gap:.25rem .75rem;align-items:start;margin-top:.25rem}
-.kv .k{color:#94a3b8;font-size:12px}
-.kv .v{word-break:break-word}
-
-/* right panel helpers */
-.smallbtn{
-  border:1px solid #1e293b; background:#020617; color:#e2e8f0;
-  padding:.35rem .6rem; border-radius:10px; cursor:pointer; font-size:12px;
-}
-.smallbtn:hover{border-color:#38bdf8}
-
-/* CASE filter UI */
-.filterbox{
-  border:1px solid #1e293b;
-  border-radius:12px;
-  padding:.6rem;
-  margin-bottom:.6rem;
-  background: rgba(148,163,184,.03);
-}
-.filterbox .label{margin-top:.35rem}
-.filterbox input, .filterbox select{padding:.45rem}
-
-/* messages filter UI */
-.msgfilter{
-  border:1px solid #1e293b;
-  border-radius:12px;
-  padding:.6rem;
-  margin-bottom:.6rem;
-  background: rgba(148,163,184,.03);
-}
-.msgpill{
-  display:inline-block;
-  border:1px solid #1e293b;
-  border-radius:999px;
-  padding:.12rem .5rem;
-  font-size:12px;
-  color:#94a3b8;
-  margin-right:.35rem;
-}
-pre.msgpre{
-  white-space:pre-wrap;
-  word-break:break-word;
-  margin:0;
-  font-family:inherit;
-}
-
-.theme-finance .nav{border-color:#2dd4bf}
-
-/* --- collapsible sections (case) --- */
-details.collapse{
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 10px;
-  padding: .35rem .6rem;
-  margin: .5rem 0;
-  background: rgba(0,0,0,.08);
-}
-details.collapse > summary{
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .75rem;
-  font-weight: 600;
-  padding: .2rem 0;
-}
-details.collapse > summary::-webkit-details-marker{ display:none; }
-details.collapse .smallhint{ opacity:.75; font-weight:400; }
-details.collapse[open]{ background: rgba(0,0,0,.12); }
-
-.panelhead{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:.75rem;
-  margin-bottom:.25rem;
-}
-.panelhead h3{margin:0}
-.detailtop{
-  display:flex;
-  justify-content:flex-end;
-  margin:-.25rem 0 .5rem 0;
-}
-.closebtn{
-  border:1px solid #38bdf8;
-  background:#0f172a;
-  color:#e2e8f0;
-  padding:.45rem .85rem;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:600;
-}
-.closebtn:hover{border-color:#7dd3fc}
-
-/* =========================
-   UrbanChill × Kimanzi — warm beige theme
-   ========================= */
-:root{
-  --kim-green: #1A422E;
-  --kim-orange: #D07723;
-  --kim-cream: #DFD3A8;
-  --kim-black: #222020;
-
-  --uc-text: var(--kim-black);
-  --uc-text-muted: rgba(34,32,32,.72);
-  --uc-border: rgba(34,32,32,.18);
-  --uc-panel: rgba(223,211,168,.88);
-  --uc-accent: rgba(208,119,35,.85);
-}
-
-body{ color: var(--uc-text) !important; }
-h1,h2,h3,h4,strong,b{ color: rgba(43,29,18,.92) !important; }
-.small,.hint{ color: var(--uc-text-muted) !important; }
-.navlink{ color: rgba(138,90,43,.88) !important; }
-
-body.theme-intakes,
-body.theme-cases,
-body.theme-messages,
-body.theme-finance{
-  background:
-    radial-gradient(1200px 700px at 20% 12%, rgba(223,211,168,.38), transparent 62%),
-    radial-gradient(900px 520px at 85% 18%, rgba(255,255,255,.16), transparent 62%),
-    linear-gradient(180deg, #D07723 0%, #C06A1F 35%, #B05F1B 60%, #222020 100%) !important;
-}
-
-main.container{
-  background:
-    radial-gradient(900px 520px at 18% 10%, rgba(255,255,255,.32), transparent 64%),
-    radial-gradient(700px 460px at 86% 14%, rgba(255,255,255,.18), transparent 64%) !important;
-  border-radius: 18px;
-}
-
-.panel{
-  background: var(--uc-panel) !important;
-  border: 1px solid var(--uc-border) !important;
-  box-shadow: 0 10px 26px rgba(43,29,18,.16) !important;
-}
-
-.item{ border-bottom: 1px solid rgba(90,60,35,.22) !important; }
-.item:hover{ background: rgba(255,255,255,.14) !important; }
-.row{ border-bottom-color: rgba(90,60,35,.18) !important; }
-.banner{
-  border-color: rgba(90,60,35,.28) !important;
-  background: rgba(255,255,255,.18) !important;
-}
-
-input,select,textarea{
-  background: rgba(255,255,255,.28) !important;
-  color: var(--uc-text) !important;
-  border-color: rgba(90,60,35,.30) !important;
-}
-input::placeholder, textarea::placeholder{ color: rgba(43,29,18,.55) !important; }
-
-.pill,.badge{
-  background: rgba(255,255,255,.22) !important;
-  border-color: rgba(90,60,35,.26) !important;
-  color: rgba(43,29,18,.76) !important;
-}
-
-.smallbtn{
-  background: rgba(255,255,255,.20) !important;
-  color: rgba(43,29,18,.92) !important;
-  border-color: rgba(90,60,35,.28) !important;
-}
-.smallbtn:hover{ border-color: rgba(138,90,43,.42) !important; }
-
-.closebtn{
-  border-color: rgba(138,90,43,.62) !important;
-  background: rgba(255,255,255,.20) !important;
-  color: rgba(43,29,18,.92) !important;
-}
-.closebtn:hover{ border-color: rgba(138,90,43,.85) !important; }
-
-.navbar{ padding: 1rem 1rem .6rem 1rem !important; }
-.nav-left strong{
-  font-size: 20px !important;
-  color: rgba(43,29,18,.90) !important;
-  letter-spacing: .2px;
-}
-
-.navbtn{
-  background: rgba(255,255,255,.30) !important;
-  border: 1px solid rgba(90,60,35,.26) !important;
-  color: rgba(43,29,18,.90) !important;
-  padding: .9rem 1.1rem !important;
-  border-radius: 14px !important;
-  min-width: 220px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:.75rem;
-  box-shadow: 0 8px 18px rgba(43,29,18,.12) !important;
-}
-.navbtn:hover{
-  border-color: rgba(138,90,43,.42) !important;
-  box-shadow: 0 10px 22px rgba(43,29,18,.15) !important;
-}
-.navbtn.active{
-  border-color: rgba(138,90,43,.70) !important;
-  box-shadow: 0 0 0 2px rgba(138,90,43,.14) inset, 0 10px 22px rgba(43,29,18,.16) !important;
-}
-
-/* 5 tegels op 1 rij */
-@media (min-width: 900px){
-  .nav-left{
-    display:grid !important;
-    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-    align-items:stretch !important;
-    column-gap: 1rem !important;
-    row-gap: .8rem !important;
-    width: min(1280px, 100%) !important;
-  }
-  .nav-left strong{
-    grid-column: 1 / -1 !important;
-    margin-bottom: .15rem !important;
-  }
-  .navbtn{
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-}
-
-#btnIntakes::before{ content:""; display:none; }
-#btnCases::before{ content:""; display:none; }
-#btnFinance::before{ content:""; display:none; }
-#btnMessages::before{ content:""; display:none; }
-#btnHost::before{ content:""; display:none; }
-#btnOverhead::before{ content:""; display:none; }
-
-.uc-footer{
-  margin: 1.2rem 0 .25rem 0;
-  text-align:center;
-  font-size: 13px;
-  color: rgba(43,29,18,.78);
-}
-.uc-footer b{ color: rgba(43,29,18,.92); }
-
-.navbtn.active{ border-color: rgba(208,119,35,.75) !important; box-shadow: 0 0 0 2px rgba(208,119,35,.14) inset, 0 10px 22px rgba(43,29,18,.14) !important; }
-.smallbtn:hover{ border-color: rgba(208,119,35,.55) !important; }
-button{ border-color: rgba(34,32,32,.22) !important; }
-button.primary, .primary{ background: rgba(26,66,46,.88) !important; border-color: rgba(26,66,46,.88) !important; color: var(--kim-cream) !important; }
-
-#middleCloseBtn{
-  padding: .55rem .7rem !important;
-  min-width: unset !important;
-  width: auto !important;
-}
-#middleCloseBtn .icon-only{
-  display:inline-block;
-  font-size: 16px;
-  line-height: 1;
-}
-
-.offer-compose .offer-toggle{
-  display:flex;
-  align-items:center;
-  gap:.6rem;
-  padding:.28rem .45rem;
-  margin:.15rem 0;
-  border-radius:10px;
-}
-.offer-compose .offer-toggle input[type="checkbox"]{
-  transform: scale(1.22);
-  transform-origin:left center;
-  accent-color: var(--kim-green, #1A422E);
-}
-.offer-compose .offer-toggle span{
-  font-weight:500;
-  opacity:.92;
-}
-.offer-compose .offer-toggle input[type="checkbox"]:checked + span{
-  font-weight:700;
-  opacity:1;
-}
-@supports selector(.offer-compose .offer-toggle:has(input:checked)){
-  .offer-compose .offer-toggle:has(input[type="checkbox"]:checked){
-    background: rgba(26,66,46,.10);
-    border:1px solid rgba(26,66,46,.22);
-  }
-}
-
-.checkgrid label{
-  gap: .6rem !important;
-  padding: .08rem 0;
-}
-.checkgrid input[type="checkbox"]{
-  accent-color: var(--kim-green, #1A422E);
-  transform: scale(1.12);
-  transform-origin: left center;
-}
-.checkgrid label > span{
-  font-weight: 500;
-  opacity: .94;
-}
-.checkgrid label:has(> input[type="checkbox"]:checked) > span{
-  font-weight: 700;
-  opacity: 1;
-}
-.selected-pill{
-  background: rgba(26,66,46,.12) !important;
-  border-color: rgba(26,66,46,.24) !important;
-  color: rgba(26,66,46,.95) !important;
-  padding: .18rem .55rem !important;
-  font-size: 12px !important;
-}
-.custom-entry-input{
-  opacity: .88;
-}
-.section h4{
-  font-weight: 700;
-  letter-spacing: .15px;
-}
-
-.overhead-mini{ display:block; font-size:11px; opacity:.8; margin-top:.15rem; }
-.navbtn .label-main{ display:block; }
-.navbtn .label-sub{ display:block; font-size:11px; opacity:.78; margin-top:.15rem; }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UrbanChill Nairobi</title>
+  <meta name="description" content="Discrete begeleiding in Nairobi. Je wordt opgehaald, begeleid en krijgt een rustige, veilige basis in de stad. Geen massatoerisme, geen ruis.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
 </head>
+<body>
 
-<body class="theme-intakes">
-
-<div class="navbar">
-  <div class="nav-left">
-    <strong>UrbanChill Cockpit</strong>
-    <button id="btnIntakes" class="navbtn active" onclick="setPage('intakes')">INTAKES</button>
-    <button id="btnCases" class="navbtn" onclick="setPage('cases')">JOURNEY</button>
-    <button id="btnFinance" class="navbtn" onclick="setPage('finance')">FINANCE</button>
-    <button id="btnMessages" class="navbtn" onclick="setPage('messages')">BERICHTEN</button>
-    <button id="btnHost" class="navbtn" onclick="setPage('host')">HOST</button>
-    <button id="btnOverhead" class="navbtn" onclick="setPage('overhead')"><span class="label-main">OVERHEAD</span><span id="btnOverheadSub" class="label-sub">Overzicht</span></button>
-  </div>
-  <div class="nav-right">
-    <span class="small" id="buildTag"></span>
-    <a class="navlink" href="#" onclick="refreshAll();return false;">Refresh</a>
-    <span class="small">•</span>
-    <a class="navlink" href="/cdn-cgi/access/logout" onclick="return confirm('Uitloggen bij Cloudflare Access?');">Uitloggen</a>
-  </div>
-</div>
-
-<main class="container">
-  <div class="layout">
-    <section class="panel">
-      <h3 id="leftTitle">Intakes</h3>
-      <div id="leftList"></div>
-    </section>
-
-    <section class="panel">
-      <div class="panelhead">
-        <h3 id="middleTitle">Overzicht intake</h3>
-        <button id="middleCloseBtn" aria-label="Afsluiten" title="Afsluiten" class="closebtn" onclick="closeCurrentView()"><span class="icon-only" aria-hidden="true">✕</span></button>
-      </div>
-      <div id="middleDetail">Selecteer intake...</div>
-    </section>
-
-    <section class="panel">
-      <h3 id="rightTitle">Context</h3>
-      <div id="rightContent"></div>
-    </section>
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-brand">UrbanChill Nairobi</div>
+      <div class="loader-tagline">Take your time in the city.</div>
+    </div>
   </div>
 
-  <div class="uc-footer">UrbanChill is onderdeel van <b>KIMANZI</b>. Owner <b>Stephen C. Lemmert</b> :)</div>
-</main>
-
-<script>
-const API_BASE = (location && location.origin) ? location.origin : "";
-const API = API_BASE + "/api";
-// Admin key: prefer a local override to avoid hardcoding secrets in the HTML.
-// Set it once in the browser console: localStorage.setItem('UC_ADMIN_KEY','...your key...')
-const ADMIN_KEY_FALLBACK = "Q7@xL4!mNp9#Vz2$Tw8&Hr5YcK1Ef6BaJs3UdRg0Pk";
-function getAdminKey(){
-  try{ return localStorage.getItem('UC_ADMIN_KEY') || ADMIN_KEY_FALLBACK; }catch{ return ADMIN_KEY_FALLBACK; }
-}
-
-const BUILD = "UI 9.7.3 • overhead invoer + ratio";
-document.getElementById("buildTag").textContent = BUILD;
-
-function apiFetch(url, options = {}) {
-  const headers = {
-    "X-Admin-Key": getAdminKey(),
-    "Accept": "application/json",
-    ...(options.headers || {})
-  };
-
-  // Use native fetch (NOT recursive)
-  return fetch(url, {
-    ...options,
-    headers
-  });
-}
-
-
-/* fallback services */
-const FALLBACK_SERVICES = [
-  { name: "SOLO", client_price: 299, active: 1 },
-  { name: "Adventure", client_price: 599, active: 1 },
-  { name: "Remote", client_price: 599, active: 1 }
-];
-
-/* intake statuses */
-const INTAKE_STATUSES = [
-  ["new","Nieuw"],
-  ["intake_sent","Intake verstuurd"],
-  ["offer_sent","Offerte verstuurd"],
-  ["accepted","Geaccepteerd"],
-  ["converted","Geconverteerd"],
-  ["rejected","Afgewezen"]
-];
-
-/* offer regels */
-const EXTRA_DAY_PRICE_EUR = 95;
-const EXTRA_DAY_MAX = 3;
-const GROCERIES_SERVICE_EUR = 25;
-const LATE_ARRIVAL_EUR = 50;
-const PICKUP_FREE_KM = 30;
-const PICKUP_RATE_EUR_PER_KM = 0.50;
-
-/* risk */
-const RISK_LEVELS = [["","-"],["low","Laag"],["medium","Midden"],["high","Hoog"]];
-const OPT_RISK_FLAGS = [
-  "Late arrival / night travel","Solo traveller","Medical concerns","High-value items",
-  "Unfamiliar area","Previous incident","Language barrier","Host restriction needed"
-];
-
-/* multiselect */
-const OPT_ACTIVITIES = [
-  "City orientation","Culture & museums","Food & coffee spots","Nature / parks","Day trips",
-  "Nightlife","Business / meetings","Remote work setup","Shopping","Photography"
-];
-const OPT_DIETARY = [
-  "Geen","Vegetarian","Vegan","Halal","Kosher","No pork","Gluten-free","Lactose-free","No seafood","No spicy food"
-];
-const OPT_ALLERGIES = ["Geen","Noten","Pinda","Gluten","Lactose","Seafood","Ei","Soja","Sesam"];
-const OPT_ACCOMMODATION = ["Hotel","Apartment","Serviced apartment","Guesthouse","Short-stay","Co-living","Nog onbekend"];
-
-/* offer_description meta */
-const META_MARKER = "\n\n---\nMETA_JSON:";
-
-let state = {
-  page: "intakes",
-  services: [...FALLBACK_SERVICES],
-  servicesSource: "fallback",
-
-  intakes: [],
-  cases: [],
-
-  messagesAll: [],
-  messagesUnlinked: [],
-  currentMessage: null,
-
-  currentIntake: null,
-  currentCase: null,
-
-  form: {},
-  offer: {},
-  offerMeta: { groceries_service: 0 },
-
-  templates: {
-    audience: "client_nl",
-    key: "nl_offer_nairobi",
-    host_id: ""
-  },
-
-  hostsDb: [],
-  hostsSource: "none",
-
-  compose: { to:"", subject:"", body:"", source:"client_email" },
-  parsedLoggedById: {},
-
-  caseFilters: { q: "", status: "", service: "", lead_type: "" },
-  messageFilters: { scope: "website", q: "", show_hidden: "0" },
-
-  caseForm: { id:'', status:'', notes:'', host_id:'', kim_id:'', home_address_text:'', stay_address_text:'', stay_place_name:'', checkin_date:'', maps_link:'' },
-  caseIntake: {},
-
-  casePayout: { payouts: [], costs: [] },
-  casePayoutIncludeMeals: false,
-  caseSnapshotMode: 'stored',
-  overheadCache: null,
-  overheadLastBuiltAt: '',
-  overheadTemplates: [],
-  overheadEntries: [],
-  overheadMonth: new Date().toISOString().slice(0,7),
-  overheadDraft: { overhead_id:'', category:'', description:'', supplier:'', amount_excl:'', vat:'', entry_date:new Date().toISOString().slice(0,10), note:'' },
-  financeDraft: {
-    customer_type: "private",
-    company_name: "",
-    contact_name: "",
-    address_line1: "",
-    address_line2: "",
-    postal_code: "",
-    city: "",
-    country: "Nederland",
-    deposit_enabled: 0,
-    deposit_percentage: "30",
-    expense_uber_amount: "",
-    expense_uber_note: "",
-    expense_meal_amount: "",
-    expense_meal_note: "",
-    expense_other_amount: "",
-    expense_other_note: ""
-  }
-};
-
-/* ========= helpers ========= */
-
-function escapeHtml(s){
-  return String(s??"")
-    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
-}
-function toInt(v){ const n=parseInt(v,10); return Number.isFinite(n)?n:0; }
-function toBoolInt(v){ return String(v)==="1" || v===1 || v===true ? 1 : 0; }
-function euro(n){
-  const x=(typeof n==="number")?n:parseFloat(n);
-  if(!Number.isFinite(x)) return "€0";
-  const hasDec=Math.round(x*100)!==Math.round(x)*100;
-  return "€"+(hasDec?x.toFixed(2):String(Math.round(x)));
-}
-function safeParseArray(v,fallback=[]){
-  if(Array.isArray(v)) return v;
-  if(v===null||v===undefined||v==="") return fallback;
-  if(typeof v==="string"){
-    try{ const p=JSON.parse(v); return Array.isArray(p)?p:fallback; }
-    catch{ return v.split(",").map(x=>x.trim()).filter(Boolean); }
-  }
-  return fallback;
-}
-function safeParseObj(v){
-  if(!v) return null;
-  if(typeof v==="object") return v;
-  if(typeof v==="string"){
-    try{ return JSON.parse(v); }catch{ return null; }
-  }
-  return null;
-}
-
-function buildCaseIntakeModel(out, snapshot){
-  const s = snapshot || {};
-  const intakeId = out?.intake_id || "";
-  const live = (state.intakes||[]).find(x=>String(x.id)===String(intakeId)) || null;
-  const src = live || s;
-  return {
-    id: intakeId,
-    name: String(src.name ?? out.client_name ?? ""),
-    email: String(src.email ?? out.client_email ?? ""),
-    phone: String(src.phone ?? out.client_phone ?? ""),
-    service: String(src.service ?? out.service ?? ""),
-    arrival_date: String(src.arrival_date ?? out.arrival_date ?? ""),
-    verified_identity: String(src.verified_identity ?? ""),
-    risk_level: String(src.risk_level ?? ""),
-    safety_notes: String(src.safety_notes ?? ""),
-    host_restriction: String(src.host_restriction ?? ""),
-    special_requests: String(src.special_requests ?? src.requests ?? ""),
-    activities: safeParseArray(src.activities, []),
-    dietary_preferences: safeParseArray(src.dietary_preferences, []),
-    allergies: safeParseArray(src.allergies, []),
-    accommodation_pref: safeParseArray((src.accommodation_pref!==undefined && src.accommodation_pref!==null) ? src.accommodation_pref : src.accommodation, []),
-    risk_flags: safeParseArray(src.risk_flags, [])
-  };
-}
-
-function formatApiError(out, fallbackLabel="unknown"){
-  const err = (out && (out.error || out.code)) ? String(out.error || out.code) : "";
-  const msg = (out && out.message) ? String(out.message) : "";
-  if (err && msg) return `${err} — ${msg}`;
-  if (msg) return msg;
-  if (err) return err;
-  return fallbackLabel;
-}
-function intakeStatusLabel(code){
-  const v = String(code ?? "");
-  const found = INTAKE_STATUSES.find(([c])=>c===v);
-  return found ? found[1] : (v || "-");
-}
-function intakeStatusOptions(cur){
-  const v = String(cur ?? "new");
-  return INTAKE_STATUSES.map(([code,label])=>{
-    const sel = code===v ? "selected" : "";
-    return `<option value="${escapeHtml(code)}" ${sel}>${escapeHtml(label)}</option>`;
-  }).join("");
-}
-function normalizeKey(s){ return String(s||"").trim().toLowerCase(); }
-function safeDateString(s){
-  const v = String(s||"").trim();
-  if(!v) return "";
-  const iso = v.includes(" ") ? v.replace(" ", "T") : v;
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return v;
-  return d.toLocaleString();
-}
-function copyToClipboard(text){
-  const t = String(text ?? "");
-  return navigator.clipboard.writeText(t).catch(()=>{
-    const ta = document.createElement("textarea");
-    ta.value = t;
-    ta.style.position = "fixed";
-    ta.style.left = "-9999px";
-    document.body.appendChild(ta);
-    ta.select();
-    try{ document.execCommand("copy"); } catch {}
-    document.body.removeChild(ta);
-  });
-}
-
-function loadHiddenMessageIds(){
-  try{
-    const raw = localStorage.getItem("UC_HIDDEN_MSG_IDS") || "{}";
-    const obj = JSON.parse(raw);
-    return (obj && typeof obj === "object") ? obj : {};
-  }catch{ return {}; }
-}
-function hideMessageId(id){
-  const key = String(id||"").trim();
-  if(!key) return;
-  if(!state.hiddenMessageIds) state.hiddenMessageIds = {};
-  state.hiddenMessageIds[key] = 1;
-  try{ localStorage.setItem('UC_HIDDEN_MSG_IDS', JSON.stringify(state.hiddenMessageIds||{})); }catch{};
-}
-function unhideAllMessages(){
-  state.hiddenMessageIds = {};
-  try{ localStorage.setItem("UC_HIDDEN_MSG_IDS", "{}"); }catch{}
-}
-
-/* ========= SAFE fetch helpers ========= */
-
-async function fetchJsonSafe(url, fallback){
-  try{
-    const res = await apiFetch(url, { headers: { "Accept":"application/json" }});
-    const ct = (res.headers.get("content-type")||"").toLowerCase();
-    if(!res.ok) return fallback;
-    if(!ct.includes("application/json")) return fallback;
-    return await res.json();
-  }catch(err){
-    return fallback;
-  }
-}
-async function fetchArraySafe(url){
-  const out = await fetchJsonSafe(url, []);
-  return Array.isArray(out) ? out : [];
-}
-
-/* ========= services ========= */
-
-function getActiveServices(){
-  const list = (state.services||[]).filter(s => String(s.active ?? 1) !== "0");
-  const seen = new Set();
-  const out = [];
-  for(const s of list){
-    const nm = String(s?.name ?? "").trim();
-    const key = nm.toLowerCase();
-    if(!nm) continue;
-    if(seen.has(key)) continue;
-    seen.add(key);
-    out.push(s);
-  }
-  return out;
-}
-function priceForService(name){
-  const n=String(name??"").trim();
-  const row=(state.services||[]).find(s => String(s.name??"").trim()===n);
-  const p=parseInt(row?.client_price,10);
-  return Number.isFinite(p)?p:0;
-}
-function serviceOptions(currentValue){
-  const cur=String(currentValue??"").trim();
-  const services=getActiveServices();
-  const opts=[];
-  opts.push(`<option value="">- kies dienst -</option>`);
-  for(const s of services){
-    const name=String(s.name??"").trim();
-    if(!name) continue;
-    const label=`${name} — ${euro(parseInt(s.client_price,10)||0)}`;
-    const selected=(name===cur)?"selected":"";
-    opts.push(`<option value="${escapeHtml(name)}" ${selected}>${escapeHtml(label)}</option>`);
-  }
-  if(cur && !services.some(s => String(s.name??"").trim()===cur)){
-    opts.unshift(`<option value="${escapeHtml(cur)}" selected>${escapeHtml(cur)} (bestaand)</option>`);
-  }
-  return opts.join("");
-}
-async function loadServices(){
-  state.services=[...FALLBACK_SERVICES];
-  state.servicesSource="fallback";
-  const data = await fetchArraySafe(API + "/services");
-  if(Array.isArray(data) && data.length){
-    state.services = data;
-    state.servicesSource = "db";
-  }
-}
-
-/* ========= offer helpers ========= */
-
-function clampExtraDays(n){ const x=toInt(n); return x<0?0:(x>EXTRA_DAY_MAX?EXTRA_DAY_MAX:x); }
-
-function splitDescriptionAndMeta(desc){
-  const raw=String(desc??"");
-  const idx=raw.indexOf(META_MARKER);
-  if(idx===-1) return { text: raw, meta: { groceries_service: 0 } };
-  const text=raw.slice(0,idx);
-  const metaStr=raw.slice(idx+META_MARKER.length);
-  try{
-    const meta=JSON.parse(metaStr);
-    return { text, meta: { groceries_service: toBoolInt(meta?.groceries_service) } };
-  }catch{
-    return { text: raw, meta: { groceries_service: 0 } };
-  }
-}
-function buildDescriptionWithMeta(text, meta){
-  const clean=String(text??"").trimEnd();
-  const safe={ groceries_service: toBoolInt(meta?.groceries_service) };
-  return clean + META_MARKER + JSON.stringify(safe);
-}
-
-function computeOffer(){
-  const serviceName=String(state.offer.service||state.form.service||"").trim();
-  const base=priceForService(serviceName);
-  const isAdventure=serviceName==="Adventure";
-  const extraDays=isAdventure?clampExtraDays(state.offer.extra_days):0;
-  const extraDaysCost=extraDays*EXTRA_DAY_PRICE_EUR;
-  const groceries=state.offerMeta.groceries_service?GROCERIES_SERVICE_EUR:0;
-  const late=toBoolInt(state.offer.late_arrival)?LATE_ARRIVAL_EUR:0;
-  const pickupKm=toInt(state.offer.pickup_km);
-  const overKm=Math.max(0,pickupKm-PICKUP_FREE_KM);
-  const pickupCost=Math.round(overKm*PICKUP_RATE_EUR_PER_KM*100)/100;
-
-  const lines=[];
-  lines.push({label:`Basisdienst: ${serviceName||"-"}`,amount:base});
-  if(extraDays>0) lines.push({label:`Extra dag(en): ${extraDays} × ${euro(EXTRA_DAY_PRICE_EUR)}`,amount:extraDaysCost});
-  if(groceries) lines.push({label:`Boodschappenservice`,amount:groceries});
-  if(late) lines.push({label:`Late arrival na 22:00`,amount:late});
-  if(pickupCost>0) lines.push({label:`Pickup > ${PICKUP_FREE_KM} km: ${overKm} × €0,50`,amount:pickupCost});
-  const total=lines.reduce((s,l)=>s+(Number(l.amount)||0),0);
-  return { lines, total };
-}
-
-function renderOfferBox(){
-  const o=computeOffer();
-  const breakdown=o.lines.map(l=>`
-    <div class="row">
-      <div>${escapeHtml(l.label)}</div>
-      <div class="amt">${escapeHtml(euro(l.amount))}</div>
-    </div>
-  `).join("");
-  return `
-    ${state.servicesSource==="db" ? "" : `
-      <div class="banner">
-        <strong>ℹ️ Diensten via fallback</strong>
-        <div class="small">DB services niet bereikbaar. Keuze en prijzen werken wel (SOLO/Adventure/Remote).</div>
-      </div>
-    `}
-    <div class="kpi"><div class="small">Totaal</div><b>${escapeHtml(euro(o.total))}</b></div>
-    <div class="breakdown">
-      <div class="small">Opbouw</div>
-      ${breakdown}
-      <div class="row"><div><b>Totaal</b></div><div class="amt"><b>${escapeHtml(euro(o.total))}</b></div></div>
-    </div>
-  `;
-}
-
-/* ========= intake-linked messages ========= */
-
-async function getMessagesHtml(intakeId){
-  state.parsedLoggedById = {};
-  const msgs = await fetchArraySafe(API + "/messages?intake_id=" + encodeURIComponent(intakeId));
-  if(!msgs.length) return `<div class="small">Nog geen berichten.</div>`;
-
-  return msgs.map(m=>{
-    const src = String(m.source||"system");
-    const parsed = parseLoggedMail(m.message);
-    if(parsed && (src==="client_email" || src==="host_email")){
-      state.parsedLoggedById[m.id] = parsed;
-    }
-
-    const title = parsed ? `${src} — ${parsed.subject||"(geen onderwerp)"}` : src;
-    const preview = parsed ? (parsed.body||"") : (m.message||"");
-    const short = String(preview).length>220 ? String(preview).slice(0,220)+"…" : String(preview);
-
-    const pills = parsed
-      ? `<span class="msgpill">${escapeHtml(parsed.to||"-")}</span>`
-      : `<span class="msgpill">${escapeHtml(m.email||"-")}</span>`;
-
-    const actions = (parsed && (src==="client_email" || src==="host_email"))
-      ? `<div class="actions">
-           <button class="smallbtn" onclick="reuseLoggedMail('${escapeHtml(m.id)}')">Opnieuw klaarzetten</button>
-           <button class="smallbtn" onclick="copyToClipboard(buildMailBlock(${JSON.stringify(parsed.to)}, ${JSON.stringify(parsed.subject)}, ${JSON.stringify(parsed.body)}))">Kopieer</button>
-         </div>`
-      : ``;
-
-    return `
-      <div class="item">
-        <div class="small">${new Date(m.created_at||m.received_date||Date.now()).toLocaleString()}</div>
-        <b>${escapeHtml(title)}</b><br>
-        ${pills}
-        <div class="small" style="white-space:pre-wrap;margin-top:.35rem">${escapeHtml(short)}</div>
-        ${actions}
-      </div>
-    `;
-  }).join("");
-}
-
-/* ========= page switching ========= */
-
-function updateCloseButtonVisibility(){
-  const btn = document.getElementById("middleCloseBtn");
-  if(!btn) return;
-  const page = String(state.page||"");
-  btn.style.display = (page==="intakes" || page==="cases" || page==="messages" || page==="finance" || page==="host" || page==="overhead") ? "inline-flex" : "none";
-}
-
-function clearPanels(){
-  const left = document.getElementById("leftList");
-  const middle = document.getElementById("middleDetail");
-  const right = document.getElementById("rightContent");
-  if(left) left.innerHTML = "";
-  if(middle) middle.innerHTML = "";
-  if(right) right.innerHTML = "";
-}
-
-function closeButtonHtml(){
-  return "";
-}
-
-function renderCenteredOverviewCard(title, text){
-  return `
-    <div class="banner" style="text-align:center;padding:2rem 1.25rem">
-      <h3 style="margin:0 0 .45rem 0">Welkom bij de UrbanChill Cockpit</h3>
-      <div class="small" style="font-size:14px">Kies waar je wilt starten.</div>
-      <div style="margin-top:1.25rem">
-        <div class="kpi" style="max-width:540px;margin:0 auto;padding:1.5rem">
-          <h4 style="margin:0 0 .45rem 0">${escapeHtml(title)}</h4>
-          <div class="small">${escapeHtml(text)}</div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function renderOverviewState(page){
-  const middle = document.getElementById("middleDetail");
-  const right = document.getElementById("rightContent");
-  if(!middle || !right) return;
-
-  if(page==="intakes"){
-    middle.innerHTML = renderCenteredOverviewCard("Overzicht intake", "Selecteer links een intake om verder te werken.");
-    right.innerHTML = `<div class="small">Geen intake geselecteerd.</div>`;
-    return;
-  }
-
-  if(page==="cases"){
-    middle.innerHTML = renderCenteredOverviewCard("Overzicht journey", "Selecteer links een journey om verder te werken.");
-    right.innerHTML = `<div class="small">Geen journey geselecteerd.</div>`;
-    return;
-  }
-
-  if(page==="finance"){
-    middle.innerHTML = renderCenteredOverviewCard("Overzicht finance", "Selecteer links een case om finance te openen.");
-    right.innerHTML = `<div class="small">Geen finance-case geselecteerd.</div>`;
-    return;
-  }
-
-  if(page==="host"){
-    middle.innerHTML = renderCenteredOverviewCard("Overzicht host", "Selecteer een host of bekijk activiteiten.");
-    right.innerHTML = `<div class="small">Geen host geselecteerd.</div>`;
-    return;
-  }
-
-  if(page==="overhead"){
-    middle.innerHTML = renderCenteredOverviewCard("Overhead", "Read-only bedrijfsinzicht op basis van cases, payouts en kosten.");
-    right.innerHTML = `<div class="small">Geen mutaties. Alleen overzicht.</div>`;
-    return;
-  }
-
-  middle.innerHTML = renderCenteredOverviewCard("Overzicht berichten", "Selecteer links een bericht om verder te werken.");
-  right.innerHTML = `<div class="small">Geen bericht geselecteerd.</div>`;
-}
-
-function renderHostPage(){
-  const left = document.getElementById("leftList");
-  if(!left) return;
-  const hosts = Array.isArray(state.hostsDb) ? state.hostsDb : [];
-  if(!hosts.length){
-    left.innerHTML = `<div class="banner"><b>Host</b><div class="small">Geen hosts beschikbaar.</div></div>`;
-    return;
-  }
-  left.innerHTML = hosts.map(h=>`
-    <div class="item">
-      <b>${escapeHtml(String(h.name||"(zonder naam)"))}</b><br>
-      <span class="small">${escapeHtml(String(h.email||"-"))}</span>
-    </div>
-  `).join("");
-}
-
-
-async function fetchOverheadCosts(){
-  const data = await fetchArraySafe(API + "/overhead/costs");
-  return Array.isArray(data) ? data : [];
-}
-
-async function fetchOverheadEntries(month){
-  const q = month ? ("?month=" + encodeURIComponent(month)) : "";
-  const out = await fetchJsonSafe(API + "/overhead/entries" + q, { entries: [], summary: { amount_excl_cents:0, vat_cents:0, amount_incl_cents:0 } });
-  return {
-    entries: Array.isArray(out?.entries) ? out.entries : [],
-    summary: out?.summary || { amount_excl_cents:0, vat_cents:0, amount_incl_cents:0 }
-  };
-}
-
-function centsToEuroNumber(c){
-  return round2((toInt(c)||0) / 100);
-}
-
-function overheadTemplateById(id){
-  const key = String(id||'').trim();
-  return (state.overheadTemplates||[]).find(x => String(x.overhead_id||'') === key) || null;
-}
-
-window.setOverheadMonth = function(v){
-  state.overheadMonth = String(v||'').trim();
-  renderOverheadPage();
-};
-
-window.setOverheadDraft = function(field, value){
-  state.overheadDraft[field] = value;
-};
-
-window.applyOverheadTemplate = function(id){
-  const tpl = overheadTemplateById(id);
-  state.overheadDraft.overhead_id = String(id||'');
-  if(!tpl){ renderOverheadPage(); return; }
-  state.overheadDraft.category = String(tpl.category || '');
-  state.overheadDraft.description = String(tpl.description || '');
-  state.overheadDraft.supplier = String(tpl.supplier || '');
-  state.overheadDraft.amount_excl = ((toInt(tpl.amount_excl)||0)/100).toFixed(2);
-  state.overheadDraft.vat = ((toInt(tpl.vat_cents)||0)/100).toFixed(2);
-  renderOverheadPage();
-};
-
-window.saveOverheadEntry = async function(){
-  const d = state.overheadDraft || {};
-  const payload = {
-    overhead_id: String(d.overhead_id||'').trim(),
-    entry_date: String(d.entry_date||'').trim(),
-    amount_excl: String(d.amount_excl||'').trim(),
-    vat: String(d.vat||'').trim(),
-    note: String(d.note||'').trim()
-  };
-  const res = await apiFetch(API + "/overhead/add", {
-    method:'POST',
-    headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-    body: JSON.stringify(payload)
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert('Overheadboeking opslaan mislukt: ' + formatApiError(out, String(res.status)));
-    return;
-  }
-  state.overheadDraft.note = '';
-  alert('Overheadboeking opgeslagen ✅');
-  await renderOverheadPage();
-};
-
-window.deleteOverheadEntry = async function(id){
-  if(!confirm('Boeking verwijderen?')) return;
-  const res = await apiFetch(API + "/overhead/delete", {
-    method:'POST',
-    headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-    body: JSON.stringify({ id })
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert('Overheadboeking verwijderen mislukt: ' + formatApiError(out, String(res.status)));
-    return;
-  }
-  await renderOverheadPage();
-};
-
-function overheadTemplateOptions(cur){
-  const current = String(cur||'');
-  const opts = ['<option value="">- kies vaste kosten -</option>'];
-  for(const t of (state.overheadTemplates||[])){
-    const id = String(t.overhead_id||'');
-    const label = [t.category, t.description, t.supplier].filter(Boolean).join(' · ');
-    opts.push(`<option value="${escapeHtml(id)}" ${id===current?'selected':''}>${escapeHtml(label||id)}</option>`);
-  }
-  return opts.join('');
-}
-
-function renderOverheadEntriesList(entries){
-  if(!entries.length) return `<div class="small">Nog geen overheadboekingen in deze periode.</div>`;
-  return entries.map(e=>{
-    const tpl = overheadTemplateById(e.overhead_id);
-    const title = tpl ? [tpl.category, tpl.description].filter(Boolean).join(' · ') : 'Losse boeking';
-    const supplier = tpl ? String(tpl.supplier||'').trim() : '';
-    const excl = centsToEuroNumber(e.amount_excl_cents);
-    const vat = centsToEuroNumber(e.vat_cents);
-    const incl = round2(excl + vat);
-    return `
-      <div class="item">
-        <div class="small">${escapeHtml(String(e.entry_date||''))}</div>
-        <b>${escapeHtml(title)}</b>${supplier ? `<br><span class="small">${escapeHtml(supplier)}</span>` : ''}
-        <div class="small" style="margin-top:.25rem">Excl. btw ${escapeHtml(eur2(excl))} · BTW ${escapeHtml(eur2(vat))} · Incl. ${escapeHtml(eur2(incl))}</div>
-        ${e.note ? `<div class="small" style="white-space:pre-wrap;margin-top:.25rem">${escapeHtml(String(e.note))}</div>` : ''}
-        <div class="actions"><button class="smallbtn" onclick="deleteOverheadEntry('${escapeHtml(String(e.id||''))}')">Verwijder</button></div>
-      </div>
-    `;
-  }).join('');
-}
-
-async function buildOverheadSummary(){
-  const cases = Array.isArray(state.cases) ? state.cases : [];
-  const paidCases = cases.filter(c =>
-    String(c.invoice_paid || "no").toLowerCase() === "yes" &&
-    String(c.invoice_number || "").trim()
-  );
-
-  let revenueIncl = 0;
-  let revenueExcl = 0;
-  let revenueVat = 0;
-  let payoutTotal = 0;
-  let payoutPaid = 0;
-  let payoutOpen = 0;
-  let uber = 0;
-  let meals = 0;
-  let other = 0;
-
-  for(const c of paidCases){
-    const invoiceCalc = computeFinanceInvoiceFromCase(c);
-    revenueIncl += Number(invoiceCalc.incl || 0);
-    revenueExcl += Number(invoiceCalc.excl || 0);
-    revenueVat += Number(invoiceCalc.vat || 0);
-
-    let payoutData = { payouts: [], costs: [] };
-    try{ payoutData = await fetchPayoutsForCase(c.id); }catch{}
-
-    const payoutSummary = summarizeHostPayout(payoutData);
-    const costSummary = summarizeFinanceCosts(payoutData);
-
-    payoutTotal += Number(payoutSummary.total || 0);
-    const payoutRows = Array.isArray(payoutData?.payouts) ? payoutData.payouts : [];
-    const latest = payoutRows.length ? payoutRows[0] : null;
-    const latestStatus = String(latest?.status || "pending");
-    if(Number(payoutSummary.total || 0) > 0){
-      if(latestStatus === "paid") payoutPaid += Number(payoutSummary.total || 0);
-      else payoutOpen += Number(payoutSummary.total || 0);
-    }
-
-    uber += Number(costSummary.uber || 0);
-    meals += Number(costSummary.meals || 0);
-    other += Number(costSummary.other || 0);
-  }
-
-  internalCosts = round2(uber + meals + other);
-  totalBusinessCosts = round2(payoutTotal + internalCosts);
-  margin = round2(revenueExcl - totalBusinessCosts);
-  costRatio = revenueExcl > 0 ? round2((totalBusinessCosts / revenueExcl) * 100) : 0;
-  marginRatio = revenueExcl > 0 ? round2((margin / revenueExcl) * 100) : 0;
-
-  return {
-    paidInvoiceCount: paidCases.length,
-    revenueIncl: round2(revenueIncl),
-    revenueExcl: round2(revenueExcl),
-    revenueVat: round2(revenueVat),
-    payoutTotal: round2(payoutTotal),
-    payoutPaid: round2(payoutPaid),
-    payoutOpen: round2(payoutOpen),
-    uber: round2(uber),
-    meals: round2(meals),
-    other: round2(other),
-    internalCosts,
-    totalBusinessCosts,
-    margin,
-    costRatio,
-    marginRatio
-  };
-}
-
-function updateOverheadNavSummary(summary){
-  const el = document.getElementById("btnOverheadSub");
-  if(!el) return;
-  if(!summary){ el.textContent = "Overzicht"; return; }
-  el.textContent = `Kosten ${String((summary.costRatio || 0).toFixed(1)).replace('.',',')}%`;
-}
-
-async function renderOverheadPage(){
-  const left = document.getElementById("leftList");
-  const middle = document.getElementById("middleDetail");
-  const right = document.getElementById("rightContent");
-  if(!left || !middle || !right) return;
-
-  left.innerHTML = `<div class="small">Overhead laden…</div>`;
-  middle.innerHTML = `<div class="small">Overhead laden…</div>`;
-  right.innerHTML = `<div class="small">Overhead laden…</div>`;
-
-  const [templates, entriesOut, s] = await Promise.all([
-    fetchOverheadCosts(),
-    fetchOverheadEntries(state.overheadMonth),
-    buildOverheadSummary()
-  ]);
-
-  state.overheadTemplates = templates;
-  state.overheadEntries = entriesOut.entries;
-  state.overheadCache = s;
-  state.overheadLastBuiltAt = new Date().toISOString();
-  updateOverheadNavSummary(s);
-
-  const overheadExcl = centsToEuroNumber(entriesOut.summary.amount_excl_cents);
-  const overheadVat = centsToEuroNumber(entriesOut.summary.vat_cents);
-  const overheadIncl = centsToEuroNumber(entriesOut.summary.amount_incl_cents);
-  const enterpriseResult = round2((s.revenueExcl || 0) - overheadExcl);
-  const costRatio = (s.revenueExcl || 0) > 0 ? round2((overheadExcl / s.revenueExcl) * 100) : 0;
-  const marginRatio = (s.revenueExcl || 0) > 0 ? round2((enterpriseResult / s.revenueExcl) * 100) : 0;
-
-  left.innerHTML = `
-    <div class="banner"><b>Overhead</b><div class="small">Vaste kosten van de onderneming. Kies er één om een overheadboeking snel voor te vullen.</div></div>
-    ${(templates||[]).map(t=>`
-      <div class="item" onclick="applyOverheadTemplate('${escapeHtml(String(t.overhead_id||''))}')">
-        <b>${escapeHtml(String(t.category||'-'))}</b><br>
-        <span class="small">${escapeHtml(String(t.description||''))}${t.supplier ? ' · ' + escapeHtml(String(t.supplier)) : ''}</span><br>
-        <span class="small">Excl. btw ${escapeHtml(eur2(centsToEuroNumber(t.amount_excl)))} · BTW ${escapeHtml(eur2(centsToEuroNumber(t.vat_cents)))} · ${escapeHtml(String(t.frequency||'-'))}</span>
-      </div>
-    `).join('') || `<div class="small">Geen vaste kosten gevonden.</div>`}
-  `;
-
-  middle.innerHTML = `
-    <h3>🏢 Overhead</h3>
-    <div class="small">Alle overheadboekingen van de onderneming. Hier boek je bedrijfskosten en zie je direct de ratio’s.</div>
-
-    <div class="section">
-      <h4>📌 Bedrijfsresultaat</h4>
-      <div class="breakdown">
-        <div class="row"><div>Omzet (cases) excl. btw</div><div class="amt">${escapeHtml(eur2(s.revenueExcl || 0))}</div></div>
-        <div class="row"><div>Bedrijfskosten excl. btw</div><div class="amt">${escapeHtml(eur2(overheadExcl))}</div></div>
-        <div class="row"><div><b>Resultaat</b></div><div class="amt"><b>${escapeHtml(eur2(enterpriseResult))}</b></div></div>
-        <div class="row"><div>Kostenratio</div><div class="amt">${escapeHtml(String(costRatio).replace('.',','))}%</div></div>
-        <div class="row"><div>Marge</div><div class="amt">${escapeHtml(String(marginRatio).replace('.',','))}%</div></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h4>➕ Nieuwe overheadboeking</h4>
-      <label class="label">Vanuit vaste kosten</label>
-      <select onchange="applyOverheadTemplate(this.value)">${overheadTemplateOptions(state.overheadDraft.overhead_id)}</select>
-
-      <label class="label">Datum</label>
-      <input value="${escapeHtml(state.overheadDraft.entry_date || '')}" onchange="setOverheadDraft('entry_date', this.value)">
-
-      <label class="label">Bedrag excl. btw</label>
-      <input value="${escapeHtml(state.overheadDraft.amount_excl || '')}" onchange="setOverheadDraft('amount_excl', this.value)" placeholder="bijv. 20,00">
-
-      <label class="label">BTW</label>
-      <input value="${escapeHtml(state.overheadDraft.vat || '')}" onchange="setOverheadDraft('vat', this.value)" placeholder="bijv. 4,20">
-
-      <label class="label">Notitie</label>
-      <textarea style="min-height:90px" onchange="setOverheadDraft('note', this.value)">${escapeHtml(state.overheadDraft.note || '')}</textarea>
-
-      <div class="actions">
-        <button onclick="saveOverheadEntry()">Opslaan overheadboeking</button>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="panelhead"><h4 style="margin:0">📚 Boekingen</h4><div><input type="month" value="${escapeHtml(state.overheadMonth)}" onchange="setOverheadMonth(this.value)"></div></div>
-      ${renderOverheadEntriesList(state.overheadEntries || [])}
-    </div>
-  `;
-
-  right.innerHTML = `
-    <div class="kpi">
-      <h4>BTW & kosten overzicht</h4>
-      <div class="section">
-        <div class="breakdown">
-          <div class="row"><div>Bedrijfskosten excl. btw</div><div class="amt">${escapeHtml(eur2(overheadExcl))}</div></div>
-          <div class="row"><div>BTW op bedrijfskosten</div><div class="amt">${escapeHtml(eur2(overheadVat))}</div></div>
-          <div class="row"><div><b>Totaal incl. btw</b></div><div class="amt"><b>${escapeHtml(eur2(overheadIncl))}</b></div></div>
-        </div>
-      </div>
-      <div class="section">
-        <h4>Laatste berekening</h4>
-        <div class="small">${escapeHtml(safeDateString(state.overheadLastBuiltAt || ''))}</div>
-      </div>
-      <div class="actions">
-        <button class="smallbtn" onclick="renderOverheadPage()">Ververs overhead</button>
-      </div>
-    </div>
-  `;
-}
-
-function closeCurrentView(){
-  const page = String(state.page||"intakes");
-
-  if(page==="intakes"){
-    state.currentIntake = null;
-    state.currentCase = null;
-    state.currentMessage = null;
-    renderIntakeList();
-    renderOverviewState("intakes");
-    return;
-  }
-
-  if(page==="cases"){
-    state.currentCase = null;
-    state.currentIntake = null;
-    state.currentMessage = null;
-    renderCaseList();
-    renderOverviewState("cases");
-    return;
-  }
-
-  if(page==="finance"){
-    state.financeCaseId = null;
-    state.currentFinanceCase = null;
-    state.currentCase = null;
-    renderFinanceLeft();
-    renderOverviewState("finance");
-    return;
-  }
-
-  if(page==="host"){
-    state.currentMessage = null;
-    state.currentIntake = null;
-    state.currentCase = null;
-    renderHostPage();
-    renderOverviewState("host");
-    return;
-  }
-
-  if(page==="overhead"){
-    state.currentMessage = null;
-    state.currentIntake = null;
-    state.currentCase = null;
-    renderOverheadPage();
-    return;
-  }
-
-  state.currentMessage = null;
-  state.currentIntake = null;
-  state.currentCase = null;
-  renderMessagesList();
-  renderOverviewState("messages");
-}
-
-function setPage(page){
-  state.page = page;
-  clearPanels();
-
-  document.body.classList.toggle("theme-intakes", page==="intakes");
-  document.body.classList.toggle("theme-cases", page==="cases");
-  document.body.classList.toggle("theme-messages", page==="messages");
-  document.body.classList.toggle("theme-finance", page==="finance" || page==="overhead");
-
-  document.getElementById("btnIntakes").classList.toggle("active", page==="intakes");
-  document.getElementById("btnCases").classList.toggle("active", page==="cases");
-  document.getElementById("btnMessages").classList.toggle("active", page==="messages");
-  document.getElementById("btnFinance").classList.toggle("active", page==="finance");
-  const btnHost = document.getElementById("btnHost");
-  if(btnHost) btnHost.classList.toggle("active", page==="host");
-  const btnOverhead = document.getElementById("btnOverhead");
-  if(btnOverhead) btnOverhead.classList.toggle("active", page==="overhead");
-
-  updateCloseButtonVisibility();
-  updateOverheadNavSummary(state.overheadCache);
-
-  if(page==="intakes"){
-    document.getElementById("leftTitle").textContent = "Intakes";
-    document.getElementById("middleTitle").textContent = "Overzicht intake";
-    document.getElementById("rightTitle").textContent = "Context";
-    renderIntakeList();
-    renderOverviewState("intakes");
-  } else if(page==="cases"){
-    document.getElementById("leftTitle").textContent = "Journey";
-    document.getElementById("middleTitle").textContent = "Overzicht journey";
-    document.getElementById("rightTitle").textContent = "Context";
-    renderCaseList();
-    renderOverviewState("cases");
-  } else if(page==="finance"){
-    document.getElementById("leftTitle").textContent = "Finance";
-    document.getElementById("middleTitle").textContent = "Finance detail";
-    document.getElementById("rightTitle").textContent = "Finance acties";
-    renderFinance();
-  } else if(page==="host"){
-    document.getElementById("leftTitle").textContent = "Host";
-    document.getElementById("middleTitle").textContent = "Overzicht host";
-    document.getElementById("rightTitle").textContent = "Context";
-    renderHostPage();
-    renderOverviewState("host");
-  } else if(page==="overhead"){
-    document.getElementById("leftTitle").textContent = "Overhead";
-    document.getElementById("middleTitle").textContent = "Overhead";
-    document.getElementById("rightTitle").textContent = "Context";
-    renderOverheadPage();
-  } else {
-    document.getElementById("leftTitle").textContent = "Berichten";
-    document.getElementById("middleTitle").textContent = "Bericht detail";
-    document.getElementById("rightTitle").textContent = "Bericht acties";
-    renderMessagesList();
-    renderOverviewState("messages");
-  }
-}
-
-/* ========= hosts (DB) ========= */
-async function loadHostsDb(){
-  const data = await fetchArraySafe(API + "/hosts");
-  if(Array.isArray(data) && data.length){
-    state.hostsDb = data;
-    state.hostsSource = "db";
-    if(!state.templates.host_id) state.templates.host_id = String(data[0].id);
-    return;
-  }
-  state.hostsDb = [];
-  state.hostsSource = "none";
-}
-function getSelectedHost(){
-  const id = String(state.templates.host_id||"").trim();
-  const list = Array.isArray(state.hostsDb) ? state.hostsDb : [];
-  return list.find(h=>String(h.id)===id) || list[0] || { id:"", name:"", email:"" };
-}
-function hostRecipientBlockHtml(){
-  if(state.templates.audience!=="host_en") return "";
-  const host = getSelectedHost();
-  const opts = (state.hostsDb||[]).map(h=>{
-    const id=String(h.id);
-    const label = (h.name && String(h.name).trim()) ? String(h.name).trim() : (String(h.email||'').trim() || '(zonder naam)');
-    return `<option value="${escapeHtml(id)}" ${String(host.id)===id?"selected":""}>${escapeHtml(label)}</option>`;
-  }).join("") || `<option value="">(geen hosts in DB)</option>`;
-  return `
-    <div class="section" style="border-top:0;margin-top:.5rem;padding-top:0">
-      <h4 style="margin:.25rem 0 .25rem 0">👤 Host</h4>
-      <select onchange="setHostId(this.value)">${opts}</select>
-      <div class="hint">Hosts komen uit D1 (tabel <code>hosts</code>).</div>
-    </div>
-  `;
-}
-window.setHostId = (id)=>{
-  state.templates.host_id = id;
-  if(state.page==="intakes" && state.currentIntake?.id) renderIntakeRightPanel(state.currentIntake.id);
-};
-/* ========= offer builder ========= */
-
-function clampExtraDays(n){ const x=toInt(n); return x<0?0:(x>EXTRA_DAY_MAX?EXTRA_DAY_MAX:x); }
-
-function splitDescriptionAndMeta(desc){
-  const raw=String(desc??"");
-  const idx=raw.indexOf(META_MARKER);
-  if(idx===-1) return { text: raw, meta: { groceries_service: 0 } };
-  const text=raw.slice(0,idx);
-  const metaStr=raw.slice(idx+META_MARKER.length);
-  try{
-    const meta=JSON.parse(metaStr);
-    return { text, meta: { groceries_service: toBoolInt(meta?.groceries_service) } };
-  }catch{
-    return { text: raw, meta: { groceries_service: 0 } };
-  }
-}
-function buildDescriptionWithMeta(text, meta){
-  const clean=String(text??"").trimEnd();
-  const safe={ groceries_service: toBoolInt(meta?.groceries_service) };
-  return clean + META_MARKER + JSON.stringify(safe);
-}
-
-function computeOffer(){
-  const serviceName=String(state.offer.service||state.form.service||"").trim();
-  const base=priceForService(serviceName);
-  const isAdventure=serviceName==="Adventure";
-  const extraDays=isAdventure?clampExtraDays(state.offer.extra_days):0;
-  const extraDaysCost=extraDays*EXTRA_DAY_PRICE_EUR;
-  const groceries=state.offerMeta.groceries_service?GROCERIES_SERVICE_EUR:0;
-  const late=toBoolInt(state.offer.late_arrival)?LATE_ARRIVAL_EUR:0;
-  const pickupKm=toInt(state.offer.pickup_km);
-  const overKm=Math.max(0,pickupKm-PICKUP_FREE_KM);
-  const pickupCost=Math.round(overKm*PICKUP_RATE_EUR_PER_KM*100)/100;
-
-  const lines=[];
-  lines.push({label:`Basisdienst: ${serviceName||"-"}`,amount:base});
-  if(extraDays>0) lines.push({label:`Extra dag(en): ${extraDays} × ${euro(EXTRA_DAY_PRICE_EUR)}`,amount:extraDaysCost});
-  if(groceries) lines.push({label:`Boodschappenservice`,amount:groceries});
-  if(late) lines.push({label:`Late arrival na 22:00`,amount:late});
-  if(pickupCost>0) lines.push({label:`Pickup > ${PICKUP_FREE_KM} km: ${overKm} × €0,50`,amount:pickupCost});
-  const total=lines.reduce((s,l)=>s+(Number(l.amount)||0),0);
-  return { lines, total };
-}
-
-function renderOfferBox(){
-  const o=computeOffer();
-  const breakdown=o.lines.map(l=>`
-    <div class="row">
-      <div>${escapeHtml(l.label)}</div>
-      <div class="amt">${escapeHtml(euro(l.amount))}</div>
-    </div>
-  `).join("");
-  return `
-    ${state.servicesSource==="db" ? "" : `
-      <div class="banner">
-        <strong>ℹ️ Diensten via fallback</strong>
-        <div class="small">DB services niet bereikbaar. Keuze en prijzen werken wel (SOLO/Adventure/Remote).</div>
-      </div>
-    `}
-    <div class="kpi"><div class="small">Totaal</div><b>${escapeHtml(euro(o.total))}</b></div>
-    <div class="breakdown">
-      <div class="small">Opbouw</div>
-      ${breakdown}
-      <div class="row"><div><b>Totaal</b></div><div class="amt"><b>${escapeHtml(euro(o.total))}</b></div></div>
-    </div>
-  `;
-}
-
-/* intern prijsblok */
-function generateOfferText(){
-  const i=state.form || {};
-  const o=computeOffer();
-  const serviceName=String(state.offer.service||state.form.service||"").trim() || "-";
-  const arrival=String(i.arrival_date||"").trim() || "-";
-  const name=String(i.name||"").trim() || "-";
-
-  const lines = o.lines.map(l=>`- ${l.label}: ${euro(l.amount)}`).join("\n");
-  const total = euro(o.total);
-
-  return [
-    `Voorstel & prijs`,
-    ``,
-    `Klant: ${name}`,
-    `Dienst: ${serviceName}`,
-    `Aankomst: ${arrival}`,
-    ``,
-    `Prijsopbouw:`,
-    lines || "- (geen regels)",
-    ``,
-    `Totaal: ${total}`
-  ].join("\n");
-}
-
-/* email prijsblok voor offerte-template */
-function generateOfferMailBlock(){
-  const i=state.form || {};
-  const o=computeOffer();
-  const serviceName = String(state.offer.service||state.form.service||"").trim() || "-";
-  const arrival = String(i.arrival_date||"").trim() || "-";
-  const name = String(i.name||"").trim() || "-";
-
-  const bullets = [];
-  if(o.lines && o.lines.length){
-    const base=o.lines[0];
-    bullets.push(`• Basisdienst (${serviceName}): ${euro(base.amount)}`);
-    for(let idx=1; idx<o.lines.length; idx++){
-      const l=o.lines[idx];
-      bullets.push(`• ${l.label}: ${euro(l.amount)}`);
-    }
-  }
-
-  return [
-    `Voorstel & prijs (overzicht)`,
-    `Klant: ${name}`,
-    `Dienst: ${serviceName}`,
-    `Aankomst: ${arrival}`,
-    ``,
-    `Prijsopbouw:`,
-    bullets.join("\n"),
-    ``,
-    `Totaal: ${euro(o.total)}`
-  ].join("\n");
-}
-
-/* ========= templates ========= */
-
-function pickServiceName(){
-  const i=state.form||{};
-  const a = String(i.offer_service||"").trim();
-  const b = String(i.service||"").trim();
-  return a || b || "";
-}
-
-const SERVICE_BLURBS = {
-  "SOLO": [
-    "Voor je eerste 24 uur in Nairobi.",
-    "",
-    "• Persoonlijke ontvangst bij aankomst",
-    "• Eerste oriëntatie in de stad",
-    "• Hulp met praktische zaken zoals SIM en vervoer",
-    "• Inzicht in buurten, veiligheid en ritme",
-    "",
-    "Voor de meeste bezoekers is dit het moment waarop alles duidelijk wordt."
-  ].join("\n"),
-  "Adventure": [
-    "Voor wie meerdere dagen begeleid wil worden en snel zijn weg wil vinden in de stad.",
-    "",
-    "• 3 dagen begeleiding",
-    "• Meer lokale context en verdieping",
-    "• Ondersteuning bij bewegen door de stad",
-    "• Extra dag mogelijk",
-    "",
-    "Voor wie na een goede landing de stad echt wil begrijpen."
-  ].join("\n"),
-  "Remote": [
-    "Voor langere verblijven en professionals die tijdelijk in Nairobi wonen en werken.",
-    "",
-    "• Werk en verblijf beter op elkaar afstemmen",
-    "• Inzicht in buurten en geschikte woonlocaties",
-    "• Veiligheid, omgeving en sfeer in context plaatsen",
-    "• Reality check van woningen en omgeving",
-    "• Selectief beschikbaar op aanvraag.",
-    "",
-    "In specifieke gevallen vindt vooraf een persoonlijk gesprek plaats."
-  ].join("\n")
-};
-
-const CLIENT_TEMPLATES_NL = [
-  { key:"nl_intake_short", label:"Intake (kort)", subject:"Dank voor je aanvraag" },
-  { key:"nl_offer_nairobi", label:"Offerte / voorstel (Nairobi + CTA)", subject:"Jouw voorstel voor Nairobi" },
-  { key:"nl_planning_confirm", label:"Planning bevestiging", subject:"Bevestiging van onze afspraak" },
-  { key:"nl_planning_reminder", label:"Reminder (1 dag vooraf)", subject:"Reminder: afspraak morgen" },
-  { key:"nl_invoice_total", label:"Factuur (totaal, incl. btw)", subject:"Factuur [factuurnummer] – UrbanChill" },
-    { key:"nl_invoice_deposit", label:"Factuur (aanbetaling, incl. btw)", subject:"Factuur [factuurnummer] – aanbetaling UrbanChill" },
-{ key:"nl_invoice_remainder", label:"Factuur (restant, incl. btw)", subject:"Factuur [factuurnummer] – restantbetaling UrbanChill" },
-];
-
-const HOST_TEMPLATES_EN = [
-  { key:"heads_up_hold", label:"Heads-up (hold)", subject:"Heads-up: potential booking (hold)" },
-  { key:"details", label:"Details", subject:"Booking details" },
-  { key:"confirmed", label:"Confirmed", subject:"Booking confirmed" },
-  { key:"arrival_soon", label:"Arrival soon", subject:"Arrival soon" },
-  { key:"issue", label:"Issue", subject:"Important issue / update" },
-  { key:"receipts_request", label:"Receipts request (Signal)", subject:"Receipts request (please submit asap) — KIMANZI" },
-  { key:"payout_mpesa_sent", label:"Payout confirmation (M-PESA)", subject:"Payout sent to your M-PESA — KIMANZI" },
-  { key:"missing_receipts_soft", label:"Missing receipts reminder (soft)", subject:"Gentle reminder: receipts for this booking — KIMANZI" },
-  { key:"signal_missing_receipts_1liner", label:"Signal 1-liner: missing receipts", subject:"(Signal) missing receipts" },
-  { key:"signal_payout_1liner", label:"Signal 1-liner: payout confirmation", subject:"(Signal) payout confirmation" },
-];
-
-function templateAudienceOptions(cur){
-  const v=String(cur||"client_nl");
-  return [
-    {v:"client_nl",label:"Klant (NL)"},
-    {v:"host_en",label:"Host (EN)"}
-  ].map(o=>`<option value="${o.v}" ${o.v===v?"selected":""}>${escapeHtml(o.label)}</option>`).join("");
-}
-function templateKeyOptions(){
-  const aud=String(state.templates.audience||"client_nl");
-  const list = aud==="host_en" ? HOST_TEMPLATES_EN : CLIENT_TEMPLATES_NL;
-  const cur=String(state.templates.key||"");
-  return list.map(t=>`<option value="${escapeHtml(t.key)}" ${t.key===cur?"selected":""}>${escapeHtml(t.label)}</option>`).join("");
-}
-function currentTemplateSubject(){
-  const aud=String(state.templates.audience||"client_nl");
-  const key=String(state.templates.key||"nl_offer_nairobi");
-  const list = aud==="host_en" ? HOST_TEMPLATES_EN : CLIENT_TEMPLATES_NL;
-  const row = list.find(x=>x.key===key);
-  let subj = row?.subject || "";
-  if(subj.includes("[factuurnummer]")){
-    const kim = String(
-      (state.currentFinanceCase && state.currentFinanceCase.kim_id) ||
-      (state.currentCase && state.currentCase.kim_id) ||
-      (state.caseForm && state.caseForm.kim_id) ||
-      ""
-    ).trim();
-    subj = subj.replaceAll("[factuurnummer]", kim || "[factuurnummer]");
-  }
-  return subj;
-}
-function fillTemplatePlaceholders(text){
-  const i=state.form||{};
-  const name = String(i.name||"").trim();
-  if(!name) return String(text||"");
-  return String(text||"").replaceAll("[naam]", name).replaceAll("[Naam]", name);
-}
-
-/* =========================
-   Finance: Factuur builder helpers (UI-only)
-   ========================= */
-function getHostNameForCase(out){
-  try{
-    const hid = out?.host_id;
-    if(hid===null || hid===undefined || hid==="") return "";
-    const id = String(hid);
-    const h = (state.hostsDb||[]).find(x=>String(x.id)===id);
-    return String(h?.name||"").trim();
-  }catch{ return ""; }
-}
-function financeReplacePlaceholders(text, out){
-  let t = String(text||"");
-  const kim = String(out?.kim_id||"").trim();
-  const hostName = getHostNameForCase(out);
-  const clientName = String(out?.client_name||out?.name||"").trim();
-  const service = String(out?.service||"").trim();
-  const arrival = String(out?.arrival_date||"").trim();
-
-  if(kim) t = t.replaceAll("[factuurnummer]", kim).replaceAll("[booking_reference]", kim);
-  if(clientName) t = t.replaceAll("[naam]", clientName);
-  if(service) t = t.replaceAll("[dienst]", service);
-  if(arrival) t = t.replaceAll("[datum_opdracht]", arrival);
-  if(hostName) t = t.replaceAll("[host_name]", hostName);
-  return t;
-}
-window.financeFillInvoiceCompose = function(){
-  const out = state.currentFinanceCase;
-  if(!out){ alert("Geen finance case geselecteerd."); return; }
-
-  state.templates.audience = "client_nl";
-
-  const subjectRaw = currentTemplateSubject();
-  const bodyRaw = renderTemplateText();
-
-  const subject = financeReplacePlaceholders(subjectRaw, out);
-  const body = financeReplacePlaceholders(bodyRaw, out);
-
-  state.compose = {
-    to: String(out.client_email||"").trim(),
-    subject,
-    body,
-    source: "client_email"
-  };
-  alert("Factuurmail is klaargezet in Compose (rechts).");
-};
-window.financeCopyInvoiceBlock = function(){
-  const out = state.currentFinanceCase;
-  if(!out){ alert("Geen finance case geselecteerd."); return; }
-  state.templates.audience = "client_nl";
-  const subject = financeReplacePlaceholders(currentTemplateSubject(), out);
-  const body = financeReplacePlaceholders(renderTemplateText(), out);
-  copyToClipboard(subject + "\n\n" + body);
-  alert("Factuurmail (subject + body) gekopieerd.");
-};
-window.financeCopyHostTemplate = function(){
-  const out = state.currentFinanceCase;
-  if(!out){ alert("Geen finance case geselecteerd."); return; }
-  state.templates.audience = "host_en";
-  const body = financeReplacePlaceholders(renderTemplateText(), out);
-  copyToClipboard(body);
-  alert("Host bericht gekopieerd.");
-};
-
-window.financeSaveKimId = async function(){
-  const out = state.currentFinanceCase;
-  if(!out || !out.id){
-    alert("Geen finance case geselecteerd.");
-    return;
-  }
-  const v = String(state.caseForm?.kim_id ?? out.kim_id ?? "").trim();
-  if(!v){
-    alert("Vul eerst een factuurnummer in.");
-    return;
-  }
-  state.currentCase = out;
-  state.caseForm.id = out.id;
-  state.caseForm.kim_id = v;
-  const ok = await saveCasePatch({ kim_id: v });
-  if(!ok) return;
-  await refreshAll();
-  await openFinanceCase(out.id);
-  alert("Factuurnummer opgeslagen.");
-};
-
-function renderTemplateText(){
-  const i=state.form || {};
-  const serviceName = pickServiceName();
-  const serviceBlurb = SERVICE_BLURBS[serviceName] || "(Dienst onbekend)";
-  const arrival=String(i.arrival_date||"").trim() || "[arrival_date]";
-
-  const aud=String(state.templates.audience||"client_nl");
-  const key=String(state.templates.key||"nl_offer_nairobi");
-
-  if(aud==="client_nl"){
-    if(key==="nl_intake_short"){
-      return fillTemplatePlaceholders(
-`Beste [naam],
-
-Dank voor je aanvraag, goed om van je te horen.
-
-UrbanChill neemt snel persoonlijk contact met je op om kort af te stemmen wat het beste past.
-
-Tot snel,
-UrbanChill`
-      );
-    }
-
-    if(key==="nl_offer_nairobi"){
-      const top =
-`Beste [naam],
-
-Wat mooi dat je naar Nairobi gaat. UrbanChill kijkt ernaar uit om dit voor je te verzorgen.
-
-Op basis van ons gesprek hebben we een voorstel samengesteld dat aansluit op jouw wensen en hoe je je verblijf wilt beleven.
-
-Jouw pakket in het kort:
-${serviceBlurb}
-
-Hieronder vind je de opzet — UrbanChill stemt dit graag met je af.
-
-[... voorstel / programma ...]
-
-Mocht er nog iets aangepast moeten worden, laat het gerust weten.
-
-Als dit goed voelt, kun je akkoord geven door op deze mail te reageren met “akkoord”.
-Dan zet UrbanChill alles direct voor je in gang.
-
-${generateOfferMailBlock()}
-
-Hartelijke groet,
-UrbanChill`;
-      return fillTemplatePlaceholders(top);
-    }
-
-    if(key==="nl_planning_confirm"){
-      return fillTemplatePlaceholders(
-`Beste [naam],
-
-Wat leuk dat je naar Nairobi gaat. UrbanChill kijkt ernaar uit om je hierbij te helpen en ervoor te zorgen dat alles soepel verloopt.
-
-Hierbij bevestigen we onze afspraak op [datum/tijd]. Tijdens dit moment stemmen we je wensen verder af.
-
-Tot snel,
-UrbanChill`
-      );
-    }
-
-    if(key==="nl_planning_reminder"){
-      return fillTemplatePlaceholders(
-`Beste [naam],
-
-Even een korte reminder: onze afspraak is morgen om [tijd].
-
-Tot morgen,
-UrbanChill`
-      );
-    }
-
-    if(key==="nl_invoice_total"){
-      const kim = String(
-        (state.currentFinanceCase && state.currentFinanceCase.kim_id) ||
-        (state.currentCase && state.currentCase.kim_id) ||
-        ""
-      ).trim() || "[factuurnummer]";
-      const body = fillTemplatePlaceholders(
-`Beste [naam],
-
-Hierbij ontvang je de factuur voor de [dienst] service bij aankomst op [datum_opdracht].
-
-Subtotaal (excl. btw): [bedrag_excl]
-BTW (21%): [btw_bedrag]
-Totaal (incl. btw): [bedrag_incl]
-
-Vervaldatum: [vervaldatum]
-
-Om de afspraken te borgen, ontvangen we de betaling graag twee werkweken vóór aanvang van de opdracht.
-
-Zou je het bedrag vóór de vervaldatum willen overmaken onder vermelding van factuurnummer [factuurnummer]?
-
-IBAN: [iban]
-T.n.v.: [tenaamstelling]
-
-Na betaling is je boeking definitief. We zorgen dat je rustig landt.
-
-Hartelijke groet,
-Stephen
-UrbanChill
-Signal/telefoon: +31641378625`
-      );
-      return body.replaceAll("[factuurnummer]", kim);
-    }
-
-    if(key==="nl_invoice_deposit"){
-      const kim = String(
-        (state.currentFinanceCase && state.currentFinanceCase.kim_id) ||
-        (state.currentCase && state.currentCase.kim_id) ||
-        ""
-      ).trim() || "[factuurnummer]";
-
-      // Compute amounts from current finance case if available; fallback to placeholders
-      let incl = "[bedrag_incl]";
-      let excl = "[bedrag_excl]";
-      let vat  = "[btw_bedrag]";
-      let depIncl = "[aanbetaling_incl]";
-      let depExcl = "[aanbetaling_excl]";
-      let depVat  = "[aanbetaling_btw]";
-      let pct = "30";
-
-      try{
-        const out = state.currentFinanceCase || state.currentCase || null;
-        if(out){
-          const invoiceCalc = computeFinanceInvoiceFromCase(out);
-          incl = eur2(invoiceCalc.incl);
-          excl = eur2(invoiceCalc.excl);
-          vat  = eur2(invoiceCalc.vat);
-
-          const d = state.financeDraft || {};
-          pct = String(d.deposit_percentage || "30");
-          const p = Math.max(0, Math.min(100, parseFloat(String(pct).replace(",", ".")) || 0));
-          const dep = round2(invoiceCalc.incl * (p/100));
-          const depE = financeInclToExcl(dep);
-          const depV = financeVatFromIncl(dep);
-
-          depIncl = eur2(dep);
-          depExcl = eur2(depE);
-          depVat  = eur2(depV);
-        }
-      }catch{}
-
-      const body = fillTemplatePlaceholders(
-`Beste [naam],
-
-Hierbij ontvang je de factuur voor de aanbetaling van de [dienst] service bij aankomst op [datum_opdracht].
-
-Totaal opdracht:
-Subtotaal (excl. btw): ${excl}
-BTW (21%): ${vat}
-Totaal (incl. btw): ${incl}
-
-Aanbetaling (${pct}%):
-Subtotaal (excl. btw): ${depExcl}
-BTW (21%): ${depVat}
-Aanbetaling (incl. btw): ${depIncl}
-
-Vervaldatum: [vervaldatum]
-
-Zou je de aanbetaling vóór de vervaldatum willen overmaken onder vermelding van factuurnummer [factuurnummer]?
-
-IBAN: [iban]
-T.n.v.: [tenaamstelling]
-
-Na ontvangst van de aanbetaling is je boeking gereserveerd. Het restant volgt later (conform afspraak).
-
-Hartelijke groet,
-Stephen
-UrbanChill
-Signal/telefoon: +31641378625`
-      );
-      return body.replaceAll("[factuurnummer]", kim);
-    }
-
-
-    if(key==="nl_invoice_remainder"){
-      const kim = String(
-        (state.currentFinanceCase && state.currentFinanceCase.kim_id) ||
-        (state.currentCase && state.currentCase.kim_id) ||
-        ""
-      ).trim() || "[factuurnummer]";
-      const body = fillTemplatePlaceholders(
-`Beste [naam],
-
-Hierbij ontvang je de factuur voor het restantbedrag voor de [dienst] service bij aankomst op [datum_opdracht].
-
-Subtotaal (excl. btw): [restant_excl]
-BTW (21%): [restant_btw]
-Restant (incl. btw): [restant_incl]
-
-Vervaldatum: [vervaldatum]
-
-Om de afspraken te borgen, ontvangen we de betaling graag twee werkweken vóór aanvang van de opdracht.
-
-Zou je het restant vóór de vervaldatum willen overmaken onder vermelding van factuurnummer [factuurnummer]?
-
-IBAN: [iban]
-T.n.v.: [tenaamstelling]
-
-Hartelijke groet,
-Stephen
-UrbanChill
-Signal/telefoon: +31641378625`
-      );
-      return body.replaceAll("[factuurnummer]", kim);
-    }
-
-    return fillTemplatePlaceholders(`Beste [naam],\n\n(Template ontbreekt)\n\nUrbanChill`);
-  }
-
-  const host = getSelectedHost();
-  const hostName = host?.name || "";
-  const hostGreeting = hostName ? `Hi ${hostName},` : "Hi,";
-
-  const clientName = String(i.name||"").trim() || "[client name]";
-  const clientEmail = String(i.email||"").trim() || "[client email]";
-  const clientPhone = String(i.phone||"").trim() || "[client phone]";
-
-  if(key==="heads_up_hold"){
-    return `${hostGreeting}\n\nHeads-up: we may have a booking coming in (hold).\n\nService: ${serviceName||"-"}\nArrival: ${arrival}\nClient: ${clientName}\n\nThanks,\nUrbanChill`;
-  }
-  if(key==="details"){
-    return `${hostGreeting}\n\nHere are the booking details:\n\nClient: ${clientName}\nEmail: ${clientEmail}\nPhone: ${clientPhone}\nService: ${serviceName||"-"}\nArrival: ${arrival}\n\nThanks,\nUrbanChill`;
-  }
-  if(key==="confirmed"){
-    return `${hostGreeting}\n\nConfirmed ✅\n\nClient: ${clientName}\nService: ${serviceName||"-"}\nArrival: ${arrival}\n\nThanks,\nUrbanChill`;
-  }
-  if(key==="arrival_soon"){
-    return `${hostGreeting}\n\nArrival soon reminder.\n\nClient: ${clientName}\nArrival: ${arrival}\nService: ${serviceName||"-"}\n\nThanks,\nUrbanChill`;
-  }
-  if(key==="issue"){
-    return `${hostGreeting}\n\nImportant update regarding this booking:\n\nClient: ${clientName}\nArrival: ${arrival}\nService: ${serviceName||"-"}\n\n[Describe issue]\n\nThanks,\nUrbanChill`;
-  }
-  if(key==="receipts_request"){
-    return `${hostGreeting}
-
-Hope you’re well.
-
-Could you please share the receipts for this booking as soon as possible?
-This helps us close the booking file and finalize the payout administration.
-
-Please send:
-- clear photos/scans of all receipts
-- (optional) a short note what each receipt was for
-
-Send via Signal (Stephen): +31641378625
-
-Reference: [booking_reference]
-
-Thank you,
-Stephen (KIMANZI)
-Signal (Stephen): +31641378625`;
-  }
-  if(key==="payout_mpesa_sent"){
-    return `${hostGreeting}
-
-Just to confirm: we sent [amount] on [payment_date] to your M-PESA account.
-
-Reference: [booking_reference]
-
-If you don’t see it in your account shortly, please message me on Signal (Stephen): +31641378625
-
-Thank you,
-Stephen (KIMANZI)
-Signal (Stephen): +31641378625`;
-  }
-  if(key==="missing_receipts_soft"){
-    return `${hostGreeting}
-
-Hope you’re doing well.
-
-Just a gentle reminder about the receipts for this booking. Whenever you have a moment, could you please share the remaining items with us? It would really help us to close the booking file smoothly.
-
-Missing receipts (if available):
-- Uber / transport: [uber_details]
-- Meals: [meals_details]
-- Groceries: [groceries_details]
-
-Please send via Signal (Stephen): +31641378625
-
-Reference: [booking_reference]
-
-Thank you,
-Stephen (KIMANZI)
-Signal (Stephen): +31641378625`;
-  }
-  if(key==="signal_missing_receipts_1liner"){
-    return `Hi [host_name] 😊 quick reminder — could you please share the missing receipts for this booking (Ref: [booking_reference]) when you have a moment? We’re still missing: Uber ([uber_details]), Meals ([meals_details]), Groceries ([groceries_details]). Thanks! — Stephen (KIMANZI)`;
-  }
-  if(key==="signal_payout_1liner"){
-    return `Hi [host_name] 😊 just confirming we sent [amount] on [payment_date] to your M-PESA. Ref: [booking_reference]. If you don’t see it shortly, please let me know. Thanks! — Stephen (KIMANZI)`;
-  }
-
-  return `${hostGreeting}\n\n(Template missing)\n\nThanks,\nUrbanChill`;
-}
-
-/* ========= dossier compose ========= */
-
-function buildMailBlock(to, subject, body){
-  return `To: ${String(to||"")}\nSubject: ${String(subject||"")}\n---\n${String(body||"")}`;
-}
-function parseLoggedMail(message){
-  const raw = String(message||"");
-  const mTo = raw.match(/^To:\s*(.*)$/m);
-  const mSub = raw.match(/^Subject:\s*(.*)$/m);
-  const idx = raw.indexOf("\n---\n");
-  if(!mTo || !mSub || idx === -1) return null;
-  const body = raw.slice(idx + "\n---\n".length);
-  return { to: mTo[1] ?? "", subject: mSub[1] ?? "", body: body ?? "" };
-}
-function setComposeFromTemplate(){
-  const aud = String(state.templates.audience||"client_nl");
-  const subject = currentTemplateSubject();
-  const body = renderTemplateText();
-
-  let to = "";
-  let source = "client_email";
-
-  if(aud === "host_en"){
-    const host = getSelectedHost();
-    to = String(host?.email||"").trim();
-    source = "host_email";
-  } else {
-    to = String(state.form?.email||"").trim();
-    source = "client_email";
-  }
-  state.compose = { to, subject, body, source };
-}
-window.onComposeChange = (field, value) => { state.compose[field] = value; };
-
-function mailtoHref(to, subject, body){
-  const t = encodeURIComponent(String(to||""));
-  const s = encodeURIComponent(String(subject||""));
-  const b = encodeURIComponent(String(body||""));
-  return `mailto:${t}?subject=${s}&body=${b}`;
-}
-window.openMailClient = () => {
-  const c = state.compose || {};
-  window.location.href = mailtoHref(c.to, c.subject, c.body);
-};
-window.copyComposedMail = async () => {
-  const c = state.compose || {};
-  await copyToClipboard(buildMailBlock(c.to, c.subject, c.body));
-};
-window.logComposedMail = async () => {
-  if(!state.currentIntake?.id){
-    alert("Geen intake geselecteerd.");
-    return;
-  }
-  const c = state.compose || {};
-  const payload = {
-    intake_id: state.currentIntake.id,
-    source: c.source || "client_email",
-    to: c.to || "",
-    subject: c.subject || "",
-    body: c.body || ""
-  };
-
-  const res = await apiFetch(API + "/message/log",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-    body: JSON.stringify(payload)
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Loggen mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-  alert("Geloggd ✅");
-  await renderIntakeRightPanel(state.currentIntake.id);
-};
-window.reuseLoggedMail = (msgId) => {
-  const parsed = state.parsedLoggedById[msgId];
-  if(!parsed) return;
-  state.compose.to = parsed.to;
-  state.compose.subject = parsed.subject;
-  state.compose.body = parsed.body;
-  renderIntakeRightPanel(state.currentIntake.id);
-};
-
-/* ========= templates block ========= */
-
-function renderTemplatesBlock(){
-  setComposeFromTemplate();
-
-  const subject=currentTemplateSubject();
-  const body=renderTemplateText();
-  const priceBlock=generateOfferText();
-
-  return `
-    <hr>
-    <h4>📋 Kopieer prijsblok</h4>
-    <div class="hint">Prijsopbouw + totaal. (Intern blok.)</div>
-    <textarea id="offerTextBox" style="min-height:140px" readonly>${escapeHtml(priceBlock)}</textarea>
-    <div class="actions">
-      <button class="smallbtn" onclick="copyToClipboard(document.getElementById('offerTextBox').value)">Kopieer prijsblok</button>
-      <button class="smallbtn" onclick="renderIntakeRightPanel(state.currentIntake.id)">Ververs</button>
-    </div>
-
-    <hr>
-    <h4>✉️ Email templates</h4>
-
-    <label class="label">Audience</label>
-    <select onchange="setTemplateAudience(this.value)">
-      ${templateAudienceOptions(state.templates.audience)}
-    </select>
-
-    ${hostRecipientBlockHtml()}
-
-    <label class="label">Template</label>
-    <select onchange="setTemplateKey(this.value)">
-      ${templateKeyOptions()}
-    </select>
-
-    <label class="label">Onderwerp</label>
-    <input id="tplSubject" value="${escapeHtml(subject)}" readonly>
-
-    <label class="label">Tekst</label>
-    <textarea id="tplBody" style="min-height:220px" readonly>${escapeHtml(body)}</textarea>
-
-    <div class="actions">
-      <button class="smallbtn" onclick="copyToClipboard('Onderwerp: ' + document.getElementById('tplSubject').value + '\\n\\n' + document.getElementById('tplBody').value)">Kopieer mail (subject + body)</button>
-      <button class="smallbtn" onclick="copyToClipboard(document.getElementById('tplBody').value)">Kopieer alleen body</button>
-    </div>
-
-    <div class="section">
-      <h4>🧾 Compose (dossier)</h4>
-      <div class="hint">Verstuur via Proton (copy/paste of mailto). Klik daarna “Log als verzonden”.</div>
-
-      <label class="label">To</label>
-      <input value="${escapeHtml(state.compose.to||"")}" oninput="onComposeChange('to', this.value)">
-
-      <label class="label">Subject</label>
-      <input value="${escapeHtml(state.compose.subject||"")}" oninput="onComposeChange('subject', this.value)">
-
-      <label class="label">Body</label>
-      <textarea style="min-height:160px" oninput="onComposeChange('body', this.value)">${escapeHtml(state.compose.body||"")}</textarea>
-
-      <div class="actions">
-        <button class="smallbtn" onclick="openMailClient()">Open mailclient</button>
-        <button class="smallbtn" onclick="copyComposedMail()">Kopieer</button>
-        <button class="smallbtn" onclick="logComposedMail()">Log als verzonden</button>
-      </div>
-    </div>
-  `;
-}
-
-window.setTemplateAudience = (v)=>{
-  state.templates.audience = v;
-  state.templates.key = (v==="host_en") ? "heads_up_hold" : "nl_offer_nairobi";
-  renderIntakeRightPanel(state.currentIntake.id);
-};
-window.setTemplateKey = (v)=>{
-  state.templates.key = v;
-  renderIntakeRightPanel(state.currentIntake.id);
-};
-
-/* ========= intake UI ========= */
-
-function riskLevelOptions(cur){
-  const v=String(cur??"").trim();
-  return RISK_LEVELS.map(([code,label])=>{
-    const sel=(code===v)?"selected":"";
-    return `<option value="${escapeHtml(code)}" ${sel}>${escapeHtml(label)}</option>`;
-  }).join("");
-}
-
-function toggleMulti(field, value, checked){
-  const cur = Array.isArray(state.form[field]) ? [...state.form[field]] : [];
-  const set = new Set(cur);
-  const noneValue="Geen";
-  const enforceNone=(field==="dietary_preferences"||field==="allergies");
-
-  if(enforceNone){
-    if(value===noneValue && checked){ set.clear(); set.add(noneValue); }
-    else if(value!==noneValue && checked){ set.delete(noneValue); set.add(value); }
-    else if(!checked){ set.delete(value); }
-  } else {
-    if(checked) set.add(value); else set.delete(value);
-  }
-  state.form[field]=[...set];
-}
-function renderCheckboxList(field, options){
-  const selected = Array.isArray(state.form[field]) ? state.form[field] : [];
-  return `
-    <div class="checkgrid">
-      ${options.map(opt=>{
-        const checked = selected.includes(opt) ? "checked" : "";
-        return `<label><input type="checkbox" ${checked} onchange="toggleMulti('${escapeHtml(field)}','${escapeHtml(opt)}',this.checked); renderIntakeDetail();"><span>${escapeHtml(opt)}</span></label>`;
-      }).join("")}
-    </div>
-    <div class="inline">
-      <input class="custom-entry-input" style="flex:1;min-width:160px" placeholder="Anders (typ & enter)" onkeydown="if(event.key==='Enter'){event.preventDefault(); addCustom('${escapeHtml(field)}', this.value); this.value='';}">
-      <span class="small">Voeg extra optie toe</span>
-    </div>
-  `;
-}
-window.addCustom=function(field, raw){
-  const v=String(raw||"").trim();
-  if(!v) return;
-  toggleMulti(field, v, true);
-  renderIntakeDetail();
-};
-function renderPills(arr){
-  const a=Array.isArray(arr)?arr:[];
-  if(!a.length) return `<span class="pill">-</span>`;
-  return a.map(x=>`<span class="pill selected-pill">${escapeHtml(x)}</span>`).join(" ");
-}
-
-function renderIntakeList(){
-  const el=document.getElementById("leftList");
-  el.innerHTML = state.intakes.map(i=>`
-    <div class="item" onclick="openIntake('${escapeHtml(i.id)}')">
-      <b>${escapeHtml(i.name||"-")}</b><br>
-      <span class="small">
-        ${escapeHtml(i.service||"")}
-        • ${escapeHtml(intakeStatusLabel(i.status))}
-      </span>
-    </div>
-  `).join("");
-}
-
-function renderIntakeDetail(){
-  const i=state.form;
-  document.getElementById("middleDetail").innerHTML=`
-    ${closeButtonHtml()}
-    <h3>🎯 Intake — ${escapeHtml(i.name||"")}</h3>
-
-    <div class="section">
-      <h4>⚙️ Status</h4>
-      <label class="label">Intake status</label>
-      <select onchange="setField('status', this.value)">
-        ${intakeStatusOptions(i.status)}
-      </select>
-      <div class="hint">Alleen statussen die je database accepteert.</div>
-    </div>
-
-    <div class="section">
-      <h4>👤 Klant</h4>
-      <label class="label">Naam</label>
-      <input value="${escapeHtml(i.name||"")}" onchange="setField('name',this.value)">
-      <label class="label">Email</label>
-      <input value="${escapeHtml(i.email||"")}" onchange="setField('email',this.value)">
-      <label class="label">Telefoon</label>
-      <input value="${escapeHtml(i.phone||"")}" onchange="setField('phone',this.value)">
-    </div>
-
-    <div class="section">
-      <h4>🧳 Boeking</h4>
-      <label class="label">Dienst</label>
-      <select onchange="setField('service',this.value); setOffer('service',this.value);">
-        ${serviceOptions(i.service || state.offer.service)}
-      </select>
-
-      <details class="collapse" open>
-        <summary>🧩 Samenstelling (offerte) <span class="small smallhint">open</span></summary>
-        <div class="section offer-compose" style="border-top:0;margin-top:.6rem;padding-top:0">
-          <div class="hint">Aangevinkt = groene checkbox + vetgedrukte regel.</div>
-          <label class="offer-toggle"><input type="checkbox" ${state.offerMeta.groceries_service?"checked":""}
-        onchange="setOfferMeta('groceries_service',this.checked)"><span>Boodschappenservice (+${euro(GROCERIES_SERVICE_EUR)})</span></label>
-          <label class="offer-toggle"><input type="checkbox" ${toBoolInt(state.offer.late_arrival)?"checked":""}
-        onchange="setOffer('late_arrival',this.checked?'1':'0')"><span>Late arrival (+${euro(LATE_ARRIVAL_EUR)})</span></label>
-
-          <label class="label">Extra dagen (max ${EXTRA_DAY_MAX}, alleen Adventure)</label>
-          <input value="${escapeHtml(state.offer.extra_days||0)}" onchange="setOffer('extra_days',this.value)">
-
-          <label class="label">Pickup km</label>
-          <input value="${escapeHtml(state.offer.pickup_km||0)}" onchange="setOffer('pickup_km',this.value)">
-          <div class="hint">Tot ${PICKUP_FREE_KM} km inbegrepen, daarna €0,50/km</div>
-        </div>
-      </details>
-
-      <label class="label">Aankomstdatum</label>
-      <input value="${escapeHtml(i.arrival_date||"")}" onchange="setField('arrival_date',this.value)">
-
-      <label class="label">Notities</label>
-      <textarea style="min-height:120px" onchange="setField('notes',this.value)">${escapeHtml(i.notes||"")}</textarea>
-    </div>
-
-    <details class="collapse">
-      <summary>🪪 Legitimatie & veiligheid <span class="small smallhint">klik om te openen</span></summary>
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <label class="label">Legitimatie (verified identity)</label>
-        <input value="${escapeHtml(i.verified_identity||"")}" onchange="setField('verified_identity',this.value)">
-
-        <label class="label">Risk level</label>
-        <select onchange="setField('risk_level',this.value)">${riskLevelOptions(i.risk_level||"")}</select>
-
-        <label class="label">Risk flags</label>
-        ${renderCheckboxList("risk_flags", OPT_RISK_FLAGS)}
-        <div class="hint">Huidig: ${renderPills(i.risk_flags)}</div>
-
-        <label class="label">Safety notes</label>
-        <textarea style="min-height:90px" onchange="setField('safety_notes',this.value)">${escapeHtml(i.safety_notes||"")}</textarea>
-
-        <label class="label">Host restriction</label>
-        <textarea style="min-height:70px" onchange="setField('host_restriction',this.value)">${escapeHtml(i.host_restriction||"")}</textarea>
-      </div>
-    </details>
-
-    <details class="collapse">
-      <summary>🧩 Voorkeuren <span class="small smallhint">klik om te openen</span></summary>
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <label class="label">Activiteiten</label>
-        ${renderCheckboxList("activities", OPT_ACTIVITIES)}
-        <div class="hint">Huidig: ${renderPills(i.activities)}</div>
-
-        <label class="label">Dietary preferences</label>
-        ${renderCheckboxList("dietary_preferences", OPT_DIETARY)}
-        <div class="hint">Huidig: ${renderPills(i.dietary_preferences)}</div>
-
-        <label class="label">Allergieën</label>
-        ${renderCheckboxList("allergies", OPT_ALLERGIES)}
-        <div class="hint">Huidig: ${renderPills(i.allergies)}</div>
-
-        <label class="label">Huisvesting (accommodation)</label>
-        ${renderCheckboxList("accommodation_pref", OPT_ACCOMMODATION)}
-        <div class="hint">Huidig: ${renderPills(i.accommodation_pref)}</div>
-      </div>
-    </details>
-
-    <div class="actions">
-      <button onclick="saveAll()">Opslaan</button>
-      <button onclick="createCase()">Maak case</button>
-    </div>
-  `;
-}
-
-window.setField=(f,v)=>{ state.form[f]=v; };
-window.setOffer=(f,v)=>{
-  state.offer[f]=v;
-  const serviceName=String(state.offer.service||state.form.service||"").trim();
-  if(f==="service" && serviceName!=="Adventure") state.offer.extra_days=0;
-  if(f==="extra_days") state.offer.extra_days=clampExtraDays(v);
-  if(state.page==="intakes" && state.currentIntake?.id) renderIntakeRightPanel(state.currentIntake.id);
-};
-window.setOfferMeta=(k,v)=>{
-  state.offerMeta[k]=v?1:0;
-  if(state.page==="intakes" && state.currentIntake?.id) renderIntakeRightPanel(state.currentIntake.id);
-};
-
-async function saveOffer(){
-  if(!state.currentIntake?.id) return;
-  const serviceName=String(state.offer.service||state.form.service||"SOLO").trim();
-  const extraDays=(serviceName==="Adventure")?clampExtraDays(state.offer.extra_days):0;
-  const description=buildDescriptionWithMeta(state.offer.description_text||"", state.offerMeta);
-
-  await apiFetch(API+"/intake/offer",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      id: state.currentIntake.id,
-      service: serviceName,
-      extra_days: extraDays,
-      pickup_km: toInt(state.offer.pickup_km),
-      late_arrival: toBoolInt(state.offer.late_arrival),
-      description
-    })
-  });
-}
-async function saveOfferAndRefresh(){
-  if(state.currentIntake?.id){
-    await saveOffer();
-    alert("Offerte opgeslagen");
-    await refreshAll();
-    if(state.currentIntake?.id) openIntake(state.currentIntake.id);
-    return;
-  }
-
-  if(state.currentCase?.id && state.currentCase?.intake_id){
-    await ensureBookingNumberForCase();
-    const prev = state.currentIntake;
-    state.currentIntake = { id: state.currentCase.intake_id };
-    try{
-      await saveOffer();
-    } finally {
-      state.currentIntake = prev;
-    }
-    alert("Offerte opgeslagen");
-    await refreshAll();
-    if(state.currentCase?.id) await openCase(state.currentCase.id);
-    return;
-  }
-}
-
-function buildIntakeUpdatePayload(){
-  return {
-    id: state.currentIntake.id,
-    status: state.form.status ?? "new",
-    name: state.form.name ?? "",
-    email: state.form.email ?? "",
-    phone: state.form.phone ?? "",
-    service: state.form.service ?? "",
-    arrival_date: state.form.arrival_date ?? "",
-    notes: state.form.notes ?? "",
-    verified_identity: state.form.verified_identity ?? "",
-    risk_level: state.form.risk_level ?? "",
-    safety_notes: state.form.safety_notes ?? "",
-    host_restriction: state.form.host_restriction ?? "",
-    activities: Array.isArray(state.form.activities) ? state.form.activities : [],
-    dietary_preferences: Array.isArray(state.form.dietary_preferences) ? state.form.dietary_preferences : [],
-    risk_flags: JSON.stringify(Array.isArray(state.form.risk_flags) ? state.form.risk_flags : []),
-    allergies: JSON.stringify(Array.isArray(state.form.allergies) ? state.form.allergies : []),
-    accommodation: JSON.stringify(Array.isArray(state.form.accommodation_pref) ? state.form.accommodation_pref : []),
-  };
-}
-
-window.saveAll = async function(){
-  if(!state.currentIntake?.id) return;
-
-  const res = await apiFetch(API+"/intake/update",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(buildIntakeUpdatePayload())
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Opslaan mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-
-  await saveOffer();
-  alert("saved");
-  await refreshAll();
-};
-
-window.createCase = async function(){
-  if(!state.currentIntake?.id) return;
-
-  const res1 = await apiFetch(API+"/intake/update",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(buildIntakeUpdatePayload())
-  });
-  const out1 = await res1.json().catch(()=> ({}));
-  if(!res1.ok){
-    alert("Opslaan mislukt: " + formatApiError(out1, String(res1.status)));
-    return;
-  }
-  await saveOffer();
-
-  const res = await apiFetch(API+"/case/create",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({ id: state.currentIntake.id })
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Case maken mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-
-  const caseId = out.case_id;
-  const open = confirm("Journey gemaakt. Wil je de journey openen?");
-  await refreshAll();
-  if(open){
-    setPage("cases");
-    openCase(caseId);
-  } else {
-    setPage("intakes");
-  }
-};
-
-function openIntake(id){
-  const item = state.intakes.find(i=>i.id===id);
-  if(!item) return;
-
-  state.currentIntake = item;
-  state.currentCase = null;
-  state.currentMessage = null;
-
-  state.form={
-    ...item,
-    status: item.status ?? "new",
-    activities:safeParseArray(item.activities, []),
-    dietary_preferences:safeParseArray(item.dietary_preferences, []),
-    allergies:safeParseArray(item.allergies, []),
-    accommodation_pref:safeParseArray(item.accommodation_pref, []),
-    risk_flags:safeParseArray(item.risk_flags, [])
-  };
-
-  const d=splitDescriptionAndMeta(item.offer_description||"");
-  state.offerMeta=d.meta;
-
-  const chosenService=item.service || item.offer_service || "SOLO";
-  state.offer={
-    service: chosenService,
-    extra_days: toInt(item.offer_extra_days||0),
-    pickup_km: toInt(item.offer_pickup_km||0),
-    late_arrival: String(item.offer_late_arrival ?? "0"),
-    description_text: d.text || ""
-  };
-  if(String(state.offer.service).trim()!=="Adventure") state.offer.extra_days=0;
-
-  renderIntakeDetail();
-  renderIntakeRightPanel(id);
-}
-
-async function renderIntakeRightPanel(intakeId){
-  const offerHtml = renderOfferBox();
-  const msgHtml = await getMessagesHtml(intakeId);
-
-  document.getElementById("rightContent").innerHTML = `
-    ${offerHtml}
-    <div class="actions">
-      <button class="smallbtn" onclick="saveOfferAndRefresh()">Opslaan offerte</button>
-    </div>
-
-    ${renderTemplatesBlock()}
-
-    <hr>
-    <h4>Berichten (dossier)</h4>
-    ${msgHtml}
-  `;
-}
-/* ========= CASES filters + list + case view ========= */
-
-function setCaseFilter(field, value){ state.caseFilters[field] = String(value ?? ""); }
-function resetCaseFilters(){ state.caseFilters = { q:"", status:"", service:"", lead_type:"" }; renderCaseList(); }
-window.onCaseFilterChange = function(field, value){ setCaseFilter(field, value); renderCaseList(); };
-
-function buildCaseFilterUI(){
-  const f = state.caseFilters || { q:"", status:"", service:"", lead_type:"" };
-  const leadSet = new Set((state.cases||[]).map(c => normalizeKey(c.lead_type)).filter(Boolean));
-  const leadTypes = Array.from(leadSet).sort();
-
-  return `
-    <div class="filterbox">
-      <div class="small"><b>Filters</b></div>
-
-      <label class="label">Zoek (naam/email)</label>
-      <input value="${escapeHtml(f.q)}" placeholder="bijv. michel / @gmail" oninput="onCaseFilterChange('q', this.value)">
-
-      <label class="label">Status</label>
-      <select onchange="onCaseFilterChange('status', this.value)">
-        <option value="" ${f.status===""?"selected":""}>Alle</option>
-        <option value="planned" ${normalizeKey(f.status)==="planned"?"selected":""}>planned</option>
-        <option value="active" ${normalizeKey(f.status)==="active"?"selected":""}>active</option>
-        <option value="done" ${normalizeKey(f.status)==="done"?"selected":""}>done</option>
-        <option value="cancelled" ${normalizeKey(f.status)==="cancelled"?"selected":""}>cancelled</option>
-      </select>
-
-      <label class="label">Service</label>
-      <select onchange="onCaseFilterChange('service', this.value)">
-        <option value="" ${f.service===""?"selected":""}>Alle</option>
-        <option value="SOLO" ${String(f.service)==="SOLO"?"selected":""}>SOLO</option>
-        <option value="Adventure" ${String(f.service)==="Adventure"?"selected":""}>Adventure</option>
-        <option value="Remote" ${String(f.service)==="Remote"?"selected":""}>Remote</option>
-      </select>
-
-      <label class="label">Lead type</label>
-      <select onchange="onCaseFilterChange('lead_type', this.value)">
-        <option value="" ${f.lead_type===""?"selected":""}>Alle</option>
-        ${leadTypes.map(t=>{
-          const sel = normalizeKey(f.lead_type)===t ? "selected" : "";
-          return `<option value="${escapeHtml(t)}" ${sel}>${escapeHtml(t)}</option>`;
-        }).join("")}
-      </select>
-
-      <div class="actions">
-        <button class="smallbtn" onclick="resetCaseFilters()">Reset</button>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="logo">
+        UrbanChill Nairobi
+        <span>Take your time in the city.</span>
       </div>
 
-      <div class="hint" id="caseFilterCount"></div>
+      <nav class="nav-links">
+        <a href="#verhaal">Verhaal</a>
+        <a href="#audience">Voor wie</a>
+        <a href="#districts">Nairobi</a>
+        <a href="#services">Mogelijkheden</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <div id="caseListItems"></div>
-  `;
-}
+  </header>
 
-function applyCaseFilters(list){
-  const f = state.caseFilters || {};
-  const q = normalizeKey(f.q);
-  const status = normalizeKey(f.status);
-  const lead = normalizeKey(f.lead_type);
-  const service = String(f.service||"").trim();
+  <main>
 
-  return (list||[]).filter(c=>{
-    if(status){
-      const cs = normalizeKey(c.status);
-      if(cs !== status) return false;
-    }
-    if(service){
-      const s = String(c.service||"").trim();
-      if(s !== service) return false;
-    }
-    if(lead){
-      const lt = normalizeKey(c.lead_type);
-      if(lt !== lead) return false;
-    }
-    if(q){
-      const hay = [
-        c.client_name, c.client_email, c.client_phone,
-        c.service, c.status, c.lead_type, c.id
-      ].map(x=>normalizeKey(x)).join(" ");
-      if(!hay.includes(q)) return false;
-    }
-    return true;
-  });
-}
+    <section class="hero">
+      <div class="container hero-inner">
 
-const CASE_STATUSES = [["planned","Planned"],["active","Active"],["done","Done"],["cancelled","Cancelled"]];
-function caseStatusOptions(cur){
-  const v=normalizeKey(cur);
-  return CASE_STATUSES.map(([code,label])=>{
-    const sel=(normalizeKey(code)===v)?"selected":"";
-    return `<option value="${escapeHtml(code)}" ${sel}>${escapeHtml(label)}</option>`;
-  }).join("");
-}
-
-function renderCaseList(){
-  const el=document.getElementById("leftList");
-  el.innerHTML = buildCaseFilterUI();
-
-  const filtered = applyCaseFilters(state.cases || []);
-  const listEl = document.getElementById("caseListItems");
-  listEl.innerHTML = filtered.map(c=>`
-    <div class="item" onclick="openCase('${escapeHtml(c.id)}')">
-      <b>${escapeHtml(c.client_name||"-")}</b>
-      <span class="badge">${escapeHtml(c.service||"")}</span><br>
-      <span class="small">${escapeHtml(c.status||"")}${c.lead_type?` • ${escapeHtml(c.lead_type)}`:""}</span>
-    </div>
-  `).join("");
-
-  const info = document.getElementById("caseFilterCount");
-  if(info){
-    info.textContent = `${filtered.length} / ${(state.cases||[]).length} cases`;
-  }
-}
-
-function toDisplayScalar(v){
-  if(v === null || v === undefined) return "";
-  if(typeof v === "string" || typeof v === "number" || typeof v === "boolean") return String(v);
-  if(typeof v === "object"){
-    if(typeof v.name === "string") return v.name;
-    if(typeof v.value === "string") return v.value;
-    try{ return JSON.stringify(v); }catch{ return "[object]"; }
-  }
-  return String(v);
-}
-function renderKV(k,v){
-  const val = toDisplayScalar(v);
-  const show = (String(val).trim()==="") ? "-" : val;
-  return `<div class="k">${escapeHtml(k)}</div><div class="v">${escapeHtml(show)}</div>`;
-}
-function renderSnapshotPills(v){
-  const arr = safeParseArray(v, []);
-  if(!arr.length) return `<span class="pill">-</span>`;
-  return arr.map(x=>`<span class="pill">${escapeHtml(x)}</span>`).join(" ");
-}
-
-async function openCase(caseId){
-  const res = await apiFetch(API+"/case/get?id="+encodeURIComponent(caseId), { headers: { "Accept":"application/json" }});
-  const ct=(res.headers.get("content-type")||"").toLowerCase();
-  const out = ct.includes("application/json") ? await res.json().catch(()=> ({})) : {};
-  if(!res.ok){
-    document.getElementById("middleDetail").innerHTML = `<div class="small">Journey laden mislukt: ${escapeHtml(formatApiError(out, String(res.status)))}</div>`;
-    document.getElementById("rightContent").innerHTML = `<div class="small">-</div>`;
-    return;
-  }
-
-  const snapshot = safeParseObj(out.snapshot) || safeParseObj(out.intake_snapshot) || null;
-  state.caseIntake = buildCaseIntakeModel(out, snapshot);
-
-  state.currentCase = out;
-  state.caseSnapshotMode = 'live';
-  state.currentIntake = null;
-  state.currentMessage = null;
-
-  state.caseForm = {
-    id: out.id,
-    status: out.status ?? "planned",
-    notes: out.notes ?? "",
-    host_id: (out.host_id === null || out.host_id === undefined) ? "" : String(out.host_id),
-    kim_id: String(out.kim_id ?? ""),
-    home_address_text: String(out.home_address_text ?? ""),
-    stay_address_text: String(out.stay_address_text ?? ""),
-    stay_place_name: String(out.stay_place_name ?? ""),
-    checkin_date: String(out.checkin_date ?? ""),
-    maps_link: String(out.maps_link ?? "")
-  };
-
-  state.caseHostEdit = {
-    id: (out.host_id === null || out.host_id === undefined) ? "" : String(out.host_id),
-    name: String(out.host_name || "").trim(),
-    email: String(out.host_email || "").trim(),
-    phone: String(out.host_phone || "").trim(),
-    level: String(out.host_level || "").trim() || "standard"
-  };
-
-  document.getElementById("middleDetail").innerHTML = renderCaseDetail(out, snapshot);
-  document.getElementById("rightContent").innerHTML = renderCaseRightPanel(out);
-  loadPayoutsForCase(out.id);
-}
-
-function renderCaseDetail(out, snapshot){
-  const stored = snapshot || {};
-  const live = state.caseIntake || {};
-  const s = (state.caseSnapshotMode==='live') ? live : stored;
-  const hasSnapshot = !!snapshot;
-
-  const sActivities = renderSnapshotPills(s.activities);
-  const sDietary = renderSnapshotPills(s.dietary_preferences);
-  const sAllergies = renderSnapshotPills(s.allergies);
-  const sAccommodation = renderSnapshotPills(s.accommodation_pref);
-  const sRiskFlags = renderSnapshotPills(s.risk_flags);
-
-  return `
-    ${closeButtonHtml()}
-    <h3>🧭 Journey — ${escapeHtml(out.client_name || s.name || "-")}</h3>
-    <div class="small">Case ID: ${escapeHtml(out.id || "")}</div>
-    <div class="small">Intake ID: ${escapeHtml(out.intake_id || "")}</div>
-
-    <div class="section">
-      <h4>🧾 Intake gegevens (editable)</h4>
-      <div class="hint" style="margin:.35rem 0 .5rem 0">
-        <span class="pill">Naam: ${escapeHtml(state.caseIntake.name || "-")}</span>
-        <span class="pill">Email: ${escapeHtml(state.caseIntake.email || "-")}</span>
-        <span class="pill">Tel: ${escapeHtml(state.caseIntake.phone || "-")}</span>
-      </div>
-
-      <div class="hint">Dit is de intake van de journey (hard opslaan). Snapshot hieronder blijft historie.</div>
-
-      <label class="label">Naam</label>
-      <input value="${escapeHtml(state.caseIntake.name || '')}" oninput="setCaseIntakeField('name', this.value)">
-
-      <label class="label">Email</label>
-      <input value="${escapeHtml(state.caseIntake.email || '')}" oninput="setCaseIntakeField('email', this.value)">
-
-      <label class="label">Telefoon</label>
-      <input value="${escapeHtml(state.caseIntake.phone || '')}" oninput="setCaseIntakeField('phone', this.value)">
-
-      <label class="label">Dienst</label>
-      <select oninput="setCaseIntakeField('service', this.value)">
-        ${serviceOptions(state.caseIntake.service || '')}
-      </select>
-
-      <label class="label">Aankomstdatum</label>
-      <input value="${escapeHtml(state.caseIntake.arrival_date || '')}" oninput="setCaseIntakeField('arrival_date', this.value)">
-
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <details class="collapse">
-          <summary>🪪 Legitimatie & veiligheid <span class="small smallhint">klik om te openen</span></summary>
-          <h4>🪪 Legitimatie & veiligheid</h4>
-
-          <label class="label">Legitimatie (verified identity)</label>
-          <input value="${escapeHtml(state.caseIntake.verified_identity || '')}" oninput="setCaseIntakeField('verified_identity', this.value)">
-
-          <label class="label">Risk level</label>
-          <select oninput="setCaseIntakeField('risk_level', this.value)">${riskLevelOptions(state.caseIntake.risk_level||"")}</select>
-
-          <details class="collapse">
-            <summary>⚠️ Risk flags <span class="small smallhint">klik om te openen</span></summary>
-            <label class="label">Risk flags</label>
-            ${renderCaseCheckboxList("risk_flags", OPT_RISK_FLAGS)}
-          </details>
-
-          <label class="label">Safety notes</label>
-          <textarea style="min-height:90px" oninput="setCaseIntakeField('safety_notes', this.value)">${escapeHtml(state.caseIntake.safety_notes || "")}</textarea>
-
-          <label class="label">Host restriction</label>
-          <textarea style="min-height:70px" oninput="setCaseIntakeField('host_restriction', this.value)">${escapeHtml(state.caseIntake.host_restriction || "")}</textarea>
-        </details>
-      </div>
-
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <details class="collapse">
-          <summary>🧩 Voorkeuren <span class="small smallhint">klik om te openen</span></summary>
-          <h4>🧩 Voorkeuren</h4>
-
-          <label class="label">Activiteiten</label>
-          ${renderCaseCheckboxList("activities", OPT_ACTIVITIES)}
-
-          <label class="label">Dietary preferences</label>
-          ${renderCaseCheckboxList("dietary_preferences", OPT_DIETARY)}
-
-          <label class="label">Allergieën</label>
-          ${renderCaseCheckboxList("allergies", OPT_ALLERGIES)}
-
-          <details class="collapse">
-            <summary>🏠 Huisvesting <span class="small smallhint">klik om te openen</span></summary>
-            <label class="label">Huisvesting (accommodation)</label>
-            ${renderCaseCheckboxList("accommodation_pref", OPT_ACCOMMODATION)}
-          </details>
-        </details>
-      </div>
-
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <h4>🧾 Special requests</h4>
-        <textarea style="min-height:90px" oninput="setCaseIntakeField('special_requests', this.value)">${escapeHtml(state.caseIntake.special_requests || "")}</textarea>
-      </div>
-
-      <div class="actions">
-        <button onclick="saveCaseIntake()">Opslaan intake gegevens</button>
-      </div>
-    </div>
-
-    <details class="collapse">
-      <summary>🏠 Adressen & logistiek <span class="small smallhint">klik om te openen</span></summary>
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <h4>🏠 Adressen & logistiek</h4>
-        <div class="hint">Deze velden horen bij de journey (niet bij de intake).</div>
-
-        <label class="label">Home address</label>
-        <textarea style="min-height:80px" onchange="setCaseField('home_address_text', this.value)">${escapeHtml(state.caseForm.home_address_text || "")}</textarea>
-
-        <label class="label">Stay place name</label>
-        <input value="${escapeHtml(state.caseForm.stay_place_name || "")}" onchange="setCaseField('stay_place_name', this.value)">
-
-        <label class="label">Stay address</label>
-        <textarea style="min-height:80px" onchange="setCaseField('stay_address_text', this.value)">${escapeHtml(state.caseForm.stay_address_text || "")}</textarea>
-
-        <label class="label">Check-in date</label>
-        <input value="${escapeHtml(state.caseForm.checkin_date || "")}" onchange="setCaseField('checkin_date', this.value)" placeholder="YYYY-MM-DD">
-
-        <label class="label">Maps link</label>
-        <input value="${escapeHtml(state.caseForm.maps_link || "")}" onchange="setCaseField('maps_link', this.value)" placeholder="https://maps.google.com/...">
-
-        <div class="actions">
-          <button class="smallbtn" onclick="saveCaseAddresses()">Opslaan adressen</button>
-        </div>
-      </div>
-    </details>
-
-    <details class="collapse">
-      <summary>✅ Intake snapshot <span class="small smallhint">klik om te openen</span></summary>
-
-      <div class="section">
-        <h4>✅ Intake snapshot</h4>
-        <div class="actions" style="margin-top:.35rem">
-          <button class="smallbtn" onclick="toggleCaseSnapshotMode('stored')">Stored snapshot</button>
-          <button class="smallbtn" onclick="toggleCaseSnapshotMode('live')">Live (na opslaan)</button>
-        </div>
-        <div class="hint">Live = toont jouw laatste intake edits; stored = wat er bij case-create is vastgelegd.</div>
-        ${hasSnapshot ? `<div class="small">Bron: intake_snapshot</div>` : `<div class="small">⚠️ Geen snapshot beschikbaar (intake_snapshot leeg of ongeldig).</div>`}
-
-        <div class="kv">
-          ${renderKV("Naam", s.name)}
-          ${renderKV("Email", s.email)}
-          ${renderKV("Telefoon", s.phone)}
-          ${renderKV("Verified identity", s.verified_identity)}
+        <div class="brand-block">
+          <div class="brand-name">UrbanChill Nairobi</div>
+          <div class="brand-tagline">Take your time in the city.</div>
         </div>
 
-        <div class="kv" style="margin-top:.5rem">
-          ${renderKV("Dienst", s.service)}
-          ${renderKV("Aankomst (arrival_date)", s.arrival_date)}
+        <h1>Je landt in Nairobi. En je wilt dat het klopt vanaf het eerste moment.</h1>
+
+        <p class="hero-sub">
+          De eerste 48 uur bepalen hoe je de stad ervaart.
+        </p>
+
+        <p class="hero-sub">
+          Voor mensen die voor het eerst in Nairobi landen en dat rustig willen doen.
+        </p>
+
+        <p class="hero-sub">
+          Je wordt opgehaald, begeleid en krijgt een rustige, duidelijke start in een stad die nieuw voor je is.
+          Geen massatoerisme. Geen groepsreizen. Geen ruis.
+          Wel comfort, context en discretie vanaf het moment dat je aankomt.
+        </p>
+
+        <p class="hero-mantra">
+          Not in a hurry.<br>
+          Just in the city.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#contact">Plan je landing in Nairobi</a>
+          <a class="btn btn-secondary" href="#services">Bekijk mogelijkheden</a>
         </div>
       </div>
-    </details>
+    </section>
 
-    <div class="section">
-      <h4>📝 Intake notities (read-only)</h4>
-      <div class="banner" style="white-space:pre-wrap">${escapeHtml(toDisplayScalar(s.notes) || "-")}</div>
-    </div>
-
-    <div class="section">
-      <h4>🧩 Voorkeuren</h4>
-      <div class="kv">
-        <div class="k">Activiteiten</div><div class="v">${sActivities}</div>
-        <div class="k">Dietary preferences</div><div class="v">${sDietary}</div>
-        <div class="k">Allergieën</div><div class="v">${sAllergies}</div>
-        <div class="k">Accommodation</div><div class="v">${sAccommodation}</div>
+    <section class="signature">
+      <div class="container">
+        <p class="signature-text">A different way to enter the city.</p>
+        <p class="signature-sub">
+          De meeste klanten kiezen ervoor om hun eerste dagen niet aan het toeval over te laten.
+        </p>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h4>🪪 Risico / veiligheid</h4>
-      <div class="kv">
-        ${renderKV("Risk level", s.risk_level)}
-        <div class="k">Risk flags</div><div class="v">${sRiskFlags}</div>
-        ${renderKV("Safety notes", s.safety_notes)}
-        ${renderKV("Host restriction", s.host_restriction)}
+    <div class="urbanchill-divider"></div>
+
+    <section class="mantra">
+      <div class="container">
+        <p class="mantra-text">
+          Not in a hurry.<br>
+          Just in the city.<br>
+          UrbanChill.
+        </p>
+
+        <p class="mantra-sub">
+          Take your time.<br>
+          Let Nairobi happen.
+        </p>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h4>✍️ Journey notities (editable)</h4>
-      <div class="hint">Dit is voor bijzonderheden na de intake. Intake-notities hierboven blijven read-only.</div>
-      <textarea style="min-height:120px" onchange="setCaseField('notes', this.value)">${escapeHtml(state.caseForm.notes || "")}</textarea>
-      <div class="actions">
-        <button onclick="saveCaseNotes()">Opslaan notities</button>
-      </div>
-    </div>
-  `;
-}
+    <section id="approach">
+      <div class="container">
+        <h2>Een rustige manier om een complexe stad binnen te stappen</h2>
 
-function renderBookingSection(out){
-  const cur = String(state.caseForm.kim_id ?? out.kim_id ?? "").trim();
-  const saved = String(out.kim_id ?? "").trim();
-  const hasNumber = !!cur || !!saved;
-  const value = cur || saved;
-  const canGenerate = !hasNumber;
-  const canSave = !!cur && cur !== saved;
+        <div class="text-card">
+          <p>
+            Elke grote stad heeft een eigen ritme. Voor bezoekers die hier voor het eerst arriveren
+            kan dat ritme in het begin lastig te lezen zijn.
+          </p>
 
-  return `
-    <details class="collapse" open>
-      <summary>📄 Factuurnummer (KIM ID) <span class="small smallhint">klik om te openen</span></summary>
-      <div class="section" style="border-top:0;margin-top:.6rem;padding-top:0">
-        <h4 style="margin:.25rem 0">📄 Factuurnummer (KIM ID)</h4>
-        <div class="hint">Dit nummer is het factuurnummer en bepaalt of de journey in Finance verschijnt.</div>
+          <p>
+            Nairobi is energiek, ondernemend en voortdurend in beweging.
+            Juist daarom zijn de eerste dagen vaak bepalend voor hoe comfortabel de rest van het verblijf verloopt.
+          </p>
 
-        <input value="${escapeHtml(value)}"
-               oninput="setCaseField('kim_id', this.value)"
-               placeholder=""
-               ${saved && !canSave ? "readonly" : ""}>
+          <p>
+            In die fase ontstaan de meeste vragen, fouten en onzekerheid.
+          </p>
 
-        <div class="actions" style="margin-top:.5rem">
-          ${canGenerate ? `<button class="smallbtn" onclick="generateAndSaveBookingNumber()">Genereer</button>` : ``}
-          <button class="smallbtn" onclick="saveKimIdFromCasePanel()"
-                  ${canSave ? "" : "disabled"}
-          >Opslaan nummer</button>
+          <p>
+            UrbanChill helpt je die eerste periode rustig en helder door te komen,
+            zodat je weet waar je bent, hoe de stad werkt en waar je op kunt letten.
+          </p>
         </div>
-
-        ${value ? `<div class="hint" style="margin-top:.35rem"><b>Huidig nummer:</b> <code>${escapeHtml(value)}</code></div>` : ``}
-        ${saved ? `<div class="hint" style="margin-top:.15rem">Opgeslagen: <code>${escapeHtml(saved)}</code></div>` : ``}
       </div>
-    </details>
-  `;
-}
+    </section>
 
-window.saveKimIdFromCasePanel = async function(){
-  if(!state.caseForm?.id){
-    alert("Geen journey geselecteerd.");
-    return;
-  }
-  const v = String(state.caseForm.kim_id ?? "").trim();
-  if(!v){
-    alert("Vul eerst een nummer in.");
-    return;
-  }
-  const ok = await saveCasePatch({ kim_id: v });
-  if(!ok) return;
-  if(state.currentCase) state.currentCase.kim_id = v;
-  alert("Nummer opgeslagen");
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-};
+    <div class="urbanchill-divider"></div>
 
-function renderCaseRightPanel(out){
-  return `
-    <div class="kpi">
-      <div class="breakdown">
+    <section class="lounge">
+      <div class="container lounge-inner">
+        <h2>UrbanChill Lounge</h2>
 
-        <div class="section" style="margin-top:.25rem">
-          <h4 style="margin:.25rem 0">🔖 Factuurnummer / boekingsnummer</h4>
-          <div class="hint">Gebruik hier jouw eigen factuur/boekingsnummer. Dit nummer bepaalt of de journey in Finance verschijnt en wordt gebruikt als referentie richting host/administratie.</div>
-          <input value="${escapeHtml(state.caseForm.kim_id || out.kim_id || '')}" oninput="setCaseField('kim_id', this.value)" placeholder="">
-          <div class="actions" style="margin-top:.5rem">
-            <button class="smallbtn" onclick="saveBookingNumber()">Opslaan nummer</button>
-            <button class="smallbtn" onclick="copyToClipboard(String(state.caseForm.kim_id || out.kim_id || ''))">Kopieer</button>
+        <div class="text-card text-card-invert">
+          <p>
+            UrbanChill staat voor onthaasten in een stad die tegelijk elegant,
+            dynamisch en soms intens kan zijn.
+          </p>
+
+          <p>
+            Geen haast, geen overplanning en geen druk programma.
+            Meer een rustige landing: even aankomen, even kijken,
+            even begrijpen waar je bent.
+          </p>
+
+          <p>
+            UrbanChill is voor mensen die de stad niet willen consumeren,
+            maar goed willen binnenkomen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="meaning">
+      <div class="container">
+        <h2>What UrbanChill means</h2>
+
+        <div class="text-card">
+          <p>
+            UrbanChill is geen reisprogramma en geen lijst met activiteiten.
+          </p>
+
+          <p>
+            UrbanChill is een manier om een stad binnen te stappen —
+            rustig, nieuwsgierig en met respect voor de mensen die er wonen.
+          </p>
+
+          <p>
+            Voor veel bezoekers wordt UrbanChill al snel het verschil
+            tussen alles zelf uitzoeken en vanaf het begin goed landen.
+          </p>
+
+          <p>
+            Niet in een hurry. Gewoon in de stad.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="verhaal">
+      <div class="container">
+        <h2>Ons verhaal</h2>
+
+        <div class="text-card">
+          <p>
+            Veel bezoekers kennen Nairobi vooral van safari en toerisme.
+            Maar Nairobi is ook een internationale zakenstad
+            met een eigen energie, eigen buurten en een eigen tempo.
+          </p>
+
+          <p>
+            UrbanChill is ontstaan vanuit de gedachte dat goed aankomen
+            iets anders is dan een stad afvinken.
+          </p>
+
+          <p>
+            Voor professionals, ondernemers en bezoekers die tijdelijk uit hun eigen omgeving willen stappen,
+            is overzicht in de eerste dagen vaak belangrijker dan snelheid.
+          </p>
+
+          <p>
+            UrbanChill helpt bezoekers die stad rustig,
+            duidelijk en met meer vertrouwen binnen te stappen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="audience">
+      <div class="container">
+        <h2>Voor wie UrbanChill is</h2>
+
+        <div class="text-card">
+          <p>
+            UrbanChill richt zich op professionals en ondernemers
+            die tijdelijk uit hun eigen omgeving willen stappen.
+          </p>
+
+          <p>
+            Onze bezoekers zijn vaak ondernemers, consultants,
+            investeerders, founders en remote professionals
+            die comfort, discretie en lokale context waarderen.
+          </p>
+
+          <p>
+            UrbanChill is niet bedoeld voor massatoerisme,
+            koopjesjagers, dagjesmensen of groepsreizen.
+          </p>
+
+          <p>
+            Het is bedoeld voor mensen die hun eerste dagen in Nairobi
+            goed geregeld willen hebben.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ethos">
+      <div class="container">
+        <h2>De UrbanChill houding</h2>
+
+        <div class="text-card">
+          <p>
+            UrbanChill draait om ontspannen reizen in een stad
+            waar mensen wonen, werken en hun dagelijks leven leiden.
+          </p>
+
+          <p>
+            Daarom gaan we uit van een eenvoudige gedachte:
+            zoals jij als gast behandeld wilt worden,
+            zo behandel je ook je host en de stad waarin je aankomt.
+          </p>
+
+          <p>
+            Met respect voor de mensen, de buurten en de cultuur
+            die Nairobi maken tot wat het is.
+          </p>
+
+          <p>
+            Wie de stad met die houding benadert,
+            merkt dat Nairobi zich vaak op een andere manier opent.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="promise">
+      <div class="container">
+        <h2>De UrbanChill belofte</h2>
+
+        <div class="promise-grid">
+          <div class="promise-card">
+            <h3>Rust in een dynamische stad</h3>
+            <p>
+              Nairobi is energiek en soms intens.
+              UrbanChill helpt bezoekers hun eigen ritme te vinden
+              binnen die dynamiek.
+            </p>
+          </div>
+
+          <div class="promise-card">
+            <h3>Lokale context</h3>
+            <p>
+              Een stad begrijpen gaat verder dan alleen locaties bezoeken.
+              UrbanChill helpt bezoekers de stad met meer context te ervaren.
+            </p>
+          </div>
+
+          <div class="promise-card">
+            <h3>Een duidelijke start</h3>
+            <p>
+              De meeste fouten en onzekerheid ontstaan in de eerste dagen.
+              UrbanChill helpt juist dat stuk helder maken.
+            </p>
           </div>
         </div>
-        <hr>
+      </div>
+    </section>
 
-        <div class="small">Koppelingen</div>
-        <div class="row">
-          <div>Host koppelen</div>
-          <div class="amt">
-            <select id="caseHostSelect" onchange="setCaseField('host_id', this.value)">
-              ${hostSelectOptions(state.caseForm.host_id)}
-            </select>
-            <div class="hint">${escapeHtml(renderHostMeta(out))}</div>
+    <div class="urbanchill-divider"></div>
+
+    <section id="districts">
+      <div class="container">
+        <h2>Urban Nairobi</h2>
+
+        <p class="section-intro">
+          Nairobi bestaat uit verschillende wijken met elk hun eigen karakter,
+          ritme en sfeer. UrbanChill helpt bezoekers begrijpen waar de stad
+          zachter wordt, waar zij versnelt en waar je prettig kunt landen.
+        </p>
+
+        <div class="district-grid">
+          <article class="district-card">
+            <h3>Westlands</h3>
+            <p>
+              Restaurants, hotels, rooftop bars en internationale ontmoetingsplekken.
+              Voor veel expats, ondernemers en zakelijke bezoekers
+              is Westlands een natuurlijke eerste basis.
+            </p>
+          </article>
+
+          <article class="district-card">
+            <h3>Kilimani</h3>
+            <p>
+              Coworking spaces, cafés, appartementen en een modern stedelijk ritme.
+              Kilimani spreekt remote workers en professionals aan
+              die werk en verblijf willen combineren.
+            </p>
+          </article>
+
+          <article class="district-card">
+            <h3>Karen</h3>
+            <p>
+              Groen, ruim en rustiger.
+              Karen past bij bezoekers die comfort, privacy
+              en een zachter tempo zoeken.
+            </p>
+          </article>
+
+          <article class="district-card">
+            <h3>CBD</h3>
+            <p>
+              Het economische hart van Nairobi.
+              Druk, gelaagd en vol contrasten.
+              UrbanChill helpt bezoekers ook hier met meer context bewegen.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="nairobi-now">
+      <div class="container">
+        <h2>Waarom Nairobi</h2>
+
+        <div class="text-card">
+          <p>
+            Nairobi ontwikkelt zich snel tot één van de belangrijkste steden
+            van Oost-Afrika.
+          </p>
+
+          <p>
+            Internationale bedrijven, technologiebedrijven,
+            investeerders en ondernemers hebben de stad
+            de afgelopen jaren steeds nadrukkelijker ontdekt.
+          </p>
+
+          <p>
+            Tegelijk blijft Nairobi een stad met een eigen karakter,
+            eigen tegenstellingen en een eigen ritme.
+          </p>
+
+          <p>
+            Voor professionals die de regio willen begrijpen
+            of hier tijdelijk werken, is Nairobi een verrassend interessante
+            plek om tijd door te brengen.
+          </p>
+
+          <p>
+            UrbanChill helpt bezoekers die stad
+            op een rustige en comfortabele manier te ervaren.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="accommodation">
+      <div class="container">
+        <h2>Verblijf & accommodatie</h2>
+
+        <div class="text-card">
+          <p>
+            UrbanChill biedt geen accommodatie en werkt niet als boekingsplatform.
+          </p>
+
+          <p>
+            Bezoekers regelen hun verblijf zelf via hotels,
+            serviced apartments of platforms zoals Airbnb.
+          </p>
+
+          <p>
+            Wat UrbanChill wel kan doen is helpen inschatten
+            of een locatie, buurt of appartement daadwerkelijk past
+            bij wat je zoekt.
+          </p>
+
+          <p>
+            Nairobi werkt anders dan wat veel bezoekers gewend zijn.
+            Wat online duidelijk lijkt, kan in de praktijk anders voelen.
+          </p>
+
+          <p>
+            UrbanChill helpt je een realistische indruk te krijgen van een locatie,
+            inclusief buurt, omgeving en sfeer.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Locatie check</h3>
+            <p>
+              Niet elke buurt voelt hetzelfde.
+              UrbanChill helpt beoordelen of een locatie past bij comfort,
+              bereikbaarheid en rust.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Realiteit vs advertentie</h3>
+            <p>
+              Online foto’s en beschrijvingen geven niet altijd een volledig beeld.
+              UrbanChill helpt je een eerlijke en realistische indruk te krijgen.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Aankomst begeleiding</h3>
+            <p>
+              Voor bezoekers die voor het eerst in Nairobi zijn,
+              helpt UrbanChill zorgen dat de eerste aankomst overzichtelijk verloopt.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Lokale context</h3>
+            <p>
+              Van vervoer tot werkplekken en eetplekken in de buurt:
+              UrbanChill helpt snel je weg te vinden.
+            </p>
           </div>
         </div>
-        <div class="actions">
-          <button class="smallbtn" onclick="saveCaseHost()">Opslaan host</button>
+      </div>
+    </section>
+
+    <div class="urbanchill-divider"></div>
+
+    <section id="arrival">
+      <div class="container">
+        <h2>Je aankomst, stap voor stap</h2>
+
+        <p class="section-intro">
+          Voor veel internationale bezoekers zijn de eerste uren in een nieuwe stad
+          bepalend voor hoe comfortabel de rest van het verblijf verloopt.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Ophalen & vervoer</h3>
+            <p>
+              Je wordt opgehaald bij aankomst op de luchthaven en gaat direct naar je verblijf,
+              zonder onnodig gedoe.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Eerste rustmoment</h3>
+            <p>
+              Na je reis is er ruimte om even te landen.
+              Je ontvangt een fles water en een lokale snack bij aankomst.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Praktische eerste stappen</h3>
+            <p>
+              Internet, lokale SIM kaarten en M-Pesa zijn belangrijk
+              om snel functioneel te zijn in Nairobi.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Eerste veilige plekken</h3>
+            <p>
+              Je krijgt inzicht in buurten, ritme en een paar eerste plekken
+              waar je goed zit in je eerste dagen.
+            </p>
+          </div>
         </div>
 
-        <details class="collapse">
-          <summary>Host gegevens (bewerken) <span class="small smallhint">klik om te openen</span></summary>
-          <div class="section" style="margin-top:.6rem">
-            <h4 style="margin:.25rem 0">Host gegevens (bewerken)</h4>
-            <div class="hint">Wijzig telefoon/email/level hier; dit slaat op in <code>hosts</code> (niet in de journey).</div>
+        <div class="text-card" style="margin-top: 2rem;">
+          <p>
+            Alles wordt vooraf afgestemd. Je weet waar je aan toe bent.
+          </p>
+        </div>
+      </div>
+    </section>
 
-            <label class="label">Naam</label>
-            <input value="${escapeHtml(state.caseHostEdit?.name || '')}" oninput="setHostEditField('name', this.value)">
+    <section id="tempo">
+      <div class="container">
+        <h2>The UrbanChill tempo</h2>
 
-            <label class="label">Email</label>
-            <input value="${escapeHtml(state.caseHostEdit?.email || '')}" oninput="setHostEditField('email', this.value)">
+        <div class="text-card">
+          <p>Niet iedereen reist op dezelfde manier.</p>
+          <p>Sommigen willen elke minuut plannen.</p>
+          <p>
+            UrbanChill gelooft dat een stad pas interessant wordt
+            wanneer je er tijd voor neemt.
+          </p>
+          <p>
+            Nairobi heeft energie. UrbanChill helpt je het ritme te vinden.
+          </p>
+        </div>
+      </div>
+    </section>
 
-            <label class="label">Telefoon</label>
-            <input value="${escapeHtml(state.caseHostEdit?.phone || '')}" oninput="setHostEditField('phone', this.value)">
+    <section id="moments">
+      <div class="container">
+        <h2>UrbanChill Moments</h2>
 
-            <label class="label">Level</label>
-            <select onchange="setHostEditField('level', this.value)">
-              ${hostLevelOptions(state.caseHostEdit?.level)}
+        <p class="moments-intro">
+          Soms is een stad niet iets wat je bezoekt,
+          maar iets waar je even onderdeel van wordt.
+        </p>
+
+        <div class="moments-grid">
+          <div class="moment">
+            <p>
+              Late afternoon traffic.<br>
+              Een taxi schuift langzaam<br>
+              door Ngong Road.
+            </p>
+          </div>
+
+          <div class="moment">
+            <p>
+              Een café in Westlands.<br>
+              Laptop open.<br>
+              De stad beweegt om je heen.
+            </p>
+          </div>
+
+          <div class="moment">
+            <p>
+              Avondlicht boven de skyline.<br>
+              De stad wordt rustiger.<br>
+              De gesprekken langer.
+            </p>
+          </div>
+
+          <div class="moment">
+            <p>
+              Een korte wandeling.<br>
+              De stad kijken.<br>
+              Niet haasten.
+            </p>
+          </div>
+        </div>
+
+        <p class="moments-outro">Dat zijn UrbanChill momenten.</p>
+      </div>
+    </section>
+
+    <section id="day">
+      <div class="container">
+        <h2>A day with UrbanChill</h2>
+
+        <div class="text-card">
+          <p>
+            Ochtend. De stad komt langzaam op gang.
+            Koffie, licht verkeer, eerste afspraken.
+          </p>
+
+          <p>
+            Middag. Werk, beweging, ontmoetingen,
+            even schakelen tussen buurten en ritmes.
+          </p>
+
+          <p>
+            Avond. De skyline zakt in warm licht.
+            Gesprekken worden langer. Het tempo verschuift.
+          </p>
+
+          <p>
+            UrbanChill zit precies in dat moment
+            tussen aankomen en ontspannen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="urbanchill-divider"></div>
+
+    <section id="services">
+      <div class="container">
+        <h2>Mogelijkheden</h2>
+
+        <div class="text-card">
+          <p>
+            UrbanChill biedt begeleiding voor bezoekers
+            die Nairobi comfortabel willen binnenkomen.
+          </p>
+
+          <p>
+            De mogelijkheden richten zich op overzicht,
+            oriëntatie en praktische ondersteuning
+            tijdens het verblijf.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <h3>SOLO</h3>
+            <p>
+              Voor je eerste 24–48 uur in Nairobi.
+            </p>
+
+            <ul>
+              <li>Persoonlijke ontvangst bij aankomst</li>
+              <li>Eerste oriëntatie in de stad</li>
+              <li>Hulp met praktische zaken zoals SIM en vervoer</li>
+              <li>Inzicht in buurten, veiligheid en ritme</li>
+            </ul>
+
+            <p><strong>€299 inclusief BTW</strong></p>
+
+            <p>
+              Voor de meeste bezoekers is dit het moment waarop alles duidelijk wordt.
+            </p>
+
+            <a href="#contact" class="btn btn-primary">Plan je landing in Nairobi</a>
+          </article>
+
+          <article class="service-card">
+            <h3>ADVENTURE</h3>
+            <p>
+              Voor wie meerdere dagen begeleid wil worden en snel zijn weg wil vinden in de stad.
+            </p>
+
+            <ul>
+              <li>3 dagen begeleiding</li>
+              <li>Meer lokale context en verdieping</li>
+              <li>Ondersteuning bij bewegen door de stad</li>
+              <li>Extra dag mogelijk</li>
+            </ul>
+
+            <p><strong>€599 inclusief BTW</strong></p>
+
+            <p>
+              Voor wie na een goede landing de stad echt wil begrijpen.
+            </p>
+
+            <a href="#contact" class="btn btn-primary">Plan je landing in Nairobi</a>
+          </article>
+
+          <article class="service-card">
+            <h3>REMOTE</h3>
+            <p>
+              Voor langere verblijven en professionals die tijdelijk in Nairobi wonen en werken.
+            </p>
+
+            <ul>
+              <li>Werk en verblijf beter op elkaar afstemmen</li>
+              <li>Inzicht in buurten en geschikte woonlocaties</li>
+              <li>Veiligheid, omgeving en sfeer in context plaatsen</li>
+              <li>Reality check van woningen en omgeving</li>
+            </ul>
+
+            <p>
+              Selectief beschikbaar op aanvraag.
+            </p>
+
+            <p>
+              In specifieke gevallen vindt vooraf een persoonlijk gesprek plaats.
+            </p>
+
+            <a href="#contact" class="btn btn-primary">Plan je landing in Nairobi</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2>Veelgestelde vragen</h2>
+
+        <div class="text-card">
+          <p><strong>Is UrbanChill een reisbureau?</strong></p>
+          <p>Nee. UrbanChill organiseert geen reizen of safari’s.</p>
+
+          <p><strong>Bieden jullie accommodatie?</strong></p>
+          <p>Nee. Bezoekers regelen hun verblijf zelf.</p>
+
+          <p><strong>Wat doet UrbanChill dan?</strong></p>
+          <p>
+            UrbanChill ontvangt je bij aankomst, begeleidt je in de eerste dagen
+            en helpt je de stad rustig en met vertrouwen binnen te stappen.
+          </p>
+
+          <p><strong>Is UrbanChill voor toeristen?</strong></p>
+          <p>
+            UrbanChill is vooral bedoeld voor professionals,
+            ondernemers, consultants en remote workers
+            die de stad op een rustige manier willen leren kennen.
+          </p>
+
+          <p><strong>Hoe werkt het contact?</strong></p>
+          <p>
+            Na je aanvraag nemen we persoonlijk contact met je op
+            om te kijken wat past bij je aankomst en verblijf.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="container">
+        <h2>Privacy & technologie</h2>
+
+        <div class="text-card">
+          <p>
+            UrbanChill kiest bewust voor eenvoud
+            en privacyvriendelijke technologie.
+          </p>
+
+          <p>
+            Wij gebruiken minimale software,
+            geen tracking, geen profiling
+            en geen social media integraties.
+          </p>
+
+          <p>
+            Persoonsgegevens worden uitsluitend gebruikt
+            voor het uitvoeren van een opdracht
+            of het beantwoorden van een kennismaking.
+          </p>
+
+          <p>
+            Na afronding van een opdracht worden persoonsgegevens
+            automatisch verwijderd, tenzij een klant expliciet toestemming geeft
+            om deze te bewaren.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="principles">
+      <div class="container">
+        <h2>UrbanChill Principles</h2>
+
+        <div class="principles-grid">
+          <div class="principle">
+            <h3>Respect</h3>
+            <p>
+              Zoals jij als gast behandeld wilt worden,
+              zo behandel je ook je host.
+              UrbanChill beweegt met respect door de stad en haar mensen.
+            </p>
+          </div>
+
+          <div class="principle">
+            <h3>Tempo</h3>
+            <p>
+              Nairobi laat zich niet haasten.
+              UrbanChill ook niet.
+            </p>
+            <p>Take your time in the city.</p>
+          </div>
+
+          <div class="principle">
+            <h3>Privacy</h3>
+            <p>
+              UrbanChill gebruikt minimale software,
+              geen tracking en geen social media integraties.
+            </p>
+            <p>
+              Persoonsgegevens worden alleen gebruikt
+              voor de opdracht en daarna verwijderd.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="urbanchill-divider"></div>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Plan je landing in Nairobi</h2>
+
+        <p class="section-intro">
+          Laat kort weten wanneer je aankomt en wat je zoekt.
+          Na je aanvraag nemen we persoonlijk contact met je op om te kijken wat past.
+        </p>
+
+        <div class="text-card" style="margin-bottom: 2rem;">
+          <p>
+            Je hoeft het niet zelf uit te zoeken als je daar landt.
+          </p>
+          <p>
+            Voor veel bezoekers begint de rust pas zodra de aankomst geregeld is.
+          </p>
+          <p>
+            We reageren meestal binnen 24 uur.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+
+          <form id="intake-form" class="form-card">
+            <h3>Eerste kennismaking</h3>
+
+            <input name="client_name" type="text" placeholder="Naam" required>
+            <input name="client_email" type="email" placeholder="Email" required>
+            <input name="client_phone" type="text" placeholder="Telefoonnummer">
+
+            <select name="service" required>
+              <option value="">Selecteer mogelijkheid</option>
+              <option value="solo">SOLO</option>
+              <option value="adventure">ADVENTURE</option>
+              <option value="remote">REMOTE</option>
             </select>
 
-            <div class="actions">
-              <button class="smallbtn" onclick="saveHostEdits()">Opslaan host gegevens</button>
-            </div>
-          </div>
-        </details>
+            <input name="arrival_date" type="date">
 
-        <hr>
-        <div class="row"><div>Lead type</div><div class="amt">${escapeHtml(out.lead_type ?? "-")}</div></div>
-        <div class="section" style="margin-top:.75rem">
+            <textarea name="notes" placeholder="Vertel kort wanneer je aankomt en wat je zoekt"></textarea>
 
-          <div class="small">Journey status (editable)</div>
-          <select onchange="setCaseField('status', this.value)">
-            ${caseStatusOptions(state.caseForm.status)}
-          </select>
-          <div class="actions">
-            <button onclick="saveCaseStatus()">Opslaan status</button>
-          </div>
+            <input class="honeypot" name="website" type="text" tabindex="-1" autocomplete="off">
 
-          <details class="collapse">
-            <summary>🧰 Offerte builder + templates (journey) <span class="small smallhint">klik om te openen</span></summary>
-            <div class="section" style="margin-top:.75rem">
-              <h4>🧰 Offerte builder + templates (journey)</h4>
-              <div class="hint">Gebruik prijsblok + templates vanuit de journey (werkt op basis van intake gegevens).</div>
-              ${renderCaseTemplatesBlock()}
-            </div>
-          </details>
-        </div>
+            <button class="btn btn-primary" type="submit">Verstuur aanvraag</button>
 
-        <div id="casePayoutBlock" style="margin-top:1rem"></div>
-      </div>
-    </div>
-  `;
-}
+            <p class="form-message" style="margin-top: 1rem;">
+              Vrijblijvend. We kijken eerst wat bij je past.
+            </p>
 
-window.setCaseField = (f,v)=>{ state.caseForm[f]=v; };
+            <div id="intake-message" class="form-message"></div>
+          </form>
 
-/* ========= CASE: editable intake fields ========= */
-window.setCaseIntakeField = (f,v)=>{ state.caseIntake[f]=v; };
+          <form id="contact-form" class="form-card">
+            <h3>Algemene vraag</h3>
 
-window.toggleCaseIntakeMulti = (field, value, checked)=>{
-  const cur = Array.isArray(state.caseIntake[field]) ? [...state.caseIntake[field]] : [];
-  const set = new Set(cur);
-  const noneValue="Geen";
-  const enforceNone=(field==="dietary_preferences"||field==="allergies");
-  if(enforceNone){
-    if(value===noneValue && checked){ set.clear(); set.add(noneValue); }
-    else if(value!==noneValue && checked){ set.delete(noneValue); set.add(value); }
-    else if(!checked){ set.delete(value); }
-  } else {
-    if(checked) set.add(value); else set.delete(value);
-  }
-  state.caseIntake[field]=[...set];
-};
+            <input name="client_name" type="text" placeholder="Naam" required>
+            <input name="client_email" type="email" placeholder="Email" required>
+            <input name="client_phone" type="text" placeholder="Telefoonnummer">
 
-function renderCaseCheckboxList(field, options){
-  const selected = Array.isArray(state.caseIntake[field]) ? state.caseIntake[field] : [];
-  return `
-    <div class="checkgrid">
-      ${options.map(opt=>{
-        const checked = selected.includes(opt) ? "checked" : "";
-        return `<label><input type="checkbox" ${checked} onchange="toggleCaseIntakeMulti('${escapeHtml(field)}','${escapeHtml(opt)}',this.checked);"><span>${escapeHtml(opt)}</span></label>`;
-      }).join("")}
-    </div>
-  `;
-}
+            <textarea name="notes" placeholder="Vraag" required></textarea>
 
-function forceCommitActiveInput(){
-  try{
-    const el = document.activeElement;
-    if(el && typeof el.blur === "function") el.blur();
-  }catch{}
-}
+            <input class="honeypot" name="website" type="text" tabindex="-1" autocomplete="off">
 
-window.saveCaseIntake = async function(){
-  forceCommitActiveInput();
-  const intakeId = state.currentCase?.intake_id;
-  if(!intakeId){
-    alert("Geen intake gekoppeld.");
-    return;
-  }
+            <button class="btn btn-secondary" type="submit">Bericht sturen</button>
 
-  const payload = {
-    id: intakeId,
-    name: state.caseIntake.name ?? "",
-    email: state.caseIntake.email ?? "",
-    phone: state.caseIntake.phone ?? "",
-    service: state.caseIntake.service ?? "",
-    arrival_date: state.caseIntake.arrival_date ?? "",
-    verified_identity: state.caseIntake.verified_identity ?? "",
-    risk_level: state.caseIntake.risk_level ?? "",
-    safety_notes: state.caseIntake.safety_notes ?? "",
-    host_restriction: state.caseIntake.host_restriction ?? "",
-    requests: state.caseIntake.special_requests ?? "",
-    activities: Array.isArray(state.caseIntake.activities) ? state.caseIntake.activities : [],
-    dietary_preferences: Array.isArray(state.caseIntake.dietary_preferences) ? state.caseIntake.dietary_preferences : [],
-    risk_flags: JSON.stringify(Array.isArray(state.caseIntake.risk_flags) ? state.caseIntake.risk_flags : []),
-    allergies: JSON.stringify(Array.isArray(state.caseIntake.allergies) ? state.caseIntake.allergies : []),
-    accommodation: JSON.stringify(Array.isArray(state.caseIntake.accommodation_pref) ? state.caseIntake.accommodation_pref : [])
-  };
+            <div id="contact-message" class="form-message"></div>
+          </form>
 
-  const res = await apiFetch(API+"/intake/update",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify(payload)
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Opslaan intake (via journey) mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-  alert("Intake gegevens opgeslagen");
-  state.caseSnapshotMode = 'live';
-  if(state.currentCase?.id){
-    const snap = safeParseObj(state.currentCase.snapshot) || safeParseObj(state.currentCase.intake_snapshot) || null;
-    document.getElementById("middleDetail").innerHTML = renderCaseDetail(state.currentCase, snap);
-    document.getElementById("rightContent").innerHTML = renderCaseRightPanel(state.currentCase);
-  }
-  const idx = (state.intakes||[]).findIndex(x=>String(x.id)===String(intakeId));
-  if(idx>=0){
-    state.intakes[idx] = { ...state.intakes[idx], ...payload };
-  }
-  if(state.currentCase?.id) loadPayoutsForCase(state.currentCase.id);
-};
-
-window.toggleCaseSnapshotMode = function(mode){
-  state.caseSnapshotMode = mode;
-  if(state.currentCase?.id){
-    const snap = safeParseObj(state.currentCase.snapshot) || safeParseObj(state.currentCase.intake_snapshot) || null;
-    document.getElementById("middleDetail").innerHTML = renderCaseDetail(state.currentCase, snap);
-  }
-};
-
-function renderCaseTemplatesBlock(){
-  const prevForm = state.form;
-  const prevOffer = state.offer;
-  const prevOfferMeta = state.offerMeta;
-
-  state.form = {
-    name: state.caseIntake.name ?? "",
-    email: state.caseIntake.email ?? "",
-    phone: state.caseIntake.phone ?? "",
-    service: state.caseIntake.service ?? "",
-    arrival_date: state.caseIntake.arrival_date ?? ""
-  };
-
-  if(state.caseOffer){
-    state.offer = {
-      service: state.caseOffer.service ?? state.form.service ?? "",
-      extra_days: state.caseOffer.extra_days ?? 0,
-      pickup_km: state.caseOffer.pickup_km ?? 0,
-      late_arrival: state.caseOffer.late_arrival ?? "0",
-      description_text: state.caseOffer.description_text ?? ""
-    };
-    state.offerMeta = state.caseOfferMeta || { groceries_service: 0 };
-  }
-
-  const htmlBlock = renderTemplatesBlock();
-
-  state.form = prevForm;
-  state.offer = prevOffer;
-  state.offerMeta = prevOfferMeta;
-
-  return htmlBlock;
-}
-function hostSelectOptions(currentId){
-  const cur = String(currentId ?? "");
-  const list = Array.isArray(state.hostsDb) ? state.hostsDb : [];
-  const opts = [];
-  opts.push(`<option value="">- geen host -</option>`);
-  for(const h of list){
-    const id = String(h.id);
-    const label = (h.name && String(h.name).trim()) ? String(h.name).trim() : (String(h.email||'').trim() || '(zonder naam)');
-    const sel = (id === cur) ? "selected" : "";
-    opts.push(`<option value="${escapeHtml(id)}" ${sel}>${escapeHtml(label)}</option>`);
-  }
-  return opts.join("");
-}
-
-function findHostById(id){
-  const key = String(id ?? "").trim();
-  if(!key) return null;
-  const list = Array.isArray(state.hostsDb) ? state.hostsDb : [];
-  return list.find(h => String(h.id) === key) || null;
-}
-
-function renderHostLabel(out){
-  const hid = (out && (out.host_id !== null && out.host_id !== undefined)) ? String(out.host_id) : "";
-  const name = String(out?.host_name || "").trim();
-  const email = String(out?.host_email || "").trim();
-  if(name || email){
-    return email ? `${name || "Host"} (${email})` : (name || "Host");
-  }
-  const h = findHostById(hid);
-  if(h){
-    const em = String(h.email||"").trim();
-    return em ? `${h.name} (${em})` : h.name;
-  }
-  return "-";
-}
-
-function hostLevelOptions(cur){
-  const v = String(cur ?? "").trim().toLowerCase() || "standard";
-  const levels = ["standard","trusted","senior","vip"];
-  return levels.map(l=>{
-    const sel = (l===v) ? "selected" : "";
-    return `<option value="${escapeHtml(l)}" ${sel}>${escapeHtml(l)}</option>`;
-  }).join("");
-}
-
-function renderHostMeta(out){
-  const phone = String(out?.host_phone || "").trim();
-  const level = String(out?.host_level || "").trim();
-  const parts = [];
-  if(phone) parts.push(`tel: ${phone}`);
-  if(level) parts.push(`level: ${level}`);
-  return parts.length ? parts.join(" • ") : "";
-}
-
-async function saveCaseHost(){
-  const raw = String(state.caseForm.host_id ?? "").trim();
-  const host_id = raw === "" ? null : parseInt(raw, 10);
-  const ok = await saveCasePatch({ host_id: (Number.isFinite(host_id) ? host_id : null) });
-  if(!ok) return;
-  alert("Host opgeslagen");
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-}
-
-function setHostEditField(field, value){
-  if(!state.caseHostEdit) state.caseHostEdit = {};
-  state.caseHostEdit[field] = value;
-}
-
-async function saveHostEdits(){
-  const hid = String(state.caseHostEdit?.id ?? "").trim();
-  if(!hid){
-    alert("Geen host gekoppeld.");
-    return;
-  }
-
-  const payload = {
-    id: parseInt(hid, 10),
-    name: String(state.caseHostEdit?.name ?? "").trim(),
-    email: String(state.caseHostEdit?.email ?? "").trim(),
-    phone: String(state.caseHostEdit?.phone ?? "").trim(),
-    level: String(state.caseHostEdit?.level ?? "standard").trim().toLowerCase()
-  };
-
-  const allowed = new Set(["standard","trusted","senior","vip"]);
-  if(payload.level && !allowed.has(payload.level)) payload.level = "standard";
-  if(!payload.name){
-    alert("Naam is verplicht.");
-    return;
-  }
-
-  const res = await apiFetch(API + "/hosts/update", {
-    method: "POST",
-    headers: { "Content-Type":"application/json", "Accept":"application/json" },
-    body: JSON.stringify(payload)
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Host opslaan mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-
-  alert("Host bijgewerkt ✅");
-  await loadHostsDb();
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-}
-
-/* ========= CASE: payout UI ========= */
-function centsToEur(cents){
-  const n = toInt(cents);
-  const eur = n / 100;
-  return "€" + eur.toFixed(2);
-}
-async function fetchPayoutsForCase(caseId){
-  const out = await fetchJsonSafe(API + "/payouts?case_id=" + encodeURIComponent(caseId), { payouts: [], costs: [] });
-  return {
-    payouts: Array.isArray(out?.payouts) ? out.payouts : [],
-    costs: Array.isArray(out?.costs) ? out.costs : []
-  };
-}
-function detectMealsIncluded(costs){
-  return (costs||[]).some(c => String(c.description||"").toLowerCase().includes("meal"));
-}
-async function loadPayoutsForCase(caseId){
-  const holder = document.getElementById("casePayoutBlock");
-  if(!holder) return;
-  const hid = (state.currentCase && (state.currentCase.host_id!==null && state.currentCase.host_id!==undefined)) ? String(state.currentCase.host_id) : "";
-  if(!hid){
-    holder.innerHTML = `<div class="banner"><b>Geen host gekoppeld</b><div class="small">Koppel een host en klik “Opslaan host” om payout te tonen.</div></div>`;
-    return;
-  }
-  holder.innerHTML = `<div class="small">Laden…</div>`;
-  const data = await fetchPayoutsForCase(caseId);
-  state.casePayout = data;
-  state.casePayoutIncludeMeals = detectMealsIncluded(data.costs);
-  holder.innerHTML = renderPayoutBlock(caseId);
-}
-function renderPayoutBlock(caseId){
-  const hid = (state.currentCase && (state.currentCase.host_id!==null && state.currentCase.host_id!==undefined)) ? String(state.currentCase.host_id) : "";
-  if(!hid){
-    return `<div class="banner"><b>Geen host gekoppeld</b><div class="small">Koppel een host en klik “Opslaan host”.</div></div>`;
-  }
-
-  const costs = state.casePayout?.costs || [];
-  const total = (costs||[]).reduce((s,r)=> s + toInt(r.amount_cents), 0);
-  const rows = (costs||[]).length ? costs.map(r=>`
-    <div class="row"><div>${escapeHtml(String(r.description||""))}</div><div class="amt">${escapeHtml(centsToEur(r.amount_cents))}</div></div>
-  `).join("") : `<div class="small">Nog geen payout-regels (klik “Herbereken”).</div>`;
-
-  const checked = state.casePayoutIncludeMeals ? "checked" : "";
-  return `
-    <div class="breakdown">
-      <div class="small">Breakdown (case_costs: host_payout)</div>
-      ${rows}
-      <div class="row"><div><b>Totaal</b></div><div class="amt"><b>${escapeHtml(centsToEur(total))}</b></div></div>
-    </div>
-    <label><input type="checkbox" ${checked} onchange="state.casePayoutIncludeMeals=this.checked"> Meals meenemen</label>
-    <div class="actions">
-      <button class="smallbtn" onclick="recalcHostPayout('${escapeHtml(caseId)}')">Herbereken</button>
-      <button class="smallbtn" onclick="markPayoutPaid('${escapeHtml(caseId)}')">Markeer betaald</button>
-    </div>
-  `;
-}
-window.recalcHostPayout = async function(caseId){
-  const res = await apiFetch(API + "/hostpayout/recalculate",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body: JSON.stringify({ case_id: caseId, include_meals: !!state.casePayoutIncludeMeals })
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Herberekenen mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-  await loadPayoutsForCase(caseId);
-};
-window.markPayoutPaid = async function(caseId){
-  const res = await apiFetch(API + "/payouts/mark-paid",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body: JSON.stringify({ case_id: caseId })
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Markeren mislukt: " + formatApiError(out, String(res.status)));
-    return;
-  }
-  await loadPayoutsForCase(caseId);
-};
-
-async function saveCasePatch(patch){
-  if(!state.caseForm?.id) return false;
-
-  const c = state.currentCase || {};
-  const payload = {
-    id: state.caseForm.id,
-    client_name: c.client_name ?? "",
-    client_email: c.client_email ?? "",
-    client_phone: c.client_phone ?? "",
-    service: c.service ?? "",
-    arrival_date: c.arrival_date ?? "",
-    notes: c.notes ?? "",
-    status: c.status ?? "",
-    host_id: (c.host_id === null || c.host_id === undefined) ? ((state.caseForm?.host_id===""||state.caseForm?.host_id==null)?null:parseInt(String(state.caseForm.host_id),10)) : c.host_id,
-    kim_id: String(c.kim_id ?? (state.caseForm?.kim_id ?? "")),
-    home_address_text: c.home_address_text ?? "",
-    stay_address_text: c.stay_address_text ?? "",
-    stay_place_name: c.stay_place_name ?? "",
-    checkin_date: c.checkin_date ?? "",
-    maps_link: c.maps_link ?? "",
-    ...patch
-  };
-
-  const res = await apiFetch(API+"/case/update",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify(payload)
-  });
-  const out = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Journey opslaan mislukt: " + formatApiError(out, String(res.status)));
-    return false;
-  }
-  return true;
-}
-
-window.saveCaseNotes = async function(){
-  const ok = await saveCasePatch({ notes: state.caseForm.notes ?? "" });
-  if(!ok) return;
-  alert("Journey notities opgeslagen");
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-};
-
-window.saveCaseAddresses = async function(){
-  forceCommitActiveInput();
-  const ok = await saveCasePatch({
-    home_address_text: state.caseForm.home_address_text ?? "",
-    stay_place_name: state.caseForm.stay_place_name ?? "",
-    stay_address_text: state.caseForm.stay_address_text ?? "",
-    checkin_date: state.caseForm.checkin_date ?? "",
-    maps_link: state.caseForm.maps_link ?? ""
-  });
-  if(!ok) return;
-  alert("Adressen opgeslagen");
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-};
-
-/* ========= BOOKING / INVOICE NUMBER ========= */
-function generateBookingNumber(){
-  const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth()+1).padStart(2,"0");
-  const dd = String(now.getDate()).padStart(2,"0");
-  const hh = String(now.getHours()).padStart(2,"0");
-  const mi = String(now.getMinutes()).padStart(2,"0");
-  return `OF-${yyyy}${mm}${dd}-${hh}${mi}`;
-}
-
-window.saveBookingNumber = async function(){
-  forceCommitActiveInput();
-  if(!state.caseForm?.id){
-    alert("Geen journey geselecteerd.");
-    return;
-  }
-  const val = String(state.caseForm.kim_id ?? "").trim();
-  const ok = await saveCasePatch({ kim_id: val });
-  if(!ok) return;
-  alert("Boekingsnummer opgeslagen");
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-};
-
-window.generateAndSaveBookingNumber = async function(){
-  if(!state.caseForm?.id){
-    alert("Geen journey geselecteerd.");
-    return;
-  }
-
-  const existing = String(state.caseForm.kim_id ?? state.currentCase?.kim_id ?? "").trim();
-  if(existing){
-    alert("Er staat al een factuurnummer op deze journey.");
-    return;
-  }
-
-  const kim = generateBookingNumber();
-  state.caseForm.kim_id = kim;
-  if(state.currentCase) state.currentCase.kim_id = kim;
-
-  const ok = await saveCasePatch({ kim_id: kim });
-  if(!ok){
-    alert("Nummer gegenereerd maar opslaan mislukt. Probeer opnieuw.");
-    return;
-  }
-
-  alert("Gegenereerd & opgeslagen: " + kim);
-
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-};
-
-async function ensureBookingNumberForCase(){
-  if(!state.caseForm?.id) return null;
-  const current = String(state.caseForm.kim_id ?? "").trim();
-  if(current) return current;
-  const gen = generateBookingNumber();
-  state.caseForm.kim_id = gen;
-  const ok = await saveCasePatch({ kim_id: gen });
-  if(!ok){ alert('Opslaan nummer mislukt (API). Nummer staat wel in het veld.'); return null; }
-  return gen;
-}
-
-window.generateInvoiceNumber = async function(){
-  const out = state.currentFinanceCase;
-  if(!out || !out.id){ alert("Geen finance case geselecteerd."); return; }
-  const res = await apiFetch(API + "/invoice/generate",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body: JSON.stringify({ id: out.id })
-  });
-  const data = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Factuurnummer genereren mislukt: " + formatApiError(data, String(res.status)));
-    return;
-  }
-  alert("Factuurnummer vastgelegd: " + String(data.invoice_number || ""));
-  await refreshAll();
-  await openFinanceCase(out.id);
-};
-
-window.saveFinanceStatus = async function(){
-  const out = state.currentFinanceCase;
-  if(!out || !out.id){ alert("Geen finance case geselecteerd."); return; }
-  const res = await apiFetch(API + "/case/finance-status",{
-    method:"POST",
-    headers:{"Content-Type":"application/json","Accept":"application/json"},
-    body: JSON.stringify({ id: out.id, finance_status: String(state.caseForm.finance_status || "not_ready") })
-  });
-  const data = await res.json().catch(()=> ({}));
-  if(!res.ok){
-    alert("Finance status opslaan mislukt: " + formatApiError(data, String(res.status)));
-    return;
-  }
-  alert("Finance status opgeslagen");
-  await refreshAll();
-  await openFinanceCase(out.id);
-};
-
-window.addExpense = async function(category){
-  const amountField = "expense_" + category + "_amount";
-  const noteField = "expense_" + category + "_note";
-  const amount = parseFloat(String(state.financeDraft[amountField] || "").replace(",", "."));
-  if(!amount || amount <= 0){ alert("Ongeldig bedrag"); return; }
-  const payload = {
-    case_id: state.currentFinanceCase.id,
-    type: "expense",
-    category,
-    amount_cents: Math.round(amount * 100),
-    note: String(state.financeDraft[noteField] || "").trim()
-  };
-  const routes = [API + "/finance/add", API + "/finance/entry/add", API + "/finance_entries/add"];
-  let ok = false;
-  for(const url of routes){
-    try{
-      const res = await apiFetch(url, { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body: JSON.stringify(payload) });
-      if(res.ok){ ok = true; break; }
-    }catch{}
-  }
-  if(!ok){ alert("Kosten opslaan nog niet gekoppeld in de worker."); return; }
-  state.financeDraft[amountField] = "";
-  state.financeDraft[noteField] = "";
-  alert("Kosten opgeslagen");
-  await refreshAll();
-  await openFinanceCase(state.currentFinanceCase.id);
-};
-
-window.saveCaseStatus = async function(){
-  const ok = await saveCasePatch({ status: state.caseForm.status ?? "planned" });
-  if(!ok) return;
-  alert("Journey status opgeslagen");
-  await refreshAll();
-  if(state.currentCase?.id) await openCase(state.currentCase.id);
-};
-
-/* ========= BERICHTEN tab ========= */
-
-let messagesAllLoadedOnce = false;
-
-async function ensureMessagesAllLoaded(){
-  if(messagesAllLoadedOnce) return;
-  state.messagesAll = await fetchArraySafe(API + "/messages");
-  messagesAllLoadedOnce = true;
-}
-
-function setMessageFilter(field, value){
-  state.messageFilters[field] = String(value ?? "");
-}
-
-function allMessagesCombined(){
-  const a = Array.isArray(state.messagesAll) ? state.messagesAll : [];
-  const u = Array.isArray(state.messagesUnlinked) ? state.messagesUnlinked : [];
-
-  const seen = new Set();
-  const out = [];
-
-  for(const m of u){
-    if(!m || !m.id) continue;
-    if(seen.has(m.id)) continue;
-    seen.add(m.id);
-    out.push(m);
-  }
-
-  for(const m of a){
-    if(!m || !m.id) continue;
-    if(seen.has(m.id)) continue;
-    seen.add(m.id);
-    out.push(m);
-  }
-
-  out.sort((x,y)=>String(y.created_at||"").localeCompare(String(x.created_at||"")));
-  return out;
-}
-
-function getFilteredMessages(){
-  const f = state.messageFilters || { scope:"website", q:"" };
-  const scope = String(f.scope||"website");
-  const q = normalizeKey(f.q);
-
-  const list = allMessagesCombined();
-  const showHidden = String(f.show_hidden||"0") === "1";
-  const hidden = state.hiddenMessageIds || {};
-
-  return list.filter(m=>{
-    if(!showHidden && hidden[String(m.id)]) return false;
-    const intakeId = m.intake_id;
-    const src = String(m.source||"");
-    const isWebsiteUnlinked = (src === "website" && (intakeId === null || intakeId === undefined || intakeId === ""));
-    const isLinked = !!intakeId;
-
-    if(scope === "website" && !isWebsiteUnlinked) return false;
-    if(scope === "gekoppeld" && !isLinked) return false;
-
-    if(q){
-      const hay = [
-        m.name, m.email, m.phone, m.topic,
-        m.source, m.intake_id, m.message
-      ].map(x=>normalizeKey(x)).join(" ");
-      if(!hay.includes(q)) return false;
-    }
-    return true;
-  });
-}
-
-function buildMessagesFilterUI(){
-  const f = state.messageFilters || { scope:"website", q:"" };
-  return `
-    <div class="msgfilter">
-      <div class="small"><b>Filters</b></div>
-
-      <label class="label">Type</label>
-      <select onchange="onMessageFilterChange('scope', this.value)">
-        <option value="website" ${f.scope==="website"?"selected":""}>Website (algemeen)</option>
-        <option value="gekoppeld" ${f.scope==="gekoppeld"?"selected":""}>Gekoppeld (met intake)</option>
-        <option value="alles" ${f.scope==="alles"?"selected":""}>Alles</option>
-      </select>
-
-      <label class="label">Zoek</label>
-      <input value="${escapeHtml(f.q||"")}" placeholder="naam / email / tekst" oninput="onMessageFilterChange('q', this.value)">
-
-      <label class="label" style="display:flex;align-items:center;gap:.5rem;margin-top:.35rem">
-        <input type="checkbox" ${String(f.show_hidden||"0")==="1"?"checked":""} onchange="onMessageFilterChange('show_hidden', this.checked?'1':'0')">
-        Toon verborgen (sessie)
-      </label>
-
-      <div class="actions" style="margin-top:.35rem">
-        <button class="smallbtn" onclick="unhideAllMessages(); renderMessagesList();">Herstel verborgen (sessie)</button>
-      </div>
-
-      <div class="hint" id="msgCount"></div>
-      <div class="hint" id="msgNote"></div>
-    </div>
-    <div id="msgListItems"></div>
-  `;
-}
-
-window.onMessageFilterChange = async function(field, value){
-  setMessageFilter(field, value);
-
-  const scope = String(state.messageFilters.scope || "website");
-  if(scope === "gekoppeld" || scope === "alles"){
-    await ensureMessagesAllLoaded();
-  }
-
-  renderMessagesList();
-};
-
-function renderMessagesList(){
-  const el = document.getElementById("leftList");
-  el.innerHTML = buildMessagesFilterUI();
-
-  const filtered = getFilteredMessages();
-  const listEl = document.getElementById("msgListItems");
-
-  listEl.innerHTML = filtered.map(m=>{
-    const dt = safeDateString(m.created_at||m.received_date);
-    const src = String(m.source||"");
-    const name = String(m.name||"-");
-    const email = String(m.email||"");
-    const intakeId = m.intake_id;
-
-    const previewRaw = String(m.message||"");
-    const preview = previewRaw.length > 140 ? previewRaw.slice(0,140)+"…" : previewRaw;
-
-    const badgeA = src ? `<span class="badge">${escapeHtml(src)}</span>` : "";
-    const badgeB = intakeId ? `<span class="badge">intake</span>` : `<span class="badge">algemeen</span>`;
-
-    return `
-      <div class="item" onclick="openMessage('${escapeHtml(m.id)}')">
-        <b>${escapeHtml(name)}</b> ${badgeA} ${badgeB}<br>
-        <span class="small">${escapeHtml(dt || "")}${email?` • ${escapeHtml(email)}`:""}</span>
-        <div class="small" style="white-space:pre-wrap;margin-top:.25rem">${escapeHtml(preview)}</div>
-      </div>
-    `;
-  }).join("");
-
-  const info = document.getElementById("msgCount");
-  if(info){
-    info.textContent = `${filtered.length} / ${allMessagesCombined().length} berichten`;
-  }
-
-  const note = document.getElementById("msgNote");
-  if(note){
-    const scope = String(state.messageFilters.scope||"website");
-    if((scope==="gekoppeld" || scope==="alles") && !messagesAllLoadedOnce){
-      note.textContent = "Laden…";
-    } else if(scope==="website"){
-      note.textContent = "Website-berichten komen uit /api/messages/unlinked.";
-    } else if(scope==="gekoppeld"){
-      note.textContent = "Gekoppelde berichten komen uit /api/messages (on-demand).";
-    } else {
-      note.textContent = "Alles = unlinked + /api/messages (on-demand).";
-    }
-  }
-}
-
-window.hideCurrentMessage = function(){
-  if(!state.currentMessage?.id) return;
-  const ok = confirm("Dit bericht verbergen in de UI (alleen deze sessie)? (Geen data wordt verwijderd)");
-  if(!ok) return;
-  hideMessageId(state.currentMessage.id);
-  closeCurrentView();
-  renderMessagesList();
-};
-function findMessageById(id){
-  const list = allMessagesCombined();
-  return list.find(m=>String(m.id)===String(id)) || null;
-}
-
-window.openMessage = async function(messageId){
-  const m = findMessageById(messageId);
-  if(!m){
-    document.getElementById("middleDetail").innerHTML = `<div class="small">Bericht niet gevonden.</div>`;
-    document.getElementById("rightContent").innerHTML = `<div class="small">-</div>`;
-    return;
-  }
-
-  state.currentMessage = m;
-  state.currentIntake = null;
-  state.currentCase = null;
-
-  const dt = safeDateString(m.created_at||m.received_date);
-  const intakeId = m.intake_id ? String(m.intake_id) : "";
-  const src = String(m.source||"-");
-
-  document.getElementById("middleDetail").innerHTML = `
-    ${closeButtonHtml()}
-    <h3>✉️ Bericht</h3>
-
-    <div class="section" style="border-top:0;margin-top:.25rem;padding-top:0">
-      <div class="kv">
-        ${renderKV("Datum", dt || "-")}
-        ${renderKV("Bron (source)", src)}
-        ${renderKV("Naam", m.name || "-")}
-        ${renderKV("Email", m.email || "-")}
-        ${renderKV("Telefoon", m.phone || "-")}
-        ${renderKV("Topic", m.topic || "-")}
-        ${renderKV("Intake ID", intakeId || "-")}
-      </div>
-    </div>
-
-    <div class="section">
-      <h4>Tekst</h4>
-      <div class="banner"><pre class="msgpre">${escapeHtml(m.message || "")}</pre></div>
-    </div>
-  `;
-
-  let caseId = "";
-  if(intakeId){
-    const c = (state.cases||[]).find(x=>String(x.intake_id||"")===intakeId);
-    if(c?.id) caseId = String(c.id);
-  }
-
-  document.getElementById("rightContent").innerHTML = `
-    <div class="kpi">
-      <div class="small">Acties</div>
-      <div class="actions">
-        <button class="smallbtn" onclick="copyToClipboard('${escapeHtml(m.email||"")}')">Kopieer email</button>
-        <button class="smallbtn" onclick="copyToClipboard('${escapeHtml(m.phone||"")}')">Kopieer telefoon</button>
-        <button class="smallbtn" onclick="copyToClipboard(${JSON.stringify(String(m.message||""))})">Kopieer tekst</button>
-        <button class="smallbtn" onclick="hideCurrentMessage()">Verberg bericht</button>
-      </div>
-
-      ${intakeId ? `
-        <div class="section">
-          <h4 style="margin:.25rem 0">Gekoppeld</h4>
-          <div class="actions">
-            <button class="smallbtn" onclick="openIntakeFromMessage('${escapeHtml(intakeId)}')">Open intake</button>
-            ${caseId ? `<button class="smallbtn" onclick="openCaseFromMessage('${escapeHtml(caseId)}')">Open journey</button>` : ``}
-          </div>
-          <div class="hint">Als intake is gearchiveerd zie je ‘m niet in de actieve intake-lijst.</div>
-        </div>
-      ` : `
-        <div class="hint">Dit is een algemeen website-bericht (geen intake gekoppeld).</div>
-      `}
-    </div>
-  `;
-};
-
-window.openIntakeFromMessage = async function(intakeId){
-  const found = (state.intakes||[]).find(x=>String(x.id)===String(intakeId));
-  if(!found){
-    alert("Intake niet gevonden in actieve lijst (mogelijk gearchiveerd).");
-    return;
-  }
-  setPage("intakes");
-  openIntake(intakeId);
-};
-
-window.openCaseFromMessage = async function(caseId){
-  setPage("cases");
-  openCase(caseId);
-};
-
-
-function round2(n){ return Math.round((Number(n)||0) * 100) / 100; }
-function financeInclToExcl(incl){ return round2((Number(incl)||0) / 1.21); }
-function financeVatFromIncl(incl){ return round2((Number(incl)||0) - financeInclToExcl(incl)); }
-function eur2(n){ return "€" + round2(n).toFixed(2); }
-function amountCentsToEurNumber(c){ return round2((toInt(c)||0) / 100); }
-function computeFinanceInvoiceFromCase(out){
-  const serviceName = String(out?.offer_service || out?.service || "").trim();
-  const base = priceForService(serviceName);
-  const extraDays = serviceName==="Adventure" ? clampExtraDays(out?.offer_extra_days || 0) : 0;
-  const late = toBoolInt(out?.offer_late_arrival) ? LATE_ARRIVAL_EUR : 0;
-  const pickupKm = toInt(out?.offer_pickup_km || 0);
-  const overKm = Math.max(0, pickupKm - PICKUP_FREE_KM);
-  const pickup = round2(overKm * PICKUP_RATE_EUR_PER_KM);
-  const descParts = splitDescriptionAndMeta(String(out?.offer_description || ""));
-  const groceries = toBoolInt(descParts?.meta?.groceries_service) ? GROCERIES_SERVICE_EUR : 0;
-  const lines = [];
-  if(base>0) lines.push({ label: `Dienst: ${serviceName||"-"}`, incl: base });
-  if(extraDays>0) lines.push({ label: `Extra dag(en): ${extraDays} × ${euro(EXTRA_DAY_PRICE_EUR)}`, incl: extraDays * EXTRA_DAY_PRICE_EUR });
-  if(groceries>0) lines.push({ label: "Boodschappenservice", incl: groceries });
-  if(late>0) lines.push({ label: "Late arrival", incl: late });
-  if(pickup>0) lines.push({ label: `Pickup > ${PICKUP_FREE_KM} km`, incl: pickup });
-  const incl = round2(lines.reduce((s,l)=>s + Number(l.incl||0), 0));
-  const excl = financeInclToExcl(incl);
-  const vat = financeVatFromIncl(incl);
-  return { lines, incl, excl, vat };
-}
-function summarizeFinanceCosts(data){
-  const costs = Array.isArray(data?.costs) ? data.costs : [];
-  let uber = 0, meals = 0, other = 0;
-  for(const c of costs){
-    const desc = String(c.description || c.note || "").trim().toLowerCase();
-    const amount = amountCentsToEurNumber(c.amount_cents);
-
-    // Host payout breakdown is informational only and must not hit margin twice
-    if(
-      desc.includes("base ") ||
-      desc.includes("extra day") ||
-      desc.includes("late night") ||
-      desc.includes("pickup") ||
-      desc.includes("host payout")
-    ){
-      continue;
-    }
-
-    if(desc.includes("uber")) uber += amount;
-    else if(desc.includes("meal") || desc.includes("maalt") || desc.includes("lunch")) meals += amount;
-    else other += amount;
-  }
-  return { uber: round2(uber), meals: round2(meals), other: round2(other), total: round2(uber+meals+other) };
-}
-function summarizeHostPayout(data){
-  const payouts = Array.isArray(data?.payouts) ? data.payouts : [];
-  const costs = Array.isArray(data?.costs) ? data.costs : [];
-
-  // payouts = financiële waarheid (totaal)
-  // case_costs(type='host_payout') = breakdown, NIET nog eens optellen
-  const latest = payouts.length ? payouts[0] : null;
-  const total = latest ? amountCentsToEurNumber(latest.amount_cents) : 0;
-
-  const rows = latest ? [{
-    desc: String(latest.status || "").trim()==="paid" ? "Host payout (paid)" : "Host payout",
-    amount: total
-  }] : [];
-
-  const breakdown = costs.map(c => ({
-    desc: String(c.description || "Host payout detail"),
-    amount: amountCentsToEurNumber(c.amount_cents)
-  }));
-
-  return { rows, total: round2(total), breakdown };
-}
-window.setFinanceDraft = function(field, value){
-  if(!state.financeDraft) state.financeDraft = {};
-  state.financeDraft[field] = value;
-};
-function ensureFinanceDraftForCase(out){
-  const d = state.financeDraft || {};
-  state.financeDraft = {
-    customer_type: d.customer_type || "private",
-    company_name: d.company_name || "",
-    contact_name: d.contact_name || String(out?.client_name || "").trim(),
-    address_line1: d.address_line1 || "",
-    address_line2: d.address_line2 || "",
-    postal_code: d.postal_code || "",
-    city: d.city || "",
-    country: d.country || "Nederland",
-    deposit_enabled: d.deposit_enabled || 0,
-    deposit_percentage: String(d.deposit_percentage || "30"),
-    expense_uber_amount: d.expense_uber_amount || "",
-    expense_uber_note: d.expense_uber_note || "",
-    expense_meal_amount: d.expense_meal_amount || "",
-    expense_meal_note: d.expense_meal_note || "",
-    expense_other_amount: d.expense_other_amount || "",
-    expense_other_note: d.expense_other_note || ""
-  };
-}
-
-/* ========= finance ========= */
-function renderFinanceLeft(){
-  const el = document.getElementById("leftList");
-  const rows = (state.cases||[]).filter(c=>{
-    const fs = String(c.finance_status || "not_ready");
-    return fs==="ready_to_invoice" || fs==="invoiced" || String(c.kim_id||"").trim();
-  });
-  if(!rows.length){
-    el.innerHTML = `<div class="banner"><b>Finance</b><div class="small">Nog geen cases beschikbaar voor finance.</div></div>`;
-    return;
-  }
-  el.innerHTML = rows.map(c=>`
-    <div class="item" onclick="openFinanceCase('${escapeHtml(c.id)}')">
-      <b>${escapeHtml(c.client_name||"-")}</b><br>
-      <span class="small">${escapeHtml(c.kim_id||"-")} • ${escapeHtml(c.service||"")} • ${escapeHtml(String(c.finance_status||"not_ready"))}</span>
-    </div>
-  `).join("");
-}
-
-async function renderFinance(){
-  renderFinanceLeft();
-  renderOverviewState("finance");
-}
-
-async function openFinanceCase(caseId){
-  const res = await apiFetch(API+"/case/get?id="+encodeURIComponent(caseId), { headers: { "Accept":"application/json" }});
-  const ct=(res.headers.get("content-type")||"").toLowerCase();
-  const out = ct.includes("application/json") ? await res.json().catch(()=> ({})) : {};
-  if(!res.ok){
-    document.getElementById("middleDetail").innerHTML = `<div class="small">Finance laden mislukt: ${escapeHtml(formatApiError(out, String(res.status)))}</div>`;
-    document.getElementById("rightContent").innerHTML = `<div class="small">-</div>`;
-    return;
-  }
-  state.currentFinanceCase = out;
-  state.currentCase = out;
-  state.caseForm.id = out.id;
-  state.caseForm.kim_id = String(out.kim_id ?? "");
-  state.caseForm.invoice_number = String(out.invoice_number ?? "");
-  state.caseForm.finance_status = String(out.finance_status ?? "not_ready");
-  state.form = {
-    name: out.client_name || "",
-    email: out.client_email || "",
-    phone: out.client_phone || "",
-    service: out.offer_service || out.service || "",
-    arrival_date: out.arrival_date || ""
-  };
-  ensureFinanceDraftForCase(out);
-
-  state.casePayout = { payouts: [], costs: [] };
-  const hid = (out.host_id!==null && out.host_id!==undefined) ? String(out.host_id) : "";
-  if(hid && typeof fetchPayoutsForCase === "function"){
-    try{ state.casePayout = await fetchPayoutsForCase(out.id); }catch{}
-  }
-  const invoiceCalc = computeFinanceInvoiceFromCase(out);
-  const payoutSummary = summarizeHostPayout(state.casePayout);
-  const costSummary = summarizeFinanceCosts(state.casePayout);
-  const margin = round2(invoiceCalc.excl - payoutSummary.total - costSummary.total);
-  const d = state.financeDraft || {};
-  const depositPct = Math.max(0, Math.min(100, parseFloat(String(d.deposit_percentage || "0").replace(",", ".")) || 0));
-  const depositIncl = round2(invoiceCalc.incl * (depositPct / 100));
-  const remainderIncl = round2(invoiceCalc.incl - depositIncl);
-
-  document.getElementById("middleDetail").innerHTML = `
-    <h3>💶 Finance — ${escapeHtml(out.client_name||"-")}</h3>
-    <div class="kv">
-      ${renderKV("KIM referentie", out.kim_id || "-")}
-      ${renderKV("Factuurnummer", out.invoice_number || "-")}
-      ${renderKV("Finance status", out.finance_status || "not_ready")}
-      ${renderKV("Dienst", out.offer_service || out.service || "-")}
-      ${renderKV("Aankomst", out.arrival_date || "-")}
-      ${renderKV("Email", out.client_email || "-")}
-    </div>
-
-    <div class="section">
-      <h4>📄 Factuur</h4>
-      <div class="breakdown">
-        <div class="row"><div>Totaal incl. btw</div><div class="amt">${escapeHtml(eur2(invoiceCalc.incl))}</div></div>
-        <div class="row"><div>Subtotaal excl. btw</div><div class="amt">${escapeHtml(eur2(invoiceCalc.excl))}</div></div>
-        <div class="row"><div>BTW (21%)</div><div class="amt">${escapeHtml(eur2(invoiceCalc.vat))}</div></div>
-        ${toBoolInt(d.deposit_enabled) ? `<div class="row"><div>Aanbetaling (${escapeHtml(String(depositPct))}%)</div><div class="amt">${escapeHtml(eur2(depositIncl))}</div></div>
-        <div class="row"><div>Restant</div><div class="amt">${escapeHtml(eur2(remainderIncl))}</div></div>` : ``}
-      </div>
-    </div>
-
-    <div class="section">
-      <h4>🏠 Host payout</h4>
-      <div class="hint">Host payout is leidend vanuit payout-totaal. Breakdown hieronder is alleen detail en telt niet dubbel mee.</div>
-      <div class="breakdown">
-        ${(payoutSummary.rows.length ? payoutSummary.rows.map(r=>`<div class="row"><div>${escapeHtml(r.desc)}</div><div class="amt">${escapeHtml(eur2(r.amount))}</div></div>`).join("") : `<div class="small">Nog geen payout-regels beschikbaar.</div>`)}
-        <div class="row"><div><b>Totaal payout</b></div><div class="amt"><b>${escapeHtml(eur2(payoutSummary.total))}</b></div></div>
-      </div>
-      ${payoutSummary.breakdown && payoutSummary.breakdown.length ? `
-        <div class="breakdown" style="margin-top:.55rem">
-          <div class="small" style="margin-bottom:.25rem"><b>Breakdown</b></div>
-          ${payoutSummary.breakdown.map(r=>`<div class="row"><div>${escapeHtml(r.desc)}</div><div class="amt">${escapeHtml(eur2(r.amount))}</div></div>`).join("")}
-        </div>
-      ` : ``}
-    </div>
-
-    <div class="section">
-      <h4>📊 Resultaat</h4>
-      <div class="breakdown">
-        <div class="row"><div>Omzet excl. btw</div><div class="amt">${escapeHtml(eur2(invoiceCalc.excl))}</div></div>
-        <div class="row"><div>Host payout</div><div class="amt">${escapeHtml(eur2(payoutSummary.total))}</div></div>
-        <div class="row"><div>Kosten</div><div class="amt">${escapeHtml(eur2(costSummary.total))}</div></div>
-        <div class="row"><div><b>Marge</b></div><div class="amt"><b>${escapeHtml(eur2(margin))}</b></div></div>
-      </div>
-    </div>
-  `;
-
-  document.getElementById("rightContent").innerHTML = `
-    <div class="kpi">
-      <h4>Finance blok</h4>
-
-      <div class="section">
-        <h4>⚙️ Finance controle</h4>
-        <select onchange="state.caseForm.finance_status=this.value">
-          <option value="not_ready" ${String(state.caseForm.finance_status||'not_ready')==='not_ready'?'selected':''}>Niet klaar</option>
-          <option value="ready_to_invoice" ${String(state.caseForm.finance_status||'not_ready')==='ready_to_invoice'?'selected':''}>Klaar voor factuur</option>
-          <option value="invoiced" ${String(state.caseForm.finance_status||'not_ready')==='invoiced'?'selected':''}>Gefactureerd</option>
-        </select>
-        <div class="actions">
-          <button class="smallbtn" onclick="saveFinanceStatus()">Opslaan finance status</button>
-          <button class="smallbtn" onclick="generateInvoiceNumber()" ${String(out.invoice_number||'').trim() ? 'disabled' : ''}>Genereer factuurnummer</button>
         </div>
       </div>
+    </section>
 
-      <div class="section">
-        <h4>🏷️ Factuurgegevens</h4>
-        <label class="label">Factuurtype</label>
-        <select onchange="setFinanceDraft('customer_type', this.value); openFinanceCase(state.currentFinanceCase.id)">
-          <option value="private" ${String(d.customer_type||'private')==='private'?'selected':''}>Particulier</option>
-          <option value="business" ${String(d.customer_type||'private')==='business'?'selected':''}>Zakelijk</option>
-        </select>
+  </main>
 
-        <label class="label">Bedrijfsnaam</label>
-        <input value="${escapeHtml(d.company_name || '')}" oninput="setFinanceDraft('company_name', this.value)" placeholder="">
-
-        <label class="label">Naam</label>
-        <input value="${escapeHtml(d.contact_name || out.client_name || '')}" oninput="setFinanceDraft('contact_name', this.value)" placeholder="">
-
-        <label class="label">Adresregel 1</label>
-        <input value="${escapeHtml(d.address_line1 || '')}" oninput="setFinanceDraft('address_line1', this.value)" placeholder="">
-
-        <label class="label">Adresregel 2</label>
-        <input value="${escapeHtml(d.address_line2 || '')}" oninput="setFinanceDraft('address_line2', this.value)" placeholder="">
-
-        <label class="label">Postcode</label>
-        <input value="${escapeHtml(d.postal_code || '')}" oninput="setFinanceDraft('postal_code', this.value)" placeholder="">
-
-        <label class="label">Plaats</label>
-        <input value="${escapeHtml(d.city || '')}" oninput="setFinanceDraft('city', this.value)" placeholder="">
-
-        <label class="label">Land</label>
-        <input value="${escapeHtml(d.country || 'Nederland')}" oninput="setFinanceDraft('country', this.value)" placeholder="">
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>UrbanChill Nairobi</strong><br>
+        <span>Take your time in the city.</span><br><br>
+        <em>Not in a hurry. Just in the city.</em>
       </div>
 
-      <div class="section">
-        <h4>📄 Factuur templates</h4>
-        <div class="hint">Alleen factuur-gerelateerde templates in Finance.</div>
-        <label class="label">Template</label>
-        <select onchange="state.templates.audience='client_nl'; state.templates.key=this.value; openFinanceCase(state.currentFinanceCase.id)">
-          <option value="nl_invoice_total" ${String(state.templates.key||'nl_invoice_total')==='nl_invoice_total'?'selected':''}>Volledige factuur</option>
-          <option value="nl_invoice_deposit" ${String(state.templates.key||'nl_invoice_total')==='nl_invoice_deposit'?'selected':''}>Deelfactuur / aanbetaling</option>
-          <option value="nl_invoice_remainder" ${String(state.templates.key||'nl_invoice_total')==='nl_invoice_remainder'?'selected':''}>Restfactuur</option>
-        </select>
-
-        <label class="label">Aanbetaling actief</label>
-        <select onchange="setFinanceDraft('deposit_enabled', this.value); openFinanceCase(state.currentFinanceCase.id)">
-          <option value="0" ${toBoolInt(d.deposit_enabled) ? '' : 'selected'}>Nee</option>
-          <option value="1" ${toBoolInt(d.deposit_enabled) ? 'selected' : ''}>Ja</option>
-        </select>
-
-        <label class="label">Percentage</label>
-        <input value="${escapeHtml(String(d.deposit_percentage || '30'))}" oninput="setFinanceDraft('deposit_percentage', this.value)" placeholder="30">
-
-        <div class="actions">
-          <button class="smallbtn" onclick="financeFillInvoiceCompose()">Vul compose</button>
-          <button class="smallbtn" onclick="financeCopyInvoiceBlock()">Kopieer klantmail</button>
-        </div>
+      <div class="footer-meta">
+        Privacy first.<br>
+        Geen tracking.<br>
+        Alleen direct contact.
       </div>
 
-      <div class="section">
-        <h4>💸 Kosten</h4>
-        <div class="breakdown">
-          <div class="row"><div>Uber</div><div class="amt">${escapeHtml(eur2(costSummary.uber))}</div></div>
-          <div class="row"><div>Meals</div><div class="amt">${escapeHtml(eur2(costSummary.meals))}</div></div>
-          <div class="row"><div>Overig</div><div class="amt">${escapeHtml(eur2(costSummary.other))}</div></div>
-          <div class="row"><div><b>Totaal kosten</b></div><div class="amt"><b>${escapeHtml(eur2(costSummary.total))}</b></div></div>
-        </div>
-
-        <div class="section">
-          <h4>🚕 Uber</h4>
-          <input value="${escapeHtml(d.expense_uber_amount || '')}" oninput="setFinanceDraft('expense_uber_amount', this.value)" placeholder="Bedrag €">
-          <input value="${escapeHtml(d.expense_uber_note || '')}" oninput="setFinanceDraft('expense_uber_note', this.value)" placeholder="Notitie">
-          <div class="actions"><button class="smallbtn" onclick="addExpense('uber')">Opslaan</button></div>
-        </div>
-
-        <div class="section">
-          <h4>🍽️ Meals</h4>
-          <input value="${escapeHtml(d.expense_meal_amount || '')}" oninput="setFinanceDraft('expense_meal_amount', this.value)" placeholder="Bedrag €">
-          <input value="${escapeHtml(d.expense_meal_note || '')}" oninput="setFinanceDraft('expense_meal_note', this.value)" placeholder="Notitie">
-          <div class="actions"><button class="smallbtn" onclick="addExpense('meal')">Opslaan</button></div>
-        </div>
-
-        <div class="section">
-          <h4>📦 Overig</h4>
-          <input value="${escapeHtml(d.expense_other_amount || '')}" oninput="setFinanceDraft('expense_other_amount', this.value)" placeholder="Bedrag €">
-          <input value="${escapeHtml(d.expense_other_note || '')}" oninput="setFinanceDraft('expense_other_note', this.value)" placeholder="Notitie">
-          <div class="actions"><button class="smallbtn" onclick="addExpense('other')">Opslaan</button></div>
-        </div>
-      </div>
-
-      
-<div class="section">
-  <h4>🧾 Bestaande kostenregels (expense)</h4>
-  <div class="hint">Verwijderen werkt alleen voor <code>expense</code> (Uber/Meals/Overig).</div>
-
-  <div class="breakdown">
-    ${(Array.isArray(state.casePayout?.costs) ? state.casePayout.costs : [])
-      .filter(x => String(x.type||"") === "expense")
-      .map(x => `
-        <div class="row">
-          <div>
-            ${escapeHtml(String(x.description||""))}
-            <div class="small">${escapeHtml(safeDateString(x.created_at||""))}</div>
-          </div>
-          <div class="amt" style="text-align:right">
-            ${escapeHtml(eur2(amountCentsToEurNumber(x.amount_cents)))}
-            <div class="actions" style="margin-top:.25rem;justify-content:flex-end">
-              <button class="smallbtn" onclick="financeDeleteExpense('${'${'}escapeHtml(String(x.id||''))${'}'}')">Verwijder</button>
-            </div>
-          </div>
-        </div>
-      `).join("")
-    || `<div class="small">Geen expense regels gevonden.</div>`}
-  </div>
-</div><div class="section">
-        <h4>🧾 Compose</h4>
-        <label class="label">To</label>
-        <input value="${escapeHtml(state.compose?.to || out.client_email || '')}" readonly>
-        <label class="label">Subject</label>
-        <input value="${escapeHtml(state.compose?.subject || '')}" readonly>
-        <label class="label">Body</label>
-        <textarea style="min-height:160px" readonly>${escapeHtml(state.compose?.body || '')}</textarea>
+      <div class="footer-signature">
+        UrbanChill is gevestigd in Nederland en werkt met lokale hosts in Nairobi.
       </div>
     </div>
-  `;
-}
+  </footer>
 
-/* ========= data loading ========= */
-async function loadIntakes(){ state.intakes = await fetchArraySafe(API + "/intakes"); }
-async function loadCases(){ state.cases = await fetchArraySafe(API + "/cases"); }
-async function loadMessagesUnlinked(){ state.messagesUnlinked = await fetchArraySafe(API + "/messages/unlinked"); }
-
-async function refreshAll(){
-  await Promise.all([
-    loadServices(),
-    loadHostsDb(),
-    loadIntakes(),
-    loadCases(),
-    loadMessagesUnlinked()
-  ]);
-
-  const page = String(state.page || "intakes");
-
-  if(page==="intakes"){
-    renderIntakeList();
-    renderOverviewState("intakes");
-    return;
-  }
-
-  if(page==="cases"){
-    renderCaseList();
-    renderOverviewState("cases");
-    return;
-  }
-
-  if(page==="finance"){
-    await renderFinance();
-    return;
-  }
-
-  if(page==="host"){
-    renderHostPage();
-    renderOverviewState("host");
-    return;
-  }
-
-  if(page==="overhead"){
-    await renderOverheadPage();
-    return;
-  }
-
-  renderMessagesList();
-  renderOverviewState("messages");
-}
-
-/* ========= init ========= */
-(async function init(){
-  state.hiddenMessageIds = loadHiddenMessageIds();
-  await refreshAll();
-  setPage("intakes");
-})();
-
-function saveInvoicePaid(){
-  const id = state.currentCase?.id;
-  const val = document.getElementById('invoicePaid').value;
-  apiFetch('/api/case/invoice-paid',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({id, invoice_paid:val})
-  }).then(r=>r.json()).then(d=>{
-    if(d.success){
-      document.getElementById('invoiceLockedMsg').innerText = val==='yes' ? '✔ Definitief verwerkt' : '';
-      refreshAll();
-    }else alert(JSON.stringify(d));
-  });
-}
-
-function unlockInvoice(){
-  const id = state.currentCase?.id;
-  const code = document.getElementById('unlockCode').value;
-  const reason = document.getElementById('unlockReason').value;
-  apiFetch('/api/case/invoice-unlock',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({id, code, reason})
-  }).then(r=>r.json()).then(d=>{
-    if(d.success){
-      alert('Factuur heropend');
-      refreshAll();
-    }else alert(JSON.stringify(d));
-  });
-}
-
-function saveClientPayment(){
-  alert('Client payment status opgeslagen (placeholder)');
-}
-
-function financeDeleteExpense(costId){
-  const id = String(costId || "").trim();
-  if(!id){ alert("missing id"); return; }
-  if(!confirm("Kostenregel verwijderen?")) return;
-
-  apiFetch(API + "/finance/delete",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-    body: JSON.stringify({ id })
-  }).then(r=>r.json().catch(()=>({}))).then(d=>{
-    if(d && d.success){
-      const out = state.currentFinanceCase || state.currentCase;
-      refreshAll().then(()=> out?.id ? openFinanceCase(out.id) : null);
-    }else{
-      alert(JSON.stringify(d||{}));
-    }
-  }).catch(err=> alert(String(err||"error")));
-}
-
-</script>
+  <script src="/main.js?v=5" defer></script>
 </body>
 </html>
