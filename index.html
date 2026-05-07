@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>UrbanChill — Nederlandse landing service voor Nairobi</title>
-<meta name="description" content="Persoonlijke begeleiding voor Nederlanders die naar Nairobi reizen voor werk. Modulair model: Arrival, losse Extra Days, en Concierge — kies wat past." />
+<title>UrbanChill: Nederlandse landing service voor Nairobi</title>
+<meta name="description" content="Persoonlijke begeleiding voor Nederlanders die naar Nairobi reizen voor werk. Modulair model: Arrival, losse Extra Days, en Concierge. Kies wat past." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1047,6 +1047,104 @@
     color: var(--terracotta);
   }
 
+  /* ===== Honesty block ===== */
+  .honesty {
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+  }
+
+  .honesty-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .honesty h2 {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 0;
+  }
+
+  .honesty h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .honesty-body {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .honesty-body p {
+    margin-bottom: 18px;
+  }
+
+  .honesty-body p:last-child {
+    margin-bottom: 0;
+    color: var(--text-muted);
+    font-size: 15px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  /* ===== FAQ closing CTA ===== */
+  .faq-closer {
+    margin-top: 56px;
+    padding: 40px 44px;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 4px;
+    max-width: 780px;
+  }
+
+  .faq-closer-heading {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .faq-closer-heading em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .faq-closer p {
+    color: rgba(244, 239, 230, 0.8);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .faq-closer .btn-primary {
+    background: var(--terracotta);
+    color: var(--bg);
+  }
+
+  .faq-closer .btn-primary:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  @media (max-width: 900px) {
+    .honesty-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .faq-closer {
+      padding: 32px 28px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1078,7 +1176,7 @@
           <div class="hero-eyebrow">Nederlandse landing service · Nairobi</div>
           <h1>Land in Nairobi <em>met iemand naast je</em>.</h1>
           <p class="hero-lead">
-            Persoonlijke begeleiding voor Nederlanders die voor werk naar Nairobi reizen. Vanaf het eerste contact tot na je landing — één Nederlandse aanspreekpunt, één factuur in euro's, alles geregeld voor je voet zet op Keniaanse bodem.
+            Persoonlijke begeleiding voor Nederlanders die voor werk naar Nairobi reizen. Vanaf het eerste contact tot na je landing. Eén Nederlandse aanspreekpunt, één factuur in euro's, alles geregeld voor je voet zet op Keniaanse bodem.
           </p>
           <div class="hero-ctas">
             <button class="btn-primary" onclick="showPage('services')">
@@ -1103,7 +1201,7 @@
         <div class="section-eyebrow">Voor wie</div>
         <h2>Voor mensen die <em>moeten werken</em>, niet leren overleven.</h2>
         <p class="section-lead">
-          Je vlucht boek je zelf. Je accommodatie regel je zelf. Maar voor de eerste dagen — simkaart, M-Pesa, betrouwbare chauffeur, coworking spaces, sociale entry — heb je iemand nodig die het allemaal al weet.
+          Je vlucht boek je zelf. Je accommodatie regel je zelf. Maar voor de eerste dagen (simkaart, M-Pesa, betrouwbare chauffeur, coworking spaces, sociale entry) heb je iemand nodig die het allemaal al weet.
         </p>
       </div>
 
@@ -1216,7 +1314,7 @@
             </li>
             <li class="service-feature">
               <span class="service-feature-icon">→</span>
-              <span class="service-feature-text">Stapelbaar — boek meerdere dagen</span>
+              <span class="service-feature-text">Stapelbaar. Boek meerdere dagen</span>
             </li>
           </ul>
           <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
@@ -1259,6 +1357,22 @@
     </div>
   </section>
 
+  <section class="honesty">
+    <div class="container">
+      <div class="honesty-grid">
+        <div>
+          <h2>Wanneer wij <em>niet</em> bij je passen.</h2>
+        </div>
+        <div class="honesty-body">
+          <p>Kom je naar Nairobi voor toerisme? Wij zijn er niet voor.</p>
+          <p>Wil je een safari? Bel iemand anders.</p>
+          <p>Wil je begeleiding voor minder dan twee dagen? Er zijn goedkopere oplossingen.</p>
+          <p>We zijn er voor mensen die hier komen werken en niet drie dagen kwijt willen aan uitzoeken hoe M-Pesa werkt, welke wijken veilig zijn, en waar de coworking spaces zitten. Vind je jezelf daarin terug, dan zit je goed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="process">
     <div class="container">
       <div class="section-header">
@@ -1294,16 +1408,16 @@
   <section class="quote-section">
     <div class="container">
       <blockquote>
-        "Een Uber rijdt je naar je hotel. <em>Een gids vertelt je over de stad.</em> Een landing service zorgt dat je binnen een dag of twee kunt beginnen met werken — alsof je er al maanden woont."
+        "Een Uber rijdt je naar je hotel. <em>Een gids vertelt je over de stad.</em> Een landing service zorgt dat je binnen een dag of twee kunt beginnen met werken, alsof je er al maanden woont."
       </blockquote>
-      <div class="quote-attribution">— Onze filosofie</div>
+      <div class="quote-attribution">Onze filosofie</div>
     </div>
   </section>
 
   <section class="cta-section">
     <div class="container">
       <h2>Klaar om <em>geland</em> te raken?</h2>
-      <p>Plan een vrijblijvende kennismaking van 20 minuten. Geen verkooppraatje — gewoon kijken of we bij elkaar passen.</p>
+      <p>Plan een vrijblijvende kennismaking van 20 minuten. Geen verkooppraatje. Gewoon kijken of we bij elkaar passen.</p>
       <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
     </div>
   </section>
@@ -1336,12 +1450,12 @@
           <p>Nederlanders die voor het eerst (of opnieuw) in Nairobi landen voor werk en niet drie dagen kwijt willen aan uitzoeken hoe M-Pesa werkt, welke wijken veilig zijn, en waar de coworking spaces zitten.</p>
 
           <h3>Twee dagdelen, geen jetlag-marathon</h3>
-          <p>Veel vluchten landen 's avonds of 's nachts. Je hebt dan geen briefing nodig — je hebt een bed nodig. Daarom doen we Arrival in twee dagdelen.</p>
+          <p>Veel vluchten landen 's avonds of 's nachts. Je hebt dan geen briefing nodig. Je hebt een bed nodig. Daarom doen we Arrival in twee dagdelen.</p>
 
           <div class="day-block">
             <div class="day-block-label">Dagdeel 1 · Welcome (avond/nacht)</div>
             <div class="day-block-title">Pickup en thuisbrengen</div>
-            <p>Pickup op Jomo Kenyatta International Airport met naambord. Drop bij jouw accommodatie en hulp met inchecken. Korte essentie-briefing onderweg (water, sleutel, app voor morgen). Afspraak voor de volgende dag. Geen overload — je hebt gevlogen.</p>
+            <p>Pickup op Jomo Kenyatta International Airport met naambord. Drop bij jouw accommodatie en hulp met inchecken. Korte essentie-briefing onderweg (water, sleutel, app voor morgen). Afspraak voor de volgende dag. Geen overload, je hebt gevlogen.</p>
           </div>
 
           <div class="day-block">
@@ -1383,10 +1497,10 @@
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
-          <p>Mensen die na Arrival nog hulp willen bij iets specifieks — een appartement zoeken, een visum verlengen, sociaal landen. Of mensen die al een keer in Nairobi zijn geweest en nu één concrete kwestie willen aanpakken zonder een heel pakket af te nemen.</p>
+          <p>Mensen die na Arrival nog hulp willen bij iets specifieks: een appartement zoeken, een visum verlengen, sociaal landen. Of mensen die al een keer in Nairobi zijn geweest en nu één concrete kwestie willen aanpakken zonder een heel pakket af te nemen.</p>
 
           <h3>Hoe het werkt</h3>
-          <p>Je boekt een Extra Day vooraf of tijdens je verblijf. <strong>Hoe je de dag invult, bespreek je rechtstreeks met je begeleider in Nairobi</strong> — hij of zij weet beter dan wij wat haalbaar is binnen die uren. Geen vooraf vastgelegd lijstje van categorieën.</p>
+          <p>Je boekt een Extra Day vooraf of tijdens je verblijf. <strong>Hoe je de dag invult, bespreek je rechtstreeks met je begeleider in Nairobi</strong>. Hij of zij weet beter dan wij wat haalbaar is binnen die uren. Geen vooraf vastgelegd lijstje van categorieën.</p>
 
           <h3>Wat klanten typisch vragen</h3>
           <ul>
@@ -1395,7 +1509,7 @@
             <li>Begeleiding bij visa-verlenging of KRA-PIN-aanvraag</li>
             <li>Bank-account opening (alleen bij langer verblijf)</li>
             <li>Introducties bij dokter, gym, kapper</li>
-            <li>Sociale entry — meegaan naar netwerkavond of community-event</li>
+            <li>Sociale entry: meegaan naar netwerkavond of community-event</li>
             <li>Iets praktisch dat alleen ter plaatse kan</li>
           </ul>
 
@@ -1409,7 +1523,7 @@
           </ul>
 
           <h3>Stapelbaar</h3>
-          <p>Je kunt meerdere Extra Days achter elkaar boeken — bijvoorbeeld één voor housing search, één voor sociale entry. Geen kortingsdwang. Gewoon één dag tegelijk, telkens als je hem nodig hebt.</p>
+          <p>Je kunt meerdere Extra Days achter elkaar boeken, bijvoorbeeld één voor housing search, één voor sociale entry. Geen kortingsdwang. Gewoon één dag tegelijk, telkens als je hem nodig hebt.</p>
         </div>
       </div>
     </div>
@@ -1432,7 +1546,7 @@
           <h3>Wat je krijgt</h3>
           <ul>
             <li>Bereikbaarheid binnen 4 uur op werkdagen, 24 uur in het weekend</li>
-            <li>Hulp bij problemen — visa-verleningen, internet uit, lekkage, ziekenhuis, taxi's</li>
+            <li>Hulp bij problemen: visa-verleningen, internet uit, lekkage, ziekenhuis, taxi's</li>
             <li>Reservaties bij restaurants, gyms, kappers, garages</li>
             <li>Weekend-trips boeken (Naivasha, Diani, Mara) tegen kostprijs + €25 fee</li>
             <li>Doorverwijzingen binnen lokaal netwerk (advocaat, accountant, makelaar)</li>
@@ -1447,6 +1561,7 @@
             <li>Maandelijks vooruit gefactureerd</li>
             <li>Maandelijks opzegbaar (geen jaarcontracten)</li>
             <li>Geldt alleen voor klanten die fysiek in Nairobi verblijven</li>
+            <li>Bij gezamenlijke uitstapjes (restaurant, evenement, museum) zijn de kosten van de host voor jouw rekening</li>
           </ul>
         </div>
       </div>
@@ -1463,15 +1578,19 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary class="faq-question">Verkopen jullie ook vluchten en hotels?</summary>
-          <div class="faq-answer">Nee. We verkopen alleen begeleiding. Vluchten en accommodatie regel je zelf — dat geeft jou flexibiliteit en ons de focus om het ene wat we doen, écht goed te doen.</div>
+          <div class="faq-answer">Nee. We verkopen alleen begeleiding. Vluchten en accommodatie regel je zelf. Dat geeft jou flexibiliteit en ons de focus om het ene wat we doen, écht goed te doen.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Hoeveel Extra Days heb ik nodig?</summary>
-          <div class="faq-answer">De meeste klanten doen Arrival plus 0 of 1 Extra Day. Wie een appartement zoekt en sociaal wil landen, doet er twee. Wie alleen voor een korte trip komt, vaak alleen Arrival. Je hoeft niets vooraf te beslissen — je kunt altijd ter plaatse een Extra Day toevoegen.</div>
+          <div class="faq-answer">De meeste klanten doen Arrival plus 0 of 1 Extra Day. Wie een appartement zoekt en sociaal wil landen, doet er twee. Wie alleen voor een korte trip komt, vaak alleen Arrival. Je hoeft niets vooraf te beslissen. Je kunt altijd ter plaatse een Extra Day toevoegen.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Wat zit er precies in een Extra Day?</summary>
           <div class="faq-answer">Een Extra Day is 6-7 uur begeleiding doordeweeks. Wat je in die tijd doet, bespreek je met je begeleider in Nairobi. Hij of zij weet beter dan wij wat haalbaar is en welke volgorde slim is. Geen vooraf vastgelegd lijstje.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">Als ik de host meevraag naar een museum, evenement of restaurant, hoe gaat dat met de kosten?</summary>
+          <div class="faq-answer">Dan betaal je voor twee. Entreegelden, eten, drankjes, taxi's onderweg, tickets: als jij iemand uitnodigt mee te gaan, draag je de kosten van die persoon. Geen aparte declaraties achteraf, gewoon ter plekke afrekenen voor twee. Hosts schieten geen kosten voor en draaien er niet zelf voor op.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Hoe ver van tevoren moet ik boeken?</summary>
@@ -1491,12 +1610,26 @@
         </details>
         <details class="faq-item">
           <summary class="faq-question">Spreken jullie Nederlands op de grond?</summary>
-          <div class="faq-answer">De voorbereiding en alle communicatie tussen jou en ons gaat in het Nederlands. Op de grond werken we met een vaste lokale begeleider die uitstekend Engels spreekt. Voor klanten die liever volledig Nederlandstalige begeleiding willen, hebben we een premium-optie — neem contact op.</div>
+          <div class="faq-answer">De voorbereiding en alle communicatie tussen jou en ons gaat in het Nederlands. Op de grond werken we met een vaste lokale begeleider die uitstekend Engels spreekt. Voor klanten die liever volledig Nederlandstalige begeleiding willen, hebben we een premium-optie. Neem contact op.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">Wat gebeurt er met mijn gegevens?</summary>
+          <div class="faq-answer">Wat we niet meer nodig hebben, gooien we weg. Klantgegevens worden 30 dagen na afloop van je opdracht automatisch uit onze systemen verwijderd. Facturen bewaren we zolang de Belastingdienst dat verplicht, geanonimiseerd waar het kan. Wij delen niets met derden, en deze website tracket niets.</div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-question">Krijg ik iets als ik vaker kom of iemand doorstuur?</summary>
+          <div class="faq-answer">Klanten die een opdracht afsluiten krijgen een UrbanChill-key: een unieke code in hun afsluitmail. Die is bij een volgende Arrival goed voor één gratis Extra Day (€199 waarde). Twee jaar geldig, eenmalig in te wisselen. De key is overdraagbaar, dus geef hem gerust aan iemand die je vertrouwt en die ook naar Nairobi komt. Geen database, geen automatische herkenning, geen verplichte e-mailinschrijving. Gewoon een code die je bij je hebt.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Is dit een reisbureau?</summary>
           <div class="faq-answer">Nee. We bieden persoonlijke dienstverlening, geen reizen. Daarom vallen we niet onder de Wet op de pakketreizen of het SGR-garantiefonds. Onze rol begint nadat je zelf je vlucht en accommodatie hebt geboekt.</div>
         </details>
+      </div>
+
+      <div class="faq-closer">
+        <div class="faq-closer-heading">Vraag <em>niet</em> beantwoord?</div>
+        <p>Het 20-minuten gesprek is vrijblijvend. Geen verkooppraatje. Als we denken dat we niet de juiste partij voor je zijn, zeggen we dat.</p>
+        <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
       </div>
     </div>
   </section>
@@ -1510,7 +1643,7 @@
     <div class="container">
       <div class="hero-eyebrow">Over UrbanChill</div>
       <h1>Geen tour guide. <em>Geen reisbureau.</em></h1>
-      <p class="hero-lead">Een eenmans-dienstverlener met één lokale partner, één stad, en één doel: Nederlanders zacht laten landen in Nairobi.</p>
+      <p class="hero-lead">Een eenmans-dienstverlener met een netwerk van vaste begeleiders in Nairobi, één stad, en één doel: Nederlanders zacht laten landen.</p>
     </div>
   </section>
 
@@ -1520,15 +1653,20 @@
         <div class="about-portrait"></div>
         <div class="about-text">
           <h3>Waarom dit bestaat</h3>
-          <p>[Placeholder — vervang met je eigen verhaal] Nairobi is niet ingewikkeld als je weet hoe het werkt. Het is alleen ingewikkeld als je het in je eentje moet uitvogelen tijdens je eerste dagen, terwijl je ook nog moet werken, jetlag hebt, en je laptop nog op een werkend Wi-Fi-netwerk wacht.</p>
-          <p>Ik heb een paar jaar geleden zelf zo'n landing meegemaakt. Drie dagen kwijt aan simkaart, M-Pesa-frustratie, een verkeerde Uber, een onbetrouwbaar Airbnb. Toen ik later anderen hetzelfde zag doen, dacht ik: dit kan beter. Veel beter. Eén Nederlandse aanspreekpunt, één lokale partner, en je bent binnen een dag of twee operationeel.</p>
+          <p>[Placeholder, vervang met je eigen verhaal] Nairobi is niet ingewikkeld als je weet hoe het werkt. Het is alleen ingewikkeld als je het in je eentje moet uitvogelen tijdens je eerste dagen, terwijl je ook nog moet werken, jetlag hebt, en je laptop nog op een werkend Wi-Fi-netwerk wacht.</p>
+          <p>Ik heb een paar jaar geleden zelf zo'n landing meegemaakt. Drie dagen kwijt aan simkaart, M-Pesa-frustratie, een verkeerde Uber, een onbetrouwbaar Airbnb. Toen ik later anderen hetzelfde zag doen, dacht ik: dit kan beter. Veel beter. Eén Nederlandse aanspreekpunt, één begeleider die met je meegaat, en je bent binnen een dag of twee operationeel.</p>
 
           <h3>Hoe ik werk</h3>
-          <p>Ik werk vanuit Nederland en heb een vaste lokale partner in Nairobi. We doen samen de begeleiding — ik de voorbereiding en het Nederlandse contact, hij de uitvoering ter plaatse. We bedienen maximaal 5-7 klanten per maand, omdat we per klant écht aandacht willen kunnen geven. Geen volume, geen call center, geen geautomatiseerde funnels.</p>
-          <p>Mijn lokale partner krijgt een eerlijk dagloon — ruim boven marktconform — plus brandstof, lunch en bonus op klanttevredenheid. Dat staat niet ter discussie. Dit werkt alleen als beide kanten van de dienstverlening goed leven.</p>
+          <p>Ik werk vanuit Nederland. In Nairobi werk ik samen met een netwerk van zelfstandige begeleiders. Per opdracht wijs ik één vaste begeleider toe, geen wisselingen tijdens je verblijf. Ik doe de voorbereiding en het Nederlandse contact, de begeleider de uitvoering ter plaatse. We bedienen maximaal 5-7 klanten per maand, omdat we per klant écht aandacht willen kunnen geven. Geen volume, geen call center, geen geautomatiseerde funnels.</p>
+
+          <h3>Wie je op de grond ontvangt</h3>
+          <p>De begeleiders zijn ervaren vakmensen die de stad van binnenuit kennen, sommige al langer dan ik.</p>
+          <p>Wat ze precies doen, welke routes ze kiezen, en hoe ze hun dag invullen: dat bepalen ze zelf. Ik bemoei me niet met hun werk, alleen met de afstemming tussen hen en jou. Hun ervaring weegt zwaarder dan mijn instructie.</p>
+          <p>Begeleiders werken voor eigen rekening, met een dagloon dat ruim boven het Nairobi-gemiddelde zit, plus brandstof, lunch, en bonus op klanttevredenheid. Dat staat niet ter discussie. Dit werkt alleen als beide kanten van de dienstverlening goed leven.</p>
+          <p>In je voorbereidingsmail krijg je de naam van de begeleider die voor jouw opdracht is toegewezen. Eén gezicht, geen wisselingen.</p>
 
           <h3>Waar ik van overtuigd ben</h3>
-          <p>Dat een vlucht en een hotel boeken het makkelijke deel is. Dat de eerste dagen op de grond bepalen of je je verblijf in Nairobi gaat associëren met "wat een gedoe" of met "wat een fijne stad." Dat eerlijk werk eerlijk betaald moet worden — aan beide kanten van de transactie. En dat één stad goed kennen, beter is dan tien steden half.</p>
+          <p>Dat een vlucht en een hotel boeken het makkelijke deel is. Dat de eerste dagen op de grond bepalen of je je verblijf in Nairobi gaat associëren met "wat een gedoe" of met "wat een fijne stad." Dat eerlijk werk eerlijk betaald moet worden, aan beide kanten van de transactie. En dat één stad goed kennen, beter is dan tien steden half.</p>
 
           <h3>Wat ik niet doe</h3>
           <p>Geen safari's. Geen pakketreizen. Geen tour guiding voor toeristen die de Big Five willen zien. Geen Mombasa, geen Kigali, geen Kaapstad. Alleen Nairobi, alleen mensen die er voor werk komen, alleen begeleiding op het kruispunt van Nederland en Kenia.</p>
@@ -1582,7 +1720,7 @@
               <div class="contact-icon">✉</div>
               <div>
                 <div class="contact-channel-name">Liever direct mailen?</div>
-                <div class="contact-channel-detail">Stuur een bericht via het formulier — we antwoorden vanuit ons team-adres, dan heb je dat.</div>
+                <div class="contact-channel-detail">Stuur een bericht via het formulier. We antwoorden vanuit ons team-adres, dan heb je dat.</div>
               </div>
             </div>
           </div>
@@ -1595,6 +1733,11 @@
             <strong>Bank:</strong> NL[iban]<br>
             <strong>Vestiging:</strong> Nederland<br>
             <strong>Werkgebied:</strong> Nairobi, Kenia</p>
+          </div>
+
+          <div class="practical-info">
+            <h4>Wat we met je gegevens doen</h4>
+            <p>Niet meer dan nodig. Je klantgegevens worden automatisch uit onze systemen verwijderd, 30 dagen na afloop van je opdracht. Facturen blijven bewaard zolang de wet ons verplicht (Belastingdienst-bewaarplicht), maar zijn geanonimiseerd waar het kan. Wij delen niets met derden. Deze website tracket niets, gebruikt geen cookies van big tech en geen analytics-pixels.</p>
           </div>
         </div>
 
@@ -1622,10 +1765,10 @@
             <div class="form-group">
               <label class="form-label" for="service">Welke dienst?</label>
               <select class="form-select" id="service" name="service">
-                <option value="arrival">Arrival — €299</option>
-                <option value="arrival_duo">Arrival duo (2 personen) — €399</option>
-                <option value="extra_day">Extra Day — €199</option>
-                <option value="concierge">Concierge — €149/mnd</option>
+                <option value="arrival">Arrival · €299</option>
+                <option value="arrival_duo">Arrival duo (2 personen) · €399</option>
+                <option value="extra_day">Extra Day · €199</option>
+                <option value="concierge">Concierge · €149/mnd</option>
                 <option value="combination">Combinatie van diensten</option>
                 <option value="advice">Weet ik nog niet, adviseer me</option>
               </select>
@@ -1633,6 +1776,10 @@
             <div class="form-group">
               <label class="form-label" for="arrival_date">Verwachte aankomstdatum</label>
               <input class="form-input" type="date" id="arrival_date" name="arrival_date">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="urbanchill_key">UrbanChill-key <span style="color:var(--text-muted); font-weight:400;">(optioneel)</span></label>
+              <input class="form-input" type="text" id="urbanchill_key" name="urbanchill_key" placeholder="UC-YYYY-XXXX-XXXX" autocomplete="off">
             </div>
             <div class="form-group">
               <label class="form-label" for="notes">Iets dat we moeten weten?</label>
@@ -1775,13 +1922,19 @@
         return;
       }
 
+      const userNotes = intakeForm.notes?.value || "";
+      const key = (intakeForm.urbanchill_key?.value || "").trim();
+      const notesWithKey = key
+        ? (userNotes ? userNotes + "\n\n[UrbanChill-key: " + key + "]" : "[UrbanChill-key: " + key + "]")
+        : userNotes;
+
       const payload = {
         name: intakeForm.client_name?.value || "",
         email: intakeForm.client_email?.value || "",
         phone: intakeForm.client_phone?.value || "",
         service: intakeForm.service?.value || "",
         arrival_date: intakeForm.arrival_date?.value || "",
-        notes: intakeForm.notes?.value || ""
+        notes: notesWithKey
       };
 
       sendPayload(payload, API_INTAKE, messageEl, intakeForm);
