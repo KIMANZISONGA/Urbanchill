@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=cormorant-garamond:300,400,500,600,700,300i,400i,500i&display=swap" rel="stylesheet">
 <link href="https://fonts.bunny.net/css?family=dm-sans:300,400,500,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -19,16 +19,16 @@
 <nav>
   <div class="container">
     <div class="nav-inner">
-      <button class="logo" onclick="showPage('home')">
+      <button class="logo" data-page="home">
         Urban<span>Chill</span>
       </button>
       <ul class="nav-links">
-        <li><button onclick="showPage('home')" data-nav="home">Home</button></li>
-        <li><button onclick="showPage('services')" data-nav="services">Diensten</button></li>
-        <li><button onclick="showPage('about')" data-nav="about">Over</button></li>
-        <li><button onclick="showPage('contact')" data-nav="contact">Contact</button></li>
+        <li><button data-page="home" data-nav="home">Home</button></li>
+        <li><button data-page="services" data-nav="services">Diensten</button></li>
+        <li><button data-page="about" data-nav="about">Over</button></li>
+        <li><button data-page="contact" data-nav="contact">Contact</button></li>
       </ul>
-      <button class="nav-cta" onclick="showPage('contact')">Plan kennismaking →</button>
+      <button class="nav-cta" data-page="contact">Plan kennismaking →</button>
     </div>
   </div>
 </nav>
@@ -46,10 +46,10 @@
             Wij staan op JKIA als jij landt. Eén Nederlandse aanspreekpunt, één factuur in euro's — alles geregeld voor je voet zet op Keniaanse bodem.
           </p>
           <div class="hero-ctas">
-            <button class="btn-primary" onclick="showPage('services')">
+            <button class="btn-primary" data-page="services">
               Bekijk diensten →
             </button>
-            <button class="btn-secondary" onclick="showPage('contact')">
+            <button class="btn-secondary" data-page="contact">
               Plan kennismaking
             </button>
           </div>
@@ -149,7 +149,7 @@
               <span class="service-feature-text">Tour langs 2 coworking spaces</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" data-page="services">Lees meer →</button>
         </div>
 
         <div class="service-card featured">
@@ -184,7 +184,7 @@
               <span class="service-feature-text">Stapelbaar. Boek meerdere dagen</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" data-page="services">Lees meer →</button>
         </div>
 
         <div class="service-card">
@@ -218,7 +218,7 @@
               <span class="service-feature-text">Verzekering tegen het onverwachte</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" data-page="services">Lees meer →</button>
         </div>
       </div>
     </div>
@@ -285,7 +285,7 @@
     <div class="container">
       <h2>Klaar om <em>geland</em> te raken?</h2>
       <p>Plan een vrijblijvende kennismaking van 20 minuten. Geen verkooppraatje. Gewoon kijken of we bij elkaar passen.</p>
-      <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
+      <button class="btn-primary" data-page="contact">Plan kennismaking →</button>
     </div>
   </section>
 
@@ -310,7 +310,7 @@
           <div class="service-detail-tagline">De eerste 24 uur, opgesplitst in twee dagdelen.</div>
           <div class="service-detail-price">€299</div>
           <div class="service-detail-price-suffix">incl. btw · solo<br>€399 voor 2 personen</div>
-          <button class="btn-primary" onclick="showPage('contact')">Boek Arrival →</button>
+          <button class="btn-primary" data-page="contact">Boek Arrival →</button>
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
@@ -360,7 +360,7 @@
           <div class="service-detail-tagline">Eén begeleidingsdag, naar behoefte. Stapelbaar.</div>
           <div class="service-detail-price">€199</div>
           <div class="service-detail-price-suffix">incl. btw · per dag</div>
-          <button class="btn-primary" onclick="showPage('contact')">Boek Extra Day →</button>
+          <button class="btn-primary" data-page="contact">Boek Extra Day →</button>
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
@@ -404,7 +404,7 @@
           <div class="service-detail-tagline">Doorlopend. Jouw man op de grond.</div>
           <div class="service-detail-price">€149</div>
           <div class="service-detail-price-suffix">incl. btw · per maand<br>maandelijks opzegbaar</div>
-          <button class="btn-primary" onclick="showPage('contact')">Start Concierge →</button>
+          <button class="btn-primary" data-page="contact">Start Concierge →</button>
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
@@ -496,7 +496,7 @@
       <div class="faq-closer">
         <div class="faq-closer-heading">Vraag <em>niet</em> beantwoord?</div>
         <p>Het 20-minuten gesprek is vrijblijvend. Geen verkooppraatje. Als we denken dat we niet de juiste partij voor je zijn, zeggen we dat.</p>
-        <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
+        <button class="btn-primary" data-page="contact">Plan kennismaking →</button>
       </div>
     </div>
   </section>
@@ -546,7 +546,7 @@
     <div class="container">
       <h2>Vragen of <em>kennismaken</em>?</h2>
       <p>De makkelijkste manier om te zien of dit voor jou werkt, is een vrijblijvend gesprek van 20 minuten.</p>
-      <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
+      <button class="btn-primary" data-page="contact">Plan kennismaking →</button>
     </div>
   </section>
 
@@ -675,16 +675,16 @@
       <div>
         <div class="footer-heading">Diensten</div>
         <ul class="footer-list">
-          <li><button onclick="showPage('services')">Arrival</button></li>
-          <li><button onclick="showPage('services')">Extra Day</button></li>
-          <li><button onclick="showPage('services')">Concierge</button></li>
+          <li><button data-page="services">Arrival</button></li>
+          <li><button data-page="services">Extra Day</button></li>
+          <li><button data-page="services">Concierge</button></li>
         </ul>
       </div>
       <div>
         <div class="footer-heading">Bedrijf</div>
         <ul class="footer-list">
-          <li><button onclick="showPage('about')">Over ons</button></li>
-          <li><button onclick="showPage('contact')">Contact</button></li>
+          <li><button data-page="about">Over ons</button></li>
+          <li><button data-page="contact">Contact</button></li>
           <li><a href="#">Algemene voorwaarden</a></li>
           <li><a href="#">Privacybeleid</a></li>
         </ul>
@@ -692,8 +692,8 @@
       <div>
         <div class="footer-heading">Direct</div>
         <ul class="footer-list">
-          <li><button onclick="showPage('contact')">Aanvraagformulier</button></li>
-          <li><button onclick="showPage('contact')">Plan kennismaking</button></li>
+          <li><button data-page="contact">Aanvraagformulier</button></li>
+          <li><button data-page="contact">Plan kennismaking</button></li>
         </ul>
       </div>
     </div>
@@ -704,7 +704,7 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="main.js"></script>
 
 </body>
 </html>
