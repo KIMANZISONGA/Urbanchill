@@ -56,6 +56,24 @@
     z-index: 1;
   }
 
+  .launch-banner {
+    background: var(--forest);
+    color: rgba(244, 239, 230, 0.95);
+    text-align: center;
+    padding: 11px 32px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    position: relative;
+    z-index: 101;
+  }
+
+  .launch-banner em {
+    font-style: normal;
+    color: #f0c08a;
+    font-weight: 600;
+  }
+
   nav {
     position: sticky;
     top: 0;
@@ -248,7 +266,7 @@
   }
 
   .hero-visual::after {
-    content: '🇳🇱 → 🇰🇪';
+    content: '�������� ��� ��������';
     position: absolute;
     bottom: 32px;
     left: 32px;
@@ -675,7 +693,7 @@
   }
 
   .service-detail-content li::before {
-    content: '→';
+    content: '���';
     color: var(--terracotta);
     font-weight: 600;
   }
@@ -737,7 +755,7 @@
     transition: transform 0.3s ease;
   }
 
-  details[open] .faq-question::after { content: '−'; }
+  details[open] .faq-question::after { content: '���'; }
 
   .faq-answer {
     margin-top: 16px;
@@ -1149,6 +1167,10 @@
 </head>
 <body>
 
+<div class="launch-banner">
+  UrbanChill start officieel op <em>1 juli 2026</em> ��� intakes worden al wel behandeld. Dien gerust een aanvraag in.
+</div>
+
 <nav>
   <div class="container">
     <div class="nav-inner">
@@ -1161,7 +1183,7 @@
         <li><button onclick="showPage('about')" data-nav="about">Over</button></li>
         <li><button onclick="showPage('contact')" data-nav="contact">Contact</button></li>
       </ul>
-      <button class="nav-cta" onclick="showPage('contact')">Plan kennismaking →</button>
+      <button class="nav-cta" onclick="showPage('contact')">Plan kennismaking ���</button>
     </div>
   </div>
 </nav>
@@ -1173,14 +1195,14 @@
     <div class="container">
       <div class="hero-grid">
         <div>
-          <div class="hero-eyebrow">Nederlandse landing service · Nairobi</div>
+          <div class="hero-eyebrow">Nederlandse landing service �� Nairobi</div>
           <h1>Land in Nairobi <em>met iemand naast je</em>.</h1>
           <p class="hero-lead">
-            Persoonlijke begeleiding voor Nederlanders die voor werk naar Nairobi reizen. Vanaf het eerste contact tot na je landing. Eén Nederlandse aanspreekpunt, één factuur in euro's, alles geregeld voor je voet zet op Keniaanse bodem.
+            Wij staan op JKIA als jij landt. E��n Nederlandse aanspreekpunt, ����n factuur in euro's ��� alles geregeld voor je voet zet op Keniaanse bodem.
           </p>
           <div class="hero-ctas">
             <button class="btn-primary" onclick="showPage('services')">
-              Bekijk diensten →
+              Bekijk diensten ���
             </button>
             <button class="btn-secondary" onclick="showPage('contact')">
               Plan kennismaking
@@ -1188,7 +1210,7 @@
           </div>
         </div>
         <div class="hero-visual">
-          <div class="hero-visual-stamp">Est. 2026</div>
+          <div class="hero-visual-stamp">Nairobi �� 2026</div>
           <div class="hero-visual-label">Een zachte landing<br>in een grote stad.</div>
         </div>
       </div>
@@ -1234,7 +1256,7 @@
   <section class="skyline-banner">
     <div class="container">
       <div class="skyline-banner-text">
-        <div class="skyline-banner-eyebrow">Een stad, één focus</div>
+        <div class="skyline-banner-eyebrow">Een stad, ����n focus</div>
         <h2>Nairobi om <em>te leren werken</em>, niet om te overleven.</h2>
       </div>
     </div>
@@ -1246,7 +1268,7 @@
         <div class="section-eyebrow">Diensten</div>
         <h2>Begin met Arrival. <em>Breid uit naar behoefte.</em></h2>
         <p class="section-lead">
-          Modulair model. Geen vooraf vastgelegde lange pakketten. Eén instapdienst, losse Extra Days die je toevoegt wanneer je ze nodig hebt, en een doorlopend Concierge-abonnement voor de rest van je verblijf.
+          Modulair model. Geen vooraf vastgelegde lange pakketten. E��n instapdienst, losse Extra Days die je toevoegt wanneer je ze nodig hebt, en een doorlopend Concierge-abonnement voor de rest van je verblijf.
         </p>
       </div>
 
@@ -1254,104 +1276,104 @@
         <div class="service-card">
           <div class="service-name">Arrival</div>
           <div class="service-tagline">Welcome avond + Setup Day</div>
-          <div class="service-price">€299</div>
-          <div class="service-price-suffix">incl. btw · solo · €399 voor 2 personen</div>
+          <div class="service-price">���299</div>
+          <div class="service-price-suffix">incl. btw �� solo �� ���399 voor 2 personen</div>
           <ul class="service-features">
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Voorbereidingsgesprek vooraf</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Welcome pickup op JKIA (avond)</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Setup Day volgende ochtend</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Safaricom SIM + M-Pesa setup</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Eerste boodschappen + lunch</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Tour langs 2 coworking spaces</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" onclick="showPage('services')">Lees meer ���</button>
         </div>
 
         <div class="service-card featured">
           <div class="service-badge">Modulair</div>
           <div class="service-name">Extra Day</div>
           <div class="service-tagline">Een dag extra begeleiding, naar behoefte</div>
-          <div class="service-price">€199</div>
-          <div class="service-price-suffix">incl. btw · per dag · stapelbaar</div>
+          <div class="service-price">���199</div>
+          <div class="service-price-suffix">incl. btw �� per dag �� stapelbaar</div>
           <ul class="service-features">
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">6-7 uur begeleiding doordeweeks</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Inhoud bepaal je in Nairobi</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Bv. housing, social entry, admin</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Bestelbaar voor of tijdens verblijf</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Vaste begeleider, geen wisselingen</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Stapelbaar. Boek meerdere dagen</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" onclick="showPage('services')">Lees meer ���</button>
         </div>
 
         <div class="service-card">
           <div class="service-name">Concierge</div>
           <div class="service-tagline">Doorlopend, jouw man op de grond</div>
-          <div class="service-price">€149</div>
-          <div class="service-price-suffix">incl. btw · per maand · opzegbaar</div>
+          <div class="service-price">���149</div>
+          <div class="service-price-suffix">incl. btw �� per maand �� opzegbaar</div>
           <ul class="service-features">
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Bereikbaar voor problemen</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Reservaties en boekingen</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Hulp bij visa-verleningen</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Weekend-trips regelen</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Toegang tot lokaal netwerk</span>
             </li>
             <li class="service-feature">
-              <span class="service-feature-icon">→</span>
+              <span class="service-feature-icon">���</span>
               <span class="service-feature-text">Verzekering tegen het onverwachte</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" onclick="showPage('services')">Lees meer ���</button>
         </div>
       </div>
     </div>
@@ -1394,7 +1416,7 @@
         <div class="process-step">
           <div class="process-num">iii.</div>
           <h3 class="process-title">Op de grond</h3>
-          <p class="process-text">Pickup op JKIA. Setup Day de volgende ochtend. Geen jetlag-marathon op dag één.</p>
+          <p class="process-text">Pickup op JKIA. Setup Day de volgende ochtend. Geen jetlag-marathon op dag ����n.</p>
         </div>
         <div class="process-step">
           <div class="process-num">iv.</div>
@@ -1418,7 +1440,7 @@
     <div class="container">
       <h2>Klaar om <em>geland</em> te raken?</h2>
       <p>Plan een vrijblijvende kennismaking van 20 minuten. Geen verkooppraatje. Gewoon kijken of we bij elkaar passen.</p>
-      <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
+      <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking ���</button>
     </div>
   </section>
 
@@ -1430,7 +1452,7 @@
   <section class="page-hero">
     <div class="container">
       <div class="hero-eyebrow">Diensten</div>
-      <h1>Drie diensten, <em>één modulair model</em>.</h1>
+      <h1>Drie diensten, <em>����n modulair model</em>.</h1>
       <p class="hero-lead">Begin met Arrival. Voeg Extra Days toe waar je ze nodig hebt. Sluit eventueel een Concierge-abonnement af voor de rest van je verblijf. Alle prijzen incl. 21% btw. Betaling in EUR via SEPA-overschrijving of iDEAL.</p>
     </div>
   </section>
@@ -1441,9 +1463,9 @@
         <div class="service-detail-side">
           <div class="service-detail-name">Arrival</div>
           <div class="service-detail-tagline">De eerste 24 uur, opgesplitst in twee dagdelen.</div>
-          <div class="service-detail-price">€299</div>
-          <div class="service-detail-price-suffix">incl. btw · solo<br>€399 voor 2 personen</div>
-          <button class="btn-primary" onclick="showPage('contact')">Boek Arrival →</button>
+          <div class="service-detail-price">���299</div>
+          <div class="service-detail-price-suffix">incl. btw �� solo<br>���399 voor 2 personen</div>
+          <button class="btn-primary" onclick="showPage('contact')">Boek Arrival ���</button>
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
@@ -1453,20 +1475,20 @@
           <p>Veel vluchten landen 's avonds of 's nachts. Je hebt dan geen briefing nodig. Je hebt een bed nodig. Daarom doen we Arrival in twee dagdelen.</p>
 
           <div class="day-block">
-            <div class="day-block-label">Dagdeel 1 · Welcome (avond/nacht)</div>
+            <div class="day-block-label">Dagdeel 1 �� Welcome (avond/nacht)</div>
             <div class="day-block-title">Pickup en thuisbrengen</div>
             <p>Pickup op Jomo Kenyatta International Airport met naambord. Drop bij jouw accommodatie en hulp met inchecken. Korte essentie-briefing onderweg (water, sleutel, app voor morgen). Afspraak voor de volgende dag. Geen overload, je hebt gevlogen.</p>
           </div>
 
           <div class="day-block">
-            <div class="day-block-label">Dagdeel 2 · Setup Day (volgende ochtend, 5-6 uur)</div>
+            <div class="day-block-label">Dagdeel 2 �� Setup Day (volgende ochtend, 5-6 uur)</div>
             <div class="day-block-title">Heldere kop, hele setup</div>
             <p>Pickup bij accommodatie. Welcome briefing onderweg over security, wijken, do's & don'ts. Safaricom SIM + M-Pesa registratie en eerste transactie samen. Boodschappen bij Naivas of Carrefour. Lunch op een goede lokale plek. Tour langs 2 coworking spaces naar keuze. Korte rondrit door je verblijfswijk.</p>
           </div>
 
           <h3>Vooraf, vanuit Nederland</h3>
           <ul>
-            <li>Video-call van 45 minuten, één week voor vertrek</li>
+            <li>Video-call van 45 minuten, ����n week voor vertrek</li>
             <li>Pakkist-checklist op maat (wat wel/niet meenemen)</li>
             <li>Vluchtinfo doorgeven en pickup-afspraak vastleggen</li>
             <li>Bereikbaarheid voor laatste vragen</li>
@@ -1490,17 +1512,17 @@
       <div class="service-detail-grid">
         <div class="service-detail-side">
           <div class="service-detail-name">Extra Day</div>
-          <div class="service-detail-tagline">Eén begeleidingsdag, naar behoefte. Stapelbaar.</div>
-          <div class="service-detail-price">€199</div>
-          <div class="service-detail-price-suffix">incl. btw · per dag</div>
-          <button class="btn-primary" onclick="showPage('contact')">Boek Extra Day →</button>
+          <div class="service-detail-tagline">E��n begeleidingsdag, naar behoefte. Stapelbaar.</div>
+          <div class="service-detail-price">���199</div>
+          <div class="service-detail-price-suffix">incl. btw �� per dag</div>
+          <button class="btn-primary" onclick="showPage('contact')">Boek Extra Day ���</button>
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
-          <p>Mensen die na Arrival nog hulp willen bij iets specifieks: een appartement zoeken, een visum verlengen, sociaal landen. Of mensen die al een keer in Nairobi zijn geweest en nu één concrete kwestie willen aanpakken zonder een heel pakket af te nemen.</p>
+          <p>Mensen die na Arrival nog hulp willen bij iets specifieks: een appartement zoeken, een visum verlengen, sociaal landen. Of mensen die al een keer in Nairobi zijn geweest en nu ����n concrete kwestie willen aanpakken zonder een heel pakket af te nemen.</p>
 
           <h3>Hoe het werkt</h3>
-          <p>Je boekt een Extra Day vooraf of tijdens je verblijf. <strong>Hoe je de dag invult, bespreek je rechtstreeks met je begeleider in Nairobi</strong>. Hij of zij weet beter dan wij wat haalbaar is binnen die uren. Geen vooraf vastgelegd lijstje van categorieën.</p>
+          <p>Je boekt een Extra Day vooraf of tijdens je verblijf. <strong>Hoe je de dag invult, bespreek je rechtstreeks met je begeleider in Nairobi</strong>. Hij of zij weet beter dan wij wat haalbaar is binnen die uren. Geen vooraf vastgelegd lijstje van categorie��n.</p>
 
           <h3>Wat klanten typisch vragen</h3>
           <ul>
@@ -1515,7 +1537,7 @@
 
           <h3>Praktische voorwaarden</h3>
           <ul>
-            <li>Eén begeleidingsdag = 6-7 uur</li>
+            <li>E��n begeleidingsdag = 6-7 uur</li>
             <li>Doordeweeks tussen 09:00 en 17:00</li>
             <li>Binnen Nairobi metropolitan area</li>
             <li>Inclusief tijd van begeleider, vervoer, lunch</li>
@@ -1523,7 +1545,7 @@
           </ul>
 
           <h3>Stapelbaar</h3>
-          <p>Je kunt meerdere Extra Days achter elkaar boeken, bijvoorbeeld één voor housing search, één voor sociale entry. Geen kortingsdwang. Gewoon één dag tegelijk, telkens als je hem nodig hebt.</p>
+          <p>Je kunt meerdere Extra Days achter elkaar boeken, bijvoorbeeld ����n voor housing search, ����n voor sociale entry. Geen kortingsdwang. Gewoon ����n dag tegelijk, telkens als je hem nodig hebt.</p>
         </div>
       </div>
     </div>
@@ -1535,9 +1557,9 @@
         <div class="service-detail-side">
           <div class="service-detail-name">Concierge</div>
           <div class="service-detail-tagline">Doorlopend. Jouw man op de grond.</div>
-          <div class="service-detail-price">€149</div>
-          <div class="service-detail-price-suffix">incl. btw · per maand<br>maandelijks opzegbaar</div>
-          <button class="btn-primary" onclick="showPage('contact')">Start Concierge →</button>
+          <div class="service-detail-price">���149</div>
+          <div class="service-detail-price-suffix">incl. btw �� per maand<br>maandelijks opzegbaar</div>
+          <button class="btn-primary" onclick="showPage('contact')">Start Concierge ���</button>
         </div>
         <div class="service-detail-content">
           <h3>Voor wie</h3>
@@ -1548,7 +1570,7 @@
             <li>Bereikbaarheid binnen 4 uur op werkdagen, 24 uur in het weekend</li>
             <li>Hulp bij problemen: visa-verleningen, internet uit, lekkage, ziekenhuis, taxi's</li>
             <li>Reservaties bij restaurants, gyms, kappers, garages</li>
-            <li>Weekend-trips boeken (Naivasha, Diani, Mara) tegen kostprijs + €25 fee</li>
+            <li>Weekend-trips boeken (Naivasha, Diani, Mara) tegen kostprijs + ���25 fee</li>
             <li>Doorverwijzingen binnen lokaal netwerk (advocaat, accountant, makelaar)</li>
             <li>Maandelijkse "Nairobi Insider" update met praktische ontwikkelingen</li>
           </ul>
@@ -1578,7 +1600,7 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary class="faq-question">Verkopen jullie ook vluchten en hotels?</summary>
-          <div class="faq-answer">Nee. We verkopen alleen begeleiding. Vluchten en accommodatie regel je zelf. Dat geeft jou flexibiliteit en ons de focus om het ene wat we doen, écht goed te doen.</div>
+          <div class="faq-answer">Nee. We verkopen alleen begeleiding. Vluchten en accommodatie regel je zelf. Dat geeft jou flexibiliteit en ons de focus om het ene wat we doen, ��cht goed te doen.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Hoeveel Extra Days heb ik nodig?</summary>
@@ -1606,7 +1628,7 @@
         </details>
         <details class="faq-item">
           <summary class="faq-question">Kan ik annuleren?</summary>
-          <div class="faq-answer">Tot 14 dagen voor aankomst: volledige restitutie minus €25 administratiekosten. Tussen 14 en 7 dagen: 50% restitutie. Binnen 7 dagen: geen restitutie, maar je kunt de boeking kosteloos verschuiven naar een latere datum binnen 12 maanden.</div>
+          <div class="faq-answer">Tot 14 dagen voor aankomst: volledige restitutie minus ���25 administratiekosten. Tussen 14 en 7 dagen: 50% restitutie. Binnen 7 dagen: geen restitutie, maar je kunt de boeking kosteloos verschuiven naar een latere datum binnen 12 maanden.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Spreken jullie Nederlands op de grond?</summary>
@@ -1618,7 +1640,7 @@
         </details>
         <details class="faq-item">
           <summary class="faq-question">Krijg ik iets als ik vaker kom of iemand doorstuur?</summary>
-          <div class="faq-answer">Klanten die een opdracht afsluiten krijgen een UrbanChill-key: een unieke code in hun afsluitmail. Die is bij een volgende Arrival goed voor één gratis Extra Day (€199 waarde). Twee jaar geldig, eenmalig in te wisselen. De key is overdraagbaar, dus geef hem gerust aan iemand die je vertrouwt en die ook naar Nairobi komt. Geen database, geen automatische herkenning, geen verplichte e-mailinschrijving. Gewoon een code die je bij je hebt.</div>
+          <div class="faq-answer">Klanten die een opdracht afsluiten krijgen een UrbanChill-key: een unieke code in hun afsluitmail. Die is bij een volgende Arrival goed voor ����n gratis Extra Day (���199 waarde). Twee jaar geldig, eenmalig in te wisselen. De key is overdraagbaar, dus geef hem gerust aan iemand die je vertrouwt en die ook naar Nairobi komt. Geen database, geen automatische herkenning, geen verplichte e-mailinschrijving. Gewoon een code die je bij je hebt.</div>
         </details>
         <details class="faq-item">
           <summary class="faq-question">Is dit een reisbureau?</summary>
@@ -1629,7 +1651,7 @@
       <div class="faq-closer">
         <div class="faq-closer-heading">Vraag <em>niet</em> beantwoord?</div>
         <p>Het 20-minuten gesprek is vrijblijvend. Geen verkooppraatje. Als we denken dat we niet de juiste partij voor je zijn, zeggen we dat.</p>
-        <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
+        <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking ���</button>
       </div>
     </div>
   </section>
@@ -1643,7 +1665,7 @@
     <div class="container">
       <div class="hero-eyebrow">Over UrbanChill</div>
       <h1>Geen tour guide. <em>Geen reisbureau.</em></h1>
-      <p class="hero-lead">Een eenmans-dienstverlener met een netwerk van vaste begeleiders in Nairobi, één stad, en één doel: Nederlanders zacht laten landen.</p>
+      <p class="hero-lead">Een eenmans-dienstverlener met een netwerk van vaste begeleiders in Nairobi, ����n stad, en ����n doel: Nederlanders zacht laten landen.</p>
     </div>
   </section>
 
@@ -1654,19 +1676,19 @@
         <div class="about-text">
           <h3>Waarom dit bestaat</h3>
           <p>[Placeholder, vervang met je eigen verhaal] Nairobi is niet ingewikkeld als je weet hoe het werkt. Het is alleen ingewikkeld als je het in je eentje moet uitvogelen tijdens je eerste dagen, terwijl je ook nog moet werken, jetlag hebt, en je laptop nog op een werkend Wi-Fi-netwerk wacht.</p>
-          <p>Ik heb een paar jaar geleden zelf zo'n landing meegemaakt. Drie dagen kwijt aan simkaart, M-Pesa-frustratie, een verkeerde Uber, een onbetrouwbaar Airbnb. Toen ik later anderen hetzelfde zag doen, dacht ik: dit kan beter. Veel beter. Eén Nederlandse aanspreekpunt, één begeleider die met je meegaat, en je bent binnen een dag of twee operationeel.</p>
+          <p>Ik heb een paar jaar geleden zelf zo'n landing meegemaakt. Drie dagen kwijt aan simkaart, M-Pesa-frustratie, een verkeerde Uber, een onbetrouwbaar Airbnb. Toen ik later anderen hetzelfde zag doen, dacht ik: dit kan beter. Veel beter. E��n Nederlandse aanspreekpunt, ����n begeleider die met je meegaat, en je bent binnen een dag of twee operationeel.</p>
 
           <h3>Hoe ik werk</h3>
-          <p>Ik werk vanuit Nederland. In Nairobi werk ik samen met een netwerk van zelfstandige begeleiders. Per opdracht wijs ik één vaste begeleider toe, geen wisselingen tijdens je verblijf. Ik doe de voorbereiding en het Nederlandse contact, de begeleider de uitvoering ter plaatse. We bedienen maximaal 5-7 klanten per maand, omdat we per klant écht aandacht willen kunnen geven. Geen volume, geen call center, geen geautomatiseerde funnels.</p>
+          <p>Ik werk vanuit Nederland. In Nairobi werk ik samen met een netwerk van zelfstandige begeleiders. Per opdracht wijs ik ����n vaste begeleider toe, geen wisselingen tijdens je verblijf. Ik doe de voorbereiding en het Nederlandse contact, de begeleider de uitvoering ter plaatse. We bedienen maximaal 5-7 klanten per maand, omdat we per klant ��cht aandacht willen kunnen geven. Geen volume, geen call center, geen geautomatiseerde funnels.</p>
 
           <h3>Wie je op de grond ontvangt</h3>
           <p>De begeleiders zijn ervaren vakmensen die de stad van binnenuit kennen, sommige al langer dan ik.</p>
           <p>Wat ze precies doen, welke routes ze kiezen, en hoe ze hun dag invullen: dat bepalen ze zelf. Ik bemoei me niet met hun werk, alleen met de afstemming tussen hen en jou. Hun ervaring weegt zwaarder dan mijn instructie.</p>
           <p>Begeleiders werken voor eigen rekening, met een dagloon dat ruim boven het Nairobi-gemiddelde zit, plus brandstof, lunch, en bonus op klanttevredenheid. Dat staat niet ter discussie. Dit werkt alleen als beide kanten van de dienstverlening goed leven.</p>
-          <p>In je voorbereidingsmail krijg je de naam van de begeleider die voor jouw opdracht is toegewezen. Eén gezicht, geen wisselingen.</p>
+          <p>In je voorbereidingsmail krijg je de naam van de begeleider die voor jouw opdracht is toegewezen. E��n gezicht, geen wisselingen.</p>
 
           <h3>Waar ik van overtuigd ben</h3>
-          <p>Dat een vlucht en een hotel boeken het makkelijke deel is. Dat de eerste dagen op de grond bepalen of je je verblijf in Nairobi gaat associëren met "wat een gedoe" of met "wat een fijne stad." Dat eerlijk werk eerlijk betaald moet worden, aan beide kanten van de transactie. En dat één stad goed kennen, beter is dan tien steden half.</p>
+          <p>Dat een vlucht en een hotel boeken het makkelijke deel is. Dat de eerste dagen op de grond bepalen of je je verblijf in Nairobi gaat associ��ren met "wat een gedoe" of met "wat een fijne stad." Dat eerlijk werk eerlijk betaald moet worden, aan beide kanten van de transactie. En dat ����n stad goed kennen, beter is dan tien steden half.</p>
 
           <h3>Wat ik niet doe</h3>
           <p>Geen safari's. Geen pakketreizen. Geen tour guiding voor toeristen die de Big Five willen zien. Geen Mombasa, geen Kigali, geen Kaapstad. Alleen Nairobi, alleen mensen die er voor werk komen, alleen begeleiding op het kruispunt van Nederland en Kenia.</p>
@@ -1679,7 +1701,7 @@
     <div class="container">
       <h2>Vragen of <em>kennismaken</em>?</h2>
       <p>De makkelijkste manier om te zien of dit voor jou werkt, is een vrijblijvend gesprek van 20 minuten.</p>
-      <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking →</button>
+      <button class="btn-primary" onclick="showPage('contact')">Plan kennismaking ���</button>
     </div>
   </section>
 
@@ -1703,21 +1725,21 @@
           <h3 style="font-family: var(--display); font-size: 28px; font-weight: 500; margin-bottom: 24px; letter-spacing: -0.02em;">Direct contact</h3>
           <div class="contact-channels">
             <a href="#intake-form" class="contact-channel">
-              <div class="contact-icon">✦</div>
+              <div class="contact-icon">���</div>
               <div>
                 <div class="contact-channel-name">Aanvraagformulier</div>
                 <div class="contact-channel-detail">Vraag een vrijblijvend voorstel aan</div>
               </div>
             </a>
             <a href="#" class="contact-channel">
-              <div class="contact-icon">⏱</div>
+              <div class="contact-icon">���</div>
               <div>
                 <div class="contact-channel-name">Plan een 20-minuten kennismaking</div>
-                <div class="contact-channel-detail">Online via video-call · vrijblijvend</div>
+                <div class="contact-channel-detail">Online via video-call �� vrijblijvend</div>
               </div>
             </a>
             <div class="contact-channel" style="cursor:default;">
-              <div class="contact-icon">✉</div>
+              <div class="contact-icon">���</div>
               <div>
                 <div class="contact-channel-name">Liever direct mailen?</div>
                 <div class="contact-channel-detail">Stuur een bericht via het formulier. We antwoorden vanuit ons team-adres, dan heb je dat.</div>
@@ -1742,9 +1764,10 @@
         </div>
 
         <div>
-          <h3 style="font-family: var(--display); font-size: 28px; font-weight: 500; margin-bottom: 24px; letter-spacing: -0.02em;">Vraag een voorstel aan</h3>
+          <h3 style="font-family: var(--display); font-size: 28px; font-weight: 500; margin-bottom: 12px; letter-spacing: -0.02em;">Vraag een voorstel aan</h3>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">UrbanChill start officieel op <strong style="color: var(--forest);">1 juli 2026</strong>. Intakes worden al behandeld ��� je aanvraag komt gewoon aan en je hoort van ons.</p>
           <form id="intake-form" class="contact-form">
-            <!-- Honeypot field — bots fill this, humans don't see it -->
+            <!-- Honeypot field ��� bots fill this, humans don't see it -->
             <div class="hp-field" aria-hidden="true">
               <label for="website">Website (laat leeg)</label>
               <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
@@ -1765,10 +1788,10 @@
             <div class="form-group">
               <label class="form-label" for="service">Welke dienst?</label>
               <select class="form-select" id="service" name="service">
-                <option value="arrival">Arrival · €299</option>
-                <option value="arrival_duo">Arrival duo (2 personen) · €399</option>
-                <option value="extra_day">Extra Day · €199</option>
-                <option value="concierge">Concierge · €149/mnd</option>
+                <option value="arrival">Arrival �� ���299</option>
+                <option value="arrival_duo">Arrival duo (2 personen) �� ���399</option>
+                <option value="extra_day">Extra Day �� ���199</option>
+                <option value="concierge">Concierge �� ���149/mnd</option>
                 <option value="combination">Combinatie van diensten</option>
                 <option value="advice">Weet ik nog niet, adviseer me</option>
               </select>
@@ -1785,7 +1808,7 @@
               <label class="form-label" for="notes">Iets dat we moeten weten?</label>
               <textarea class="form-textarea" id="notes" name="notes" placeholder="Doel van bezoek, duur, eerste keer in Nairobi, ..."></textarea>
             </div>
-            <button class="form-submit" type="submit">Verstuur aanvraag →</button>
+            <button class="form-submit" type="submit">Verstuur aanvraag ���</button>
 
             <div id="intake-message" class="form-message"></div>
           </form>
@@ -1830,7 +1853,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 UrbanChill · KvK [nummer] · BTW NL[id]B01</div>
+      <div>�� 2026 UrbanChill �� KvK [nummer] �� BTW NL[id]B01</div>
       <div>Gemaakt in Nederland, gebouwd in Nairobi</div>
     </div>
   </div>
@@ -1850,7 +1873,7 @@
 
   document.querySelector('[data-nav="home"]').classList.add('active');
 
-  /* ============== FORM SUBMISSION — UrbanChill cockpit ============== */
+  /* ============== FORM SUBMISSION ��� UrbanChill cockpit ============== */
 
   const API_INTAKE = "https://cockpit.urbanchill.org/api/intake/create";
 
@@ -1873,7 +1896,7 @@
 
   async function sendPayload(payload, url, messageEl, formEl) {
     try {
-      console.log("📤 SEND", url, payload);
+      console.log("���� SEND", url, payload);
 
       const res = await fetch(url, {
         method: "POST",
@@ -1890,8 +1913,8 @@
       const ct = (res.headers.get("content-type") || "").toLowerCase();
       const text = await res.text();
 
-      console.log("📩 STATUS", res.status, res.statusText, "CT=", ct);
-      console.log("📩 BODY", text.slice(0, 300));
+      console.log("���� STATUS", res.status, res.statusText, "CT=", ct);
+      console.log("���� BODY", text.slice(0, 300));
 
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
@@ -1901,11 +1924,11 @@
         try { JSON.parse(text); } catch {}
       }
 
-      setMessage(messageEl, "success", "✅ Ontvangen. UrbanChill reageert meestal binnen 24 uur. Tot snel!");
+      setMessage(messageEl, "success", "��� Ontvangen. UrbanChill reageert meestal binnen 24 uur. Tot snel!");
       if (formEl) formEl.reset();
     } catch (err) {
-      console.error("❌ ERROR", err);
-      setMessage(messageEl, "error", "⚠️ Oeps. Verzenden lukt nu even niet. Probeer het over een minuut nog eens.");
+      console.error("��� ERROR", err);
+      setMessage(messageEl, "error", "������ Oeps. Verzenden lukt nu even niet. Probeer het over een minuut nog eens.");
     }
   }
 
