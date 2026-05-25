@@ -46,7 +46,30 @@
   tr:nth-child(even) td { background: rgba(0,0,0,.02); }
 
   .contact-box { background: var(--green); border-radius: 14px; padding: 1.5rem; color: var(--cream); margin-top: 1rem; }
-  .contact-box .title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: .75rem; }
+  .pv-input {
+    padding: .55rem .75rem;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 6px;
+    background: rgba(255,255,255,.08);
+    color: var(--cream);
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+  .pv-input::placeholder { color: rgba(245,239,226,.45); }
+  .pv-stack { display:flex; flex-direction:column; gap:.6rem; margin-bottom:.75rem; }
+  .pv-btn {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: .6rem 1.4rem;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
   .contact-row { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px solid rgba(255,255,255,.06); font-size: 13px; }
   .contact-row:last-child { border-bottom: none; }
   .contact-key { color: rgba(245,239,226,.5); }
@@ -176,23 +199,19 @@
     <div class="contact-box" style="background:var(--green)">
       <div class="title">AVG-verzoek of privacyvraag</div>
       <div id="pv-form">
-        <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem">
-          <input id="pv-naam" type="text" placeholder="Naam" required
-            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none">
-          <input id="pv-email" type="email" placeholder="E-mailadres" required
-            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none">
-          <select id="pv-type"
-            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none">
+        <div class="pv-stack">
+          <input id="pv-naam" class="pv-input" type="text" placeholder="Naam" required>
+          <input id="pv-email" class="pv-input" type="email" placeholder="E-mailadres" required>
+          <select id="pv-type" class="pv-input">
             <option value="privacy_vraag">Privacyvraag</option>
             <option value="inzage">Inzageverzoek (recht op inzage)</option>
             <option value="verwijdering">Verwijderingsverzoek (recht op vergetelheid)</option>
             <option value="correctie">Correctieverzoek</option>
             <option value="bezwaar">Bezwaar tegen verwerking</option>
           </select>
-          <textarea id="pv-bericht" placeholder="Omschrijf je verzoek of vraag..." rows="3"
-            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none;resize:vertical"></textarea>
+          <textarea id="pv-bericht" class="pv-input" placeholder="Omschrijf je verzoek of vraag..." rows="3"></textarea>
         </div>
-        <button onclick="pvVerstuur()" style="background:var(--orange);color:#fff;border:none;padding:.6rem 1.4rem;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">Verstuur verzoek →</button>
+        <button onclick="pvVerstuur()" class="pv-btn">Verstuur verzoek →</button>
         <div id="pv-status" style="margin-top:.6rem;font-size:13px;color:rgba(245,239,226,.7)"></div>
       </div>
     </div>
