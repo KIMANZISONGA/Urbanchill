@@ -1,4 +1,3 @@
-
 async function pvVerstuur() {
   const naam    = document.getElementById('pv-naam').value.trim();
   const email   = document.getElementById('pv-email').value.trim();
