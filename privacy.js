@@ -22,3 +22,8 @@ async function pvVerstuur() {
   } catch(e) { status.textContent = '❌ Verbindingsfout. Probeer het later opnieuw.'; }
 }
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('pv-submit');
+  if (btn) btn.addEventListener('click', pvVerstuur);
+});
