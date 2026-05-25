@@ -72,7 +72,7 @@
     <span class="art-num">Artikel 1</span>
     <div class="art-title">Wie zijn wij?</div>
     <p>UrbanChill is een dienst van KIMANZI, gevestigd te Rijswijk, Nederland, KvK-nummer [nummer]. UrbanChill begeleidt professionals bij hun eerste dagen in Nairobi, Kenia. De operationele uitvoering wordt verzorgd door KIMANZI.</p>
-    <p>Voor vragen over privacy: <span class="label">team@urbanchill.nl</span></p>
+    <p>Voor vragen over privacy: gebruik het contactformulier onderaan deze pagina.</p>
   </div>
 
   <div class="section">
@@ -140,7 +140,7 @@
       <li><span class="label">Intrekking toestemming</span> — toestemming voor nieuwsbrief of gegevensbewaring kun je op elk moment intrekken.</li>
       <li><span class="label">Dataportabiliteit</span> — jouw gegevens in een gangbaar formaat (JSON) ontvangen.</li>
     </ul>
-    <p>Verzoeken kun je sturen naar <span class="label">team@urbanchill.nl</span>. Wij reageren binnen <strong>30 dagen</strong>. Na afhandeling ontvang je altijd een bevestiging per e-mail, en de actie wordt gelogd in ons auditregister.</p>
+    <p>Verzoeken kun je indienen via het contactformulier onderaan deze pagina. Wij reageren binnen <strong>30 dagen</strong>. Na afhandeling ontvang je altijd een bevestiging per e-mail, en de actie wordt gelogd in ons auditregister.</p>
   </div>
 
   <div class="section">
@@ -165,20 +165,63 @@
   <div class="section">
     <span class="art-num">Artikel 9</span>
     <div class="art-title">Klachten</div>
-    <p>Heb je een klacht over de verwerking van jouw persoonsgegevens? Neem dan eerst contact met ons op via <span class="label">team@urbanchill.nl</span>.</p>
+    <p>Heb je een klacht over de verwerking van jouw persoonsgegevens? Gebruik dan het contactformulier onderaan deze pagina.</p>
     <p>Je hebt ook het recht om een klacht in te dienen bij de <span class="label">Autoriteit Persoonsgegevens</span> — <a href="https://www.autoriteitpersoonsgegevens.nl" style="color:var(--orange)">autoriteitpersoonsgegevens.nl</a>.</p>
   </div>
 
   <div class="section">
     <span class="art-num">Contact</span>
     <div class="art-title">Neem contact op</div>
-    <div class="contact-box">
-      <div class="title">UrbanChill — KIMANZI</div>
-      <div class="contact-row"><span class="contact-key">E-mail</span><span>team@urbanchill.nl</span></div>
-      <div class="contact-row"><span class="contact-key">Vestiging</span><span>Rijswijk, Nederland</span></div>
-      <div class="contact-row"><span class="contact-key">KvK</span><span>[nummer]</span></div>
+    <p>Heb je een vraag over privacy, wil je inzage in jouw gegevens of wil je dat wij jouw gegevens verwijderen? Vul het formulier in — wij reageren binnen 30 dagen.</p>
+    <div class="contact-box" style="background:var(--green)">
+      <div class="title">AVG-verzoek of privacyvraag</div>
+      <div id="pv-form">
+        <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem">
+          <input id="pv-naam" type="text" placeholder="Naam" required
+            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none">
+          <input id="pv-email" type="email" placeholder="E-mailadres" required
+            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none">
+          <select id="pv-type"
+            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none">
+            <option value="privacy_vraag">Privacyvraag</option>
+            <option value="inzage">Inzageverzoek (recht op inzage)</option>
+            <option value="verwijdering">Verwijderingsverzoek (recht op vergetelheid)</option>
+            <option value="correctie">Correctieverzoek</option>
+            <option value="bezwaar">Bezwaar tegen verwerking</option>
+          </select>
+          <textarea id="pv-bericht" placeholder="Omschrijf je verzoek of vraag..." rows="3"
+            style="padding:.55rem .75rem;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.08);color:var(--cream);font-size:14px;outline:none;resize:vertical"></textarea>
+        </div>
+        <button onclick="pvVerstuur()" style="background:var(--orange);color:#fff;border:none;padding:.6rem 1.4rem;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">Verstuur verzoek →</button>
+        <div id="pv-status" style="margin-top:.6rem;font-size:13px;color:rgba(245,239,226,.7)"></div>
+      </div>
     </div>
   </div>
+
+<script>
+async function pvVerstuur() {
+  const naam    = document.getElementById('pv-naam').value.trim();
+  const email   = document.getElementById('pv-email').value.trim();
+  const type    = document.getElementById('pv-type').value;
+  const bericht = document.getElementById('pv-bericht').value.trim();
+  const status  = document.getElementById('pv-status');
+  if (!naam || !email || !bericht) { status.textContent = '⚠️ Vul alle velden in.'; return; }
+  status.textContent = 'Versturen...';
+  try {
+    const res = await fetch('https://cockpit.urbanchill.org/api/contact/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: naam, email, message: `[AVG-verzoek: ${type}]\n\n${bericht}`, source: 'privacy_page', topic: type })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) {
+      document.getElementById('pv-form').innerHTML = '<p style="color:rgba(245,239,226,.85);font-size:14px">✅ Verzoek ontvangen. Wij reageren binnen 30 dagen op het opgegeven e-mailadres.</p>';
+    } else {
+      status.textContent = '❌ ' + (data.message || 'Er ging iets mis. Probeer het later opnieuw.');
+    }
+  } catch(e) { status.textContent = '❌ Verbindingsfout. Probeer het later opnieuw.'; }
+}
+</script>
 
 </div>
 
