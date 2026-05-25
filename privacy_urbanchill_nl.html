@@ -60,7 +60,10 @@
   }
   .pv-input::placeholder { color: rgba(245,239,226,.45); }
   .pv-stack { display:flex; flex-direction:column; gap:.6rem; margin-bottom:.75rem; }
-  .pv-btn {
+  .pv-status { margin-top:.6rem; font-size:13px; color:rgba(245,239,226,.7); }
+  .pv-success { color:rgba(245,239,226,.85); font-size:14px; }
+  .contact-box { background: var(--green); }
+  .ap-link { color: var(--orange); }
     background: var(--orange);
     color: #fff;
     border: none;
@@ -189,14 +192,14 @@
     <span class="art-num">Artikel 9</span>
     <div class="art-title">Klachten</div>
     <p>Heb je een klacht over de verwerking van jouw persoonsgegevens? Gebruik dan het contactformulier onderaan deze pagina.</p>
-    <p>Je hebt ook het recht om een klacht in te dienen bij de <span class="label">Autoriteit Persoonsgegevens</span> — <a href="https://www.autoriteitpersoonsgegevens.nl" style="color:var(--orange)">autoriteitpersoonsgegevens.nl</a>.</p>
+    <p>Je hebt ook het recht om een klacht in te dienen bij de <span class="label">Autoriteit Persoonsgegevens</span> — <a href="https://www.autoriteitpersoonsgegevens.nl" class="ap-link">autoriteitpersoonsgegevens.nl</a>.</p>
   </div>
 
   <div class="section">
     <span class="art-num">Contact</span>
     <div class="art-title">Neem contact op</div>
     <p>Heb je een vraag over privacy, wil je inzage in jouw gegevens of wil je dat wij jouw gegevens verwijderen? Vul het formulier in — wij reageren binnen 30 dagen.</p>
-    <div class="contact-box" style="background:var(--green)">
+    <div class="contact-box">
       <div class="title">AVG-verzoek of privacyvraag</div>
       <div id="pv-form">
         <div class="pv-stack">
@@ -212,7 +215,7 @@
           <textarea id="pv-bericht" class="pv-input" placeholder="Omschrijf je verzoek of vraag..." rows="3"></textarea>
         </div>
         <button onclick="pvVerstuur()" class="pv-btn">Verstuur verzoek →</button>
-        <div id="pv-status" style="margin-top:.6rem;font-size:13px;color:rgba(245,239,226,.7)"></div>
+        <div id="pv-status" class="pv-status"></div>
       </div>
     </div>
   </div>
@@ -234,7 +237,7 @@ async function pvVerstuur() {
     });
     const data = await res.json().catch(() => ({}));
     if (res.ok) {
-      document.getElementById('pv-form').innerHTML = '<p style="color:rgba(245,239,226,.85);font-size:14px">✅ Verzoek ontvangen. Wij reageren binnen 30 dagen op het opgegeven e-mailadres.</p>';
+      document.getElementById('pv-form').innerHTML = '<p class="pv-success">✅ Verzoek ontvangen. Wij reageren binnen 30 dagen op het opgegeven e-mailadres.</p>';
     } else {
       status.textContent = '❌ ' + (data.message || 'Er ging iets mis. Probeer het later opnieuw.');
     }
