@@ -502,7 +502,7 @@
       <div class="faq-closer">
         <div class="faq-closer-heading">Vraag <em>niet</em> beantwoord?</div>
         <p>Het 20-minuten gesprek is vrijblijvend. Geen verkooppraatje. Als we denken dat we niet de juiste partij voor je zijn, zeggen we dat.</p>
-        <button class="btn-primary" data-page="contact">Plan kennismaking →</button>
+        <button class="btn-primary" data-page="contact">Kijk of we passen →</button>
       </div>
     </div>
   </section>
@@ -526,7 +526,7 @@
         <div class="about-portrait"></div>
         <div class="about-text">
           <h3>Waarom dit bestaat</h3>
-          <p>[Placeholder, vervang met je eigen verhaal] Nairobi is niet ingewikkeld als je weet hoe het werkt. Het is alleen ingewikkeld als je het in je eentje moet uitvogelen tijdens je eerste dagen, terwijl je ook nog moet werken, jetlag hebt, en je laptop nog op een werkend Wi-Fi-netwerk wacht.</p>
+          <p><strong style="color:#c0392b;">⚠ TODO: vervang deze placeholder met je eigen verhaal.</strong> Nairobi is niet ingewikkeld als je weet hoe het werkt. Het is alleen ingewikkeld als je het in je eentje moet uitvogelen tijdens je eerste dagen, terwijl je ook nog moet werken, jetlag hebt, en je laptop nog op een werkend Wi-Fi-netwerk wacht.</p>
           <p>Ik heb een paar jaar geleden zelf zo'n landing meegemaakt. Drie dagen kwijt aan simkaart, M-Pesa-frustratie, een verkeerde Uber, een onbetrouwbaar Airbnb. Toen ik later anderen hetzelfde zag doen, dacht ik: dit kan beter. Veel beter. Eén Nederlandse aanspreekpunt, één begeleider die met je meegaat, en je bent binnen een dag of twee operationeel.</p>
 
           <h3>Hoe ik werk</h3>
@@ -790,6 +790,10 @@
               <input class="form-input" type="text" id="client_name" name="client_name" required>
             </div>
             <div class="form-group">
+              <label class="form-label" for="company_name">Bedrijfsnaam <span class="label-optional">(optioneel)</span></label>
+              <input class="form-input" type="text" id="company_name" name="company_name" placeholder="Voor zakelijke facturatie">
+            </div>
+            <div class="form-group">
               <label class="form-label" for="client_email">E-mail</label>
               <input class="form-input" type="email" id="client_email" name="client_email" required>
             </div>
@@ -805,6 +809,7 @@
                 <option value="extra_day">Extra Day · €199</option>
                 <option value="concierge">Concierge · €149/mnd</option>
                 <option value="combination">Combinatie van diensten</option>
+                <option value="business">Zakelijke aanvraag (voor medewerker)</option>
                 <option value="advice">Weet ik nog niet, adviseer me</option>
               </select>
             </div>
