@@ -1,3 +1,27 @@
+/* Werkgevers tijdelijk verborgen tot hosts volledig ingewerkt zijn */
+(function() {
+  function hideEmployers() {
+    document.querySelectorAll('[data-page="employers"], [data-nav="employers"]').forEach(function(el) {
+      var li = el.closest('li');
+      if (li) li.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('display', 'none', 'important');
+    });
+    var page = document.getElementById('page-employers');
+    if (page) page.style.setProperty('display', 'none', 'important');
+    // Audience kaart
+    document.querySelectorAll('.audience-card').forEach(function(card) {
+      if (card.textContent.includes('Werkgevers') || card.textContent.includes('werkgevers')) {
+        card.style.setProperty('display', 'none', 'important');
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hideEmployers);
+  } else {
+    hideEmployers();
+  }
+})();
+
 /* UrbanChill main.js */
 
 /* ---------------- PAGE NAVIGATION ---------------- */
