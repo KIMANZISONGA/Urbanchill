@@ -1156,10 +1156,10 @@
         Urban<span>Chill</span>
       </button>
       <ul class="nav-links">
-        <li><button data-nav="home" data-page="home">Home</button></li>
-        <li><button data-nav="services" data-page="services">Diensten</button></li>
-        <li><button data-nav="about" data-page="about">Over</button></li>
-        <li><button data-nav="contact" data-page="contact">Contact</button></li>
+        <li><button data-page="home" data-nav="home">Home</button></li>
+        <li><button data-page="services" data-nav="services">Diensten</button></li>
+        <li><button data-page="about" data-nav="about">Over</button></li>
+        <li><button data-page="contact" data-nav="contact">Contact</button></li>
       </ul>
       <button class="nav-cta" data-page="contact">Plan kennismaking →</button>
     </div>
@@ -1836,111 +1836,7 @@
   </div>
 </footer>
 
-<script>
-  function showPage(pageName) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + pageName).classList.add('active');
-    
-    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
-    const navBtn = document.querySelector('[data-nav="' + pageName + '"]');
-    if (navBtn) navBtn.classList.add('active');
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  document.querySelector('[data-nav="home"]').classList.add('active');
-
-  /* ============== FORM SUBMISSION — UrbanChill cockpit ============== */
-
-  const API_INTAKE = "https://cockpit.urbanchill.org/api/intake/create";
-
-  function setMessage(messageEl, type, text) {
-    if (!messageEl) return;
-    messageEl.classList.remove("uc-msg", "uc-success", "uc-error");
-    messageEl.classList.add("uc-msg");
-    if (type === "success") messageEl.classList.add("uc-success");
-    if (type === "error") messageEl.classList.add("uc-error");
-    messageEl.textContent = text;
-
-    if (type === "success") {
-      clearTimeout(messageEl._ucHideTimer);
-      messageEl._ucHideTimer = setTimeout(() => {
-        messageEl.textContent = "";
-        messageEl.classList.remove("uc-msg", "uc-success", "uc-error");
-      }, 6000);
-    }
-  }
-
-  async function sendPayload(payload, url, messageEl, formEl) {
-    try {
-      console.log("📤 SEND", url, payload);
-
-      const res = await fetch(url, {
-        method: "POST",
-        mode: "cors",
-        credentials: "omit",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(payload),
-        keepalive: true
-      });
-
-      const ct = (res.headers.get("content-type") || "").toLowerCase();
-      const text = await res.text();
-
-      console.log("📩 STATUS", res.status, res.statusText, "CT=", ct);
-      console.log("📩 BODY", text.slice(0, 300));
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-
-      if (ct.includes("application/json")) {
-        try { JSON.parse(text); } catch {}
-      }
-
-      setMessage(messageEl, "success", "✅ Ontvangen. UrbanChill reageert meestal binnen 24 uur. Tot snel!");
-      if (formEl) formEl.reset();
-    } catch (err) {
-      console.error("❌ ERROR", err);
-      setMessage(messageEl, "error", "⚠️ Oeps. Verzenden lukt nu even niet. Probeer het over een minuut nog eens.");
-    }
-  }
-
-  const intakeForm = document.getElementById("intake-form");
-
-  if (intakeForm) {
-    intakeForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const messageEl = document.getElementById("intake-message");
-
-      /* honeypot spam check */
-      if (intakeForm.website && intakeForm.website.value !== "") {
-        return;
-      }
-
-      const userNotes = intakeForm.notes?.value || "";
-      const key = (intakeForm.urbanchill_key?.value || "").trim();
-      const notesWithKey = key
-        ? (userNotes ? userNotes + "\n\n[UrbanChill-key: " + key + "]" : "[UrbanChill-key: " + key + "]")
-        : userNotes;
-
-      const payload = {
-        name: intakeForm.client_name?.value || "",
-        email: intakeForm.client_email?.value || "",
-        phone: intakeForm.client_phone?.value || "",
-        service: intakeForm.service?.value || "",
-        arrival_date: intakeForm.arrival_date?.value || "",
-        notes: notesWithKey
-      };
-
-      sendPayload(payload, API_INTAKE, messageEl, intakeForm);
-    }, true);
-  }
-</script>
+<script src="main.js"></script>
 
 </body>
 </html>
