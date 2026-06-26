@@ -1282,7 +1282,7 @@
               <span class="service-feature-text">Tour langs 2 coworking spaces</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" onclick="showPage('services'); setTimeout(()=>{document.getElementById('detail-arrival').scrollIntoView({behavior:'smooth'})},100)">Lees meer →</button>
         </div>
 
         <div class="service-card featured">
@@ -1317,7 +1317,7 @@
               <span class="service-feature-text">Stapelbaar. Boek meerdere dagen</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" onclick="showPage('services'); setTimeout(()=>{document.getElementById('detail-extraday').scrollIntoView({behavior:'smooth'})},100)">Lees meer →</button>
         </div>
 
         <div class="service-card">
@@ -1351,7 +1351,7 @@
               <span class="service-feature-text">Verzekering tegen het onverwachte</span>
             </li>
           </ul>
-          <button class="service-cta" onclick="showPage('services')">Lees meer →</button>
+          <button class="service-cta" onclick="showPage('services'); setTimeout(()=>{document.getElementById('detail-concierge').scrollIntoView({behavior:'smooth'})},100)">Lees meer →</button>
         </div>
       </div>
     </div>
@@ -1439,7 +1439,7 @@
     <div class="container">
       <div class="service-detail-grid">
         <div class="service-detail-side">
-          <div class="service-detail-name">Arrival</div>
+          <div class="service-detail-name" id="detail-arrival">Arrival</div>
           <div class="service-detail-tagline">De eerste 24 uur, opgesplitst in twee dagdelen.</div>
           <div class="service-detail-price">€299</div>
           <div class="service-detail-price-suffix">incl. btw · solo<br>€399 voor 2 personen</div>
@@ -1489,7 +1489,7 @@
     <div class="container">
       <div class="service-detail-grid">
         <div class="service-detail-side">
-          <div class="service-detail-name">Extra Day</div>
+          <div class="service-detail-name" id="detail-extraday">Extra Day</div>
           <div class="service-detail-tagline">Eén begeleidingsdag, naar behoefte. Stapelbaar.</div>
           <div class="service-detail-price">€199</div>
           <div class="service-detail-price-suffix">incl. btw · per dag</div>
@@ -1533,7 +1533,7 @@
     <div class="container">
       <div class="service-detail-grid">
         <div class="service-detail-side">
-          <div class="service-detail-name">Concierge</div>
+          <div class="service-detail-name" id="detail-concierge">Concierge</div>
           <div class="service-detail-tagline">Doorlopend. Jouw man op de grond.</div>
           <div class="service-detail-price">€149</div>
           <div class="service-detail-price-suffix">incl. btw · per maand<br>maandelijks opzegbaar</div>
