@@ -42,7 +42,15 @@ document.addEventListener('click', function(e) {
   const btn = e.target.closest('[data-page]');
   if (btn) {
     e.preventDefault();
-    showPage(btn.getAttribute('data-page'));
+    const page = btn.getAttribute('data-page');
+    const scrollTo = btn.getAttribute('data-scroll-to');
+    showPage(page);
+    if (scrollTo) {
+      setTimeout(function() {
+        var target = document.getElementById(scrollTo);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   }
 });
 
