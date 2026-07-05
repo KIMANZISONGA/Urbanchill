@@ -1195,6 +1195,73 @@
     </div>
   </section>
 
+
+  <section class="weather-widget-section" style="padding: 0 0 0 0; border-top: 1px solid var(--line);">
+    <div class="container" style="padding-top: 40px; padding-bottom: 40px;">
+      <div id="uc-weather-widget" style="display:flex;gap:12px;flex-wrap:wrap;"></div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    const weatherMap = [
+      [0,"☀️","Helder"],[1,"🌤️","Overwegend helder"],[2,"⛅","Gedeeltelijk bewolkt"],
+      [3,"☁️","Bewolkt"],[45,"🌫️","Mist"],[51,"🌦️","Motregen"],[61,"🌧️","Regen"],
+      [65,"🌧️","Zware regen"],[80,"🌦️","Buien"],[95,"⛈️","Onweer"]
+    ];
+    function getWeather(code){
+      return weatherMap.slice().reverse().find(([wc])=>code>=wc)||[0,"🌡️","Onbekend"];
+    }
+
+    async function loadWidget(){
+      const el = document.getElementById('uc-weather-widget');
+      if(!el) return;
+
+      const [nairobiRes, rijswijkRes, kesRes] = await Promise.all([
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=-1.2921&longitude=36.8219&current=temperature_2m,weathercode&timezone=Africa%2FNairobi').then(r=>r.json()).catch(()=>null),
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=52.0400&longitude=4.3583&current=temperature_2m,weathercode&timezone=Europe%2FAmsterdam').then(r=>r.json()).catch(()=>null),
+        fetch('https://open.er-api.com/v6/latest/EUR').then(r=>r.json()).catch(()=>null).then(d=>d&&d.rates&&d.rates.KES?d:fetch('https://api.frankfurter.app/latest?from=EUR&to=KES').then(r=>r.json()).then(f=>({rates:f.rates})).catch(()=>null)).catch(()=>null)
+      ]);
+
+      const nairobi = nairobiRes ? getWeather(nairobiRes.current?.weathercode||0) : null;
+      const rijswijk = rijswijkRes ? getWeather(rijswijkRes.current?.weathercode||0) : null;
+      const kes = kesRes?.rates?.KES ? Math.round(kesRes.rates.KES*100)/100 : null;
+
+      const cardStyle = 'flex:1;min-width:160px;border-radius:12px;padding:14px 18px;';
+
+      el.innerHTML = `
+        <div style="${cardStyle}background:#1A2C1E;color:#F4EFE6;">
+          <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin-bottom:6px;">🌍 Nairobi</div>
+          ${nairobi ? `<div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:26px">${nairobi[1]}</span>
+            <div><div style="font-size:22px;font-weight:700;line-height:1">${Math.round(nairobiRes.current.temperature_2m)}°C</div>
+            <div style="font-size:11px;opacity:.6">${nairobi[2]}</div></div>
+          </div>` : '<div style="font-size:12px;opacity:.5">—</div>'}
+        </div>
+        <div style="${cardStyle}background:#F4EFE6;border:1px solid var(--line);color:var(--text);">
+          <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin-bottom:6px;">🇳🇱 Rijswijk</div>
+          ${rijswijk ? `<div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:26px">${rijswijk[1]}</span>
+            <div><div style="font-size:22px;font-weight:700;line-height:1">${Math.round(rijswijkRes.current.temperature_2m)}°C</div>
+            <div style="font-size:11px;opacity:.5">${rijswijk[2]}</div></div>
+          </div>` : '<div style="font-size:12px;opacity:.5">—</div>'}
+        </div>
+        <div style="${cardStyle}background:var(--terracotta);color:#fff;">
+          <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:6px;">💶 Koers</div>
+          ${kes ? `<div style="font-size:22px;font-weight:700;line-height:1.2">KSh ${kes}</div>
+          <div style="font-size:11px;opacity:.75;margin-top:2px">per €1</div>` : '<div style="font-size:12px;opacity:.7">—</div>'}
+        </div>
+      `;
+    }
+
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', loadWidget);
+    } else {
+      loadWidget();
+    }
+  })();
+  </script>
+
   <section class="for-whom">
     <div class="container">
       <div class="section-header">
@@ -2007,5 +2074,5 @@
   }
 </script>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a15da4c3daa00046',t:'MTc4MzE2MzAwOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
