@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>UrbanChill: Nederlandse landing service voor Nairobi</title>
 <meta name="description" content="Persoonlijke begeleiding voor Nederlanders die naar Nairobi reizen voor werk. Modulair model: Arrival, losse Extra Days, en Concierge. Kies wat past." />
+<link rel="canonical" href="https://urbanchill.nl/" />
+<link rel="icon" type="image/png" href="/urbanchill-logo.png" />
+<link rel="apple-touch-icon" href="/urbanchill-logo.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="UrbanChill" />
+<meta property="og:locale" content="nl_NL" />
+<meta property="og:url" content="https://urbanchill.nl/" />
+<meta property="og:title" content="UrbanChill: Nederlandse landing service voor Nairobi" />
+<meta property="og:description" content="Persoonlijke begeleiding voor Nederlanders die naar Nairobi reizen voor werk. Modulair model: Arrival, losse Extra Days, en Concierge. Kies wat past." />
+<meta property="og:image" content="https://urbanchill.nl/nairobi-skyline-night.jpg" />
+<meta property="og:image:alt" content="Skyline van Nairobi bij avond" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="UrbanChill: Nederlandse landing service voor Nairobi" />
+<meta name="twitter:description" content="Persoonlijke begeleiding voor Nederlanders die naar Nairobi reizen voor werk. Modulair model: Arrival, losse Extra Days, en Concierge. Kies wat past." />
+<meta name="twitter:image" content="https://urbanchill.nl/nairobi-skyline-night.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -155,6 +170,14 @@
   .page-hero .container > *:nth-child(3) { animation-delay: 0.3s; }
   .hero .hero-grid > div:first-child > *:nth-child(4),
   .page-hero .container > *:nth-child(4) { animation-delay: 0.4s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page,
+    .hero .hero-grid > div:first-child > *,
+    .page-hero .container > * {
+      animation: none !important;
+    }
+  }
 
   .hero { padding: 100px 0 120px; position: relative; }
 
