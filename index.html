@@ -1202,6 +1202,23 @@
     }
   }
 
+
+/* --- brand-reveal: fade + lichte omhoog-beweging --- */
+.brand-reveal{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .7s ease, transform .7s ease;
+  will-change:opacity, transform;
+}
+.brand-reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  .brand-reveal{opacity:1;transform:none;transition:none;}
+}
+
 </style>
 </head>
 <body>
@@ -1279,10 +1296,10 @@
       <div class="section-eyebrow">Je landt. Wij staan er al.</div>
       <h2 style="font-size:clamp(26px,3.2vw,38px);line-height:1.12;margin:6px 0 0;">Voor mensen die hier komen <em>wonen en werken</em>, niet uitzoeken hoe de stad werkt.</h2>
       <p style="font-size:1.05rem;line-height:1.7;margin:20px 0 0;">
-        Het is elf uur 's avonds. Je vlucht was lang, je bent een uur verschoven, en de jetlag begint net te wringen. Buiten JKIA is het donker en druk. Je kunt een Uber bestellen, maar waarschijnlijk heb je nog geen data in Kenia. Je weet nog niet hoe M-Pesa werkt, of waar je morgenvroeg je eerste koffie haalt. Dit is precies het moment waarvoor wij bestaan: iemand die je opwacht en het allemaal al weet.
+        Het is elf uur 's avonds. Je vlucht was lang, je bent een uur verschoven, en de jetlag begint net te wringen. Buiten JKIA is het donker en druk. Je kunt een Uber bestellen, maar waarschijnlijk heb je nog geen data in Kenia. Je weet nog niet hoe M-Pesa werkt, of waar je morgenvroeg je eerste koffie haalt. Dit is precies het moment waarvoor <span class="brand-reveal">UrbanChill</span> bestaat: iemand die je opwacht en het allemaal al weet.
       </p>
       <p style="font-size:1.05rem;line-height:1.7;margin:24px 0 0;color:var(--muted,#6b6b6b);">
-        Je vlucht boek je zelf. Je accommodatie regel je zelf. Maar die eerste dagen &mdash; aankomen, wegwijs raken, landen &mdash; hoef je niet alleen uit te zoeken. E&eacute;n Nederlands aanspreekpunt, &eacute;&eacute;n vaste begeleider op de grond, alles geregeld voordat je voet op Keniaanse bodem zet. Geen pakket dat je overkomt, maar een zachte landing die precies zo groot is als je 'm nodig hebt.
+        Je vlucht boek je zelf. Je accommodatie regel je zelf. Maar die eerste dagen &mdash; aankomen, wegwijs raken, landen &mdash; hoef je niet alleen uit te zoeken. E&eacute;n Nederlands aanspreekpunt, &eacute;&eacute;n vaste begeleider op de grond, alles geregeld voordat je voet op Keniaanse bodem zet. Geen pakket dat je overkomt, maar een zachte landing die precies zo groot is als je 'm nodig hebt. Dat is <span class="brand-reveal">UrbanChill</span>.
       </p>
     </div>
   </section>
@@ -1688,7 +1705,7 @@
           <h3>Voor wie</h3>
           <p>Mensen die na Arrival nog hulp willen bij iets specifieks: een appartement zoeken, een visum verlengen, sociaal landen. Of mensen die al een keer in Nairobi zijn geweest en nu één concrete kwestie willen aanpakken zonder een heel pakket af te nemen.</p>
 
-          <h3>Hoe het werkt</h3>
+          <h3>Hoe <span class="brand-reveal">UrbanChill</span> werkt</h3>
           <p>Je boekt een Extra Day vooraf of tijdens je verblijf. <strong>Hoe je de dag invult, bespreek je rechtstreeks met je begeleider in Nairobi</strong>. Hij of zij weet beter dan wij wat haalbaar is binnen die uren. Geen vooraf vastgelegd lijstje van categorieën.</p>
 
           <h3>Wat klanten typisch vragen</h3>
@@ -2200,5 +2217,25 @@
   }
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a15da4c3daa00046',t:'MTc4MzE2MzAwOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a15da4c3daa00046',t:'MTc4MzE2MzAwOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>
+(function(){
+  var els = document.querySelectorAll('.brand-reveal');
+  if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
 </html>
