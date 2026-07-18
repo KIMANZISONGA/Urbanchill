@@ -1292,7 +1292,7 @@
 
   <section class="weather-widget-section" style="padding: 0 0 0 0; border-top: 1px solid var(--line);">
     <div class="container" style="padding-top: 40px; padding-bottom: 40px;">
-      <div id="uc-weather-widget" style="display:flex;gap:12px;flex-wrap:wrap;"></div>
+      <div id="uc-weather-widget" style="display:flex;flex-direction:column;gap:12px;max-width:420px;"></div>
     </div>
   </section>
 
@@ -1321,7 +1321,7 @@
       const rijswijk = rijswijkRes ? getWeather(rijswijkRes.current?.weathercode||0) : null;
       const kes = kesRes?.rates?.KES ? Math.round(kesRes.rates.KES*100)/100 : null;
 
-      const cardStyle = 'flex:1;min-width:160px;border-radius:12px;padding:14px 18px;';
+      const cardStyle = 'border-radius:12px;padding:14px 18px;';
 
       el.innerHTML = `
         <div style="${cardStyle}background:#1A2C1E;color:#F4EFE6;">
