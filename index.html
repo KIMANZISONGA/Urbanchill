@@ -1290,9 +1290,9 @@
     </div>
   </section>
 
-  <section class="weather-widget-section" style="padding: 0 0 0 0; border-top: 1px solid var(--line);">
-    <div class="container" style="padding-top: 40px; padding-bottom: 40px;">
-      <div id="uc-weather-widget" style="display:flex;flex-direction:column;gap:12px;max-width:420px;"></div>
+  <section class="weather-widget-section">
+    <div class="container">
+      <div id="uc-weather-widget" class="weather-grid"></div>
     </div>
   </section>
 
@@ -1321,29 +1321,29 @@
       const rijswijk = rijswijkRes ? getWeather(rijswijkRes.current?.weathercode||0) : null;
       const kes = kesRes?.rates?.KES ? Math.round(kesRes.rates.KES*100)/100 : null;
 
-      const cardStyle = 'border-radius:12px;padding:14px 18px;';
-
       el.innerHTML = `
-        <div style="${cardStyle}background:#1A2C1E;color:#F4EFE6;">
-          <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin-bottom:6px;">🌍 Nairobi</div>
-          ${nairobi ? `<div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:26px">${nairobi[1]}</span>
-            <div><div style="font-size:22px;font-weight:700;line-height:1">${Math.round(nairobiRes.current.temperature_2m)}°C</div>
-            <div style="font-size:11px;opacity:.6">${nairobi[2]}</div></div>
-          </div>` : '<div style="font-size:12px;opacity:.5">—</div>'}
+        <div class="weather-card">
+          <div class="weather-label">🌍 Nairobi</div>
+          ${nairobi ? `<div class="weather-row">
+            <span class="weather-emoji">${nairobi[1]}</span>
+            <span class="weather-temp">${Math.round(nairobiRes.current.temperature_2m)}°</span>
+            <span class="weather-desc">${nairobi[2]}</span>
+          </div>` : '<div class="weather-desc">—</div>'}
         </div>
-        <div style="${cardStyle}background:#F4EFE6;border:1px solid var(--line);color:var(--text);">
-          <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin-bottom:6px;">🇳🇱 Rijswijk</div>
-          ${rijswijk ? `<div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:26px">${rijswijk[1]}</span>
-            <div><div style="font-size:22px;font-weight:700;line-height:1">${Math.round(rijswijkRes.current.temperature_2m)}°C</div>
-            <div style="font-size:11px;opacity:.5">${rijswijk[2]}</div></div>
-          </div>` : '<div style="font-size:12px;opacity:.5">—</div>'}
+        <div class="weather-card">
+          <div class="weather-label">🇳🇱 Rijswijk</div>
+          ${rijswijk ? `<div class="weather-row">
+            <span class="weather-emoji">${rijswijk[1]}</span>
+            <span class="weather-temp">${Math.round(rijswijkRes.current.temperature_2m)}°</span>
+            <span class="weather-desc">${rijswijk[2]}</span>
+          </div>` : '<div class="weather-desc">—</div>'}
         </div>
-        <div style="${cardStyle}background:var(--terracotta);color:#fff;">
-          <div style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:6px;">💶 Koers</div>
-          ${kes ? `<div style="font-size:22px;font-weight:700;line-height:1.2">KSh ${kes}</div>
-          <div style="font-size:11px;opacity:.75;margin-top:2px">per €1</div>` : '<div style="font-size:12px;opacity:.7">—</div>'}
+        <div class="weather-card">
+          <div class="weather-label">💶 Koers</div>
+          ${kes ? `<div class="weather-row">
+            <span class="weather-temp">KSh ${kes}</span>
+            <span class="weather-desc">per €1</span>
+          </div>` : '<div class="weather-desc">—</div>'}
         </div>
       `;
     }
@@ -1356,23 +1356,23 @@
   })();
   </script>
 
-  <section class="hart-section" style="border-top:1px solid var(--line);">
-    <div class="container" style="max-width:760px;padding-top:72px;padding-bottom:72px;">
+  <section class="hart-section">
+    <div class="container narrative">
       <div class="section-eyebrow">Je landt. Wij staan er al.</div>
-      <h2 style="font-size:clamp(26px,3.2vw,38px);line-height:1.12;margin:6px 0 0;">Voor mensen die hier komen <em>wonen en werken</em>, niet uitzoeken hoe de stad werkt.</h2>
-      <p style="font-size:1.05rem;line-height:1.7;margin:20px 0 0;">
+      <h2>Voor mensen die hier komen <em>wonen en werken</em>, niet uitzoeken hoe de stad werkt.</h2>
+      <p>
         Het is elf uur 's avonds. Je vlucht was lang, je bent een uur verschoven, en de jetlag begint net te wringen. Buiten JKIA is het donker en druk. Je kunt een Uber bestellen, maar waarschijnlijk heb je nog geen data in Kenia. Je weet nog niet hoe M-Pesa werkt, of waar je morgenvroeg je eerste koffie haalt. Dit is precies het moment waarvoor <span class="brand-reveal">UrbanChill</span> bestaat: iemand die je opwacht en het allemaal al weet.
       </p>
-      <p style="font-size:1.05rem;line-height:1.7;margin:24px 0 0;color:var(--muted,#6b6b6b);">
+      <p class="soft">
         Je vlucht boek je zelf. Je accommodatie regel je zelf. Maar die eerste dagen &mdash; aankomen, wegwijs raken, landen &mdash; hoef je niet alleen uit te zoeken. E&eacute;n Nederlands aanspreekpunt, &eacute;&eacute;n vaste begeleider op de grond, alles geregeld voordat je voet op Keniaanse bodem zet. Geen pakket dat je overkomt, maar een zachte landing die precies zo groot is als je 'm nodig hebt. Dat is <span class="brand-reveal">UrbanChill</span>.
       </p>
     </div>
   </section>
 
-  <section class="aandacht-section" style="border-top:1px solid var(--line);">
-    <div class="container" style="max-width:760px;padding-top:56px;padding-bottom:56px;">
+  <section class="aandacht-section">
+    <div class="container narrative">
       <div class="section-eyebrow">We denken aan het moment waarop het misgaat</div>
-      <p style="font-size:1.05rem;line-height:1.7;margin:16px 0 0;">
+      <p>
         Vertraagd geland? We volgen je vlucht en schuiven je pickup mee, zonder dat je iets hoeft te doen. Meer dan zes uur later dan gepland? Dan verzetten we de hele service kosteloos naar de volgende dag. Je hoeft niemand te bellen vanaf een vreemde luchthaven. Dat is al voor je bedacht.
       </p>
     </div>
