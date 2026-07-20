@@ -146,7 +146,7 @@
   .kv{display:flex;justify-content:space-between;gap:14px;font-size:.9rem;padding:7px 0;border-bottom:1px solid var(--line);}
   .kv:last-child{border-bottom:none;} .kv .k{color:var(--muted);} .kv .v{color:var(--ink);font-weight:500;text-align:right;}
   .privacy p{font-size:.88rem;color:var(--muted);line-height:1.65;margin-top:10px;}
-  .msg-note{margin-top:14px;font-size:.85rem;color:var(--amber-deep);display:none;}
+  .msg-note{margin-top:14px;font-size:.9rem;color:var(--amber-deep);display:none;line-height:1.5;} .msg-note.ok{color:#2c7a4b;} .msg-note.err{color:#b3402f;}
   @media (max-width:900px){.contact-grid{grid-template-columns:1fr;} .grid2{grid-template-columns:1fr;}}
 </style>
 <style>
@@ -194,7 +194,7 @@ footer{position:relative;overflow:hidden;}
       <div class="form-card">
         <h3>Vraag een vrijblijvend voorstel aan</h3>
         <div class="fine">Binnen 24 uur op werkdagen een voorstel met factuur in euro's.</div>
-        <form onsubmit="return ucPreview(this,'aanvraag')">
+        <form onsubmit="return ucSubmit(this,'intake')">
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" placeholder="Website (laat leeg)">
           <div class="grid2">
             <div class="field"><label>Naam</label><input type="text" name="naam" required></div>
@@ -204,10 +204,10 @@ footer{position:relative;overflow:hidden;}
             <div class="field"><label>Telefoon (optioneel)</label><input type="tel" name="telefoon"></div>
             <div class="field"><label>Welke dienst?</label>
               <select name="dienst">
-                <option>Arrival · €299</option>
-                <option>Arrival duo (2 personen) · €399</option>
-                <option>Extra Day · €199</option>
-                <option>Concierge · €149/mnd</option>
+                <option value="arrival">Arrival · €299</option>
+                <option value="arrival_duo">Arrival duo (2 personen) · €399</option>
+                <option value="extra_day">Extra Day · €199</option>
+                <option value="concierge">Concierge · €149/mnd</option>
               </select>
             </div>
           </div>
@@ -217,7 +217,7 @@ footer{position:relative;overflow:hidden;}
           </div>
           <div class="field"><label>Iets dat we moeten weten?</label><textarea name="bericht" placeholder="Doel van je verblijf, wensen, vragen…"></textarea></div>
           <button type="submit" class="btn btn-primary">Verstuur aanvraag →</button>
-          <div class="msg-note" data-note>Preview: in de live versie wordt dit naar het intake-systeem gestuurd.</div>
+          <div class="msg-note" data-note role="status" aria-live="polite"></div>
         </form>
       </div>
 
@@ -255,7 +255,7 @@ footer{position:relative;overflow:hidden;}
       <div class="form-card">
         <h3>Liever kort een bericht sturen?</h3>
         <div class="fine">We lezen alles en antwoorden binnen een werkdag.</div>
-        <form onsubmit="return ucPreview(this,'bericht')">
+        <form onsubmit="return ucSubmit(this,'contact')">
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" placeholder="Website (laat leeg)">
           <div class="grid2">
             <div class="field"><label>Naam</label><input type="text" name="naam" required></div>
@@ -263,7 +263,7 @@ footer{position:relative;overflow:hidden;}
           </div>
           <div class="field"><label>Bericht</label><textarea name="bericht" required></textarea></div>
           <button type="submit" class="btn btn-ink">Verstuur bericht →</button>
-          <div class="msg-note" data-note>Preview: in de live versie gaat dit naar het team-adres.</div>
+          <div class="msg-note" data-note role="status" aria-live="polite"></div>
         </form>
       </div>
       <div>
@@ -290,10 +290,37 @@ footer{position:relative;overflow:hidden;}
 </footer>
 <div class="ribbon"><b>Preview</b> · blauwe richting · Contact</div>
 <script>
-function ucPreview(form,type){
-  var n=form.querySelector('[data-note]'); if(n)n.style.display='block';
-  return false; /* preview: nog niet aangesloten op het live systeem */
-}
+(function(){
+  var INTAKE="https://cockpit.urbanchill.org/api/intake/create";
+  var CONTACT="https://cockpit.urbanchill.org/api/contact/create";
+  function val(f,n){var e=f.querySelector('[name="'+n+'"]');return e?(''+e.value).trim():'';}
+  function note(f,t,text){var n=f.querySelector('[data-note]');if(!n)return;n.style.display='block';n.className='msg-note '+(t||'');n.textContent=text;}
+  function send(f,url,payload,ok){
+    var b=f.querySelector('button[type="submit"]');var lab=b?b.textContent:'';
+    if(b){b.disabled=true;b.textContent='Bezig\u2026';}
+    fetch(url,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload),keepalive:true})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text();})
+      .then(function(){note(f,'ok',ok);f.reset();})
+      .catch(function(){note(f,'err','\u26A0\uFE0F Verzenden lukt nu even niet. Probeer het over een minuut nog eens.');})
+      .then(function(){if(b){setTimeout(function(){b.disabled=false;b.textContent=lab;},2500);}});
+  }
+  var OK="\u2705 Ontvangen. UrbanChill reageert meestal binnen 24 uur. Tot snel!";
+  window.ucSubmit=function(form,kind){
+    if(val(form,'website'))return false;
+    if(kind==='intake'){
+      var key=val(form,'key'),notes=val(form,'bericht');
+      var nk=key?(notes?notes+"\n\n[UrbanChill-key: "+key+"]":"[UrbanChill-key: "+key+"]"):notes;
+      var p={name:val(form,'naam'),email:val(form,'email'),phone:val(form,'telefoon'),service:val(form,'dienst'),arrival_date:val(form,'aankomst'),notes:nk};
+      if(!p.name||!p.email){note(form,'err','Vul je naam en e-mail in.');return false;}
+      send(form,INTAKE,p,OK);
+    }else{
+      var p2={name:val(form,'naam'),email:val(form,'email'),message:val(form,'bericht'),source:'website_contact'};
+      if(!p2.name||!p2.email||!p2.message){note(form,'err','Vul alle velden in.');return false;}
+      send(form,CONTACT,p2,OK);
+    }
+    return false;
+  };
+})();
 </script>
 <script>
 (function(){
