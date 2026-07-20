@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UrbanChill — Diensten (blauwe richting, preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#2A4E70; --sky-mid:#3A6690; --sky-low:#548BB0;
+    --horizon:#D08A3C; --amber:#E3A24A; --amber-deep:#C07C2C;
+    --night:#173553; --night-2:#255074;
+    --paper:#EFEBE3; --paper-2:#E7E1D6; --line:rgba(22,34,46,.12);
+    --ink:#16222E; --ink-soft:#33424E; --muted:#5E6B76;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+    --max:1140px; --radius:14px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;} em{font-style:italic;} a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--amber);color:var(--sky-top);}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--amber);display:inline-flex;align-items:center;gap:12px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.7;}
+  .eyebrow.dark{color:var(--amber-deep);}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;padding:13px 24px;border-radius:30px;cursor:pointer;border:1.5px solid transparent;transition:.2s;}
+  .btn-primary{background:var(--amber);color:var(--sky-top);} .btn-primary:hover{background:#f0b562;transform:translateY(-1px);}
+  .btn-ink{background:var(--ink);color:#fff;} .btn-ink:hover{background:#26384a;}
+  .btn-ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5);color:#fff;} .btn-ghost:hover{background:rgba(255,255,255,.16);}
+
+  /* NAV */
+  nav{position:absolute;top:0;left:0;right:0;z-index:20;}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px;max-width:var(--max);margin:0 auto;padding:0 28px;}
+  .brand{display:flex;align-items:center;gap:11px;color:#fff;font-family:var(--serif);font-size:1.5rem;font-weight:600;}
+  .brand .mark{width:26px;height:26px;}
+  .nav-links{display:flex;gap:6px;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,.82);font-size:14px;padding:8px 14px;border-radius:8px;transition:.2s;}
+  .nav-links a:hover,.nav-links a.on{color:#fff;background:rgba(255,255,255,.10);}
+  .nav-links a.cta{color:var(--sky-top);background:var(--amber);font-weight:600;}
+  .nav-links a.cta:hover{background:#f0b562;}
+
+  /* PAGE HERO (dark banner) */
+  .page-hero{position:relative;overflow:hidden;color:#fff;padding:150px 0 90px;
+    background:radial-gradient(120% 90% at 20% 120%,rgba(208,138,60,.34),transparent 55%),linear-gradient(180deg,var(--sky-top),var(--night-2));}
+  .page-hero .band-sky{position:absolute;left:0;right:0;bottom:-1px;height:56%;opacity:.85;}
+  .page-hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,32,.35),rgba(10,20,32,0) 40%);}
+  .page-hero .inner{position:relative;z-index:4;max-width:720px;}
+  .page-hero h1{font-size:clamp(2.6rem,5vw,4rem);line-height:1.04;margin:18px 0 0;}
+  .page-hero h1 em{color:var(--amber);}
+  .page-hero p{font-size:1.1rem;color:rgba(232,240,248,.86);line-height:1.7;margin-top:20px;}
+  .page-hero .fineprint{font-size:.9rem;color:rgba(220,230,240,.6);margin-top:16px;}
+
+  /* SECTIONS */
+  section.paper{background:var(--paper);} section.paper.alt{background:var(--paper-2);}
+  section.night{position:relative;overflow:hidden;color:#fff;background:radial-gradient(90% 120% at 50% 120%,rgba(208,138,60,.26),transparent 55%),linear-gradient(180deg,var(--night),var(--night-2));}
+  section.night .band-sky{position:absolute;left:0;right:0;bottom:-1px;height:50%;opacity:.85;}
+  .night .sec{position:relative;z-index:3;}
+  .sec{padding:88px 0;}
+
+  /* SERVICE DETAIL */
+  .svc{display:grid;grid-template-columns:1fr;gap:0;}
+  .svc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:30px;}
+  .svc-head .name{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3rem);font-weight:600;line-height:1;}
+  .svc-head .tag{font-size:1.02rem;color:var(--muted);margin-top:8px;}
+  .svc-price{text-align:right;}
+  .svc-price .amt{font-family:var(--serif);font-size:2.6rem;font-weight:600;line-height:1;}
+  .svc-price .amt .cur{font-size:1.4rem;color:var(--amber-deep);vertical-align:top;}
+  .svc-price .sub{font-size:.82rem;color:var(--muted);margin:4px 0 12px;}
+  .svc-voor{max-width:760px;font-size:1.05rem;color:var(--ink-soft);line-height:1.7;margin-bottom:34px;}
+  .svc-voor b{color:var(--ink);}
+  .blocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+  .block{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 24px 26px;box-shadow:0 12px 30px rgba(20,40,60,.06);}
+  .block .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-deep);font-weight:600;margin-bottom:6px;}
+  .block h3{font-family:var(--serif);font-size:1.32rem;font-weight:600;margin-bottom:14px;line-height:1.2;}
+  .block ul{list-style:none;}
+  .block li{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--ink-soft);padding:6px 0;border-bottom:1px solid var(--line);}
+  .block li:last-child{border-bottom:none;}
+  .block li .t{color:var(--amber-deep);flex:0 0 auto;margin-top:1px;}
+  .block.soft{background:transparent;box-shadow:none;border-style:dashed;}
+  .svc-foot{margin-top:28px;}
+
+  /* MODULAIR NOTE (dark) */
+  .modular{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:34px;}
+  .mstep{text-align:left;}
+  .mstep .n{font-family:var(--serif);font-size:2.4rem;color:var(--amber);opacity:.6;line-height:1;}
+  .mstep b{font-family:var(--serif);font-size:1.3rem;display:block;margin:8px 0 6px;color:#fff;}
+  .mstep span{font-size:.93rem;color:rgba(226,234,242,.76);line-height:1.6;}
+
+  /* FAQ */
+  .sec-head{max-width:680px;margin-bottom:40px;}
+  .sec-head h2{font-size:clamp(2rem,4vw,2.8rem);line-height:1.1;margin:14px 0 0;}
+  .sec-head h2 em{color:var(--amber-deep);}
+  .faq{max-width:820px;}
+  .faq details{border-bottom:1px solid var(--line);}
+  .faq summary{list-style:none;cursor:pointer;padding:20px 0;font-weight:500;font-size:1.02rem;color:var(--ink);display:flex;justify-content:space-between;gap:18px;align-items:center;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+";font-family:var(--serif);font-size:1.5rem;color:var(--amber-deep);flex:0 0 auto;transition:.2s;}
+  .faq details[open] summary::after{content:"–";}
+  .faq .ans{padding:0 0 22px;font-size:.97rem;color:var(--ink-soft);line-height:1.7;max-width:720px;}
+  .faq-closer{margin-top:40px;padding:28px;background:var(--paper-2);border-radius:var(--radius);border:1px solid var(--line);max-width:560px;}
+  .faq-closer b{font-family:var(--serif);font-size:1.35rem;font-weight:600;display:block;margin-bottom:8px;}
+  .faq-closer p{font-size:.95rem;color:var(--muted);margin-bottom:16px;}
+
+  /* CTA + FOOTER */
+  .cta-band{text-align:center;} .cta-band .eyebrow{justify-content:center;}
+  .cta-band h2{color:#fff;font-size:clamp(2rem,4vw,3rem);margin:16px 0 12px;}
+  .cta-band p{color:rgba(226,234,242,.82);max-width:520px;margin:0 auto 30px;}
+  footer{background:#0F2A42;color:rgba(230,238,246,.62);padding:60px 0 28px;}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+  .foot-brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:var(--serif);font-size:1.35rem;font-weight:600;margin-bottom:12px;}
+  .foot-brand .mark{width:22px;height:22px;}
+  .foot-tag{font-size:.88rem;line-height:1.6;max-width:280px;}
+  .foot-h{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(230,238,246,.42);margin-bottom:14px;}
+  .foot-list{list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.9rem;}
+  .foot-list a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.09);padding-top:22px;font-size:.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .ribbon{position:fixed;bottom:16px;right:16px;z-index:50;background:rgba(10,20,32,.92);color:#fff;border:1px solid rgba(227,162,74,.5);border-radius:10px;padding:9px 14px;font-size:12px;backdrop-filter:blur(6px);}
+  .ribbon b{color:var(--amber);}
+  .win{fill:var(--amber);} .win.dim{fill:#caa46a;opacity:.6;}
+
+  @media (max-width:900px){
+    .svc-head{align-items:flex-start;} .svc-price{text-align:left;}
+    .modular{grid-template-columns:1fr;} .foot-grid{grid-template-columns:1fr;} .nav-links a:not(.cta){display:none;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="nairobi-skyline" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
+    <g fill="#1D4064"><rect x="0" y="150" width="70" height="150"/><rect x="80" y="120" width="46" height="180"/><rect x="140" y="165" width="60" height="135"/><rect x="215" y="100" width="40" height="200"/><rect x="270" y="150" width="80" height="150"/><rect x="365" y="130" width="34" height="170"/><rect x="410" y="170" width="70" height="130"/><rect x="500" y="140" width="30" height="160"/><rect x="545" y="120" width="66" height="180"/><rect x="630" y="160" width="52" height="140"/><rect x="700" y="110" width="38" height="190"/><rect x="752" y="150" width="74" height="150"/><rect x="840" y="135" width="30" height="165"/><rect x="885" y="165" width="64" height="135"/><rect x="965" y="125" width="44" height="175"/><rect x="1025" y="155" width="72" height="145"/><rect x="1110" y="135" width="40" height="165"/><rect x="1160" y="160" width="60" height="140"/></g>
+    <g fill="#153450"><rect x="30" y="90" width="52" height="210"/><rect x="180" y="60" width="60" height="240"/><polygon points="205,60 235,60 220,34"/><rect x="300" y="78" width="70" height="222"/><rect x="330" y="46" width="10" height="34"/><rect x="470" y="70" width="58" height="230"/><rect x="560" y="40" width="72" height="260"/><polygon points="560,40 632,40 596,14"/><rect x="690" y="84" width="54" height="216"/><rect x="800" y="58" width="66" height="242"/><rect x="828" y="30" width="10" height="28"/><rect x="930" y="76" width="60" height="224"/><rect x="1050" y="52" width="70" height="248"/><rect x="1150" y="96" width="56" height="204"/></g>
+    <g><rect class="win" x="46" y="108" width="6" height="7"/><rect class="win" x="60" y="130" width="6" height="7"/><rect class="win dim" x="60" y="172" width="6" height="7"/><rect class="win" x="196" y="82" width="7" height="8"/><rect class="win" x="196" y="128" width="7" height="8"/><rect class="win dim" x="212" y="150" width="7" height="8"/><rect class="win" x="318" y="98" width="7" height="8"/><rect class="win dim" x="318" y="146" width="7" height="8"/><rect class="win" x="486" y="92" width="6" height="8"/><rect class="win dim" x="486" y="140" width="6" height="8"/><rect class="win" x="576" y="62" width="7" height="9"/><rect class="win" x="576" y="112" width="7" height="9"/><rect class="win dim" x="598" y="138" width="7" height="9"/><rect class="win" x="576" y="164" width="7" height="9"/><rect class="win" x="706" y="104" width="6" height="8"/><rect class="win dim" x="706" y="152" width="6" height="8"/><rect class="win" x="818" y="80" width="7" height="8"/><rect class="win dim" x="818" y="130" width="7" height="8"/><rect class="win" x="946" y="96" width="7" height="8"/><rect class="win" x="1066" y="74" width="7" height="9"/><rect class="win dim" x="1092" y="156" width="7" height="9"/><rect class="win" x="1066" y="184" width="7" height="9"/><rect class="win" x="1182" y="142" width="6" height="8"/></g>
+  </symbol>
+  <symbol id="uc-mark" viewBox="0 0 40 40"><path d="M20 3 C29 9, 31 22, 20 37 C9 22, 11 9, 20 3 Z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M20 8 L20 32" stroke="currentColor" stroke-width="1.6" opacity=".7"/></symbol>
+</svg>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <svg class="band-sky" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice"><use href="#nairobi-skyline"/></svg>
+  <div class="scrim"></div>
+  <nav><div class="nav-inner">
+    <a href="index.html" class="brand"><svg class="mark" style="color:var(--amber)"><use href="#uc-mark"/></svg> UrbanChill</a>
+    <div class="nav-links">
+      <a href="diensten.html" class="on">Diensten</a><a href="over.html">Over</a><a href="contact.html">Contact</a>
+      <a href="contact.html" class="cta">Plan kennismaking</a>
+    </div>
+  </div></nav>
+  <div class="wrap"><div class="inner">
+    <span class="eyebrow">Diensten</span>
+    <h1>Drie diensten, <em>één modulair model.</em></h1>
+    <p>Begin met Arrival. Voeg Extra Days toe waar je ze nodig hebt. Sluit eventueel een Concierge-abonnement af voor de rest van je verblijf.</p>
+    <p class="fineprint">Alle prijzen incl. 21% btw · betaling in EUR via SEPA-overschrijving of iDEAL.</p>
+    <p class="fineprint">Wat je zelf regelt: je vlucht, je accommodatie en je Kenia eVisa (±$34, online). Wij begeleiden op de grond — we verkopen geen reizen.</p>
+  </div></div>
+</header>
+
+<!-- ARRIVAL -->
+<section class="paper">
+  <div class="wrap sec">
+    <div class="svc">
+      <div class="svc-head">
+        <div><span class="eyebrow dark">Arrival</span><div class="name">Arrival</div><div class="tag">De eerste 24 uur, opgesplitst in twee dagdelen.</div></div>
+        <div class="svc-price"><div class="amt"><span class="cur">€</span>299</div><div class="sub">incl. btw · solo · €399 voor 2 personen</div><a href="contact.html" class="btn btn-ink">Boek Arrival →</a></div>
+      </div>
+      <p class="svc-voor"><b>Voor wie —</b> Nederlanders die voor het eerst (of opnieuw) in Nairobi landen voor werk en niet drie dagen kwijt willen aan uitzoeken hoe M-Pesa werkt, welke wijken prettig zijn, en waar de coworking spaces zitten. Veel vluchten landen 's avonds of 's nachts — je hebt dan geen briefing nodig, maar een bed. Daarom doen we Arrival in twee dagdelen.</p>
+      <div class="blocks">
+        <div class="block">
+          <div class="lbl">Dagdeel 1 · Welcome (avond/nacht)</div>
+          <h3>Pickup en thuisbrengen</h3>
+          <ul>
+            <li><span class="t">→</span> Pickup op Jomo Kenyatta International Airport met naambord</li>
+            <li><span class="t">→</span> Drop bij jouw accommodatie en hulp met inchecken</li>
+            <li><span class="t">→</span> Korte essentie-briefing onderweg (water, sleutel, app voor morgen)</li>
+            <li><span class="t">→</span> Afspraak voor de volgende dag. Geen overload — je hebt gevlogen</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="lbl">Dagdeel 2 · Setup Day (volgende ochtend, 5–6 uur)</div>
+          <h3>Heldere kop, hele setup</h3>
+          <ul>
+            <li><span class="t">→</span> Welcome-briefing over security, wijken, do's &amp; don'ts</li>
+            <li><span class="t">→</span> Safaricom SIM + M-Pesa registratie en eerste transactie samen</li>
+            <li><span class="t">→</span> Boodschappen bij Naivas of Carrefour</li>
+            <li><span class="t">→</span> Lunch op een goede lokale plek</li>
+            <li><span class="t">→</span> Tour langs 2 coworking spaces naar keuze</li>
+            <li><span class="t">→</span> Korte rondrit door je verblijfswijk</li>
+          </ul>
+        </div>
+        <div class="block soft">
+          <div class="lbl">Vooraf, vanuit Nederland</div>
+          <h3>Je begint voorbereid</h3>
+          <ul>
+            <li><span class="t">→</span> Kort bevestigingsgesprek (video of telefoon), één week voor vertrek</li>
+            <li><span class="t">→</span> Paklijst-checklist op maat (wat wel/niet meenemen)</li>
+            <li><span class="t">→</span> Vluchtinfo doorgeven en pickup-afspraak vastleggen</li>
+            <li><span class="t">→</span> Bereikbaarheid voor laatste vragen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRA DAY -->
+<section class="paper alt">
+  <div class="wrap sec">
+    <div class="svc">
+      <div class="svc-head">
+        <div><span class="eyebrow dark">Extra Day</span><div class="name">Extra Day</div><div class="tag">De stad van binnenuit — zes uur met je Host. Stapelbaar.</div></div>
+        <div class="svc-price"><div class="amt"><span class="cur">€</span>199</div><div class="sub">incl. btw · per dag</div><a href="contact.html" class="btn btn-ink">Boek Extra Day →</a></div>
+      </div>
+      <p class="svc-voor"><b>Voor wie —</b> Iedereen die Nairobi echt wil leren kennen zoals iemand die er woont. Zes uur met je vaste Host op pad: je ontdekt de goede werkplekken, waar je lekker eet en chilt, en de plekken die je stad compleet maken. Samen plan je wat je wilt zien en weten — en loop je ergens tegenaan, dan spar je gewoon met je Host. Geen stress, geen uitzoeken.</p>
+      <div class="blocks">
+        <div class="block">
+          <div class="lbl">De stad wordt van jou</div>
+          <h3>Wat je samen doet</h3>
+          <ul>
+            <li><span class="t">→</span> Goede werkplekken en fijne plekken om te chillen</li>
+            <li><span class="t">→</span> Waar je lekker eet — van lokaal tot je vaste plek</li>
+            <li><span class="t">→</span> Shoppingmalls waar nodig</li>
+            <li><span class="t">→</span> Weten waar de ziekenhuizen zijn, nog voor je ze nodig hebt</li>
+            <li><span class="t">→</span> De stad leren kennen: wijken, routes, de plekken die je moet kennen</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="lbl">Samen met je Host</div>
+          <h3>Je staat er niet alleen voor</h3>
+          <ul>
+            <li><span class="t">→</span> Vooraf samen plannen wat je wilt zien en weten</li>
+            <li><span class="t">→</span> Loop je ergens tegenaan? Je spart gewoon met je Host</li>
+            <li><span class="t">→</span> Je vaste Host, geen wisselingen</li>
+          </ul>
+        </div>
+        <div class="block soft">
+          <div class="lbl">Goed om te weten</div>
+          <h3>€199 per dag, zes uur</h3>
+          <ul>
+            <li><span class="t">→</span> Zes uur op pad — geen 24-uursdag, geen eindeloze werkdag</li>
+            <li><span class="t">→</span> Zo vaak als je wilt, stapelbaar</li>
+            <li><span class="t">→</span> Geen kortingsdwang. Gewoon telkens als je hem nodig hebt</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCIERGE -->
+<section class="paper">
+  <div class="wrap sec">
+    <div class="svc">
+      <div class="svc-head">
+        <div><span class="eyebrow dark">Concierge</span><div class="name">Concierge</div><div class="tag">Doorlopend. Jouw man op de grond.</div></div>
+        <div class="svc-price"><div class="amt"><span class="cur">€</span>149</div><div class="sub">incl. btw · per maand · maandelijks opzegbaar</div><a href="contact.html" class="btn btn-ink">Start Concierge →</a></div>
+      </div>
+      <p class="svc-voor"><b>Voor wie —</b> Iedereen die langer dan een paar weken in Nairobi blijft en gemoedsrust wil. Vaste prijs, vast aanspreekpunt, geen verrassingen. Te combineren met Arrival of Extra Days, of los te starten.</p>
+      <div class="blocks">
+        <div class="block">
+          <div class="lbl">Wat je krijgt</div>
+          <h3>Een vertrouwde stem</h3>
+          <ul>
+            <li><span class="t">→</span> Bereikbaarheid binnen 4 uur op werkdagen, 24 uur in het weekend</li>
+            <li><span class="t">→</span> Bereikbaar bij problemen: internet, lekkage, ziekenhuis, taxi's</li>
+            <li><span class="t">→</span> Reservaties bij restaurants, gyms, kappers, garages</li>
+            <li><span class="t">→</span> Weekend-trips (Naivasha, Diani, Mara) tegen kostprijs + €25 fee</li>
+            <li><span class="t">→</span> Doorverwijzingen binnen ons lokale netwerk waar beschikbaar (advocaat, accountant, makelaar) — geen garantie, afhankelijk van je situatie</li>
+            <li><span class="t">→</span> Maandelijkse "Nairobi Insider" met praktische ontwikkelingen</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="lbl">Wat het niet is</div>
+          <h3>Eerlijk over de grenzen</h3>
+          <ul>
+            <li><span class="t">→</span> Geen 24/7 emergency service</li>
+            <li><span class="t">→</span> Geen vervanger voor een verzekering</li>
+            <li><span class="t">→</span> Geen onbeperkt persoonlijk vervoer</li>
+            <li><span class="t">→</span> Wél: iemand die de stad kent en in beide talen werkt</li>
+          </ul>
+        </div>
+        <div class="block soft">
+          <div class="lbl">Voorwaarden</div>
+          <h3>Zonder kleine lettertjes</h3>
+          <ul>
+            <li><span class="t">→</span> Maandelijks vooruit gefactureerd</li>
+            <li><span class="t">→</span> Maandelijks opzegbaar — geen jaarcontracten</li>
+            <li><span class="t">→</span> Geldt voor klanten die fysiek in Nairobi verblijven</li>
+            <li><span class="t">→</span> Bij gezamenlijke uitstapjes zijn de kosten van de host voor jouw rekening</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULAIR MODEL (dark) -->
+<section class="night">
+  <svg class="band-sky" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice"><use href="#nairobi-skyline"/></svg>
+  <div class="wrap sec">
+    <span class="eyebrow">Het model</span>
+    <h2 style="color:#fff;font-size:clamp(2rem,4vw,2.8rem);max-width:640px;margin:14px 0 0;">Zo bouw je het <em style="color:var(--amber)">op je eigen maat.</em></h2>
+    <div class="modular">
+      <div class="mstep"><div class="n">1</div><b>Landen</b><span>Iedereen begint met Arrival — de zachte landing van de eerste 24 uur.</span></div>
+      <div class="mstep"><div class="n">2</div><b>Uitbreiden</b><span>Voeg Extra Days toe om de stad van binnenuit te leren kennen. Eén dag tegelijk.</span></div>
+      <div class="mstep"><div class="n">3</div><b>Bijblijven</b><span>Blijf je langer? Concierge houdt je verbonden voor de rest van je verblijf.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="paper alt">
+  <div class="wrap sec">
+    <div class="sec-head"><span class="eyebrow dark">Veelgestelde vragen</span><h2>Eerlijke <em>antwoorden.</em></h2></div>
+    <div class="faq">
+      <details open><summary>Verkopen jullie ook vluchten, hotels of visa?</summary><div class="ans">Nee. We verkopen alleen begeleiding. Je vlucht, je accommodatie én het Kenia eVisa (±$34, online) regel je zelf — wij begeleiden alleen. Dat geeft jou flexibiliteit en ons de focus om het ene wat we doen écht goed te doen.</div></details>
+      <details><summary>Hoeveel Extra Days heb ik nodig?</summary><div class="ans">De meeste klanten doen Arrival plus 0 of 1 Extra Day. Wil je de stad echt van binnenuit leren kennen, dan doe je er twee. Je hoeft niets vooraf te beslissen — je kunt altijd ter plaatse een Extra Day toevoegen.</div></details>
+      <details><summary>Wat zit er precies in een Extra Day?</summary><div class="ans">Een Extra Day is zes uur met je Host op pad. Wat je doet, plan je samen: goede werkplekken, waar je eet en chilt, shoppingmalls waar nodig, en weten waar de ziekenhuizen zijn. Loop je ergens tegenaan, dan spar je gewoon met je Host.</div></details>
+      <details><summary>Als ik de host meevraag naar een museum, evenement of restaurant, hoe gaat dat met de kosten?</summary><div class="ans">Dan betaal je voor twee. Entreegelden, eten, drankjes, taxi's onderweg, tickets: als jij iemand uitnodigt mee te gaan, draag je de kosten van die persoon. Geen aparte declaraties achteraf — gewoon ter plekke afrekenen voor twee. Hosts schieten geen kosten voor.</div></details>
+      <details><summary>Hoe ver van tevoren moet ik boeken?</summary><div class="ans">Bij voorkeur 2–4 weken voor aankomst, zodat we de voorbereiding rustig kunnen doen. Last-minute boekingen (binnen een week) zijn mogelijk, maar dan is er minder tijd om alles rustig te bevestigen.</div></details>
+      <details><summary>Werkt mijn werkgever-budget hiermee?</summary><div class="ans">Ja. We factureren als professionele dienstverlener met btw-id en KvK-nummer, in EUR. De meeste relocation budgets bij NL- en EU-bedrijven dekken dit type service. We kunnen op verzoek een offerte sturen die direct naar HR kan.</div></details>
+      <details><summary>Wat als mijn vlucht vertraagd is?</summary><div class="ans">We tracken je vlucht. Bij vertraging passen we de Welcome-pickup automatisch aan. Bij annulering of forse vertraging (meer dan 6 uur) plannen we de service om naar de volgende dag, zonder extra kosten.</div></details>
+      <details><summary>Kan ik annuleren?</summary><div class="ans">Tot 14 dagen voor aankomst: volledige restitutie minus €25 administratiekosten. Tussen 14 en 7 dagen: 50% restitutie. Binnen 7 dagen: geen restitutie, maar je kunt de boeking kosteloos verschuiven naar een latere datum binnen 12 maanden.</div></details>
+      <details><summary>Spreken jullie Nederlands op de grond?</summary><div class="ans">De voorbereiding en alle communicatie tussen jou en ons gaat in het Nederlands. Op de grond werken we met een vaste lokale Host die uitstekend Engels spreekt.</div></details>
+      <details><summary>Wat gebeurt er met mijn gegevens?</summary><div class="ans">Wat we niet meer nodig hebben, gooien we weg. We delen niets met derden en deze website trackt niets. De volledige uitleg over bewaartermijnen vind je onderaan de pagina.</div></details>
+      <details><summary>Krijg ik iets als ik vaker kom of iemand doorstuur?</summary><div class="ans">Klanten die een opdracht afsluiten krijgen een UrbanChill-key: een unieke code in hun afsluitmail. Die is bij een volgende Arrival goed voor één gratis Extra Day (€199 waarde). Twee jaar geldig, eenmalig in te wisselen en overdraagbaar. Geen database, geen automatische herkenning, geen verplichte inschrijving — gewoon een code die je bij je hebt.</div></details>
+      <details><summary>Is dit een reisbureau?</summary><div class="ans">Nee. We bieden persoonlijke dienstverlening, geen reizen. Daarom vallen we niet onder de Wet op de pakketreizen of het SGR-garantiefonds. Onze rol begint nadat je zelf je vlucht en accommodatie hebt geboekt.</div></details>
+    </div>
+    <div class="faq-closer">
+      <b>Vraag niet beantwoord?</b>
+      <p>Het 20-minuten gesprek is vrijblijvend. Geen verkooppraatje — als we denken dat we niet de juiste partij voor je zijn, zeggen we dat.</p>
+      <a href="contact.html" class="btn btn-primary">Plan kennismaking →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="night cta-band">
+  <svg class="band-sky" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice"><use href="#nairobi-skyline"/></svg>
+  <div class="wrap sec">
+    <span class="eyebrow">Klaar om te landen?</span>
+    <h2>Begin met Arrival.</h2>
+    <p>Vertel waar je heen gaat en wanneer. Binnen 24 uur een voorstel met factuur in euro's.</p>
+    <a href="contact.html" class="btn btn-primary">Plan kennismaking →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="foot-brand"><svg class="mark" style="color:var(--amber)"><use href="#uc-mark"/></svg> UrbanChill</div><p class="foot-tag">Een zachte landing in een grote stad. Nederlandse voorbereiding, een vaste host in Nairobi.</p></div>
+      <div><div class="foot-h">Diensten</div><ul class="foot-list"><li><a href="diensten.html">Arrival</a></li><li><a href="diensten.html">Extra Day</a></li><li><a href="diensten.html">Concierge</a></li></ul></div>
+      <div><div class="foot-h">UrbanChill</div><ul class="foot-list"><li><a href="index.html#voor-wie">Voor wie</a></li><li><a href="index.html#werkwijze">Werkwijze</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 UrbanChill · onderdeel van KIMANZI</span><span>Rijswijk ↔ Nairobi</span></div>
+  </div>
+</footer>
+
+<div class="ribbon"><b>Preview</b> · blauwe richting · Diensten</div>
+</body>
+</html>
