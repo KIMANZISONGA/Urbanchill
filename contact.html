@@ -303,8 +303,8 @@ footer{position:relative;overflow:hidden;}
 </footer>
 <script>
 (function(){
-  var INTAKE="https://cockpit.urbanchill.org/api/intake/create";
-  var CONTACT="https://cockpit.urbanchill.org/api/contact/create";
+  var INTAKE="https://api.urbanchill.org/api/intake/create";
+  var CONTACT="https://api.urbanchill.org/api/contact/create";
   function val(f,n){var e=f.querySelector('[name="'+n+'"]');return e?(''+e.value).trim():'';}
   function note(f,t,text){var n=f.querySelector('[data-note]');if(!n)return;n.style.display='block';n.className='msg-note '+(t||'');n.textContent=text;}
   function send(f,url,payload,ok){
@@ -318,15 +318,15 @@ footer{position:relative;overflow:hidden;}
   }
   var OK="\u2705 Ontvangen. UrbanChill reageert meestal binnen 24 uur. Tot snel!";
   window.ucSubmit=function(form,kind){
-    if(val(form,'website'))return false;
+    var hp=val(form,'website');
     if(kind==='intake'){
       var key=val(form,'key'),notes=val(form,'bericht');
       var nk=key?(notes?notes+"\n\n[UrbanChill-key: "+key+"]":"[UrbanChill-key: "+key+"]"):notes;
-      var p={name:val(form,'naam'),email:val(form,'email'),phone:val(form,'telefoon'),service:val(form,'dienst'),arrival_date:val(form,'aankomst'),notes:nk};
+      var p={name:val(form,'naam'),email:val(form,'email'),phone:val(form,'telefoon'),service:val(form,'dienst'),arrival_date:val(form,'aankomst'),notes:nk,website:hp};
       if(!p.name||!p.email){note(form,'err','Vul je naam en e-mail in.');return false;}
       send(form,INTAKE,p,OK);
     }else{
-      var p2={name:val(form,'naam'),email:val(form,'email'),message:val(form,'bericht'),source:'website_contact'};
+      var p2={name:val(form,'naam'),email:val(form,'email'),message:val(form,'bericht'),source:'website_contact',website:hp};
       if(!p2.name||!p2.email||!p2.message){note(form,'err','Vul alle velden in.');return false;}
       send(form,CONTACT,p2,OK);
     }
