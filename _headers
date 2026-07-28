@@ -12,5 +12,4 @@
 
 /main.js
   Cache-Control: public, max-age=14400
-
-# deploy-trigger: bevinding2 api-host 2026-07-23T19:24:26Z
+# deploy-trigger: 1785254544
