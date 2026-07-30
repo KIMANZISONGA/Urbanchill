@@ -139,6 +139,11 @@
     .svc-head{align-items:flex-start;} .svc-price{text-align:left;}
     .modular{grid-template-columns:1fr;} .foot-grid{grid-template-columns:1fr;} .nav-inner{position:relative;}.mnav-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:11px;cursor:pointer;margin-left:auto;-webkit-tap-highlight-color:transparent;}.mnav-burger span{display:block;height:2px;width:100%;background:var(--amber);border-radius:2px;transition:transform .26s ease,opacity .2s ease;}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#12283d;border-radius:0 0 12px 12px;box-shadow:0 16px 34px rgba(0,0,0,.32);padding:4px 18px 14px;}#mnav:checked ~ .nav-links{display:flex;}.nav-links a{padding:14px 4px;font-size:1rem;color:#EAF0F5;border-top:1px solid rgba(255,255,255,.08);}.nav-links a.on{color:var(--amber);}.nav-links a.cta{margin-top:12px;border-top:0;border-radius:10px;text-align:center;padding:13px;color:var(--sky-top);}#mnav:checked ~ .mnav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}#mnav:checked ~ .mnav-burger span:nth-child(2){opacity:0;}#mnav:checked ~ .mnav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   }
+
+.glass-stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px;}
+.glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px 20px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+.glass h3{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;}
+.glass p{font-size:.95rem;line-height:1.55;color:rgba(236,242,248,.9);}
 </style>
 <style>
 /* 2026 craft: micro-interacties + skyline-signatuur */
@@ -179,6 +184,11 @@ footer{position:relative;overflow:hidden;}
     <p>Begin met Arrival. Voeg Extra Days toe waar je ze nodig hebt. Sluit eventueel een Concierge-abonnement af voor de rest van je verblijf.</p>
     <p class="fineprint">Alle prijzen incl. 21% btw · betaling in EUR via SEPA-overschrijving of iDEAL.</p>
     <p class="fineprint">Wat je zelf regelt: je vlucht, je accommodatie en je Kenia eVisa (±$34, online). Wij begeleiden op de grond. We verkopen geen reizen.</p>
+      <div class="glass-stack">
+      <div class="glass"><h3>Vrijheid</h3><p>Werken, ontdekken of tot rust komen. Je bepaalt zelf je tempo.</p></div>
+      <div class="glass"><h3>Zekerheid</h3><p>Een Host die de lokale context kent en je de eerste dagen wegwijs maakt.</p></div>
+      <div class="glass"><h3>Balans</h3><p>Een stad vol energie en ambitie, met iemand die zorgt dat het klopt.</p></div>
+    </div>
   </div></div>
 </header>
 
