@@ -51,7 +51,7 @@
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px;max-width:var(--max);margin:0 auto;padding:0 28px;}
   .brand{display:flex;align-items:center;gap:11px;color:#fff;font-family:var(--serif);font-size:1.5rem;font-weight:600;}
   .brand .mark{width:26px;height:26px;}
-  .nav-links{display:flex;gap:6px;align-items:center;}
+  .nav-links{display:flex;gap:6px;align-items:center;}.mnav-toggle{display:none;}.mnav-burger{display:none;}
   .nav-links a{color:rgba(255,255,255,.82);font-size:14px;padding:8px 14px;border-radius:8px;transition:.2s;}
   .nav-links a:hover,.nav-links a.on{color:#fff;background:rgba(255,255,255,.10);}
   .nav-links a.cta{color:var(--sky-top);background:var(--amber);font-weight:600;}
@@ -137,7 +137,7 @@
 
   @media (max-width:900px){
     .svc-head{align-items:flex-start;} .svc-price{text-align:left;}
-    .modular{grid-template-columns:1fr;} .foot-grid{grid-template-columns:1fr;} .nav-links a:not(.cta){display:none;}
+    .modular{grid-template-columns:1fr;} .foot-grid{grid-template-columns:1fr;} .nav-inner{position:relative;}.mnav-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:11px;cursor:pointer;margin-left:auto;-webkit-tap-highlight-color:transparent;}.mnav-burger span{display:block;height:2px;width:100%;background:var(--amber);border-radius:2px;transition:transform .26s ease,opacity .2s ease;}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#12283d;border-radius:0 0 12px 12px;box-shadow:0 16px 34px rgba(0,0,0,.32);padding:4px 18px 14px;}#mnav:checked ~ .nav-links{display:flex;}.nav-links a{padding:14px 4px;font-size:1rem;color:#EAF0F5;border-top:1px solid rgba(255,255,255,.08);}.nav-links a.on{color:var(--amber);}.nav-links a.cta{margin-top:12px;border-top:0;border-radius:10px;text-align:center;padding:13px;color:var(--sky-top);}#mnav:checked ~ .mnav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}#mnav:checked ~ .mnav-burger span:nth-child(2){opacity:0;}#mnav:checked ~ .mnav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   }
 </style>
 <style>
@@ -188,7 +188,7 @@ footer{position:relative;overflow:hidden;}
   <div class="scrim"></div>
   <nav><div class="nav-inner">
     <a href="/" class="brand"><svg class="mark" style="color:var(--amber)"><use href="#uc-mark"/></svg> UrbanChill</a>
-    <div class="nav-links">
+    <input type="checkbox" id="mnav" class="mnav-toggle" aria-hidden="true"><label for="mnav" class="mnav-burger" aria-label="Menu openen"><span></span><span></span><span></span></label><div class="nav-links">
       <a href="/diensten">Diensten</a><a href="/over">Over</a><a href="/contact" class="on">Contact</a>
       <a href="/contact" class="cta">Plan kennismaking</a>
     </div>
