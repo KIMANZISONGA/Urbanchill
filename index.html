@@ -208,6 +208,10 @@
 .faq summary::after{content:"+";position:absolute;right:4px;top:16px;font-size:1.5rem;font-weight:400;color:var(--amber-deep);}
 .faq details[open] summary::after{content:"\2212";}
 .faq details p{margin:-2px 0 22px;color:var(--ink-soft);line-height:1.7;max-width:680px;}
+.privacy-badge{display:inline-flex;align-items:center;gap:11px;margin-top:20px;padding:10px 16px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.04);}
+.privacy-badge svg{width:19px;height:19px;color:var(--amber);flex-shrink:0;}
+.privacy-badge .pb-t{font-size:.82rem;font-weight:600;color:#fff;letter-spacing:.02em;}
+.privacy-badge .pb-s{font-size:.82rem;color:rgba(230,238,246,.6);}
 
   /* footer */
   footer{background:#0F2A42;color:rgba(230,238,246,.62);padding:64px 0 30px;}
@@ -263,6 +267,10 @@ footer{position:relative;overflow:hidden;}
   <symbol id="uc-mark" viewBox="0 0 40 40">
     <path d="M20 3 C29 9, 31 22, 20 37 C9 22, 11 9, 20 3 Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
     <path d="M20 8 L20 32" stroke="currentColor" stroke-width="1.6" opacity=".7"/>
+  </symbol>
+  <symbol id="uc-shield" viewBox="0 0 24 24">
+    <path d="M12 2 L20 5 V11 C20 16 16.5 20 12 22 C7.5 20 4 16 4 11 V5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M8.5 12 L11 14.5 L15.5 9.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
 </svg>
 
@@ -492,7 +500,8 @@ footer{position:relative;overflow:hidden;}
   <div class="wrap">
     <div class="foot-grid">
       <div><div class="foot-brand"><svg class="mark" style="color:var(--amber)"><use href="#uc-mark"/></svg> UrbanChill</div>
-        <p class="foot-tag">Een zachte landing in een grote stad. Nederlandse voorbereiding, een vaste Host in Nairobi.</p></div>
+        <p class="foot-tag">Een zachte landing in een grote stad. Nederlandse voorbereiding, een vaste Host in Nairobi.</p>
+        <div class="privacy-badge"><svg><use href="#uc-shield"/></svg><span class="pb-t">Privacy first</span><span class="pb-s">geen tracking, geen cookies</span></div></div>
       <div><div class="foot-h">Diensten</div><ul class="foot-list"><li><a href="/diensten">Arrival</a></li><li><a href="/diensten">Extra Day</a></li><li><a href="/diensten">Concierge</a></li></ul></div>
       <div><div class="foot-h">UrbanChill</div><ul class="foot-list"><li><a href="/#voor-wie">Voor wie</a></li><li><a href="/#werkwijze">Werkwijze</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy_urbanchill_nl.html">Privacybeleid</a></li></ul></div>
     </div>
