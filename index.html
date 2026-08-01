@@ -200,6 +200,14 @@
   .cta-band h2{color:#fff;font-size:clamp(2rem,4vw,3rem);margin:16px 0 12px;}
   .cta-band p{color:rgba(226,234,242,.82);max-width:520px;margin:0 auto 30px;}
 .cta-band .cta-note{font-size:.85rem;color:rgba(226,234,242,.6);max-width:440px;margin:18px auto 0;}
+.faq{max-width:760px;}
+.faq details{border-top:1px solid rgba(20,30,40,.12);}
+.faq details:last-child{border-bottom:1px solid rgba(20,30,40,.12);}
+.faq summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;font-weight:600;font-size:1.06rem;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+";position:absolute;right:4px;top:16px;font-size:1.5rem;font-weight:400;color:var(--amber-deep);}
+.faq details[open] summary::after{content:"\2212";}
+.faq details p{margin:-2px 0 22px;color:var(--ink-soft);line-height:1.7;max-width:680px;}
 
   /* footer */
   footer{background:#0F2A42;color:rgba(230,238,246,.62);padding:64px 0 30px;}
@@ -446,6 +454,23 @@ footer{position:relative;overflow:hidden;}
   <div class="wrap sec">
     <span class="eyebrow dark">Zo voelt het als het klopt</span>
     <h2 style="font-size:clamp(1.9rem,3.6vw,2.6rem);margin:16px 0 0;max-width:820px;">Binnen twee dagen ken je je koffieplek, weet je welke wijken bij je passen, en werk je alsof je hier al maanden zit. <em style="color:var(--amber-deep);">Dát is waar we het voor doen.</em></h2>
+  </div>
+</section>
+
+<!-- ============ FAQ (light) ============ -->
+<section class="paper" id="faq">
+  <div class="wrap sec">
+    <div class="sec-head"><span class="eyebrow dark">Veelgestelde vragen</span>
+      <h2>Twijfels vooraf <em>zijn normaal.</em></h2>
+      <p class="sec-lead">De vragen die het vaakst langskomen, hieronder alvast beantwoord.</p>
+    </div>
+    <div class="faq">
+      <details open><summary>Wat als mijn vlucht vertraagt?</summary><p>Geen probleem. We stemmen je pickup af op je werkelijke aankomst, en bij forse vertraging schuiven we de service kosteloos door naar de volgende dag. Je hoeft niemand te bellen vanaf een vreemde luchthaven.</p></details>
+      <details><summary>Werken jullie alleen met Nederlanders?</summary><p>Ja. Je aanspreekpunt en de hele voorbereiding zijn in het Nederlands. Op de grond in Nairobi werk je met een vaste Host die uitstekend Engels spreekt en de stad door en door kent. Die combinatie, Nederlandse voorbereiding en lokale kennis ter plaatse, is precies waarom het werkt.</p></details>
+      <details><summary>Kan ik tussendoor extra dagen of hulp bijboeken?</summary><p>Zeker. Je begint met Arrival en breidt uit wanneer jij dat wilt, met een Extra Day of met Concierge. Geen vast pakket, je betaalt alleen voor wat je nodig hebt.</p></details>
+      <details><summary>Wat kost het?</summary><p>Arrival is €299, of €399 voor 2 personen. Een Extra Day is €199 en Concierge €149 per maand, allemaal inclusief btw. Na een korte kennismaking krijg je binnen 24 uur een voorstel op maat: een duidelijk bedrag, en wat wel en niet is inbegrepen. Geen verrassingen achteraf.</p></details>
+      <details><summary>Hoe ver van tevoren moet ik boeken?</summary><p>Liever vroeg dan laat: minimaal 5 werkdagen voor aankomst, zodat we alles rustig kunnen voorbereiden. Zit je krapper? Neem contact op, we kijken altijd wat mogelijk is.</p></details>
+    </div>
   </div>
 </section>
 
